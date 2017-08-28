@@ -154,7 +154,8 @@ instance ToHeaders UploadMultipartPart where
         toHeaders UploadMultipartPart'{..}
           = mconcat
               ["x-amz-sha256-tree-hash" =# _umpChecksum,
-               "Content-Range" =# _umpRange]
+               "Content-Range" =# _umpRange,
+               "x-amz-glacier-version" =# ("2012-06-01"::Text)]
 
 instance ToPath UploadMultipartPart where
         toPath UploadMultipartPart'{..}
