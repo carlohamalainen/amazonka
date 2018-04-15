@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodePipeline.GetThirdPartyJobDetails
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,22 +40,23 @@ module Network.AWS.CodePipeline.GetThirdPartyJobDetails
     , gtpjdrsResponseStatus
     ) where
 
-import           Network.AWS.CodePipeline.Types
-import           Network.AWS.CodePipeline.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodePipeline.Types
+import Network.AWS.CodePipeline.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Represents the input of a get third party job details action.
+-- | Represents the input of a GetThirdPartyJobDetails action.
 --
 --
 --
 -- /See:/ 'getThirdPartyJobDetails' smart constructor.
 data GetThirdPartyJobDetails = GetThirdPartyJobDetails'
-    { _gtpjdJobId       :: !Text
-    , _gtpjdClientToken :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gtpjdJobId       :: !Text
+  , _gtpjdClientToken :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetThirdPartyJobDetails' with the minimum fields required to make a request.
 --
@@ -69,10 +70,9 @@ getThirdPartyJobDetails
     -> Text -- ^ 'gtpjdClientToken'
     -> GetThirdPartyJobDetails
 getThirdPartyJobDetails pJobId_ pClientToken_ =
-    GetThirdPartyJobDetails'
-    { _gtpjdJobId = pJobId_
-    , _gtpjdClientToken = pClientToken_
-    }
+  GetThirdPartyJobDetails'
+  {_gtpjdJobId = pJobId_, _gtpjdClientToken = pClientToken_}
+
 
 -- | The unique system-generated ID used for identifying the job.
 gtpjdJobId :: Lens' GetThirdPartyJobDetails Text
@@ -92,9 +92,9 @@ instance AWSRequest GetThirdPartyJobDetails where
                  GetThirdPartyJobDetailsResponse' <$>
                    (x .?> "jobDetails") <*> (pure (fromEnum s)))
 
-instance Hashable GetThirdPartyJobDetails
+instance Hashable GetThirdPartyJobDetails where
 
-instance NFData GetThirdPartyJobDetails
+instance NFData GetThirdPartyJobDetails where
 
 instance ToHeaders GetThirdPartyJobDetails where
         toHeaders
@@ -119,15 +119,16 @@ instance ToPath GetThirdPartyJobDetails where
 instance ToQuery GetThirdPartyJobDetails where
         toQuery = const mempty
 
--- | Represents the output of a get third party job details action.
+-- | Represents the output of a GetThirdPartyJobDetails action.
 --
 --
 --
 -- /See:/ 'getThirdPartyJobDetailsResponse' smart constructor.
 data GetThirdPartyJobDetailsResponse = GetThirdPartyJobDetailsResponse'
-    { _gtpjdrsJobDetails     :: !(Maybe ThirdPartyJobDetails)
-    , _gtpjdrsResponseStatus :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _gtpjdrsJobDetails     :: !(Maybe ThirdPartyJobDetails)
+  , _gtpjdrsResponseStatus :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetThirdPartyJobDetailsResponse' with the minimum fields required to make a request.
 --
@@ -140,10 +141,9 @@ getThirdPartyJobDetailsResponse
     :: Int -- ^ 'gtpjdrsResponseStatus'
     -> GetThirdPartyJobDetailsResponse
 getThirdPartyJobDetailsResponse pResponseStatus_ =
-    GetThirdPartyJobDetailsResponse'
-    { _gtpjdrsJobDetails = Nothing
-    , _gtpjdrsResponseStatus = pResponseStatus_
-    }
+  GetThirdPartyJobDetailsResponse'
+  {_gtpjdrsJobDetails = Nothing, _gtpjdrsResponseStatus = pResponseStatus_}
+
 
 -- | The details of the job, including any protected values defined for the job.
 gtpjdrsJobDetails :: Lens' GetThirdPartyJobDetailsResponse (Maybe ThirdPartyJobDetails)
@@ -153,4 +153,4 @@ gtpjdrsJobDetails = lens _gtpjdrsJobDetails (\ s a -> s{_gtpjdrsJobDetails = a})
 gtpjdrsResponseStatus :: Lens' GetThirdPartyJobDetailsResponse Int
 gtpjdrsResponseStatus = lens _gtpjdrsResponseStatus (\ s a -> s{_gtpjdrsResponseStatus = a});
 
-instance NFData GetThirdPartyJobDetailsResponse
+instance NFData GetThirdPartyJobDetailsResponse where

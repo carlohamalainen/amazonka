@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.AcceptPortfolioShare
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -37,36 +37,36 @@ module Network.AWS.ServiceCatalog.AcceptPortfolioShare
     , apsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'acceptPortfolioShare' smart constructor.
 data AcceptPortfolioShare = AcceptPortfolioShare'
-    { _apsAcceptLanguage :: !(Maybe Text)
-    , _apsPortfolioId    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _apsAcceptLanguage :: !(Maybe Text)
+  , _apsPortfolioId    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AcceptPortfolioShare' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'apsAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'apsAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'apsPortfolioId' - The portfolio identifier.
 acceptPortfolioShare
     :: Text -- ^ 'apsPortfolioId'
     -> AcceptPortfolioShare
 acceptPortfolioShare pPortfolioId_ =
-    AcceptPortfolioShare'
-    { _apsAcceptLanguage = Nothing
-    , _apsPortfolioId = pPortfolioId_
-    }
+  AcceptPortfolioShare'
+  {_apsAcceptLanguage = Nothing, _apsPortfolioId = pPortfolioId_}
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 apsAcceptLanguage :: Lens' AcceptPortfolioShare (Maybe Text)
 apsAcceptLanguage = lens _apsAcceptLanguage (\ s a -> s{_apsAcceptLanguage = a});
 
@@ -84,9 +84,9 @@ instance AWSRequest AcceptPortfolioShare where
                  AcceptPortfolioShareResponse' <$>
                    (pure (fromEnum s)))
 
-instance Hashable AcceptPortfolioShare
+instance Hashable AcceptPortfolioShare where
 
-instance NFData AcceptPortfolioShare
+instance NFData AcceptPortfolioShare where
 
 instance ToHeaders AcceptPortfolioShare where
         toHeaders
@@ -113,8 +113,9 @@ instance ToQuery AcceptPortfolioShare where
 
 -- | /See:/ 'acceptPortfolioShareResponse' smart constructor.
 newtype AcceptPortfolioShareResponse = AcceptPortfolioShareResponse'
-    { _apsrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _apsrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AcceptPortfolioShareResponse' with the minimum fields required to make a request.
 --
@@ -125,12 +126,11 @@ acceptPortfolioShareResponse
     :: Int -- ^ 'apsrsResponseStatus'
     -> AcceptPortfolioShareResponse
 acceptPortfolioShareResponse pResponseStatus_ =
-    AcceptPortfolioShareResponse'
-    { _apsrsResponseStatus = pResponseStatus_
-    }
+  AcceptPortfolioShareResponse' {_apsrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 apsrsResponseStatus :: Lens' AcceptPortfolioShareResponse Int
 apsrsResponseStatus = lens _apsrsResponseStatus (\ s a -> s{_apsrsResponseStatus = a});
 
-instance NFData AcceptPortfolioShareResponse
+instance NFData AcceptPortfolioShareResponse where

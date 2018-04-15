@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.KMS.RetireGrant
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -46,25 +46,26 @@ module Network.AWS.KMS.RetireGrant
     , RetireGrantResponse
     ) where
 
-import           Network.AWS.KMS.Types
-import           Network.AWS.KMS.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.KMS.Types
+import Network.AWS.KMS.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'retireGrant' smart constructor.
 data RetireGrant = RetireGrant'
-    { _rgKeyId      :: !(Maybe Text)
-    , _rgGrantId    :: !(Maybe Text)
-    , _rgGrantToken :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rgKeyId      :: !(Maybe Text)
+  , _rgGrantId    :: !(Maybe Text)
+  , _rgGrantToken :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RetireGrant' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'rgKeyId' - The Amazon Resource Name of the CMK associated with the grant. Example:     * arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab
+-- * 'rgKeyId' - The Amazon Resource Name (ARN) of the CMK associated with the grant.  For example: @arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab@
 --
 -- * 'rgGrantId' - Unique identifier of the grant to retire. The grant ID is returned in the response to a @CreateGrant@ operation.     * Grant ID Example - 0123456789012345678901234567890123456789012345678901234567890123
 --
@@ -72,13 +73,11 @@ data RetireGrant = RetireGrant'
 retireGrant
     :: RetireGrant
 retireGrant =
-    RetireGrant'
-    { _rgKeyId = Nothing
-    , _rgGrantId = Nothing
-    , _rgGrantToken = Nothing
-    }
+  RetireGrant'
+  {_rgKeyId = Nothing, _rgGrantId = Nothing, _rgGrantToken = Nothing}
 
--- | The Amazon Resource Name of the CMK associated with the grant. Example:     * arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab
+
+-- | The Amazon Resource Name (ARN) of the CMK associated with the grant.  For example: @arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab@
 rgKeyId :: Lens' RetireGrant (Maybe Text)
 rgKeyId = lens _rgKeyId (\ s a -> s{_rgKeyId = a});
 
@@ -95,9 +94,9 @@ instance AWSRequest RetireGrant where
         request = postJSON kms
         response = receiveNull RetireGrantResponse'
 
-instance Hashable RetireGrant
+instance Hashable RetireGrant where
 
-instance NFData RetireGrant
+instance NFData RetireGrant where
 
 instance ToHeaders RetireGrant where
         toHeaders
@@ -124,8 +123,9 @@ instance ToQuery RetireGrant where
 
 -- | /See:/ 'retireGrantResponse' smart constructor.
 data RetireGrantResponse =
-    RetireGrantResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  RetireGrantResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RetireGrantResponse' with the minimum fields required to make a request.
 --
@@ -133,4 +133,5 @@ retireGrantResponse
     :: RetireGrantResponse
 retireGrantResponse = RetireGrantResponse'
 
-instance NFData RetireGrantResponse
+
+instance NFData RetireGrantResponse where

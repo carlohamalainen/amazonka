@@ -5,20 +5,20 @@
 
 -- |
 -- Module      : Test.AWS.Gen.Greengrass
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Test.AWS.Gen.Greengrass where
 
 import Data.Proxy
+import Network.AWS.Greengrass
 import Test.AWS.Fixture
+import Test.AWS.Greengrass.Internal
 import Test.AWS.Prelude
 import Test.Tasty
-import Network.AWS.Greengrass
-import Test.AWS.Greengrass.Internal
 
 -- Auto-generated: the actual test selection needs to be manually placed into
 -- the top-level so that real test data can be incrementally added.
@@ -135,6 +135,9 @@ import Test.AWS.Greengrass.Internal
 --
 --         , requestAssociateServiceRoleToAccount $
 --             associateServiceRoleToAccount
+--
+--         , requestResetDeployments $
+--             resetDeployments
 --
 --         , requestGetSubscriptionDefinitionVersion $
 --             getSubscriptionDefinitionVersion
@@ -330,6 +333,9 @@ import Test.AWS.Greengrass.Internal
 --
 --         , responseAssociateServiceRoleToAccount $
 --             associateServiceRoleToAccountResponse
+--
+--         , responseResetDeployments $
+--             resetDeploymentsResponse
 --
 --         , responseGetSubscriptionDefinitionVersion $
 --             getSubscriptionDefinitionVersionResponse
@@ -599,6 +605,11 @@ requestAssociateServiceRoleToAccount :: AssociateServiceRoleToAccount -> TestTre
 requestAssociateServiceRoleToAccount = req
     "AssociateServiceRoleToAccount"
     "fixture/AssociateServiceRoleToAccount.yaml"
+
+requestResetDeployments :: ResetDeployments -> TestTree
+requestResetDeployments = req
+    "ResetDeployments"
+    "fixture/ResetDeployments.yaml"
 
 requestGetSubscriptionDefinitionVersion :: GetSubscriptionDefinitionVersion -> TestTree
 requestGetSubscriptionDefinitionVersion = req
@@ -993,6 +1004,13 @@ responseAssociateServiceRoleToAccount = res
     "fixture/AssociateServiceRoleToAccountResponse.proto"
     greengrass
     (Proxy :: Proxy AssociateServiceRoleToAccount)
+
+responseResetDeployments :: ResetDeploymentsResponse -> TestTree
+responseResetDeployments = res
+    "ResetDeploymentsResponse"
+    "fixture/ResetDeploymentsResponse.proto"
+    greengrass
+    (Proxy :: Proxy ResetDeployments)
 
 responseGetSubscriptionDefinitionVersion :: GetSubscriptionDefinitionVersionResponse -> TestTree
 responseGetSubscriptionDefinitionVersion = res

@@ -1,13 +1,13 @@
 name:                  amazonka-application-autoscaling
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Application Auto Scaling SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,23 +29,31 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-application-autoscaling
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.ApplicationAutoScaling
         , Network.AWS.ApplicationAutoScaling.DeleteScalingPolicy
+        , Network.AWS.ApplicationAutoScaling.DeleteScheduledAction
         , Network.AWS.ApplicationAutoScaling.DeregisterScalableTarget
         , Network.AWS.ApplicationAutoScaling.DescribeScalableTargets
         , Network.AWS.ApplicationAutoScaling.DescribeScalingActivities
         , Network.AWS.ApplicationAutoScaling.DescribeScalingPolicies
+        , Network.AWS.ApplicationAutoScaling.DescribeScheduledActions
         , Network.AWS.ApplicationAutoScaling.PutScalingPolicy
+        , Network.AWS.ApplicationAutoScaling.PutScheduledAction
         , Network.AWS.ApplicationAutoScaling.RegisterScalableTarget
         , Network.AWS.ApplicationAutoScaling.Types
         , Network.AWS.ApplicationAutoScaling.Waiters
@@ -55,7 +63,7 @@ library
         , Network.AWS.ApplicationAutoScaling.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-application-autoscaling-test
@@ -75,9 +83,9 @@ test-suite amazonka-application-autoscaling-test
         , Test.AWS.ApplicationAutoScaling.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-application-autoscaling == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-application-autoscaling
         , base
         , bytestring
         , tasty

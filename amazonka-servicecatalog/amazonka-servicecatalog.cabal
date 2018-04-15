@@ -1,13 +1,13 @@
 name:                  amazonka-servicecatalog
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Service Catalog SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-servicecatalog
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.ServiceCatalog
@@ -44,6 +49,7 @@ library
         , Network.AWS.ServiceCatalog.AssociatePrincipalWithPortfolio
         , Network.AWS.ServiceCatalog.AssociateProductWithPortfolio
         , Network.AWS.ServiceCatalog.AssociateTagOptionWithResource
+        , Network.AWS.ServiceCatalog.CopyProduct
         , Network.AWS.ServiceCatalog.CreateConstraint
         , Network.AWS.ServiceCatalog.CreatePortfolio
         , Network.AWS.ServiceCatalog.CreatePortfolioShare
@@ -56,6 +62,7 @@ library
         , Network.AWS.ServiceCatalog.DeleteProduct
         , Network.AWS.ServiceCatalog.DeleteProvisioningArtifact
         , Network.AWS.ServiceCatalog.DescribeConstraint
+        , Network.AWS.ServiceCatalog.DescribeCopyProductStatus
         , Network.AWS.ServiceCatalog.DescribePortfolio
         , Network.AWS.ServiceCatalog.DescribeProduct
         , Network.AWS.ServiceCatalog.DescribeProductAsAdmin
@@ -99,7 +106,7 @@ library
         , Network.AWS.ServiceCatalog.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-servicecatalog-test
@@ -119,9 +126,9 @@ test-suite amazonka-servicecatalog-test
         , Test.AWS.ServiceCatalog.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-servicecatalog == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-servicecatalog
         , base
         , bytestring
         , tasty

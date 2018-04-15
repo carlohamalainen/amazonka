@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.AcceptHandshake
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -24,6 +24,8 @@
 -- This operation can be called only by the following principals when they also have the relevant IAM permissions:
 --
 --     * __Invitation to join__ or __Approve all features request__ handshakes: only a principal from the member account.
+--
+-- The user who calls the API for an invitation to join must have the @organizations:AcceptHandshake@ permission. If you enabled all features in the organization, then the user must also have the @iam:CreateServiceLinkedRole@ permission so that Organizations can create the required service-linked role named /OrgsServiceLinkedRoleName/ . For more information, see <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integration_services.html#orgs_integration_service-linked-roles AWS Organizations and Service-Linked Roles> in the /AWS Organizations User Guide/ .
 --
 --     * __Enable all features final confirmation__ handshake: only a principal from the master account.
 --
@@ -49,17 +51,18 @@ module Network.AWS.Organizations.AcceptHandshake
     , ahrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Organizations.Types
-import           Network.AWS.Organizations.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Organizations.Types
+import Network.AWS.Organizations.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'acceptHandshake' smart constructor.
 newtype AcceptHandshake = AcceptHandshake'
-    { _ahHandshakeId :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ahHandshakeId :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AcceptHandshake' with the minimum fields required to make a request.
 --
@@ -70,9 +73,8 @@ acceptHandshake
     :: Text -- ^ 'ahHandshakeId'
     -> AcceptHandshake
 acceptHandshake pHandshakeId_ =
-    AcceptHandshake'
-    { _ahHandshakeId = pHandshakeId_
-    }
+  AcceptHandshake' {_ahHandshakeId = pHandshakeId_}
+
 
 -- | The unique identifier (ID) of the handshake that you want to accept. The <http://wikipedia.org/wiki/regex regex pattern> for handshake ID string requires "h-" followed by from 8 to 32 lower-case letters or digits.
 ahHandshakeId :: Lens' AcceptHandshake Text
@@ -87,9 +89,9 @@ instance AWSRequest AcceptHandshake where
                  AcceptHandshakeResponse' <$>
                    (x .?> "Handshake") <*> (pure (fromEnum s)))
 
-instance Hashable AcceptHandshake
+instance Hashable AcceptHandshake where
 
-instance NFData AcceptHandshake
+instance NFData AcceptHandshake where
 
 instance ToHeaders AcceptHandshake where
         toHeaders
@@ -114,9 +116,10 @@ instance ToQuery AcceptHandshake where
 
 -- | /See:/ 'acceptHandshakeResponse' smart constructor.
 data AcceptHandshakeResponse = AcceptHandshakeResponse'
-    { _ahrsHandshake      :: !(Maybe Handshake)
-    , _ahrsResponseStatus :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _ahrsHandshake      :: !(Maybe Handshake)
+  , _ahrsResponseStatus :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AcceptHandshakeResponse' with the minimum fields required to make a request.
 --
@@ -129,10 +132,9 @@ acceptHandshakeResponse
     :: Int -- ^ 'ahrsResponseStatus'
     -> AcceptHandshakeResponse
 acceptHandshakeResponse pResponseStatus_ =
-    AcceptHandshakeResponse'
-    { _ahrsHandshake = Nothing
-    , _ahrsResponseStatus = pResponseStatus_
-    }
+  AcceptHandshakeResponse'
+  {_ahrsHandshake = Nothing, _ahrsResponseStatus = pResponseStatus_}
+
 
 -- | A structure that contains details about the accepted handshake.
 ahrsHandshake :: Lens' AcceptHandshakeResponse (Maybe Handshake)
@@ -142,4 +144,4 @@ ahrsHandshake = lens _ahrsHandshake (\ s a -> s{_ahrsHandshake = a});
 ahrsResponseStatus :: Lens' AcceptHandshakeResponse Int
 ahrsResponseStatus = lens _ahrsResponseStatus (\ s a -> s{_ahrsResponseStatus = a});
 
-instance NFData AcceptHandshakeResponse
+instance NFData AcceptHandshakeResponse where

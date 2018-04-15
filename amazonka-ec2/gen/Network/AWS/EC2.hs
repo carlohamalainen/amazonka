@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -137,6 +137,9 @@ module Network.AWS.EC2
     -- ** DescribeTags (Paginated)
     , module Network.AWS.EC2.DescribeTags
 
+    -- ** UpdateSecurityGroupRuleDescriptionsIngress
+    , module Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsIngress
+
     -- ** DisassociateSubnetCidrBlock
     , module Network.AWS.EC2.DisassociateSubnetCidrBlock
 
@@ -188,6 +191,9 @@ module Network.AWS.EC2
     -- ** ModifyNetworkInterfaceAttribute
     , module Network.AWS.EC2.ModifyNetworkInterfaceAttribute
 
+    -- ** ModifyVPCTenancy
+    , module Network.AWS.EC2.ModifyVPCTenancy
+
     -- ** CancelReservedInstancesListing
     , module Network.AWS.EC2.CancelReservedInstancesListing
 
@@ -214,6 +220,9 @@ module Network.AWS.EC2
 
     -- ** ImportImage
     , module Network.AWS.EC2.ImportImage
+
+    -- ** CopyFpgaImage
+    , module Network.AWS.EC2.CopyFpgaImage
 
     -- ** StopInstances
     , module Network.AWS.EC2.StopInstances
@@ -380,6 +389,9 @@ module Network.AWS.EC2
     -- ** DescribeHostReservationOfferings
     , module Network.AWS.EC2.DescribeHostReservationOfferings
 
+    -- ** ResetFpgaImageAttribute
+    , module Network.AWS.EC2.ResetFpgaImageAttribute
+
     -- ** DescribeVolumes (Paginated)
     , module Network.AWS.EC2.DescribeVolumes
 
@@ -391,6 +403,9 @@ module Network.AWS.EC2
 
     -- ** ModifyVPCEndpoint
     , module Network.AWS.EC2.ModifyVPCEndpoint
+
+    -- ** DescribeFpgaImageAttribute
+    , module Network.AWS.EC2.DescribeFpgaImageAttribute
 
     -- ** AllocateHosts
     , module Network.AWS.EC2.AllocateHosts
@@ -404,11 +419,17 @@ module Network.AWS.EC2
     -- ** DescribeHostReservations
     , module Network.AWS.EC2.DescribeHostReservations
 
+    -- ** UpdateSecurityGroupRuleDescriptionsEgress
+    , module Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsEgress
+
     -- ** EnableVPCClassicLinkDNSSupport
     , module Network.AWS.EC2.EnableVPCClassicLinkDNSSupport
 
     -- ** ModifyReservedInstances
     , module Network.AWS.EC2.ModifyReservedInstances
+
+    -- ** DeleteFpgaImage
+    , module Network.AWS.EC2.DeleteFpgaImage
 
     -- ** DescribeScheduledInstances
     , module Network.AWS.EC2.DescribeScheduledInstances
@@ -476,6 +497,9 @@ module Network.AWS.EC2
     -- ** CreateVolume
     , module Network.AWS.EC2.CreateVolume
 
+    -- ** CreateDefaultSubnet
+    , module Network.AWS.EC2.CreateDefaultSubnet
+
     -- ** DescribeScheduledInstanceAvailability
     , module Network.AWS.EC2.DescribeScheduledInstanceAvailability
 
@@ -500,7 +524,7 @@ module Network.AWS.EC2
     -- ** CreateNetworkInterface
     , module Network.AWS.EC2.CreateNetworkInterface
 
-    -- ** DescribeSecurityGroups
+    -- ** DescribeSecurityGroups (Paginated)
     , module Network.AWS.EC2.DescribeSecurityGroups
 
     -- ** DescribeExportTasks
@@ -685,6 +709,9 @@ module Network.AWS.EC2
 
     -- ** DescribeAccountAttributes
     , module Network.AWS.EC2.DescribeAccountAttributes
+
+    -- ** ModifyFpgaImageAttribute
+    , module Network.AWS.EC2.ModifyFpgaImageAttribute
 
     -- ** ModifyHosts
     , module Network.AWS.EC2.ModifyHosts
@@ -910,6 +937,9 @@ module Network.AWS.EC2
     -- ** FlowLogsResourceType
     , FlowLogsResourceType (..)
 
+    -- ** FpgaImageAttributeName
+    , FpgaImageAttributeName (..)
+
     -- ** FpgaImageStateCode
     , FpgaImageStateCode (..)
 
@@ -939,6 +969,9 @@ module Network.AWS.EC2
 
     -- ** InstanceHealthStatus
     , InstanceHealthStatus (..)
+
+    -- ** InstanceInterruptionBehavior
+    , InstanceInterruptionBehavior (..)
 
     -- ** InstanceLifecycleType
     , InstanceLifecycleType (..)
@@ -1024,6 +1057,9 @@ module Network.AWS.EC2
     -- ** ReservedInstanceState
     , ReservedInstanceState (..)
 
+    -- ** ResetFpgaImageAttributeName
+    , ResetFpgaImageAttributeName (..)
+
     -- ** ResetImageAttributeName
     , ResetImageAttributeName (..)
 
@@ -1041,6 +1077,9 @@ module Network.AWS.EC2
 
     -- ** Scope
     , Scope (..)
+
+    -- ** ServiceType
+    , ServiceType (..)
 
     -- ** ShutdownBehavior
     , ShutdownBehavior (..)
@@ -1090,11 +1129,17 @@ module Network.AWS.EC2
     -- ** VPCCidrBlockStateCode
     , VPCCidrBlockStateCode (..)
 
+    -- ** VPCEndpointType
+    , VPCEndpointType (..)
+
     -- ** VPCPeeringConnectionStateReasonCode
     , VPCPeeringConnectionStateReasonCode (..)
 
     -- ** VPCState
     , VPCState (..)
+
+    -- ** VPCTenancy
+    , VPCTenancy (..)
 
     -- ** VPNState
     , VPNState (..)
@@ -1242,6 +1287,11 @@ module Network.AWS.EC2
     , csirState
     , csirSpotInstanceRequestId
 
+    -- ** CidrBlock
+    , CidrBlock
+    , cidrBlock
+    , cbCidrBlock
+
     -- ** ClassicLinkDNSSupport
     , ClassicLinkDNSSupport
     , classicLinkDNSSupport
@@ -1255,6 +1305,16 @@ module Network.AWS.EC2
     , cliGroups
     , cliVPCId
     , cliTags
+
+    -- ** ClassicLoadBalancer
+    , ClassicLoadBalancer
+    , classicLoadBalancer
+    , clbName
+
+    -- ** ClassicLoadBalancersConfig
+    , ClassicLoadBalancersConfig
+    , classicLoadBalancersConfig
+    , clbcClassicLoadBalancers
 
     -- ** ClientData
     , ClientData
@@ -1309,6 +1369,12 @@ module Network.AWS.EC2
     , doDHCPConfigurations
     , doDHCPOptionsId
     , doTags
+
+    -- ** DNSEntry
+    , DNSEntry
+    , dnsEntry
+    , deHostedZoneId
+    , deDNSName
 
     -- ** DiskImage
     , DiskImage
@@ -1463,7 +1529,17 @@ module Network.AWS.EC2
     , fiDescription
     , fiCreateTime
     , fiTags
+    , fiPublic
     , fiFpgaImageGlobalId
+
+    -- ** FpgaImageAttribute
+    , FpgaImageAttribute
+    , fpgaImageAttribute
+    , fiaFpgaImageId
+    , fiaName
+    , fiaProductCodes
+    , fiaDescription
+    , fiaLoadPermissions
 
     -- ** FpgaImageState
     , FpgaImageState
@@ -1580,7 +1656,8 @@ module Network.AWS.EC2
     -- ** IPRange
     , IPRange
     , ipRange
-    , irCidrIP
+    , iprDescription
+    , iprCidrIP
 
     -- ** IPv6CidrBlock
     , IPv6CidrBlock
@@ -1591,6 +1668,7 @@ module Network.AWS.EC2
     , IPv6Range
     , ipv6Range
     , irCidrIPv6
+    , irDescription
 
     -- ** IdFormat
     , IdFormat
@@ -1914,14 +1992,14 @@ module Network.AWS.EC2
     -- ** LaunchPermission
     , LaunchPermission
     , launchPermission
-    , lpGroup
-    , lpUserId
+    , lGroup
+    , lUserId
 
     -- ** LaunchPermissionModifications
     , LaunchPermissionModifications
     , launchPermissionModifications
-    , lpmRemove
-    , lpmAdd
+    , lRemove
+    , lAdd
 
     -- ** LaunchSpecification
     , LaunchSpecification
@@ -1941,6 +2019,30 @@ module Network.AWS.EC2
     , lsAddressingType
     , lsBlockDeviceMappings
     , lsPlacement
+
+    -- ** LoadBalancersConfig
+    , LoadBalancersConfig
+    , loadBalancersConfig
+    , lbcClassicLoadBalancersConfig
+    , lbcTargetGroupsConfig
+
+    -- ** LoadPermission
+    , LoadPermission
+    , loadPermission
+    , lpGroup
+    , lpUserId
+
+    -- ** LoadPermissionModifications
+    , LoadPermissionModifications
+    , loadPermissionModifications
+    , lpmRemove
+    , lpmAdd
+
+    -- ** LoadPermissionRequest
+    , LoadPermissionRequest
+    , loadPermissionRequest
+    , lprGroup
+    , lprUserId
 
     -- ** Monitoring
     , Monitoring
@@ -1966,6 +2068,7 @@ module Network.AWS.EC2
     , ngProvisionedBandwidth
     , ngNatGatewayAddresses
     , ngCreateTime
+    , ngTags
 
     -- ** NatGatewayAddress
     , NatGatewayAddress
@@ -2145,6 +2248,7 @@ module Network.AWS.EC2
     , PrefixListId
     , prefixListId
     , pliPrefixListId
+    , pliDescription
 
     -- ** PriceSchedule
     , PriceSchedule
@@ -2553,12 +2657,35 @@ module Network.AWS.EC2
     , sgGroupName
     , sgDescription
 
+    -- ** SecurityGroupIdentifier
+    , SecurityGroupIdentifier
+    , securityGroupIdentifier
+    , sgiGroupId
+    , sgiGroupName
+
     -- ** SecurityGroupReference
     , SecurityGroupReference
     , securityGroupReference
     , sgrVPCPeeringConnectionId
     , sgrGroupId
     , sgrReferencingVPCId
+
+    -- ** ServiceDetail
+    , ServiceDetail
+    , serviceDetail
+    , sdVPCEndpointPolicySupported
+    , sdBaseEndpointDNSNames
+    , sdOwner
+    , sdAvailabilityZones
+    , sdServiceName
+    , sdServiceType
+    , sdAcceptanceRequired
+    , sdPrivateDNSName
+
+    -- ** ServiceTypeDetail
+    , ServiceTypeDetail
+    , serviceTypeDetail
+    , stdServiceType
 
     -- ** SlotDateTimeRangeRequest
     , SlotDateTimeRangeRequest
@@ -2674,6 +2801,8 @@ module Network.AWS.EC2
     , SpotFleetRequestConfigData
     , spotFleetRequestConfigData
     , sfrcdClientToken
+    , sfrcdInstanceInterruptionBehavior
+    , sfrcdLoadBalancersConfig
     , sfrcdExcessCapacityTerminationPolicy
     , sfrcdValidUntil
     , sfrcdTerminateInstancesWithExpiration
@@ -2701,6 +2830,7 @@ module Network.AWS.EC2
     , sirState
     , sirActualBlockHourlyPrice
     , sirBlockDurationMinutes
+    , sirInstanceInterruptionBehavior
     , sirProductDescription
     , sirSpotPrice
     , sirLaunchSpecification
@@ -2841,6 +2971,16 @@ module Network.AWS.EC2
     , tcrInstanceCount
     , tcrOfferingId
 
+    -- ** TargetGroup
+    , TargetGroup
+    , targetGroup
+    , tgARN
+
+    -- ** TargetGroupsConfig
+    , TargetGroupsConfig
+    , targetGroupsConfig
+    , tgcTargetGroups
+
     -- ** TargetReservationValue
     , TargetReservationValue
     , targetReservationValue
@@ -2884,6 +3024,7 @@ module Network.AWS.EC2
     , uigpUserId
     , uigpGroupId
     , uigpGroupName
+    , uigpDescription
     , uigpPeeringStatus
 
     -- ** VGWTelemetry
@@ -2899,6 +3040,7 @@ module Network.AWS.EC2
     , VPC
     , vpc
     , vpcIPv6CidrBlockAssociationSet
+    , vpcCidrBlockAssociationSet
     , vpcTags
     , vpcIsDefault
     , vpcCidrBlock
@@ -2912,6 +3054,13 @@ module Network.AWS.EC2
     , vpcAttachment
     , vaState
     , vaVPCId
+
+    -- ** VPCCidrBlockAssociation
+    , VPCCidrBlockAssociation
+    , vpcCidrBlockAssociation
+    , vcbaAssociationId
+    , vcbaCidrBlockState
+    , vcbaCidrBlock
 
     -- ** VPCCidrBlockState
     , VPCCidrBlockState
@@ -2929,9 +3078,15 @@ module Network.AWS.EC2
     -- ** VPCEndpoint
     , VPCEndpoint
     , vpcEndpoint
+    , veGroups
     , veState
     , vePolicyDocument
+    , veSubnetIds
+    , veNetworkInterfaceIds
     , veVPCId
+    , veDNSEntries
+    , veVPCEndpointType
+    , vePrivateDNSEnabled
     , veCreationTimestamp
     , veServiceName
     , veVPCEndpointId
@@ -2970,6 +3125,7 @@ module Network.AWS.EC2
     -- ** VPCPeeringConnectionVPCInfo
     , VPCPeeringConnectionVPCInfo
     , vpcPeeringConnectionVPCInfo
+    , vpcviCidrBlockSet
     , vpcviVPCId
     , vpcviOwnerId
     , vpcviPeeringOptions
@@ -2982,6 +3138,7 @@ module Network.AWS.EC2
     , vcCustomerGatewayConfiguration
     , vcRoutes
     , vcVPNGatewayId
+    , vcCategory
     , vcOptions
     , vcTags
     , vcVGWTelemetry
@@ -2998,6 +3155,7 @@ module Network.AWS.EC2
     -- ** VPNConnectionOptionsSpecification
     , VPNConnectionOptionsSpecification
     , vpnConnectionOptionsSpecification
+    , vcosTunnelOptions
     , vcosStaticRoutesOnly
 
     -- ** VPNGateway
@@ -3006,6 +3164,7 @@ module Network.AWS.EC2
     , vgState
     , vgVPCAttachments
     , vgVPNGatewayId
+    , vgAmazonSideASN
     , vgAvailabilityZone
     , vgType
     , vgTags
@@ -3016,6 +3175,12 @@ module Network.AWS.EC2
     , vsrState
     , vsrSource
     , vsrDestinationCidrBlock
+
+    -- ** VPNTunnelOptionsSpecification
+    , VPNTunnelOptionsSpecification
+    , vpnTunnelOptionsSpecification
+    , vtosTunnelInsideCidr
+    , vtosPreSharedKey
 
     -- ** Volume
     , Volume
@@ -3103,243 +3268,252 @@ module Network.AWS.EC2
     , vsiVolumeId
     ) where
 
-import           Network.AWS.EC2.AcceptReservedInstancesExchangeQuote
-import           Network.AWS.EC2.AcceptVPCPeeringConnection
-import           Network.AWS.EC2.AllocateAddress
-import           Network.AWS.EC2.AllocateHosts
-import           Network.AWS.EC2.AssignIPv6Addresses
-import           Network.AWS.EC2.AssignPrivateIPAddresses
-import           Network.AWS.EC2.AssociateAddress
-import           Network.AWS.EC2.AssociateDHCPOptions
-import           Network.AWS.EC2.AssociateIAMInstanceProfile
-import           Network.AWS.EC2.AssociateRouteTable
-import           Network.AWS.EC2.AssociateSubnetCidrBlock
-import           Network.AWS.EC2.AssociateVPCCidrBlock
-import           Network.AWS.EC2.AttachClassicLinkVPC
-import           Network.AWS.EC2.AttachInternetGateway
-import           Network.AWS.EC2.AttachNetworkInterface
-import           Network.AWS.EC2.AttachVolume
-import           Network.AWS.EC2.AttachVPNGateway
-import           Network.AWS.EC2.AuthorizeSecurityGroupEgress
-import           Network.AWS.EC2.AuthorizeSecurityGroupIngress
-import           Network.AWS.EC2.BundleInstance
-import           Network.AWS.EC2.CancelBundleTask
-import           Network.AWS.EC2.CancelConversionTask
-import           Network.AWS.EC2.CancelExportTask
-import           Network.AWS.EC2.CancelImportTask
-import           Network.AWS.EC2.CancelReservedInstancesListing
-import           Network.AWS.EC2.CancelSpotFleetRequests
-import           Network.AWS.EC2.CancelSpotInstanceRequests
-import           Network.AWS.EC2.ConfirmProductInstance
-import           Network.AWS.EC2.CopyImage
-import           Network.AWS.EC2.CopySnapshot
-import           Network.AWS.EC2.CreateCustomerGateway
-import           Network.AWS.EC2.CreateDefaultVPC
-import           Network.AWS.EC2.CreateDHCPOptions
-import           Network.AWS.EC2.CreateEgressOnlyInternetGateway
-import           Network.AWS.EC2.CreateFlowLogs
-import           Network.AWS.EC2.CreateFpgaImage
-import           Network.AWS.EC2.CreateImage
-import           Network.AWS.EC2.CreateInstanceExportTask
-import           Network.AWS.EC2.CreateInternetGateway
-import           Network.AWS.EC2.CreateKeyPair
-import           Network.AWS.EC2.CreateNatGateway
-import           Network.AWS.EC2.CreateNetworkACL
-import           Network.AWS.EC2.CreateNetworkACLEntry
-import           Network.AWS.EC2.CreateNetworkInterface
-import           Network.AWS.EC2.CreateNetworkInterfacePermission
-import           Network.AWS.EC2.CreatePlacementGroup
-import           Network.AWS.EC2.CreateReservedInstancesListing
-import           Network.AWS.EC2.CreateRoute
-import           Network.AWS.EC2.CreateRouteTable
-import           Network.AWS.EC2.CreateSecurityGroup
-import           Network.AWS.EC2.CreateSnapshot
-import           Network.AWS.EC2.CreateSpotDatafeedSubscription
-import           Network.AWS.EC2.CreateSubnet
-import           Network.AWS.EC2.CreateTags
-import           Network.AWS.EC2.CreateVolume
-import           Network.AWS.EC2.CreateVPC
-import           Network.AWS.EC2.CreateVPCEndpoint
-import           Network.AWS.EC2.CreateVPCPeeringConnection
-import           Network.AWS.EC2.CreateVPNConnection
-import           Network.AWS.EC2.CreateVPNConnectionRoute
-import           Network.AWS.EC2.CreateVPNGateway
-import           Network.AWS.EC2.DeleteCustomerGateway
-import           Network.AWS.EC2.DeleteDHCPOptions
-import           Network.AWS.EC2.DeleteEgressOnlyInternetGateway
-import           Network.AWS.EC2.DeleteFlowLogs
-import           Network.AWS.EC2.DeleteInternetGateway
-import           Network.AWS.EC2.DeleteKeyPair
-import           Network.AWS.EC2.DeleteNatGateway
-import           Network.AWS.EC2.DeleteNetworkACL
-import           Network.AWS.EC2.DeleteNetworkACLEntry
-import           Network.AWS.EC2.DeleteNetworkInterface
-import           Network.AWS.EC2.DeleteNetworkInterfacePermission
-import           Network.AWS.EC2.DeletePlacementGroup
-import           Network.AWS.EC2.DeleteRoute
-import           Network.AWS.EC2.DeleteRouteTable
-import           Network.AWS.EC2.DeleteSecurityGroup
-import           Network.AWS.EC2.DeleteSnapshot
-import           Network.AWS.EC2.DeleteSpotDatafeedSubscription
-import           Network.AWS.EC2.DeleteSubnet
-import           Network.AWS.EC2.DeleteTags
-import           Network.AWS.EC2.DeleteVolume
-import           Network.AWS.EC2.DeleteVPC
-import           Network.AWS.EC2.DeleteVPCEndpoints
-import           Network.AWS.EC2.DeleteVPCPeeringConnection
-import           Network.AWS.EC2.DeleteVPNConnection
-import           Network.AWS.EC2.DeleteVPNConnectionRoute
-import           Network.AWS.EC2.DeleteVPNGateway
-import           Network.AWS.EC2.DeregisterImage
-import           Network.AWS.EC2.DescribeAccountAttributes
-import           Network.AWS.EC2.DescribeAddresses
-import           Network.AWS.EC2.DescribeAvailabilityZones
-import           Network.AWS.EC2.DescribeBundleTasks
-import           Network.AWS.EC2.DescribeClassicLinkInstances
-import           Network.AWS.EC2.DescribeConversionTasks
-import           Network.AWS.EC2.DescribeCustomerGateways
-import           Network.AWS.EC2.DescribeDHCPOptions
-import           Network.AWS.EC2.DescribeEgressOnlyInternetGateways
-import           Network.AWS.EC2.DescribeElasticGpus
-import           Network.AWS.EC2.DescribeExportTasks
-import           Network.AWS.EC2.DescribeFlowLogs
-import           Network.AWS.EC2.DescribeFpgaImages
-import           Network.AWS.EC2.DescribeHostReservationOfferings
-import           Network.AWS.EC2.DescribeHostReservations
-import           Network.AWS.EC2.DescribeHosts
-import           Network.AWS.EC2.DescribeIAMInstanceProfileAssociations
-import           Network.AWS.EC2.DescribeIdentityIdFormat
-import           Network.AWS.EC2.DescribeIdFormat
-import           Network.AWS.EC2.DescribeImageAttribute
-import           Network.AWS.EC2.DescribeImages
-import           Network.AWS.EC2.DescribeImportImageTasks
-import           Network.AWS.EC2.DescribeImportSnapshotTasks
-import           Network.AWS.EC2.DescribeInstanceAttribute
-import           Network.AWS.EC2.DescribeInstances
-import           Network.AWS.EC2.DescribeInstanceStatus
-import           Network.AWS.EC2.DescribeInternetGateways
-import           Network.AWS.EC2.DescribeKeyPairs
-import           Network.AWS.EC2.DescribeMovingAddresses
-import           Network.AWS.EC2.DescribeNatGateways
-import           Network.AWS.EC2.DescribeNetworkACLs
-import           Network.AWS.EC2.DescribeNetworkInterfaceAttribute
-import           Network.AWS.EC2.DescribeNetworkInterfacePermissions
-import           Network.AWS.EC2.DescribeNetworkInterfaces
-import           Network.AWS.EC2.DescribePlacementGroups
-import           Network.AWS.EC2.DescribePrefixLists
-import           Network.AWS.EC2.DescribeRegions
-import           Network.AWS.EC2.DescribeReservedInstances
-import           Network.AWS.EC2.DescribeReservedInstancesListings
-import           Network.AWS.EC2.DescribeReservedInstancesModifications
-import           Network.AWS.EC2.DescribeReservedInstancesOfferings
-import           Network.AWS.EC2.DescribeRouteTables
-import           Network.AWS.EC2.DescribeScheduledInstanceAvailability
-import           Network.AWS.EC2.DescribeScheduledInstances
-import           Network.AWS.EC2.DescribeSecurityGroupReferences
-import           Network.AWS.EC2.DescribeSecurityGroups
-import           Network.AWS.EC2.DescribeSnapshotAttribute
-import           Network.AWS.EC2.DescribeSnapshots
-import           Network.AWS.EC2.DescribeSpotDatafeedSubscription
-import           Network.AWS.EC2.DescribeSpotFleetInstances
-import           Network.AWS.EC2.DescribeSpotFleetRequestHistory
-import           Network.AWS.EC2.DescribeSpotFleetRequests
-import           Network.AWS.EC2.DescribeSpotInstanceRequests
-import           Network.AWS.EC2.DescribeSpotPriceHistory
-import           Network.AWS.EC2.DescribeStaleSecurityGroups
-import           Network.AWS.EC2.DescribeSubnets
-import           Network.AWS.EC2.DescribeTags
-import           Network.AWS.EC2.DescribeVolumeAttribute
-import           Network.AWS.EC2.DescribeVolumes
-import           Network.AWS.EC2.DescribeVolumesModifications
-import           Network.AWS.EC2.DescribeVolumeStatus
-import           Network.AWS.EC2.DescribeVPCAttribute
-import           Network.AWS.EC2.DescribeVPCClassicLink
-import           Network.AWS.EC2.DescribeVPCClassicLinkDNSSupport
-import           Network.AWS.EC2.DescribeVPCEndpoints
-import           Network.AWS.EC2.DescribeVPCEndpointServices
-import           Network.AWS.EC2.DescribeVPCPeeringConnections
-import           Network.AWS.EC2.DescribeVPCs
-import           Network.AWS.EC2.DescribeVPNConnections
-import           Network.AWS.EC2.DescribeVPNGateways
-import           Network.AWS.EC2.DetachClassicLinkVPC
-import           Network.AWS.EC2.DetachInternetGateway
-import           Network.AWS.EC2.DetachNetworkInterface
-import           Network.AWS.EC2.DetachVolume
-import           Network.AWS.EC2.DetachVPNGateway
-import           Network.AWS.EC2.DisableVGWRoutePropagation
-import           Network.AWS.EC2.DisableVPCClassicLink
-import           Network.AWS.EC2.DisableVPCClassicLinkDNSSupport
-import           Network.AWS.EC2.DisassociateAddress
-import           Network.AWS.EC2.DisassociateIAMInstanceProfile
-import           Network.AWS.EC2.DisassociateRouteTable
-import           Network.AWS.EC2.DisassociateSubnetCidrBlock
-import           Network.AWS.EC2.DisassociateVPCCidrBlock
-import           Network.AWS.EC2.EnableVGWRoutePropagation
-import           Network.AWS.EC2.EnableVolumeIO
-import           Network.AWS.EC2.EnableVPCClassicLink
-import           Network.AWS.EC2.EnableVPCClassicLinkDNSSupport
-import           Network.AWS.EC2.GetConsoleOutput
-import           Network.AWS.EC2.GetConsoleScreenshot
-import           Network.AWS.EC2.GetHostReservationPurchasePreview
-import           Network.AWS.EC2.GetPasswordData
-import           Network.AWS.EC2.GetReservedInstancesExchangeQuote
-import           Network.AWS.EC2.ImportImage
-import           Network.AWS.EC2.ImportInstance
-import           Network.AWS.EC2.ImportKeyPair
-import           Network.AWS.EC2.ImportSnapshot
-import           Network.AWS.EC2.ImportVolume
-import           Network.AWS.EC2.Internal
-import           Network.AWS.EC2.ModifyHosts
-import           Network.AWS.EC2.ModifyIdentityIdFormat
-import           Network.AWS.EC2.ModifyIdFormat
-import           Network.AWS.EC2.ModifyImageAttribute
-import           Network.AWS.EC2.ModifyInstanceAttribute
-import           Network.AWS.EC2.ModifyInstancePlacement
-import           Network.AWS.EC2.ModifyNetworkInterfaceAttribute
-import           Network.AWS.EC2.ModifyReservedInstances
-import           Network.AWS.EC2.ModifySnapshotAttribute
-import           Network.AWS.EC2.ModifySpotFleetRequest
-import           Network.AWS.EC2.ModifySubnetAttribute
-import           Network.AWS.EC2.ModifyVolume
-import           Network.AWS.EC2.ModifyVolumeAttribute
-import           Network.AWS.EC2.ModifyVPCAttribute
-import           Network.AWS.EC2.ModifyVPCEndpoint
-import           Network.AWS.EC2.ModifyVPCPeeringConnectionOptions
-import           Network.AWS.EC2.MonitorInstances
-import           Network.AWS.EC2.MoveAddressToVPC
-import           Network.AWS.EC2.PurchaseHostReservation
-import           Network.AWS.EC2.PurchaseReservedInstancesOffering
-import           Network.AWS.EC2.PurchaseScheduledInstances
-import           Network.AWS.EC2.RebootInstances
-import           Network.AWS.EC2.RegisterImage
-import           Network.AWS.EC2.RejectVPCPeeringConnection
-import           Network.AWS.EC2.ReleaseAddress
-import           Network.AWS.EC2.ReleaseHosts
-import           Network.AWS.EC2.ReplaceIAMInstanceProfileAssociation
-import           Network.AWS.EC2.ReplaceNetworkACLAssociation
-import           Network.AWS.EC2.ReplaceNetworkACLEntry
-import           Network.AWS.EC2.ReplaceRoute
-import           Network.AWS.EC2.ReplaceRouteTableAssociation
-import           Network.AWS.EC2.ReportInstanceStatus
-import           Network.AWS.EC2.RequestSpotFleet
-import           Network.AWS.EC2.RequestSpotInstances
-import           Network.AWS.EC2.ResetImageAttribute
-import           Network.AWS.EC2.ResetInstanceAttribute
-import           Network.AWS.EC2.ResetNetworkInterfaceAttribute
-import           Network.AWS.EC2.ResetSnapshotAttribute
-import           Network.AWS.EC2.RestoreAddressToClassic
-import           Network.AWS.EC2.RevokeSecurityGroupEgress
-import           Network.AWS.EC2.RevokeSecurityGroupIngress
-import           Network.AWS.EC2.RunInstances
-import           Network.AWS.EC2.RunScheduledInstances
-import           Network.AWS.EC2.StartInstances
-import           Network.AWS.EC2.StopInstances
-import           Network.AWS.EC2.TerminateInstances
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.UnassignIPv6Addresses
-import           Network.AWS.EC2.UnassignPrivateIPAddresses
-import           Network.AWS.EC2.UnmonitorInstances
-import           Network.AWS.EC2.Waiters
+import Network.AWS.EC2.AcceptReservedInstancesExchangeQuote
+import Network.AWS.EC2.AcceptVPCPeeringConnection
+import Network.AWS.EC2.AllocateAddress
+import Network.AWS.EC2.AllocateHosts
+import Network.AWS.EC2.AssignIPv6Addresses
+import Network.AWS.EC2.AssignPrivateIPAddresses
+import Network.AWS.EC2.AssociateAddress
+import Network.AWS.EC2.AssociateDHCPOptions
+import Network.AWS.EC2.AssociateIAMInstanceProfile
+import Network.AWS.EC2.AssociateRouteTable
+import Network.AWS.EC2.AssociateSubnetCidrBlock
+import Network.AWS.EC2.AssociateVPCCidrBlock
+import Network.AWS.EC2.AttachClassicLinkVPC
+import Network.AWS.EC2.AttachInternetGateway
+import Network.AWS.EC2.AttachNetworkInterface
+import Network.AWS.EC2.AttachVolume
+import Network.AWS.EC2.AttachVPNGateway
+import Network.AWS.EC2.AuthorizeSecurityGroupEgress
+import Network.AWS.EC2.AuthorizeSecurityGroupIngress
+import Network.AWS.EC2.BundleInstance
+import Network.AWS.EC2.CancelBundleTask
+import Network.AWS.EC2.CancelConversionTask
+import Network.AWS.EC2.CancelExportTask
+import Network.AWS.EC2.CancelImportTask
+import Network.AWS.EC2.CancelReservedInstancesListing
+import Network.AWS.EC2.CancelSpotFleetRequests
+import Network.AWS.EC2.CancelSpotInstanceRequests
+import Network.AWS.EC2.ConfirmProductInstance
+import Network.AWS.EC2.CopyFpgaImage
+import Network.AWS.EC2.CopyImage
+import Network.AWS.EC2.CopySnapshot
+import Network.AWS.EC2.CreateCustomerGateway
+import Network.AWS.EC2.CreateDefaultSubnet
+import Network.AWS.EC2.CreateDefaultVPC
+import Network.AWS.EC2.CreateDHCPOptions
+import Network.AWS.EC2.CreateEgressOnlyInternetGateway
+import Network.AWS.EC2.CreateFlowLogs
+import Network.AWS.EC2.CreateFpgaImage
+import Network.AWS.EC2.CreateImage
+import Network.AWS.EC2.CreateInstanceExportTask
+import Network.AWS.EC2.CreateInternetGateway
+import Network.AWS.EC2.CreateKeyPair
+import Network.AWS.EC2.CreateNatGateway
+import Network.AWS.EC2.CreateNetworkACL
+import Network.AWS.EC2.CreateNetworkACLEntry
+import Network.AWS.EC2.CreateNetworkInterface
+import Network.AWS.EC2.CreateNetworkInterfacePermission
+import Network.AWS.EC2.CreatePlacementGroup
+import Network.AWS.EC2.CreateReservedInstancesListing
+import Network.AWS.EC2.CreateRoute
+import Network.AWS.EC2.CreateRouteTable
+import Network.AWS.EC2.CreateSecurityGroup
+import Network.AWS.EC2.CreateSnapshot
+import Network.AWS.EC2.CreateSpotDatafeedSubscription
+import Network.AWS.EC2.CreateSubnet
+import Network.AWS.EC2.CreateTags
+import Network.AWS.EC2.CreateVolume
+import Network.AWS.EC2.CreateVPC
+import Network.AWS.EC2.CreateVPCEndpoint
+import Network.AWS.EC2.CreateVPCPeeringConnection
+import Network.AWS.EC2.CreateVPNConnection
+import Network.AWS.EC2.CreateVPNConnectionRoute
+import Network.AWS.EC2.CreateVPNGateway
+import Network.AWS.EC2.DeleteCustomerGateway
+import Network.AWS.EC2.DeleteDHCPOptions
+import Network.AWS.EC2.DeleteEgressOnlyInternetGateway
+import Network.AWS.EC2.DeleteFlowLogs
+import Network.AWS.EC2.DeleteFpgaImage
+import Network.AWS.EC2.DeleteInternetGateway
+import Network.AWS.EC2.DeleteKeyPair
+import Network.AWS.EC2.DeleteNatGateway
+import Network.AWS.EC2.DeleteNetworkACL
+import Network.AWS.EC2.DeleteNetworkACLEntry
+import Network.AWS.EC2.DeleteNetworkInterface
+import Network.AWS.EC2.DeleteNetworkInterfacePermission
+import Network.AWS.EC2.DeletePlacementGroup
+import Network.AWS.EC2.DeleteRoute
+import Network.AWS.EC2.DeleteRouteTable
+import Network.AWS.EC2.DeleteSecurityGroup
+import Network.AWS.EC2.DeleteSnapshot
+import Network.AWS.EC2.DeleteSpotDatafeedSubscription
+import Network.AWS.EC2.DeleteSubnet
+import Network.AWS.EC2.DeleteTags
+import Network.AWS.EC2.DeleteVolume
+import Network.AWS.EC2.DeleteVPC
+import Network.AWS.EC2.DeleteVPCEndpoints
+import Network.AWS.EC2.DeleteVPCPeeringConnection
+import Network.AWS.EC2.DeleteVPNConnection
+import Network.AWS.EC2.DeleteVPNConnectionRoute
+import Network.AWS.EC2.DeleteVPNGateway
+import Network.AWS.EC2.DeregisterImage
+import Network.AWS.EC2.DescribeAccountAttributes
+import Network.AWS.EC2.DescribeAddresses
+import Network.AWS.EC2.DescribeAvailabilityZones
+import Network.AWS.EC2.DescribeBundleTasks
+import Network.AWS.EC2.DescribeClassicLinkInstances
+import Network.AWS.EC2.DescribeConversionTasks
+import Network.AWS.EC2.DescribeCustomerGateways
+import Network.AWS.EC2.DescribeDHCPOptions
+import Network.AWS.EC2.DescribeEgressOnlyInternetGateways
+import Network.AWS.EC2.DescribeElasticGpus
+import Network.AWS.EC2.DescribeExportTasks
+import Network.AWS.EC2.DescribeFlowLogs
+import Network.AWS.EC2.DescribeFpgaImageAttribute
+import Network.AWS.EC2.DescribeFpgaImages
+import Network.AWS.EC2.DescribeHostReservationOfferings
+import Network.AWS.EC2.DescribeHostReservations
+import Network.AWS.EC2.DescribeHosts
+import Network.AWS.EC2.DescribeIAMInstanceProfileAssociations
+import Network.AWS.EC2.DescribeIdentityIdFormat
+import Network.AWS.EC2.DescribeIdFormat
+import Network.AWS.EC2.DescribeImageAttribute
+import Network.AWS.EC2.DescribeImages
+import Network.AWS.EC2.DescribeImportImageTasks
+import Network.AWS.EC2.DescribeImportSnapshotTasks
+import Network.AWS.EC2.DescribeInstanceAttribute
+import Network.AWS.EC2.DescribeInstances
+import Network.AWS.EC2.DescribeInstanceStatus
+import Network.AWS.EC2.DescribeInternetGateways
+import Network.AWS.EC2.DescribeKeyPairs
+import Network.AWS.EC2.DescribeMovingAddresses
+import Network.AWS.EC2.DescribeNatGateways
+import Network.AWS.EC2.DescribeNetworkACLs
+import Network.AWS.EC2.DescribeNetworkInterfaceAttribute
+import Network.AWS.EC2.DescribeNetworkInterfacePermissions
+import Network.AWS.EC2.DescribeNetworkInterfaces
+import Network.AWS.EC2.DescribePlacementGroups
+import Network.AWS.EC2.DescribePrefixLists
+import Network.AWS.EC2.DescribeRegions
+import Network.AWS.EC2.DescribeReservedInstances
+import Network.AWS.EC2.DescribeReservedInstancesListings
+import Network.AWS.EC2.DescribeReservedInstancesModifications
+import Network.AWS.EC2.DescribeReservedInstancesOfferings
+import Network.AWS.EC2.DescribeRouteTables
+import Network.AWS.EC2.DescribeScheduledInstanceAvailability
+import Network.AWS.EC2.DescribeScheduledInstances
+import Network.AWS.EC2.DescribeSecurityGroupReferences
+import Network.AWS.EC2.DescribeSecurityGroups
+import Network.AWS.EC2.DescribeSnapshotAttribute
+import Network.AWS.EC2.DescribeSnapshots
+import Network.AWS.EC2.DescribeSpotDatafeedSubscription
+import Network.AWS.EC2.DescribeSpotFleetInstances
+import Network.AWS.EC2.DescribeSpotFleetRequestHistory
+import Network.AWS.EC2.DescribeSpotFleetRequests
+import Network.AWS.EC2.DescribeSpotInstanceRequests
+import Network.AWS.EC2.DescribeSpotPriceHistory
+import Network.AWS.EC2.DescribeStaleSecurityGroups
+import Network.AWS.EC2.DescribeSubnets
+import Network.AWS.EC2.DescribeTags
+import Network.AWS.EC2.DescribeVolumeAttribute
+import Network.AWS.EC2.DescribeVolumes
+import Network.AWS.EC2.DescribeVolumesModifications
+import Network.AWS.EC2.DescribeVolumeStatus
+import Network.AWS.EC2.DescribeVPCAttribute
+import Network.AWS.EC2.DescribeVPCClassicLink
+import Network.AWS.EC2.DescribeVPCClassicLinkDNSSupport
+import Network.AWS.EC2.DescribeVPCEndpoints
+import Network.AWS.EC2.DescribeVPCEndpointServices
+import Network.AWS.EC2.DescribeVPCPeeringConnections
+import Network.AWS.EC2.DescribeVPCs
+import Network.AWS.EC2.DescribeVPNConnections
+import Network.AWS.EC2.DescribeVPNGateways
+import Network.AWS.EC2.DetachClassicLinkVPC
+import Network.AWS.EC2.DetachInternetGateway
+import Network.AWS.EC2.DetachNetworkInterface
+import Network.AWS.EC2.DetachVolume
+import Network.AWS.EC2.DetachVPNGateway
+import Network.AWS.EC2.DisableVGWRoutePropagation
+import Network.AWS.EC2.DisableVPCClassicLink
+import Network.AWS.EC2.DisableVPCClassicLinkDNSSupport
+import Network.AWS.EC2.DisassociateAddress
+import Network.AWS.EC2.DisassociateIAMInstanceProfile
+import Network.AWS.EC2.DisassociateRouteTable
+import Network.AWS.EC2.DisassociateSubnetCidrBlock
+import Network.AWS.EC2.DisassociateVPCCidrBlock
+import Network.AWS.EC2.EnableVGWRoutePropagation
+import Network.AWS.EC2.EnableVolumeIO
+import Network.AWS.EC2.EnableVPCClassicLink
+import Network.AWS.EC2.EnableVPCClassicLinkDNSSupport
+import Network.AWS.EC2.GetConsoleOutput
+import Network.AWS.EC2.GetConsoleScreenshot
+import Network.AWS.EC2.GetHostReservationPurchasePreview
+import Network.AWS.EC2.GetPasswordData
+import Network.AWS.EC2.GetReservedInstancesExchangeQuote
+import Network.AWS.EC2.ImportImage
+import Network.AWS.EC2.ImportInstance
+import Network.AWS.EC2.ImportKeyPair
+import Network.AWS.EC2.ImportSnapshot
+import Network.AWS.EC2.ImportVolume
+import Network.AWS.EC2.Internal
+import Network.AWS.EC2.ModifyFpgaImageAttribute
+import Network.AWS.EC2.ModifyHosts
+import Network.AWS.EC2.ModifyIdentityIdFormat
+import Network.AWS.EC2.ModifyIdFormat
+import Network.AWS.EC2.ModifyImageAttribute
+import Network.AWS.EC2.ModifyInstanceAttribute
+import Network.AWS.EC2.ModifyInstancePlacement
+import Network.AWS.EC2.ModifyNetworkInterfaceAttribute
+import Network.AWS.EC2.ModifyReservedInstances
+import Network.AWS.EC2.ModifySnapshotAttribute
+import Network.AWS.EC2.ModifySpotFleetRequest
+import Network.AWS.EC2.ModifySubnetAttribute
+import Network.AWS.EC2.ModifyVolume
+import Network.AWS.EC2.ModifyVolumeAttribute
+import Network.AWS.EC2.ModifyVPCAttribute
+import Network.AWS.EC2.ModifyVPCEndpoint
+import Network.AWS.EC2.ModifyVPCPeeringConnectionOptions
+import Network.AWS.EC2.ModifyVPCTenancy
+import Network.AWS.EC2.MonitorInstances
+import Network.AWS.EC2.MoveAddressToVPC
+import Network.AWS.EC2.PurchaseHostReservation
+import Network.AWS.EC2.PurchaseReservedInstancesOffering
+import Network.AWS.EC2.PurchaseScheduledInstances
+import Network.AWS.EC2.RebootInstances
+import Network.AWS.EC2.RegisterImage
+import Network.AWS.EC2.RejectVPCPeeringConnection
+import Network.AWS.EC2.ReleaseAddress
+import Network.AWS.EC2.ReleaseHosts
+import Network.AWS.EC2.ReplaceIAMInstanceProfileAssociation
+import Network.AWS.EC2.ReplaceNetworkACLAssociation
+import Network.AWS.EC2.ReplaceNetworkACLEntry
+import Network.AWS.EC2.ReplaceRoute
+import Network.AWS.EC2.ReplaceRouteTableAssociation
+import Network.AWS.EC2.ReportInstanceStatus
+import Network.AWS.EC2.RequestSpotFleet
+import Network.AWS.EC2.RequestSpotInstances
+import Network.AWS.EC2.ResetFpgaImageAttribute
+import Network.AWS.EC2.ResetImageAttribute
+import Network.AWS.EC2.ResetInstanceAttribute
+import Network.AWS.EC2.ResetNetworkInterfaceAttribute
+import Network.AWS.EC2.ResetSnapshotAttribute
+import Network.AWS.EC2.RestoreAddressToClassic
+import Network.AWS.EC2.RevokeSecurityGroupEgress
+import Network.AWS.EC2.RevokeSecurityGroupIngress
+import Network.AWS.EC2.RunInstances
+import Network.AWS.EC2.RunScheduledInstances
+import Network.AWS.EC2.StartInstances
+import Network.AWS.EC2.StopInstances
+import Network.AWS.EC2.TerminateInstances
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.UnassignIPv6Addresses
+import Network.AWS.EC2.UnassignPrivateIPAddresses
+import Network.AWS.EC2.UnmonitorInstances
+import Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsEgress
+import Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsIngress
+import Network.AWS.EC2.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

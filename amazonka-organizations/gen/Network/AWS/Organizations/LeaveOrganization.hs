@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.LeaveOrganization
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -25,7 +25,7 @@
 --
 -- /Important:/     * The master account in an organization with all features enabled can set service control policies (SCPs) that can restrict what administrators of member accounts can do, including preventing them from successfully calling @LeaveOrganization@ and leaving the organization.
 --
---     * If you created the account using the AWS Organizations console, the Organizations API, or the Organizations CLI commands, then you cannot remove the account.
+--     * You can leave an organization as a member account only if the account is configured with the information required to operate as a standalone account. When you create an account in an organization using the AWS Organizations console, API, or CLI commands, the information required of standalone accounts is /not/ automatically collected. For each account that you want to make standalone, you must accept the End User License Agreement (EULA), choose a support plan, provide and verify the required contact information, and provide a current payment method. AWS uses the payment method to charge for any billable (not free tier) AWS activity that occurs while the account is not attached to an organization. Follow the steps at <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided> in the /AWS Organizations User Guide/ .
 --
 --     * You can leave an organization only after you enable IAM user access to billing in your account. For more information, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate Activating Access to the Billing and Cost Management Console> in the /AWS Billing and Cost Management User Guide/ .
 --
@@ -42,17 +42,18 @@ module Network.AWS.Organizations.LeaveOrganization
     , LeaveOrganizationResponse
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Organizations.Types
-import           Network.AWS.Organizations.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Organizations.Types
+import Network.AWS.Organizations.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'leaveOrganization' smart constructor.
 data LeaveOrganization =
-    LeaveOrganization'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  LeaveOrganization'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LeaveOrganization' with the minimum fields required to make a request.
 --
@@ -60,14 +61,15 @@ leaveOrganization
     :: LeaveOrganization
 leaveOrganization = LeaveOrganization'
 
+
 instance AWSRequest LeaveOrganization where
         type Rs LeaveOrganization = LeaveOrganizationResponse
         request = postJSON organizations
         response = receiveNull LeaveOrganizationResponse'
 
-instance Hashable LeaveOrganization
+instance Hashable LeaveOrganization where
 
-instance NFData LeaveOrganization
+instance NFData LeaveOrganization where
 
 instance ToHeaders LeaveOrganization where
         toHeaders
@@ -90,8 +92,9 @@ instance ToQuery LeaveOrganization where
 
 -- | /See:/ 'leaveOrganizationResponse' smart constructor.
 data LeaveOrganizationResponse =
-    LeaveOrganizationResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  LeaveOrganizationResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LeaveOrganizationResponse' with the minimum fields required to make a request.
 --
@@ -99,4 +102,5 @@ leaveOrganizationResponse
     :: LeaveOrganizationResponse
 leaveOrganizationResponse = LeaveOrganizationResponse'
 
-instance NFData LeaveOrganizationResponse
+
+instance NFData LeaveOrganizationResponse where

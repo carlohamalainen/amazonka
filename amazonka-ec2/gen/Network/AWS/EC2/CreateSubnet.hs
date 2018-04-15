@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.EC2.CreateSubnet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a subnet in an existing VPC.
 --
 --
--- When you create each subnet, you provide the VPC ID and the CIDR block you want for the subnet. After you create a subnet, you can't change its CIDR block. The subnet's IPv4 CIDR block can be the same as the VPC's IPv4 CIDR block (assuming you want only a single subnet in the VPC), or a subset of the VPC's IPv4 CIDR block. If you create more than one subnet in a VPC, the subnets' CIDR blocks must not overlap. The smallest IPv4 subnet (and VPC) you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses).
+-- When you create each subnet, you provide the VPC ID and the IPv4 CIDR block you want for the subnet. After you create a subnet, you can't change its CIDR block. The size of the subnet's IPv4 CIDR block can be the same as a VPC's IPv4 CIDR block, or a subset of a VPC's IPv4 CIDR block. If you create more than one subnet in a VPC, the subnets' CIDR blocks must not overlap. The smallest IPv4 subnet (and VPC) you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses).
 --
 -- If you've associated an IPv6 CIDR block with your VPC, you can create a subnet with an IPv6 CIDR block that uses a /64 prefix length.
 --
@@ -49,16 +49,16 @@ module Network.AWS.EC2.CreateSubnet
     , createSubnetResponse
     , CreateSubnetResponse
     -- * Response Lenses
-    , crsSubnet
-    , crsResponseStatus
+    , crersSubnet
+    , crersResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for CreateSubnet.
 --
@@ -66,12 +66,13 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createSubnet' smart constructor.
 data CreateSubnet = CreateSubnet'
-    { _cssIPv6CidrBlock    :: !(Maybe Text)
-    , _cssAvailabilityZone :: !(Maybe Text)
-    , _cssDryRun           :: !(Maybe Bool)
-    , _cssCidrBlock        :: !Text
-    , _cssVPCId            :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cssIPv6CidrBlock    :: !(Maybe Text)
+  , _cssAvailabilityZone :: !(Maybe Text)
+  , _cssDryRun           :: !(Maybe Bool)
+  , _cssCidrBlock        :: !Text
+  , _cssVPCId            :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateSubnet' with the minimum fields required to make a request.
 --
@@ -91,13 +92,14 @@ createSubnet
     -> Text -- ^ 'cssVPCId'
     -> CreateSubnet
 createSubnet pCidrBlock_ pVPCId_ =
-    CreateSubnet'
-    { _cssIPv6CidrBlock = Nothing
-    , _cssAvailabilityZone = Nothing
-    , _cssDryRun = Nothing
-    , _cssCidrBlock = pCidrBlock_
-    , _cssVPCId = pVPCId_
-    }
+  CreateSubnet'
+  { _cssIPv6CidrBlock = Nothing
+  , _cssAvailabilityZone = Nothing
+  , _cssDryRun = Nothing
+  , _cssCidrBlock = pCidrBlock_
+  , _cssVPCId = pVPCId_
+  }
+
 
 -- | The IPv6 network range for the subnet, in CIDR notation. The subnet size must use a /64 prefix length.
 cssIPv6CidrBlock :: Lens' CreateSubnet (Maybe Text)
@@ -128,9 +130,9 @@ instance AWSRequest CreateSubnet where
                  CreateSubnetResponse' <$>
                    (x .@? "subnet") <*> (pure (fromEnum s)))
 
-instance Hashable CreateSubnet
+instance Hashable CreateSubnet where
 
-instance NFData CreateSubnet
+instance NFData CreateSubnet where
 
 instance ToHeaders CreateSubnet where
         toHeaders = const mempty
@@ -154,32 +156,32 @@ instance ToQuery CreateSubnet where
 --
 -- /See:/ 'createSubnetResponse' smart constructor.
 data CreateSubnetResponse = CreateSubnetResponse'
-    { _crsSubnet         :: !(Maybe Subnet)
-    , _crsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _crersSubnet         :: !(Maybe Subnet)
+  , _crersResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateSubnetResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'crsSubnet' - Information about the subnet.
+-- * 'crersSubnet' - Information about the subnet.
 --
--- * 'crsResponseStatus' - -- | The response status code.
+-- * 'crersResponseStatus' - -- | The response status code.
 createSubnetResponse
-    :: Int -- ^ 'crsResponseStatus'
+    :: Int -- ^ 'crersResponseStatus'
     -> CreateSubnetResponse
 createSubnetResponse pResponseStatus_ =
-    CreateSubnetResponse'
-    { _crsSubnet = Nothing
-    , _crsResponseStatus = pResponseStatus_
-    }
+  CreateSubnetResponse'
+  {_crersSubnet = Nothing, _crersResponseStatus = pResponseStatus_}
+
 
 -- | Information about the subnet.
-crsSubnet :: Lens' CreateSubnetResponse (Maybe Subnet)
-crsSubnet = lens _crsSubnet (\ s a -> s{_crsSubnet = a});
+crersSubnet :: Lens' CreateSubnetResponse (Maybe Subnet)
+crersSubnet = lens _crersSubnet (\ s a -> s{_crersSubnet = a});
 
 -- | -- | The response status code.
-crsResponseStatus :: Lens' CreateSubnetResponse Int
-crsResponseStatus = lens _crsResponseStatus (\ s a -> s{_crsResponseStatus = a});
+crersResponseStatus :: Lens' CreateSubnetResponse Int
+crersResponseStatus = lens _crersResponseStatus (\ s a -> s{_crersResponseStatus = a});
 
-instance NFData CreateSubnetResponse
+instance NFData CreateSubnetResponse where

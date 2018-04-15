@@ -12,14 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.ListChildren
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists all of the OUs or accounts that are contained in the specified parent OU or root. This operation, along with 'ListParents' enables you to traverse the tree structure that makes up this root.
 --
+--
+-- This operation can be called only from the organization's master account.
 --
 --
 -- This operation returns paginated results.
@@ -43,21 +45,22 @@ module Network.AWS.Organizations.ListChildren
     , lcrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Organizations.Types
-import           Network.AWS.Organizations.Types.Product
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Organizations.Types
+import Network.AWS.Organizations.Types.Product
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'listChildren' smart constructor.
 data ListChildren = ListChildren'
-    { _lcNextToken  :: !(Maybe Text)
-    , _lcMaxResults :: !(Maybe Nat)
-    , _lcParentId   :: !Text
-    , _lcChildType  :: !ChildType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lcNextToken  :: !(Maybe Text)
+  , _lcMaxResults :: !(Maybe Nat)
+  , _lcParentId   :: !Text
+  , _lcChildType  :: !ChildType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListChildren' with the minimum fields required to make a request.
 --
@@ -75,12 +78,13 @@ listChildren
     -> ChildType -- ^ 'lcChildType'
     -> ListChildren
 listChildren pParentId_ pChildType_ =
-    ListChildren'
-    { _lcNextToken = Nothing
-    , _lcMaxResults = Nothing
-    , _lcParentId = pParentId_
-    , _lcChildType = pChildType_
-    }
+  ListChildren'
+  { _lcNextToken = Nothing
+  , _lcMaxResults = Nothing
+  , _lcParentId = pParentId_
+  , _lcChildType = pChildType_
+  }
+
 
 -- | Use this parameter if you receive a @NextToken@ response in a previous request that indicates that there is more output available. Set it to the value of the previous call's @NextToken@ response to indicate where the output should continue from.
 lcNextToken :: Lens' ListChildren (Maybe Text)
@@ -115,9 +119,9 @@ instance AWSRequest ListChildren where
                    (x .?> "Children" .!@ mempty) <*> (x .?> "NextToken")
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListChildren
+instance Hashable ListChildren where
 
-instance NFData ListChildren
+instance NFData ListChildren where
 
 instance ToHeaders ListChildren where
         toHeaders
@@ -146,10 +150,11 @@ instance ToQuery ListChildren where
 
 -- | /See:/ 'listChildrenResponse' smart constructor.
 data ListChildrenResponse = ListChildrenResponse'
-    { _lcrsChildren       :: !(Maybe [Child])
-    , _lcrsNextToken      :: !(Maybe Text)
-    , _lcrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lcrsChildren       :: !(Maybe [Child])
+  , _lcrsNextToken      :: !(Maybe Text)
+  , _lcrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListChildrenResponse' with the minimum fields required to make a request.
 --
@@ -164,11 +169,12 @@ listChildrenResponse
     :: Int -- ^ 'lcrsResponseStatus'
     -> ListChildrenResponse
 listChildrenResponse pResponseStatus_ =
-    ListChildrenResponse'
-    { _lcrsChildren = Nothing
-    , _lcrsNextToken = Nothing
-    , _lcrsResponseStatus = pResponseStatus_
-    }
+  ListChildrenResponse'
+  { _lcrsChildren = Nothing
+  , _lcrsNextToken = Nothing
+  , _lcrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The list of children of the specified parent container.
 lcrsChildren :: Lens' ListChildrenResponse [Child]
@@ -182,4 +188,4 @@ lcrsNextToken = lens _lcrsNextToken (\ s a -> s{_lcrsNextToken = a});
 lcrsResponseStatus :: Lens' ListChildrenResponse Int
 lcrsResponseStatus = lens _lcrsResponseStatus (\ s a -> s{_lcrsResponseStatus = a});
 
-instance NFData ListChildrenResponse
+instance NFData ListChildrenResponse where

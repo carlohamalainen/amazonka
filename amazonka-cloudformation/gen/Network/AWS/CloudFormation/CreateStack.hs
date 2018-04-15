@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.CreateStack
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -29,6 +29,7 @@ module Network.AWS.CloudFormation.CreateStack
     -- * Request Lenses
     , csDisableRollback
     , csNotificationARNs
+    , csEnableTerminationProtection
     , csStackPolicyBody
     , csParameters
     , csStackPolicyURL
@@ -36,6 +37,7 @@ module Network.AWS.CloudFormation.CreateStack
     , csTemplateURL
     , csClientRequestToken
     , csCapabilities
+    , csRollbackConfiguration
     , csOnFailure
     , csResourceTypes
     , csTags
@@ -51,12 +53,12 @@ module Network.AWS.CloudFormation.CreateStack
     , csrsResponseStatus
     ) where
 
-import           Network.AWS.CloudFormation.Types
-import           Network.AWS.CloudFormation.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudFormation.Types
+import Network.AWS.CloudFormation.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | The input for 'CreateStack' action.
 --
@@ -64,22 +66,25 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createStack' smart constructor.
 data CreateStack = CreateStack'
-    { _csDisableRollback    :: !(Maybe Bool)
-    , _csNotificationARNs   :: !(Maybe [Text])
-    , _csStackPolicyBody    :: !(Maybe Text)
-    , _csParameters         :: !(Maybe [Parameter])
-    , _csStackPolicyURL     :: !(Maybe Text)
-    , _csTemplateBody       :: !(Maybe Text)
-    , _csTemplateURL        :: !(Maybe Text)
-    , _csClientRequestToken :: !(Maybe Text)
-    , _csCapabilities       :: !(Maybe [Capability])
-    , _csOnFailure          :: !(Maybe OnFailure)
-    , _csResourceTypes      :: !(Maybe [Text])
-    , _csTags               :: !(Maybe [Tag])
-    , _csTimeoutInMinutes   :: !(Maybe Nat)
-    , _csRoleARN            :: !(Maybe Text)
-    , _csStackName          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csDisableRollback             :: !(Maybe Bool)
+  , _csNotificationARNs            :: !(Maybe [Text])
+  , _csEnableTerminationProtection :: !(Maybe Bool)
+  , _csStackPolicyBody             :: !(Maybe Text)
+  , _csParameters                  :: !(Maybe [Parameter])
+  , _csStackPolicyURL              :: !(Maybe Text)
+  , _csTemplateBody                :: !(Maybe Text)
+  , _csTemplateURL                 :: !(Maybe Text)
+  , _csClientRequestToken          :: !(Maybe Text)
+  , _csCapabilities                :: !(Maybe [Capability])
+  , _csRollbackConfiguration       :: !(Maybe RollbackConfiguration)
+  , _csOnFailure                   :: !(Maybe OnFailure)
+  , _csResourceTypes               :: !(Maybe [Text])
+  , _csTags                        :: !(Maybe [Tag])
+  , _csTimeoutInMinutes            :: !(Maybe Nat)
+  , _csRoleARN                     :: !(Maybe Text)
+  , _csStackName                   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStack' with the minimum fields required to make a request.
 --
@@ -88,6 +93,8 @@ data CreateStack = CreateStack'
 -- * 'csDisableRollback' - Set to @true@ to disable rollback of the stack if stack creation failed. You can specify either @DisableRollback@ or @OnFailure@ , but not both. Default: @false@
 --
 -- * 'csNotificationARNs' - The Simple Notification Service (SNS) topic ARNs to publish stack related events. You can find your SNS topic ARNs using the SNS console or your Command Line Interface (CLI).
+--
+-- * 'csEnableTerminationProtection' - Whether to enable termination protection on the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ . Termination protection is disabled on stacks by default.  For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack.
 --
 -- * 'csStackPolicyBody' - Structure containing the stack policy body. For more information, go to <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources> in the /AWS CloudFormation User Guide/ . You can specify either the @StackPolicyBody@ or the @StackPolicyURL@ parameter, but not both.
 --
@@ -102,6 +109,8 @@ data CreateStack = CreateStack'
 -- * 'csClientRequestToken' - A unique identifier for this @CreateStack@ request. Specify this token if you plan to retry requests so that AWS CloudFormation knows that you're not attempting to create a stack with the same name. You might retry @CreateStack@ requests to ensure that AWS CloudFormation successfully received them. All events triggered by a given stack operation are assigned the same client request token, which you can use to track operations. For example, if you execute a @CreateStack@ operation with the token @token1@ , then all the @StackEvents@ generated by that operation will have @ClientRequestToken@ set as @token1@ . In the console, stack operations display the client request token on the Events tab. Stack operations that are initiated from the console use the token format /Console-StackOperation-ID/ , which helps you easily identify the stack operation . For example, if you create a stack using the console, each stack event would be assigned the same token in the following format: @Console-CreateStack-7f59c3cf-00d2-40c7-b2ff-e75db0987002@ .
 --
 -- * 'csCapabilities' - A list of values that you must specify before AWS CloudFormation can create certain stacks. Some stack templates might include resources that can affect permissions in your AWS account, for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge their capabilities by specifying this parameter. The only valid values are @CAPABILITY_IAM@ and @CAPABILITY_NAMED_IAM@ . The following resources require you to specify this parameter: <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html AWS::IAM::AccessKey> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html AWS::IAM::Policy> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html AWS::IAM::User> , and <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html AWS::IAM::UserToGroupAddition> . If your stack template contains these resources, we recommend that you review all permissions associated with them and edit their permissions if necessary. If you have IAM resources, you can specify either capability. If you have IAM resources with custom names, you must specify @CAPABILITY_NAMED_IAM@ . If you don't specify this parameter, this action returns an @InsufficientCapabilities@ error. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in AWS CloudFormation Templates> .
+--
+-- * 'csRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
 --
 -- * 'csOnFailure' - Determines what action will be taken if stack creation fails. This must be one of: DO_NOTHING, ROLLBACK, or DELETE. You can specify either @OnFailure@ or @DisableRollback@ , but not both. Default: @ROLLBACK@
 --
@@ -118,23 +127,26 @@ createStack
     :: Text -- ^ 'csStackName'
     -> CreateStack
 createStack pStackName_ =
-    CreateStack'
-    { _csDisableRollback = Nothing
-    , _csNotificationARNs = Nothing
-    , _csStackPolicyBody = Nothing
-    , _csParameters = Nothing
-    , _csStackPolicyURL = Nothing
-    , _csTemplateBody = Nothing
-    , _csTemplateURL = Nothing
-    , _csClientRequestToken = Nothing
-    , _csCapabilities = Nothing
-    , _csOnFailure = Nothing
-    , _csResourceTypes = Nothing
-    , _csTags = Nothing
-    , _csTimeoutInMinutes = Nothing
-    , _csRoleARN = Nothing
-    , _csStackName = pStackName_
-    }
+  CreateStack'
+  { _csDisableRollback = Nothing
+  , _csNotificationARNs = Nothing
+  , _csEnableTerminationProtection = Nothing
+  , _csStackPolicyBody = Nothing
+  , _csParameters = Nothing
+  , _csStackPolicyURL = Nothing
+  , _csTemplateBody = Nothing
+  , _csTemplateURL = Nothing
+  , _csClientRequestToken = Nothing
+  , _csCapabilities = Nothing
+  , _csRollbackConfiguration = Nothing
+  , _csOnFailure = Nothing
+  , _csResourceTypes = Nothing
+  , _csTags = Nothing
+  , _csTimeoutInMinutes = Nothing
+  , _csRoleARN = Nothing
+  , _csStackName = pStackName_
+  }
+
 
 -- | Set to @true@ to disable rollback of the stack if stack creation failed. You can specify either @DisableRollback@ or @OnFailure@ , but not both. Default: @false@
 csDisableRollback :: Lens' CreateStack (Maybe Bool)
@@ -143,6 +155,10 @@ csDisableRollback = lens _csDisableRollback (\ s a -> s{_csDisableRollback = a})
 -- | The Simple Notification Service (SNS) topic ARNs to publish stack related events. You can find your SNS topic ARNs using the SNS console or your Command Line Interface (CLI).
 csNotificationARNs :: Lens' CreateStack [Text]
 csNotificationARNs = lens _csNotificationARNs (\ s a -> s{_csNotificationARNs = a}) . _Default . _Coerce;
+
+-- | Whether to enable termination protection on the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ . Termination protection is disabled on stacks by default.  For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack.
+csEnableTerminationProtection :: Lens' CreateStack (Maybe Bool)
+csEnableTerminationProtection = lens _csEnableTerminationProtection (\ s a -> s{_csEnableTerminationProtection = a});
 
 -- | Structure containing the stack policy body. For more information, go to <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html Prevent Updates to Stack Resources> in the /AWS CloudFormation User Guide/ . You can specify either the @StackPolicyBody@ or the @StackPolicyURL@ parameter, but not both.
 csStackPolicyBody :: Lens' CreateStack (Maybe Text)
@@ -171,6 +187,10 @@ csClientRequestToken = lens _csClientRequestToken (\ s a -> s{_csClientRequestTo
 -- | A list of values that you must specify before AWS CloudFormation can create certain stacks. Some stack templates might include resources that can affect permissions in your AWS account, for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge their capabilities by specifying this parameter. The only valid values are @CAPABILITY_IAM@ and @CAPABILITY_NAMED_IAM@ . The following resources require you to specify this parameter: <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html AWS::IAM::AccessKey> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html AWS::IAM::Policy> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html AWS::IAM::User> , and <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html AWS::IAM::UserToGroupAddition> . If your stack template contains these resources, we recommend that you review all permissions associated with them and edit their permissions if necessary. If you have IAM resources, you can specify either capability. If you have IAM resources with custom names, you must specify @CAPABILITY_NAMED_IAM@ . If you don't specify this parameter, this action returns an @InsufficientCapabilities@ error. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in AWS CloudFormation Templates> .
 csCapabilities :: Lens' CreateStack [Capability]
 csCapabilities = lens _csCapabilities (\ s a -> s{_csCapabilities = a}) . _Default . _Coerce;
+
+-- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+csRollbackConfiguration :: Lens' CreateStack (Maybe RollbackConfiguration)
+csRollbackConfiguration = lens _csRollbackConfiguration (\ s a -> s{_csRollbackConfiguration = a});
 
 -- | Determines what action will be taken if stack creation fails. This must be one of: DO_NOTHING, ROLLBACK, or DELETE. You can specify either @OnFailure@ or @DisableRollback@ , but not both. Default: @ROLLBACK@
 csOnFailure :: Lens' CreateStack (Maybe OnFailure)
@@ -205,9 +225,9 @@ instance AWSRequest CreateStack where
                  CreateStackResponse' <$>
                    (x .@? "StackId") <*> (pure (fromEnum s)))
 
-instance Hashable CreateStack
+instance Hashable CreateStack where
 
-instance NFData CreateStack
+instance NFData CreateStack where
 
 instance ToHeaders CreateStack where
         toHeaders = const mempty
@@ -224,6 +244,8 @@ instance ToQuery CreateStack where
                "NotificationARNs" =:
                  toQuery
                    (toQueryList "member" <$> _csNotificationARNs),
+               "EnableTerminationProtection" =:
+                 _csEnableTerminationProtection,
                "StackPolicyBody" =: _csStackPolicyBody,
                "Parameters" =:
                  toQuery (toQueryList "member" <$> _csParameters),
@@ -233,6 +255,7 @@ instance ToQuery CreateStack where
                "ClientRequestToken" =: _csClientRequestToken,
                "Capabilities" =:
                  toQuery (toQueryList "member" <$> _csCapabilities),
+               "RollbackConfiguration" =: _csRollbackConfiguration,
                "OnFailure" =: _csOnFailure,
                "ResourceTypes" =:
                  toQuery (toQueryList "member" <$> _csResourceTypes),
@@ -246,9 +269,10 @@ instance ToQuery CreateStack where
 --
 -- /See:/ 'createStackResponse' smart constructor.
 data CreateStackResponse = CreateStackResponse'
-    { _csrsStackId        :: !(Maybe Text)
-    , _csrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csrsStackId        :: !(Maybe Text)
+  , _csrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStackResponse' with the minimum fields required to make a request.
 --
@@ -261,10 +285,9 @@ createStackResponse
     :: Int -- ^ 'csrsResponseStatus'
     -> CreateStackResponse
 createStackResponse pResponseStatus_ =
-    CreateStackResponse'
-    { _csrsStackId = Nothing
-    , _csrsResponseStatus = pResponseStatus_
-    }
+  CreateStackResponse'
+  {_csrsStackId = Nothing, _csrsResponseStatus = pResponseStatus_}
+
 
 -- | Unique identifier of the stack.
 csrsStackId :: Lens' CreateStackResponse (Maybe Text)
@@ -274,4 +297,4 @@ csrsStackId = lens _csrsStackId (\ s a -> s{_csrsStackId = a});
 csrsResponseStatus :: Lens' CreateStackResponse Int
 csrsResponseStatus = lens _csrsResponseStatus (\ s a -> s{_csrsResponseStatus = a});
 
-instance NFData CreateStackResponse
+instance NFData CreateStackResponse where

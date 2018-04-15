@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.CodeCommit
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -38,6 +38,8 @@
 -- Branches, by calling the following:
 --
 --     * 'CreateBranch' , which creates a new branch in a specified repository
+--
+--     * 'DeleteBranch' , which deletes the specified branch in a repository unless it is the default branch
 --
 --     * 'GetBranch' , which returns information about a specified branch
 --
@@ -137,6 +139,9 @@ module Network.AWS.CodeCommit
     -- ** BranchDoesNotExistException
     , _BranchDoesNotExistException
 
+    -- ** DefaultBranchCannotBeDeletedException
+    , _DefaultBranchCannotBeDeletedException
+
     -- ** InvalidPathException
     , _InvalidPathException
 
@@ -233,6 +238,9 @@ module Network.AWS.CodeCommit
     -- ** GetDifferences
     , module Network.AWS.CodeCommit.GetDifferences
 
+    -- ** DeleteBranch
+    , module Network.AWS.CodeCommit.DeleteBranch
+
     -- ** UpdateRepositoryDescription
     , module Network.AWS.CodeCommit.UpdateRepositoryDescription
 
@@ -302,6 +310,7 @@ module Network.AWS.CodeCommit
     -- ** Commit
     , Commit
     , commit
+    , cCommitId
     , cCommitter
     , cTreeId
     , cAdditionalData
@@ -359,25 +368,26 @@ module Network.AWS.CodeCommit
     , uiName
     ) where
 
-import           Network.AWS.CodeCommit.BatchGetRepositories
-import           Network.AWS.CodeCommit.CreateBranch
-import           Network.AWS.CodeCommit.CreateRepository
-import           Network.AWS.CodeCommit.DeleteRepository
-import           Network.AWS.CodeCommit.GetBlob
-import           Network.AWS.CodeCommit.GetBranch
-import           Network.AWS.CodeCommit.GetCommit
-import           Network.AWS.CodeCommit.GetDifferences
-import           Network.AWS.CodeCommit.GetRepository
-import           Network.AWS.CodeCommit.GetRepositoryTriggers
-import           Network.AWS.CodeCommit.ListBranches
-import           Network.AWS.CodeCommit.ListRepositories
-import           Network.AWS.CodeCommit.PutRepositoryTriggers
-import           Network.AWS.CodeCommit.TestRepositoryTriggers
-import           Network.AWS.CodeCommit.Types
-import           Network.AWS.CodeCommit.UpdateDefaultBranch
-import           Network.AWS.CodeCommit.UpdateRepositoryDescription
-import           Network.AWS.CodeCommit.UpdateRepositoryName
-import           Network.AWS.CodeCommit.Waiters
+import Network.AWS.CodeCommit.BatchGetRepositories
+import Network.AWS.CodeCommit.CreateBranch
+import Network.AWS.CodeCommit.CreateRepository
+import Network.AWS.CodeCommit.DeleteBranch
+import Network.AWS.CodeCommit.DeleteRepository
+import Network.AWS.CodeCommit.GetBlob
+import Network.AWS.CodeCommit.GetBranch
+import Network.AWS.CodeCommit.GetCommit
+import Network.AWS.CodeCommit.GetDifferences
+import Network.AWS.CodeCommit.GetRepository
+import Network.AWS.CodeCommit.GetRepositoryTriggers
+import Network.AWS.CodeCommit.ListBranches
+import Network.AWS.CodeCommit.ListRepositories
+import Network.AWS.CodeCommit.PutRepositoryTriggers
+import Network.AWS.CodeCommit.TestRepositoryTriggers
+import Network.AWS.CodeCommit.Types
+import Network.AWS.CodeCommit.UpdateDefaultBranch
+import Network.AWS.CodeCommit.UpdateRepositoryDescription
+import Network.AWS.CodeCommit.UpdateRepositoryName
+import Network.AWS.CodeCommit.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

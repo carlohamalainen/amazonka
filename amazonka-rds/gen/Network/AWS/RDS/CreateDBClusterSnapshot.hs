@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.CreateDBClusterSnapshot
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,12 +39,12 @@ module Network.AWS.RDS.CreateDBClusterSnapshot
     , cdbcsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -52,10 +52,11 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createDBClusterSnapshot' smart constructor.
 data CreateDBClusterSnapshot = CreateDBClusterSnapshot'
-    { _cdcsTags                        :: !(Maybe [Tag])
-    , _cdcsDBClusterSnapshotIdentifier :: !Text
-    , _cdcsDBClusterIdentifier         :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdcsTags                        :: !(Maybe [Tag])
+  , _cdcsDBClusterSnapshotIdentifier :: !Text
+  , _cdcsDBClusterIdentifier         :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBClusterSnapshot' with the minimum fields required to make a request.
 --
@@ -63,29 +64,30 @@ data CreateDBClusterSnapshot = CreateDBClusterSnapshot'
 --
 -- * 'cdcsTags' - The tags to be assigned to the DB cluster snapshot.
 --
--- * 'cdcsDBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
+-- * 'cdcsDBClusterSnapshotIdentifier' - The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
 --
--- * 'cdcsDBClusterIdentifier' - The identifier of the DB cluster to create a snapshot for. This parameter is not case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
+-- * 'cdcsDBClusterIdentifier' - The identifier of the DB cluster to create a snapshot for. This parameter is not case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster. Example: @my-cluster1@
 createDBClusterSnapshot
     :: Text -- ^ 'cdcsDBClusterSnapshotIdentifier'
     -> Text -- ^ 'cdcsDBClusterIdentifier'
     -> CreateDBClusterSnapshot
 createDBClusterSnapshot pDBClusterSnapshotIdentifier_ pDBClusterIdentifier_ =
-    CreateDBClusterSnapshot'
-    { _cdcsTags = Nothing
-    , _cdcsDBClusterSnapshotIdentifier = pDBClusterSnapshotIdentifier_
-    , _cdcsDBClusterIdentifier = pDBClusterIdentifier_
-    }
+  CreateDBClusterSnapshot'
+  { _cdcsTags = Nothing
+  , _cdcsDBClusterSnapshotIdentifier = pDBClusterSnapshotIdentifier_
+  , _cdcsDBClusterIdentifier = pDBClusterIdentifier_
+  }
+
 
 -- | The tags to be assigned to the DB cluster snapshot.
 cdcsTags :: Lens' CreateDBClusterSnapshot [Tag]
 cdcsTags = lens _cdcsTags (\ s a -> s{_cdcsTags = a}) . _Default . _Coerce;
 
--- | The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
+-- | The identifier of the DB cluster snapshot. This parameter is stored as a lowercase string. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1-snapshot1@
 cdcsDBClusterSnapshotIdentifier :: Lens' CreateDBClusterSnapshot Text
 cdcsDBClusterSnapshotIdentifier = lens _cdcsDBClusterSnapshotIdentifier (\ s a -> s{_cdcsDBClusterSnapshotIdentifier = a});
 
--- | The identifier of the DB cluster to create a snapshot for. This parameter is not case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
+-- | The identifier of the DB cluster to create a snapshot for. This parameter is not case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster. Example: @my-cluster1@
 cdcsDBClusterIdentifier :: Lens' CreateDBClusterSnapshot Text
 cdcsDBClusterIdentifier = lens _cdcsDBClusterIdentifier (\ s a -> s{_cdcsDBClusterIdentifier = a});
 
@@ -99,9 +101,9 @@ instance AWSRequest CreateDBClusterSnapshot where
                  CreateDBClusterSnapshotResponse' <$>
                    (x .@? "DBClusterSnapshot") <*> (pure (fromEnum s)))
 
-instance Hashable CreateDBClusterSnapshot
+instance Hashable CreateDBClusterSnapshot where
 
-instance NFData CreateDBClusterSnapshot
+instance NFData CreateDBClusterSnapshot where
 
 instance ToHeaders CreateDBClusterSnapshot where
         toHeaders = const mempty
@@ -122,9 +124,10 @@ instance ToQuery CreateDBClusterSnapshot where
 
 -- | /See:/ 'createDBClusterSnapshotResponse' smart constructor.
 data CreateDBClusterSnapshotResponse = CreateDBClusterSnapshotResponse'
-    { _cdbcsrsDBClusterSnapshot :: !(Maybe DBClusterSnapshot)
-    , _cdbcsrsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdbcsrsDBClusterSnapshot :: !(Maybe DBClusterSnapshot)
+  , _cdbcsrsResponseStatus    :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBClusterSnapshotResponse' with the minimum fields required to make a request.
 --
@@ -137,10 +140,11 @@ createDBClusterSnapshotResponse
     :: Int -- ^ 'cdbcsrsResponseStatus'
     -> CreateDBClusterSnapshotResponse
 createDBClusterSnapshotResponse pResponseStatus_ =
-    CreateDBClusterSnapshotResponse'
-    { _cdbcsrsDBClusterSnapshot = Nothing
-    , _cdbcsrsResponseStatus = pResponseStatus_
-    }
+  CreateDBClusterSnapshotResponse'
+  { _cdbcsrsDBClusterSnapshot = Nothing
+  , _cdbcsrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 cdbcsrsDBClusterSnapshot :: Lens' CreateDBClusterSnapshotResponse (Maybe DBClusterSnapshot)
@@ -150,4 +154,4 @@ cdbcsrsDBClusterSnapshot = lens _cdbcsrsDBClusterSnapshot (\ s a -> s{_cdbcsrsDB
 cdbcsrsResponseStatus :: Lens' CreateDBClusterSnapshotResponse Int
 cdbcsrsResponseStatus = lens _cdbcsrsResponseStatus (\ s a -> s{_cdbcsrsResponseStatus = a});
 
-instance NFData CreateDBClusterSnapshotResponse
+instance NFData CreateDBClusterSnapshotResponse where

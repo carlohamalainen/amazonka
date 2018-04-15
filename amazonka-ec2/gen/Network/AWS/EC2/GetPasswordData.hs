@@ -12,20 +12,22 @@
 
 -- |
 -- Module      : Network.AWS.EC2.GetPasswordData
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the encrypted administrator password for an instance running Windows.
+-- Retrieves the encrypted administrator password for a running Windows instance.
 --
 --
--- The Windows password is generated at boot if the @EC2Config@ service plugin, @Ec2SetPassword@ , is enabled. This usually only happens the first time an AMI is launched, and then @Ec2SetPassword@ is automatically disabled. The password is not generated for rebundled AMIs unless @Ec2SetPassword@ is enabled before bundling.
+-- The Windows password is generated at boot by the @EC2Config@ service or @EC2Launch@ scripts (Windows Server 2016 and later). This usually only happens the first time an instance is launched. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/UsingConfig_WinAMI.html EC2Config> and <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2launch.html EC2Launch> in the Amazon Elastic Compute Cloud User Guide.
+--
+-- For the @EC2Config@ service, the password is not generated for rebundled AMIs unless @Ec2SetPassword@ is enabled before bundling.
 --
 -- The password is encrypted using the key pair that you specified when you launched the instance. You must provide the corresponding key pair file.
 --
--- Password generation and encryption takes a few moments. We recommend that you wait up to 15 minutes after launching an instance before trying to retrieve the generated password.
+-- When you launch an instance, password generation and encryption may take a few minutes. If you try to retrieve the password before it's available, the output returns an empty string. We recommend that you wait up to 15 minutes after launching an instance before trying to retrieve the generated password.
 --
 module Network.AWS.EC2.GetPasswordData
     (
@@ -46,12 +48,12 @@ module Network.AWS.EC2.GetPasswordData
     , gpdrsTimestamp
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for GetPasswordData.
 --
@@ -59,9 +61,10 @@ import           Network.AWS.Response
 --
 -- /See:/ 'getPasswordData' smart constructor.
 data GetPasswordData = GetPasswordData'
-    { _gpdDryRun     :: !(Maybe Bool)
-    , _gpdInstanceId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gpdDryRun     :: !(Maybe Bool)
+  , _gpdInstanceId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetPasswordData' with the minimum fields required to make a request.
 --
@@ -74,10 +77,8 @@ getPasswordData
     :: Text -- ^ 'gpdInstanceId'
     -> GetPasswordData
 getPasswordData pInstanceId_ =
-    GetPasswordData'
-    { _gpdDryRun = Nothing
-    , _gpdInstanceId = pInstanceId_
-    }
+  GetPasswordData' {_gpdDryRun = Nothing, _gpdInstanceId = pInstanceId_}
+
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 gpdDryRun :: Lens' GetPasswordData (Maybe Bool)
@@ -98,9 +99,9 @@ instance AWSRequest GetPasswordData where
                      (x .@ "passwordData")
                      <*> (x .@ "timestamp"))
 
-instance Hashable GetPasswordData
+instance Hashable GetPasswordData where
 
-instance NFData GetPasswordData
+instance NFData GetPasswordData where
 
 instance ToHeaders GetPasswordData where
         toHeaders = const mempty
@@ -122,11 +123,12 @@ instance ToQuery GetPasswordData where
 --
 -- /See:/ 'getPasswordDataResponse' smart constructor.
 data GetPasswordDataResponse = GetPasswordDataResponse'
-    { _gpdrsResponseStatus :: !Int
-    , _gpdrsInstanceId     :: !Text
-    , _gpdrsPasswordData   :: !Text
-    , _gpdrsTimestamp      :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gpdrsResponseStatus :: !Int
+  , _gpdrsInstanceId     :: !Text
+  , _gpdrsPasswordData   :: !Text
+  , _gpdrsTimestamp      :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetPasswordDataResponse' with the minimum fields required to make a request.
 --
@@ -136,7 +138,7 @@ data GetPasswordDataResponse = GetPasswordDataResponse'
 --
 -- * 'gpdrsInstanceId' - The ID of the Windows instance.
 --
--- * 'gpdrsPasswordData' - The password of the instance.
+-- * 'gpdrsPasswordData' - The password of the instance. Returns an empty string if the password is not available.
 --
 -- * 'gpdrsTimestamp' - The time the data was last updated.
 getPasswordDataResponse
@@ -146,12 +148,13 @@ getPasswordDataResponse
     -> UTCTime -- ^ 'gpdrsTimestamp'
     -> GetPasswordDataResponse
 getPasswordDataResponse pResponseStatus_ pInstanceId_ pPasswordData_ pTimestamp_ =
-    GetPasswordDataResponse'
-    { _gpdrsResponseStatus = pResponseStatus_
-    , _gpdrsInstanceId = pInstanceId_
-    , _gpdrsPasswordData = pPasswordData_
-    , _gpdrsTimestamp = _Time # pTimestamp_
-    }
+  GetPasswordDataResponse'
+  { _gpdrsResponseStatus = pResponseStatus_
+  , _gpdrsInstanceId = pInstanceId_
+  , _gpdrsPasswordData = pPasswordData_
+  , _gpdrsTimestamp = _Time # pTimestamp_
+  }
+
 
 -- | -- | The response status code.
 gpdrsResponseStatus :: Lens' GetPasswordDataResponse Int
@@ -161,7 +164,7 @@ gpdrsResponseStatus = lens _gpdrsResponseStatus (\ s a -> s{_gpdrsResponseStatus
 gpdrsInstanceId :: Lens' GetPasswordDataResponse Text
 gpdrsInstanceId = lens _gpdrsInstanceId (\ s a -> s{_gpdrsInstanceId = a});
 
--- | The password of the instance.
+-- | The password of the instance. Returns an empty string if the password is not available.
 gpdrsPasswordData :: Lens' GetPasswordDataResponse Text
 gpdrsPasswordData = lens _gpdrsPasswordData (\ s a -> s{_gpdrsPasswordData = a});
 
@@ -169,4 +172,4 @@ gpdrsPasswordData = lens _gpdrsPasswordData (\ s a -> s{_gpdrsPasswordData = a})
 gpdrsTimestamp :: Lens' GetPasswordDataResponse UTCTime
 gpdrsTimestamp = lens _gpdrsTimestamp (\ s a -> s{_gpdrsTimestamp = a}) . _Time;
 
-instance NFData GetPasswordDataResponse
+instance NFData GetPasswordDataResponse where

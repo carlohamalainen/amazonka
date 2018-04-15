@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.StepFunctions.DeleteStateMachine
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a state machine. This is an asynchronous operation-- it sets the state machine's status to "DELETING" and begins the delete process.
+-- Deletes a state machine. This is an asynchronous operation-- it sets the state machine's status to "DELETING" and begins the delete process. Each state machine execution will be deleted the next time it makes a state transition. After all executions have completed or been deleted, the state machine itself will be deleted.
 --
 --
 module Network.AWS.StepFunctions.DeleteStateMachine
@@ -36,17 +36,18 @@ module Network.AWS.StepFunctions.DeleteStateMachine
     , drsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.StepFunctions.Types
-import           Network.AWS.StepFunctions.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.Product
 
 -- | /See:/ 'deleteStateMachine' smart constructor.
 newtype DeleteStateMachine = DeleteStateMachine'
-    { _dStateMachineARN :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dStateMachineARN :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStateMachine' with the minimum fields required to make a request.
 --
@@ -57,9 +58,8 @@ deleteStateMachine
     :: Text -- ^ 'dStateMachineARN'
     -> DeleteStateMachine
 deleteStateMachine pStateMachineARN_ =
-    DeleteStateMachine'
-    { _dStateMachineARN = pStateMachineARN_
-    }
+  DeleteStateMachine' {_dStateMachineARN = pStateMachineARN_}
+
 
 -- | The Amazon Resource Name (ARN) of the state machine to delete.
 dStateMachineARN :: Lens' DeleteStateMachine Text
@@ -74,9 +74,9 @@ instance AWSRequest DeleteStateMachine where
               (\ s h x ->
                  DeleteStateMachineResponse' <$> (pure (fromEnum s)))
 
-instance Hashable DeleteStateMachine
+instance Hashable DeleteStateMachine where
 
-instance NFData DeleteStateMachine
+instance NFData DeleteStateMachine where
 
 instance ToHeaders DeleteStateMachine where
         toHeaders
@@ -102,8 +102,9 @@ instance ToQuery DeleteStateMachine where
 
 -- | /See:/ 'deleteStateMachineResponse' smart constructor.
 newtype DeleteStateMachineResponse = DeleteStateMachineResponse'
-    { _drsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _drsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStateMachineResponse' with the minimum fields required to make a request.
 --
@@ -114,12 +115,11 @@ deleteStateMachineResponse
     :: Int -- ^ 'drsResponseStatus'
     -> DeleteStateMachineResponse
 deleteStateMachineResponse pResponseStatus_ =
-    DeleteStateMachineResponse'
-    { _drsResponseStatus = pResponseStatus_
-    }
+  DeleteStateMachineResponse' {_drsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 drsResponseStatus :: Lens' DeleteStateMachineResponse Int
 drsResponseStatus = lens _drsResponseStatus (\ s a -> s{_drsResponseStatus = a});
 
-instance NFData DeleteStateMachineResponse
+instance NFData DeleteStateMachineResponse where

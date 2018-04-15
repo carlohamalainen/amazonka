@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DeletePortfolio
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -37,36 +37,35 @@ module Network.AWS.ServiceCatalog.DeletePortfolio
     , delrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'deletePortfolio' smart constructor.
 data DeletePortfolio = DeletePortfolio'
-    { _dppAcceptLanguage :: !(Maybe Text)
-    , _dppId             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dppAcceptLanguage :: !(Maybe Text)
+  , _dppId             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeletePortfolio' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dppAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'dppAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'dppId' - The identifier of the portfolio for the delete request.
 deletePortfolio
     :: Text -- ^ 'dppId'
     -> DeletePortfolio
 deletePortfolio pId_ =
-    DeletePortfolio'
-    { _dppAcceptLanguage = Nothing
-    , _dppId = pId_
-    }
+  DeletePortfolio' {_dppAcceptLanguage = Nothing, _dppId = pId_}
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 dppAcceptLanguage :: Lens' DeletePortfolio (Maybe Text)
 dppAcceptLanguage = lens _dppAcceptLanguage (\ s a -> s{_dppAcceptLanguage = a});
 
@@ -82,9 +81,9 @@ instance AWSRequest DeletePortfolio where
               (\ s h x ->
                  DeletePortfolioResponse' <$> (pure (fromEnum s)))
 
-instance Hashable DeletePortfolio
+instance Hashable DeletePortfolio where
 
-instance NFData DeletePortfolio
+instance NFData DeletePortfolio where
 
 instance ToHeaders DeletePortfolio where
         toHeaders
@@ -111,8 +110,9 @@ instance ToQuery DeletePortfolio where
 
 -- | /See:/ 'deletePortfolioResponse' smart constructor.
 newtype DeletePortfolioResponse = DeletePortfolioResponse'
-    { _delrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _delrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeletePortfolioResponse' with the minimum fields required to make a request.
 --
@@ -123,12 +123,11 @@ deletePortfolioResponse
     :: Int -- ^ 'delrsResponseStatus'
     -> DeletePortfolioResponse
 deletePortfolioResponse pResponseStatus_ =
-    DeletePortfolioResponse'
-    { _delrsResponseStatus = pResponseStatus_
-    }
+  DeletePortfolioResponse' {_delrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 delrsResponseStatus :: Lens' DeletePortfolioResponse Int
 delrsResponseStatus = lens _delrsResponseStatus (\ s a -> s{_delrsResponseStatus = a});
 
-instance NFData DeletePortfolioResponse
+instance NFData DeletePortfolioResponse where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.CreateCustomerGateway
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -23,7 +23,7 @@
 --
 -- For devices that use Border Gateway Protocol (BGP), you can also provide the device's BGP Autonomous System Number (ASN). You can use an existing ASN assigned to your network. If you don't have an ASN already, you can use a private ASN (in the 64512 - 65534 range).
 --
--- For more information about VPN customer gateways, see <http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html Adding a Hardware Virtual Private Gateway to Your VPC> in the /Amazon Virtual Private Cloud User Guide/ .
+-- For more information about VPN customer gateways, see <http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html AWS Managed VPN Connections> in the /Amazon Virtual Private Cloud User Guide/ .
 --
 -- /Important:/ You cannot create more than one customer gateway with the same VPN type, IP address, and BGP ASN parameter values. If you run an identical request more than one time, the first request creates the customer gateway, and subsequent requests return information about the existing customer gateway. The subsequent requests do not create new customer gateway resources.
 --
@@ -46,12 +46,12 @@ module Network.AWS.EC2.CreateCustomerGateway
     , ccgrsResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for CreateCustomerGateway.
 --
@@ -59,11 +59,12 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createCustomerGateway' smart constructor.
 data CreateCustomerGateway = CreateCustomerGateway'
-    { _ccgDryRun   :: !(Maybe Bool)
-    , _ccgBGPASN   :: !Int
-    , _ccgPublicIP :: !Text
-    , _ccgType     :: !GatewayType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccgDryRun   :: !(Maybe Bool)
+  , _ccgBGPASN   :: !Int
+  , _ccgPublicIP :: !Text
+  , _ccgType     :: !GatewayType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateCustomerGateway' with the minimum fields required to make a request.
 --
@@ -82,12 +83,13 @@ createCustomerGateway
     -> GatewayType -- ^ 'ccgType'
     -> CreateCustomerGateway
 createCustomerGateway pBGPASN_ pPublicIP_ pType_ =
-    CreateCustomerGateway'
-    { _ccgDryRun = Nothing
-    , _ccgBGPASN = pBGPASN_
-    , _ccgPublicIP = pPublicIP_
-    , _ccgType = pType_
-    }
+  CreateCustomerGateway'
+  { _ccgDryRun = Nothing
+  , _ccgBGPASN = pBGPASN_
+  , _ccgPublicIP = pPublicIP_
+  , _ccgType = pType_
+  }
+
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 ccgDryRun :: Lens' CreateCustomerGateway (Maybe Bool)
@@ -115,9 +117,9 @@ instance AWSRequest CreateCustomerGateway where
                  CreateCustomerGatewayResponse' <$>
                    (x .@? "customerGateway") <*> (pure (fromEnum s)))
 
-instance Hashable CreateCustomerGateway
+instance Hashable CreateCustomerGateway where
 
-instance NFData CreateCustomerGateway
+instance NFData CreateCustomerGateway where
 
 instance ToHeaders CreateCustomerGateway where
         toHeaders = const mempty
@@ -139,9 +141,10 @@ instance ToQuery CreateCustomerGateway where
 --
 -- /See:/ 'createCustomerGatewayResponse' smart constructor.
 data CreateCustomerGatewayResponse = CreateCustomerGatewayResponse'
-    { _ccgrsCustomerGateway :: !(Maybe CustomerGateway)
-    , _ccgrsResponseStatus  :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccgrsCustomerGateway :: !(Maybe CustomerGateway)
+  , _ccgrsResponseStatus  :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateCustomerGatewayResponse' with the minimum fields required to make a request.
 --
@@ -154,10 +157,9 @@ createCustomerGatewayResponse
     :: Int -- ^ 'ccgrsResponseStatus'
     -> CreateCustomerGatewayResponse
 createCustomerGatewayResponse pResponseStatus_ =
-    CreateCustomerGatewayResponse'
-    { _ccgrsCustomerGateway = Nothing
-    , _ccgrsResponseStatus = pResponseStatus_
-    }
+  CreateCustomerGatewayResponse'
+  {_ccgrsCustomerGateway = Nothing, _ccgrsResponseStatus = pResponseStatus_}
+
 
 -- | Information about the customer gateway.
 ccgrsCustomerGateway :: Lens' CreateCustomerGatewayResponse (Maybe CustomerGateway)
@@ -167,4 +169,4 @@ ccgrsCustomerGateway = lens _ccgrsCustomerGateway (\ s a -> s{_ccgrsCustomerGate
 ccgrsResponseStatus :: Lens' CreateCustomerGatewayResponse Int
 ccgrsResponseStatus = lens _ccgrsResponseStatus (\ s a -> s{_ccgrsResponseStatus = a});
 
-instance NFData CreateCustomerGatewayResponse
+instance NFData CreateCustomerGatewayResponse where

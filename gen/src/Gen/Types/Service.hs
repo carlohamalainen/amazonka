@@ -1,3 +1,4 @@
+
 {-# LANGUAGE DataKinds              #-}
 {-# LANGUAGE DefaultSignatures      #-}
 {-# LANGUAGE DeriveFoldable         #-}
@@ -18,44 +19,44 @@
 {-# LANGUAGE TypeOperators          #-}
 
 -- Module      : Gen.Types.Service
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla xtPublic License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>44
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>44
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.Types.Service where
 
-import           Control.Comonad
-import           Control.Comonad.Cofree
-import           Control.Lens           hiding ((:<), List, (.=))
+import Control.Comonad
+import Control.Comonad.Cofree
+import Control.Lens           hiding ((:<), List, (.=))
 
-import           Data.Aeson             hiding (Bool)
-import           Data.Bifunctor
-import           Data.List              (nub)
-import           Data.Maybe
-import           Data.Text              (Text)
+import Data.Aeson      hiding (Bool)
+import Data.Bifunctor
+import Data.List       (nub)
+import Data.Maybe
+import Data.Scientific (Scientific)
+import Data.Text       (Text)
 
-import           Gen.Text
-import           Gen.TH
-import           Gen.Types.Ann
-import           Gen.Types.Help
-import           Gen.Types.Id
-import           Gen.Types.Map
-import           Gen.Types.NS
-import           Gen.Types.Orphans      ()
-import           Gen.Types.Pager
-import           Gen.Types.Retry
-import           Gen.Types.URI
-import           Gen.Types.Waiter
+import Gen.Text
+import Gen.TH
+import Gen.Types.Ann
+import Gen.Types.Help
+import Gen.Types.Id
+import Gen.Types.Map
+import Gen.Types.NS
+import Gen.Types.Pager
+import Gen.Types.Retry
+import Gen.Types.URI
+import Gen.Types.Waiter
 
-import           GHC.Generics           (Generic)
+import GHC.Generics (Generic)
 
-import qualified Data.HashMap.Strict    as Map
-import qualified Data.Text              as Text
+import qualified Data.HashMap.Strict as Map
+import qualified Data.Text           as Text
 
 makePrisms ''Identity
 
@@ -211,8 +212,8 @@ instance FromJSON ErrorInfo where
 
 data Info = Info
     { _infoDocumentation :: Maybe Help
-    , _infoMin           :: Maybe Int
-    , _infoMax           :: Maybe Int
+    , _infoMin           :: Maybe Scientific
+    , _infoMax           :: Maybe Scientific
     , _infoFlattened     :: !Bool
     , _infoSensitive     :: !Bool
     , _infoStreaming     :: !Bool

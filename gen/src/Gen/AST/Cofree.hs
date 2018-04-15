@@ -5,28 +5,28 @@
 {-# LANGUAGE TupleSections     #-}
 
 -- Module      : Gen.AST.Cofree
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla xtPublic License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.AST.Cofree where
 
-import           Control.Comonad
-import           Control.Comonad.Cofree
-import           Control.Error
-import           Control.Lens           hiding ((:<))
-import           Control.Monad.Except
-import           Control.Monad.State
+import Control.Comonad
+import Control.Comonad.Cofree
+import Control.Error
+import Control.Lens           hiding ((:<))
+import Control.Monad.Except
+import Control.Monad.State
 
-import           Gen.Formatting
-import           Gen.Types
+import Gen.Formatting
+import Gen.Types
 
-import qualified Data.HashMap.Strict    as Map
+import qualified Data.HashMap.Strict as Map
 
 newtype Fix f = Fix (f (Fix f))
 

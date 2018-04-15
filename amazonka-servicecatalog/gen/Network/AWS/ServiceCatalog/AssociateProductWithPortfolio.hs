@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.AssociateProductWithPortfolio
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,20 +39,21 @@ module Network.AWS.ServiceCatalog.AssociateProductWithPortfolio
     , arsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'associateProductWithPortfolio' smart constructor.
 data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
-    { _apwpSourcePortfolioId :: !(Maybe Text)
-    , _apwpAcceptLanguage    :: !(Maybe Text)
-    , _apwpProductId         :: !Text
-    , _apwpPortfolioId       :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _apwpSourcePortfolioId :: !(Maybe Text)
+  , _apwpAcceptLanguage    :: !(Maybe Text)
+  , _apwpProductId         :: !Text
+  , _apwpPortfolioId       :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AssociateProductWithPortfolio' with the minimum fields required to make a request.
 --
@@ -60,7 +61,7 @@ data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
 --
 -- * 'apwpSourcePortfolioId' - The identifier of the source portfolio to use with this association.
 --
--- * 'apwpAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'apwpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'apwpProductId' - The product identifier.
 --
@@ -70,18 +71,19 @@ associateProductWithPortfolio
     -> Text -- ^ 'apwpPortfolioId'
     -> AssociateProductWithPortfolio
 associateProductWithPortfolio pProductId_ pPortfolioId_ =
-    AssociateProductWithPortfolio'
-    { _apwpSourcePortfolioId = Nothing
-    , _apwpAcceptLanguage = Nothing
-    , _apwpProductId = pProductId_
-    , _apwpPortfolioId = pPortfolioId_
-    }
+  AssociateProductWithPortfolio'
+  { _apwpSourcePortfolioId = Nothing
+  , _apwpAcceptLanguage = Nothing
+  , _apwpProductId = pProductId_
+  , _apwpPortfolioId = pPortfolioId_
+  }
+
 
 -- | The identifier of the source portfolio to use with this association.
 apwpSourcePortfolioId :: Lens' AssociateProductWithPortfolio (Maybe Text)
 apwpSourcePortfolioId = lens _apwpSourcePortfolioId (\ s a -> s{_apwpSourcePortfolioId = a});
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 apwpAcceptLanguage :: Lens' AssociateProductWithPortfolio (Maybe Text)
 apwpAcceptLanguage = lens _apwpAcceptLanguage (\ s a -> s{_apwpAcceptLanguage = a});
 
@@ -104,9 +106,9 @@ instance AWSRequest AssociateProductWithPortfolio
                  AssociateProductWithPortfolioResponse' <$>
                    (pure (fromEnum s)))
 
-instance Hashable AssociateProductWithPortfolio
+instance Hashable AssociateProductWithPortfolio where
 
-instance NFData AssociateProductWithPortfolio
+instance NFData AssociateProductWithPortfolio where
 
 instance ToHeaders AssociateProductWithPortfolio
          where
@@ -136,8 +138,9 @@ instance ToQuery AssociateProductWithPortfolio where
 
 -- | /See:/ 'associateProductWithPortfolioResponse' smart constructor.
 newtype AssociateProductWithPortfolioResponse = AssociateProductWithPortfolioResponse'
-    { _arsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _arsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AssociateProductWithPortfolioResponse' with the minimum fields required to make a request.
 --
@@ -148,12 +151,12 @@ associateProductWithPortfolioResponse
     :: Int -- ^ 'arsResponseStatus'
     -> AssociateProductWithPortfolioResponse
 associateProductWithPortfolioResponse pResponseStatus_ =
-    AssociateProductWithPortfolioResponse'
-    { _arsResponseStatus = pResponseStatus_
-    }
+  AssociateProductWithPortfolioResponse' {_arsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 arsResponseStatus :: Lens' AssociateProductWithPortfolioResponse Int
 arsResponseStatus = lens _arsResponseStatus (\ s a -> s{_arsResponseStatus = a});
 
 instance NFData AssociateProductWithPortfolioResponse
+         where

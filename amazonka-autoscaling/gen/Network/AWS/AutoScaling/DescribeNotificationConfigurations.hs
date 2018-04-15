@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.DescribeNotificationConfigurations
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,24 +42,21 @@ module Network.AWS.AutoScaling.DescribeNotificationConfigurations
     , dncrsNotificationConfigurations
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for DescribeNotificationConfigurations.
---
---
---
--- /See:/ 'describeNotificationConfigurations' smart constructor.
+-- | /See:/ 'describeNotificationConfigurations' smart constructor.
 data DescribeNotificationConfigurations = DescribeNotificationConfigurations'
-    { _dncAutoScalingGroupNames :: !(Maybe [Text])
-    , _dncNextToken             :: !(Maybe Text)
-    , _dncMaxRecords            :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dncAutoScalingGroupNames :: !(Maybe [Text])
+  , _dncNextToken             :: !(Maybe Text)
+  , _dncMaxRecords            :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeNotificationConfigurations' with the minimum fields required to make a request.
 --
@@ -73,11 +70,12 @@ data DescribeNotificationConfigurations = DescribeNotificationConfigurations'
 describeNotificationConfigurations
     :: DescribeNotificationConfigurations
 describeNotificationConfigurations =
-    DescribeNotificationConfigurations'
-    { _dncAutoScalingGroupNames = Nothing
-    , _dncNextToken = Nothing
-    , _dncMaxRecords = Nothing
-    }
+  DescribeNotificationConfigurations'
+  { _dncAutoScalingGroupNames = Nothing
+  , _dncNextToken = Nothing
+  , _dncMaxRecords = Nothing
+  }
+
 
 -- | The name of the group.
 dncAutoScalingGroupNames :: Lens' DescribeNotificationConfigurations [Text]
@@ -101,7 +99,8 @@ instance AWSPager DescribeNotificationConfigurations
             Just $ rq & dncNextToken .~ rs ^. dncrsNextToken
 
 instance AWSRequest
-         DescribeNotificationConfigurations where
+           DescribeNotificationConfigurations
+         where
         type Rs DescribeNotificationConfigurations =
              DescribeNotificationConfigurationsResponse
         request = postQuery autoScaling
@@ -115,8 +114,10 @@ instance AWSRequest
                         parseXMLList "member"))
 
 instance Hashable DescribeNotificationConfigurations
+         where
 
 instance NFData DescribeNotificationConfigurations
+         where
 
 instance ToHeaders DescribeNotificationConfigurations
          where
@@ -139,16 +140,13 @@ instance ToQuery DescribeNotificationConfigurations
                "NextToken" =: _dncNextToken,
                "MaxRecords" =: _dncMaxRecords]
 
--- | Contains the output from DescribeNotificationConfigurations.
---
---
---
--- /See:/ 'describeNotificationConfigurationsResponse' smart constructor.
+-- | /See:/ 'describeNotificationConfigurationsResponse' smart constructor.
 data DescribeNotificationConfigurationsResponse = DescribeNotificationConfigurationsResponse'
-    { _dncrsNextToken                  :: !(Maybe Text)
-    , _dncrsResponseStatus             :: !Int
-    , _dncrsNotificationConfigurations :: ![NotificationConfiguration]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dncrsNextToken                  :: !(Maybe Text)
+  , _dncrsResponseStatus             :: !Int
+  , _dncrsNotificationConfigurations :: ![NotificationConfiguration]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeNotificationConfigurationsResponse' with the minimum fields required to make a request.
 --
@@ -163,11 +161,12 @@ describeNotificationConfigurationsResponse
     :: Int -- ^ 'dncrsResponseStatus'
     -> DescribeNotificationConfigurationsResponse
 describeNotificationConfigurationsResponse pResponseStatus_ =
-    DescribeNotificationConfigurationsResponse'
-    { _dncrsNextToken = Nothing
-    , _dncrsResponseStatus = pResponseStatus_
-    , _dncrsNotificationConfigurations = mempty
-    }
+  DescribeNotificationConfigurationsResponse'
+  { _dncrsNextToken = Nothing
+  , _dncrsResponseStatus = pResponseStatus_
+  , _dncrsNotificationConfigurations = mempty
+  }
+
 
 -- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
 dncrsNextToken :: Lens' DescribeNotificationConfigurationsResponse (Maybe Text)
@@ -182,4 +181,5 @@ dncrsNotificationConfigurations :: Lens' DescribeNotificationConfigurationsRespo
 dncrsNotificationConfigurations = lens _dncrsNotificationConfigurations (\ s a -> s{_dncrsNotificationConfigurations = a}) . _Coerce;
 
 instance NFData
-         DescribeNotificationConfigurationsResponse
+           DescribeNotificationConfigurationsResponse
+         where

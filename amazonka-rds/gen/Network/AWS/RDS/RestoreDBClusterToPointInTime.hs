@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.RestoreDBClusterToPointInTime
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -50,12 +50,12 @@ module Network.AWS.RDS.RestoreDBClusterToPointInTime
     , rdctpitrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -63,19 +63,20 @@ import           Network.AWS.Response
 --
 -- /See:/ 'restoreDBClusterToPointInTime' smart constructor.
 data RestoreDBClusterToPointInTime = RestoreDBClusterToPointInTime'
-    { _rdctpitUseLatestRestorableTime         :: !(Maybe Bool)
-    , _rdctpitDBSubnetGroupName               :: !(Maybe Text)
-    , _rdctpitKMSKeyId                        :: !(Maybe Text)
-    , _rdctpitVPCSecurityGroupIds             :: !(Maybe [Text])
-    , _rdctpitRestoreType                     :: !(Maybe Text)
-    , _rdctpitOptionGroupName                 :: !(Maybe Text)
-    , _rdctpitRestoreToTime                   :: !(Maybe ISO8601)
-    , _rdctpitTags                            :: !(Maybe [Tag])
-    , _rdctpitPort                            :: !(Maybe Int)
-    , _rdctpitEnableIAMDatabaseAuthentication :: !(Maybe Bool)
-    , _rdctpitDBClusterIdentifier             :: !Text
-    , _rdctpitSourceDBClusterIdentifier       :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdctpitUseLatestRestorableTime         :: !(Maybe Bool)
+  , _rdctpitDBSubnetGroupName               :: !(Maybe Text)
+  , _rdctpitKMSKeyId                        :: !(Maybe Text)
+  , _rdctpitVPCSecurityGroupIds             :: !(Maybe [Text])
+  , _rdctpitRestoreType                     :: !(Maybe Text)
+  , _rdctpitOptionGroupName                 :: !(Maybe Text)
+  , _rdctpitRestoreToTime                   :: !(Maybe ISO8601)
+  , _rdctpitTags                            :: !(Maybe [Tag])
+  , _rdctpitPort                            :: !(Maybe Int)
+  , _rdctpitEnableIAMDatabaseAuthentication :: !(Maybe Bool)
+  , _rdctpitDBClusterIdentifier             :: !Text
+  , _rdctpitSourceDBClusterIdentifier       :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterToPointInTime' with the minimum fields required to make a request.
 --
@@ -83,9 +84,9 @@ data RestoreDBClusterToPointInTime = RestoreDBClusterToPointInTime'
 --
 -- * 'rdctpitUseLatestRestorableTime' - A value that is set to @true@ to restore the DB cluster to the latest restorable backup time, and @false@ otherwise.  Default: @false@  Constraints: Cannot be specified if @RestoreToTime@ parameter is provided.
 --
--- * 'rdctpitDBSubnetGroupName' - The DB subnet group name to use for the new DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- * 'rdctpitDBSubnetGroupName' - The DB subnet group name to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup. Example: @mySubnetgroup@
 --
--- * 'rdctpitKMSKeyId' - The KMS key identifier to use when restoring an encrypted DB cluster from an encrypted DB cluster. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. You can restore to a new DB cluster and encrypt the new DB cluster with a KMS key that is different than the KMS key used to encrypt the source DB cluster. The new DB cluster will be encrypted with the KMS key identified by the @KmsKeyId@ parameter. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the source DB cluster.     * If the DB cluster is not encrypted, then the restored DB cluster is not encrypted. If @DBClusterIdentifier@ refers to a DB cluster that is not encrypted, then the restore request is rejected.
+-- * 'rdctpitKMSKeyId' - The KMS key identifier to use when restoring an encrypted DB cluster from an encrypted DB cluster. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. You can restore to a new DB cluster and encrypt the new DB cluster with a KMS key that is different than the KMS key used to encrypt the source DB cluster. The new DB cluster is encrypted with the KMS key identified by the @KmsKeyId@ parameter. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the source DB cluster.     * If the DB cluster is not encrypted, then the restored DB cluster is not encrypted. If @DBClusterIdentifier@ refers to a DB cluster that is not encrypted, then the restore request is rejected.
 --
 -- * 'rdctpitVPCSecurityGroupIds' - A list of VPC security groups that the new DB cluster belongs to.
 --
@@ -101,38 +102,39 @@ data RestoreDBClusterToPointInTime = RestoreDBClusterToPointInTime'
 --
 -- * 'rdctpitEnableIAMDatabaseAuthentication' - A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise false. Default: @false@
 --
--- * 'rdctpitDBClusterIdentifier' - The name of the new DB cluster to be created. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'rdctpitDBClusterIdentifier' - The name of the new DB cluster to be created. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
 --
--- * 'rdctpitSourceDBClusterIdentifier' - The identifier of the source DB cluster from which to restore. Constraints:     * Must be the identifier of an existing database instance     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'rdctpitSourceDBClusterIdentifier' - The identifier of the source DB cluster from which to restore. Constraints:     * Must match the identifier of an existing DBCluster.
 restoreDBClusterToPointInTime
     :: Text -- ^ 'rdctpitDBClusterIdentifier'
     -> Text -- ^ 'rdctpitSourceDBClusterIdentifier'
     -> RestoreDBClusterToPointInTime
 restoreDBClusterToPointInTime pDBClusterIdentifier_ pSourceDBClusterIdentifier_ =
-    RestoreDBClusterToPointInTime'
-    { _rdctpitUseLatestRestorableTime = Nothing
-    , _rdctpitDBSubnetGroupName = Nothing
-    , _rdctpitKMSKeyId = Nothing
-    , _rdctpitVPCSecurityGroupIds = Nothing
-    , _rdctpitRestoreType = Nothing
-    , _rdctpitOptionGroupName = Nothing
-    , _rdctpitRestoreToTime = Nothing
-    , _rdctpitTags = Nothing
-    , _rdctpitPort = Nothing
-    , _rdctpitEnableIAMDatabaseAuthentication = Nothing
-    , _rdctpitDBClusterIdentifier = pDBClusterIdentifier_
-    , _rdctpitSourceDBClusterIdentifier = pSourceDBClusterIdentifier_
-    }
+  RestoreDBClusterToPointInTime'
+  { _rdctpitUseLatestRestorableTime = Nothing
+  , _rdctpitDBSubnetGroupName = Nothing
+  , _rdctpitKMSKeyId = Nothing
+  , _rdctpitVPCSecurityGroupIds = Nothing
+  , _rdctpitRestoreType = Nothing
+  , _rdctpitOptionGroupName = Nothing
+  , _rdctpitRestoreToTime = Nothing
+  , _rdctpitTags = Nothing
+  , _rdctpitPort = Nothing
+  , _rdctpitEnableIAMDatabaseAuthentication = Nothing
+  , _rdctpitDBClusterIdentifier = pDBClusterIdentifier_
+  , _rdctpitSourceDBClusterIdentifier = pSourceDBClusterIdentifier_
+  }
+
 
 -- | A value that is set to @true@ to restore the DB cluster to the latest restorable backup time, and @false@ otherwise.  Default: @false@  Constraints: Cannot be specified if @RestoreToTime@ parameter is provided.
 rdctpitUseLatestRestorableTime :: Lens' RestoreDBClusterToPointInTime (Maybe Bool)
 rdctpitUseLatestRestorableTime = lens _rdctpitUseLatestRestorableTime (\ s a -> s{_rdctpitUseLatestRestorableTime = a});
 
--- | The DB subnet group name to use for the new DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- | The DB subnet group name to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup. Example: @mySubnetgroup@
 rdctpitDBSubnetGroupName :: Lens' RestoreDBClusterToPointInTime (Maybe Text)
 rdctpitDBSubnetGroupName = lens _rdctpitDBSubnetGroupName (\ s a -> s{_rdctpitDBSubnetGroupName = a});
 
--- | The KMS key identifier to use when restoring an encrypted DB cluster from an encrypted DB cluster. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. You can restore to a new DB cluster and encrypt the new DB cluster with a KMS key that is different than the KMS key used to encrypt the source DB cluster. The new DB cluster will be encrypted with the KMS key identified by the @KmsKeyId@ parameter. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the source DB cluster.     * If the DB cluster is not encrypted, then the restored DB cluster is not encrypted. If @DBClusterIdentifier@ refers to a DB cluster that is not encrypted, then the restore request is rejected.
+-- | The KMS key identifier to use when restoring an encrypted DB cluster from an encrypted DB cluster. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. You can restore to a new DB cluster and encrypt the new DB cluster with a KMS key that is different than the KMS key used to encrypt the source DB cluster. The new DB cluster is encrypted with the KMS key identified by the @KmsKeyId@ parameter. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the source DB cluster.     * If the DB cluster is not encrypted, then the restored DB cluster is not encrypted. If @DBClusterIdentifier@ refers to a DB cluster that is not encrypted, then the restore request is rejected.
 rdctpitKMSKeyId :: Lens' RestoreDBClusterToPointInTime (Maybe Text)
 rdctpitKMSKeyId = lens _rdctpitKMSKeyId (\ s a -> s{_rdctpitKMSKeyId = a});
 
@@ -164,11 +166,11 @@ rdctpitPort = lens _rdctpitPort (\ s a -> s{_rdctpitPort = a});
 rdctpitEnableIAMDatabaseAuthentication :: Lens' RestoreDBClusterToPointInTime (Maybe Bool)
 rdctpitEnableIAMDatabaseAuthentication = lens _rdctpitEnableIAMDatabaseAuthentication (\ s a -> s{_rdctpitEnableIAMDatabaseAuthentication = a});
 
--- | The name of the new DB cluster to be created. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The name of the new DB cluster to be created. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
 rdctpitDBClusterIdentifier :: Lens' RestoreDBClusterToPointInTime Text
 rdctpitDBClusterIdentifier = lens _rdctpitDBClusterIdentifier (\ s a -> s{_rdctpitDBClusterIdentifier = a});
 
--- | The identifier of the source DB cluster from which to restore. Constraints:     * Must be the identifier of an existing database instance     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The identifier of the source DB cluster from which to restore. Constraints:     * Must match the identifier of an existing DBCluster.
 rdctpitSourceDBClusterIdentifier :: Lens' RestoreDBClusterToPointInTime Text
 rdctpitSourceDBClusterIdentifier = lens _rdctpitSourceDBClusterIdentifier (\ s a -> s{_rdctpitSourceDBClusterIdentifier = a});
 
@@ -184,9 +186,9 @@ instance AWSRequest RestoreDBClusterToPointInTime
                  RestoreDBClusterToPointInTimeResponse' <$>
                    (x .@? "DBCluster") <*> (pure (fromEnum s)))
 
-instance Hashable RestoreDBClusterToPointInTime
+instance Hashable RestoreDBClusterToPointInTime where
 
-instance NFData RestoreDBClusterToPointInTime
+instance NFData RestoreDBClusterToPointInTime where
 
 instance ToHeaders RestoreDBClusterToPointInTime
          where
@@ -223,9 +225,10 @@ instance ToQuery RestoreDBClusterToPointInTime where
 
 -- | /See:/ 'restoreDBClusterToPointInTimeResponse' smart constructor.
 data RestoreDBClusterToPointInTimeResponse = RestoreDBClusterToPointInTimeResponse'
-    { _rdctpitrsDBCluster      :: !(Maybe DBCluster)
-    , _rdctpitrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdctpitrsDBCluster      :: !(Maybe DBCluster)
+  , _rdctpitrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterToPointInTimeResponse' with the minimum fields required to make a request.
 --
@@ -238,10 +241,9 @@ restoreDBClusterToPointInTimeResponse
     :: Int -- ^ 'rdctpitrsResponseStatus'
     -> RestoreDBClusterToPointInTimeResponse
 restoreDBClusterToPointInTimeResponse pResponseStatus_ =
-    RestoreDBClusterToPointInTimeResponse'
-    { _rdctpitrsDBCluster = Nothing
-    , _rdctpitrsResponseStatus = pResponseStatus_
-    }
+  RestoreDBClusterToPointInTimeResponse'
+  {_rdctpitrsDBCluster = Nothing, _rdctpitrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 rdctpitrsDBCluster :: Lens' RestoreDBClusterToPointInTimeResponse (Maybe DBCluster)
@@ -252,3 +254,4 @@ rdctpitrsResponseStatus :: Lens' RestoreDBClusterToPointInTimeResponse Int
 rdctpitrsResponseStatus = lens _rdctpitrsResponseStatus (\ s a -> s{_rdctpitrsResponseStatus = a});
 
 instance NFData RestoreDBClusterToPointInTimeResponse
+         where

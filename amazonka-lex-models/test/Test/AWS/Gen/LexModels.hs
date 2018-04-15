@@ -5,20 +5,20 @@
 
 -- |
 -- Module      : Test.AWS.Gen.LexModels
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Test.AWS.Gen.LexModels where
 
 import Data.Proxy
+import Network.AWS.LexModels
 import Test.AWS.Fixture
+import Test.AWS.LexModels.Internal
 import Test.AWS.Prelude
 import Test.Tasty
-import Network.AWS.LexModels
-import Test.AWS.LexModels.Internal
 
 -- Auto-generated: the actual test selection needs to be manually placed into
 -- the top-level so that real test data can be incrementally added.
@@ -99,6 +99,9 @@ import Test.AWS.LexModels.Internal
 --
 --         , requestGetSlotType $
 --             getSlotType
+--
+--         , requestGetExport $
+--             getExport
 --
 --         , requestCreateIntentVersion $
 --             createIntentVersion
@@ -201,6 +204,9 @@ import Test.AWS.LexModels.Internal
 --
 --         , responseGetSlotType $
 --             getSlotTypeResponse
+--
+--         , responseGetExport $
+--             getExportResponse
 --
 --         , responseCreateIntentVersion $
 --             createIntentVersionResponse
@@ -353,6 +359,11 @@ requestGetSlotType :: GetSlotType -> TestTree
 requestGetSlotType = req
     "GetSlotType"
     "fixture/GetSlotType.yaml"
+
+requestGetExport :: GetExport -> TestTree
+requestGetExport = req
+    "GetExport"
+    "fixture/GetExport.yaml"
 
 requestCreateIntentVersion :: CreateIntentVersion -> TestTree
 requestCreateIntentVersion = req
@@ -568,6 +579,13 @@ responseGetSlotType = res
     "fixture/GetSlotTypeResponse.proto"
     lexModels
     (Proxy :: Proxy GetSlotType)
+
+responseGetExport :: GetExportResponse -> TestTree
+responseGetExport = res
+    "GetExportResponse"
+    "fixture/GetExportResponse.proto"
+    lexModels
+    (Proxy :: Proxy GetExport)
 
 responseCreateIntentVersion :: CreateIntentVersionResponse -> TestTree
 responseCreateIntentVersion = res

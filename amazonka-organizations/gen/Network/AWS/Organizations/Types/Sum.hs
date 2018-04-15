@@ -9,20 +9,21 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.Types.Sum
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.Organizations.Types.Sum where
 
-import           Network.AWS.Prelude
+import Network.AWS.Prelude
 
 data AccountJoinedMethod
-    = Created
-    | Invited
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Created
+  | Invited
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText AccountJoinedMethod where
     parser = takeLowerText >>= \case
@@ -46,9 +47,10 @@ instance FromJSON AccountJoinedMethod where
     parseJSON = parseJSONText "AccountJoinedMethod"
 
 data AccountStatus
-    = Active
-    | Suspended
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Active
+  | Suspended
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText AccountStatus where
     parser = takeLowerText >>= \case
@@ -72,21 +74,25 @@ instance FromJSON AccountStatus where
     parseJSON = parseJSONText "AccountStatus"
 
 data ActionType
-    = ApproveAllFeatures
-    | EnableAllFeatures
-    | Invite
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = AddOrganizationsServiceLinkedRole
+  | ApproveAllFeatures
+  | EnableAllFeatures
+  | Invite
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ActionType where
     parser = takeLowerText >>= \case
+        "add_organizations_service_linked_role" -> pure AddOrganizationsServiceLinkedRole
         "approve_all_features" -> pure ApproveAllFeatures
         "enable_all_features" -> pure EnableAllFeatures
         "invite" -> pure Invite
         e -> fromTextError $ "Failure parsing ActionType from value: '" <> e
-           <> "'. Accepted values: approve_all_features, enable_all_features, invite"
+           <> "'. Accepted values: add_organizations_service_linked_role, approve_all_features, enable_all_features, invite"
 
 instance ToText ActionType where
     toText = \case
+        AddOrganizationsServiceLinkedRole -> "ADD_ORGANIZATIONS_SERVICE_LINKED_ROLE"
         ApproveAllFeatures -> "APPROVE_ALL_FEATURES"
         EnableAllFeatures -> "ENABLE_ALL_FEATURES"
         Invite -> "INVITE"
@@ -104,9 +110,10 @@ instance FromJSON ActionType where
     parseJSON = parseJSONText "ActionType"
 
 data ChildType
-    = CTAccount
-    | CTOrganizationalUnit
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = CTAccount
+  | CTOrganizationalUnit
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ChildType where
     parser = takeLowerText >>= \case
@@ -133,26 +140,30 @@ instance FromJSON ChildType where
     parseJSON = parseJSONText "ChildType"
 
 data CreateAccountFailureReason
-    = AccountLimitExceeded
-    | EmailAlreadyExists
-    | InternalFailure
-    | InvalidAddress
-    | InvalidEmail
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = AccountLimitExceeded
+  | ConcurrentAccountModification
+  | EmailAlreadyExists
+  | InternalFailure
+  | InvalidAddress
+  | InvalidEmail
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText CreateAccountFailureReason where
     parser = takeLowerText >>= \case
         "account_limit_exceeded" -> pure AccountLimitExceeded
+        "concurrent_account_modification" -> pure ConcurrentAccountModification
         "email_already_exists" -> pure EmailAlreadyExists
         "internal_failure" -> pure InternalFailure
         "invalid_address" -> pure InvalidAddress
         "invalid_email" -> pure InvalidEmail
         e -> fromTextError $ "Failure parsing CreateAccountFailureReason from value: '" <> e
-           <> "'. Accepted values: account_limit_exceeded, email_already_exists, internal_failure, invalid_address, invalid_email"
+           <> "'. Accepted values: account_limit_exceeded, concurrent_account_modification, email_already_exists, internal_failure, invalid_address, invalid_email"
 
 instance ToText CreateAccountFailureReason where
     toText = \case
         AccountLimitExceeded -> "ACCOUNT_LIMIT_EXCEEDED"
+        ConcurrentAccountModification -> "CONCURRENT_ACCOUNT_MODIFICATION"
         EmailAlreadyExists -> "EMAIL_ALREADY_EXISTS"
         InternalFailure -> "INTERNAL_FAILURE"
         InvalidAddress -> "INVALID_ADDRESS"
@@ -168,10 +179,11 @@ instance FromJSON CreateAccountFailureReason where
     parseJSON = parseJSONText "CreateAccountFailureReason"
 
 data CreateAccountState
-    = Failed
-    | InProgress
-    | Succeeded
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Failed
+  | InProgress
+  | Succeeded
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText CreateAccountState where
     parser = takeLowerText >>= \case
@@ -200,10 +212,11 @@ instance FromJSON CreateAccountState where
     parseJSON = parseJSONText "CreateAccountState"
 
 data HandshakePartyType
-    = HPTAccount
-    | HPTEmail
-    | HPTOrganization
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = HPTAccount
+  | HPTEmail
+  | HPTOrganization
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText HandshakePartyType where
     parser = takeLowerText >>= \case
@@ -232,15 +245,16 @@ instance FromJSON HandshakePartyType where
     parseJSON = parseJSONText "HandshakePartyType"
 
 data HandshakeResourceType
-    = Account
-    | Email
-    | MasterEmail
-    | MasterName
-    | Notes
-    | Organization
-    | OrganizationFeatureSet
-    | ParentHandshake
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Account
+  | Email
+  | MasterEmail
+  | MasterName
+  | Notes
+  | Organization
+  | OrganizationFeatureSet
+  | ParentHandshake
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText HandshakeResourceType where
     parser = takeLowerText >>= \case
@@ -276,13 +290,14 @@ instance FromJSON HandshakeResourceType where
     parseJSON = parseJSONText "HandshakeResourceType"
 
 data HandshakeState
-    = Accepted
-    | Canceled
-    | Declined
-    | Expired
-    | Open
-    | Requested
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Accepted
+  | Canceled
+  | Declined
+  | Expired
+  | Open
+  | Requested
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText HandshakeState where
     parser = takeLowerText >>= \case
@@ -314,9 +329,10 @@ instance FromJSON HandshakeState where
     parseJSON = parseJSONText "HandshakeState"
 
 data IAMUserAccessToBilling
-    = Allow
-    | Deny
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Allow
+  | Deny
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText IAMUserAccessToBilling where
     parser = takeLowerText >>= \case
@@ -340,9 +356,10 @@ instance ToJSON IAMUserAccessToBilling where
     toJSON = toJSONText
 
 data OrganizationFeatureSet
-    = All
-    | ConsolidatedBilling
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = All
+  | ConsolidatedBilling
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText OrganizationFeatureSet where
     parser = takeLowerText >>= \case
@@ -369,9 +386,10 @@ instance FromJSON OrganizationFeatureSet where
     parseJSON = parseJSONText "OrganizationFeatureSet"
 
 data ParentType
-    = OrganizationalUnit
-    | Root
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = OrganizationalUnit
+  | Root
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ParentType where
     parser = takeLowerText >>= \case
@@ -395,8 +413,9 @@ instance FromJSON ParentType where
     parseJSON = parseJSONText "ParentType"
 
 data PolicyType =
-    ServiceControlPolicy
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  ServiceControlPolicy
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText PolicyType where
     parser = takeLowerText >>= \case
@@ -421,10 +440,11 @@ instance FromJSON PolicyType where
     parseJSON = parseJSONText "PolicyType"
 
 data PolicyTypeStatus
-    = Enabled
-    | PendingDisable
-    | PendingEnable
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Enabled
+  | PendingDisable
+  | PendingEnable
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText PolicyTypeStatus where
     parser = takeLowerText >>= \case
@@ -450,10 +470,11 @@ instance FromJSON PolicyTypeStatus where
     parseJSON = parseJSONText "PolicyTypeStatus"
 
 data TargetType
-    = TTAccount
-    | TTOrganizationalUnit
-    | TTRoot
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = TTAccount
+  | TTOrganizationalUnit
+  | TTRoot
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText TargetType where
     parser = takeLowerText >>= \case

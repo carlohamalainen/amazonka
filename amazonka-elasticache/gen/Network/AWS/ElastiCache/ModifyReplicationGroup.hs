@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ElastiCache.ModifyReplicationGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -56,12 +56,12 @@ module Network.AWS.ElastiCache.ModifyReplicationGroup
     , mrgrsResponseStatus
     ) where
 
-import           Network.AWS.ElastiCache.Types
-import           Network.AWS.ElastiCache.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ElastiCache.Types
+import Network.AWS.ElastiCache.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Represents the input of a @ModifyReplicationGroups@ operation.
 --
@@ -69,39 +69,40 @@ import           Network.AWS.Response
 --
 -- /See:/ 'modifyReplicationGroup' smart constructor.
 data ModifyReplicationGroup = ModifyReplicationGroup'
-    { _mrgAutomaticFailoverEnabled    :: !(Maybe Bool)
-    , _mrgEngineVersion               :: !(Maybe Text)
-    , _mrgCacheNodeType               :: !(Maybe Text)
-    , _mrgSnapshottingClusterId       :: !(Maybe Text)
-    , _mrgSecurityGroupIds            :: !(Maybe [Text])
-    , _mrgAutoMinorVersionUpgrade     :: !(Maybe Bool)
-    , _mrgCacheParameterGroupName     :: !(Maybe Text)
-    , _mrgReplicationGroupDescription :: !(Maybe Text)
-    , _mrgSnapshotWindow              :: !(Maybe Text)
-    , _mrgPrimaryClusterId            :: !(Maybe Text)
-    , _mrgPreferredMaintenanceWindow  :: !(Maybe Text)
-    , _mrgNodeGroupId                 :: !(Maybe Text)
-    , _mrgSnapshotRetentionLimit      :: !(Maybe Int)
-    , _mrgNotificationTopicStatus     :: !(Maybe Text)
-    , _mrgApplyImmediately            :: !(Maybe Bool)
-    , _mrgNotificationTopicARN        :: !(Maybe Text)
-    , _mrgCacheSecurityGroupNames     :: !(Maybe [Text])
-    , _mrgReplicationGroupId          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mrgAutomaticFailoverEnabled    :: !(Maybe Bool)
+  , _mrgEngineVersion               :: !(Maybe Text)
+  , _mrgCacheNodeType               :: !(Maybe Text)
+  , _mrgSnapshottingClusterId       :: !(Maybe Text)
+  , _mrgSecurityGroupIds            :: !(Maybe [Text])
+  , _mrgAutoMinorVersionUpgrade     :: !(Maybe Bool)
+  , _mrgCacheParameterGroupName     :: !(Maybe Text)
+  , _mrgReplicationGroupDescription :: !(Maybe Text)
+  , _mrgSnapshotWindow              :: !(Maybe Text)
+  , _mrgPrimaryClusterId            :: !(Maybe Text)
+  , _mrgPreferredMaintenanceWindow  :: !(Maybe Text)
+  , _mrgNodeGroupId                 :: !(Maybe Text)
+  , _mrgSnapshotRetentionLimit      :: !(Maybe Int)
+  , _mrgNotificationTopicStatus     :: !(Maybe Text)
+  , _mrgApplyImmediately            :: !(Maybe Bool)
+  , _mrgNotificationTopicARN        :: !(Maybe Text)
+  , _mrgCacheSecurityGroupNames     :: !(Maybe [Text])
+  , _mrgReplicationGroupId          :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyReplicationGroup' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'mrgAutomaticFailoverEnabled' - Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure. Valid values: @true@ | @false@
+-- * 'mrgAutomaticFailoverEnabled' - Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure. Valid values: @true@ | @false@  Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:     * Redis versions earlier than 2.8.6.     * Redis (cluster mode disabled): T1 and T2 cache node types.     * Redis (cluster mode enabled): T1 node types.
 --
--- * 'mrgEngineVersion' - The upgraded version of the cache engine to be run on the cache clusters in the replication group. __Important:__ You can upgrade to a newer engine version (see <http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement Selecting a Cache Engine and Version> ), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version.
+-- * 'mrgEngineVersion' - The upgraded version of the cache engine to be run on the clusters in the replication group. __Important:__ You can upgrade to a newer engine version (see <http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement Selecting a Cache Engine and Version> ), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version.
 --
 -- * 'mrgCacheNodeType' - A valid cache node type that you want to scale this replication group to.
 --
--- * 'mrgSnapshottingClusterId' - The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set for Redis (cluster mode enabled) replication groups.
+-- * 'mrgSnapshottingClusterId' - The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set for Redis (cluster mode enabled) replication groups.
 --
--- * 'mrgSecurityGroupIds' - Specifies the VPC Security Groups associated with the cache clusters in the replication group. This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual Private Cloud (Amazon VPC).
+-- * 'mrgSecurityGroupIds' - Specifies the VPC Security Groups associated with the clusters in the replication group. This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private Cloud (Amazon VPC).
 --
 -- * 'mrgAutoMinorVersionUpgrade' - This parameter is currently disabled.
 --
@@ -125,39 +126,40 @@ data ModifyReplicationGroup = ModifyReplicationGroup'
 --
 -- * 'mrgNotificationTopicARN' - The Amazon Resource Name (ARN) of the Amazon SNS topic to which notifications are sent.
 --
--- * 'mrgCacheSecurityGroupNames' - A list of cache security group names to authorize for the clusters in this replication group. This change is asynchronously applied as soon as possible. This parameter can be used only with replication group containing cache clusters running outside of an Amazon Virtual Private Cloud (Amazon VPC). Constraints: Must contain no more than 255 alphanumeric characters. Must not be @Default@ .
+-- * 'mrgCacheSecurityGroupNames' - A list of cache security group names to authorize for the clusters in this replication group. This change is asynchronously applied as soon as possible. This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual Private Cloud (Amazon VPC). Constraints: Must contain no more than 255 alphanumeric characters. Must not be @Default@ .
 --
 -- * 'mrgReplicationGroupId' - The identifier of the replication group to modify.
 modifyReplicationGroup
     :: Text -- ^ 'mrgReplicationGroupId'
     -> ModifyReplicationGroup
 modifyReplicationGroup pReplicationGroupId_ =
-    ModifyReplicationGroup'
-    { _mrgAutomaticFailoverEnabled = Nothing
-    , _mrgEngineVersion = Nothing
-    , _mrgCacheNodeType = Nothing
-    , _mrgSnapshottingClusterId = Nothing
-    , _mrgSecurityGroupIds = Nothing
-    , _mrgAutoMinorVersionUpgrade = Nothing
-    , _mrgCacheParameterGroupName = Nothing
-    , _mrgReplicationGroupDescription = Nothing
-    , _mrgSnapshotWindow = Nothing
-    , _mrgPrimaryClusterId = Nothing
-    , _mrgPreferredMaintenanceWindow = Nothing
-    , _mrgNodeGroupId = Nothing
-    , _mrgSnapshotRetentionLimit = Nothing
-    , _mrgNotificationTopicStatus = Nothing
-    , _mrgApplyImmediately = Nothing
-    , _mrgNotificationTopicARN = Nothing
-    , _mrgCacheSecurityGroupNames = Nothing
-    , _mrgReplicationGroupId = pReplicationGroupId_
-    }
+  ModifyReplicationGroup'
+  { _mrgAutomaticFailoverEnabled = Nothing
+  , _mrgEngineVersion = Nothing
+  , _mrgCacheNodeType = Nothing
+  , _mrgSnapshottingClusterId = Nothing
+  , _mrgSecurityGroupIds = Nothing
+  , _mrgAutoMinorVersionUpgrade = Nothing
+  , _mrgCacheParameterGroupName = Nothing
+  , _mrgReplicationGroupDescription = Nothing
+  , _mrgSnapshotWindow = Nothing
+  , _mrgPrimaryClusterId = Nothing
+  , _mrgPreferredMaintenanceWindow = Nothing
+  , _mrgNodeGroupId = Nothing
+  , _mrgSnapshotRetentionLimit = Nothing
+  , _mrgNotificationTopicStatus = Nothing
+  , _mrgApplyImmediately = Nothing
+  , _mrgNotificationTopicARN = Nothing
+  , _mrgCacheSecurityGroupNames = Nothing
+  , _mrgReplicationGroupId = pReplicationGroupId_
+  }
 
--- | Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure. Valid values: @true@ | @false@
+
+-- | Determines whether a read replica is automatically promoted to read/write primary if the existing primary encounters a failure. Valid values: @true@ | @false@  Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:     * Redis versions earlier than 2.8.6.     * Redis (cluster mode disabled): T1 and T2 cache node types.     * Redis (cluster mode enabled): T1 node types.
 mrgAutomaticFailoverEnabled :: Lens' ModifyReplicationGroup (Maybe Bool)
 mrgAutomaticFailoverEnabled = lens _mrgAutomaticFailoverEnabled (\ s a -> s{_mrgAutomaticFailoverEnabled = a});
 
--- | The upgraded version of the cache engine to be run on the cache clusters in the replication group. __Important:__ You can upgrade to a newer engine version (see <http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement Selecting a Cache Engine and Version> ), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version.
+-- | The upgraded version of the cache engine to be run on the clusters in the replication group. __Important:__ You can upgrade to a newer engine version (see <http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement Selecting a Cache Engine and Version> ), but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing replication group and create it anew with the earlier engine version.
 mrgEngineVersion :: Lens' ModifyReplicationGroup (Maybe Text)
 mrgEngineVersion = lens _mrgEngineVersion (\ s a -> s{_mrgEngineVersion = a});
 
@@ -165,11 +167,11 @@ mrgEngineVersion = lens _mrgEngineVersion (\ s a -> s{_mrgEngineVersion = a});
 mrgCacheNodeType :: Lens' ModifyReplicationGroup (Maybe Text)
 mrgCacheNodeType = lens _mrgCacheNodeType (\ s a -> s{_mrgCacheNodeType = a});
 
--- | The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set for Redis (cluster mode enabled) replication groups.
+-- | The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set for Redis (cluster mode enabled) replication groups.
 mrgSnapshottingClusterId :: Lens' ModifyReplicationGroup (Maybe Text)
 mrgSnapshottingClusterId = lens _mrgSnapshottingClusterId (\ s a -> s{_mrgSnapshottingClusterId = a});
 
--- | Specifies the VPC Security Groups associated with the cache clusters in the replication group. This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual Private Cloud (Amazon VPC).
+-- | Specifies the VPC Security Groups associated with the clusters in the replication group. This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private Cloud (Amazon VPC).
 mrgSecurityGroupIds :: Lens' ModifyReplicationGroup [Text]
 mrgSecurityGroupIds = lens _mrgSecurityGroupIds (\ s a -> s{_mrgSecurityGroupIds = a}) . _Default . _Coerce;
 
@@ -217,7 +219,7 @@ mrgApplyImmediately = lens _mrgApplyImmediately (\ s a -> s{_mrgApplyImmediately
 mrgNotificationTopicARN :: Lens' ModifyReplicationGroup (Maybe Text)
 mrgNotificationTopicARN = lens _mrgNotificationTopicARN (\ s a -> s{_mrgNotificationTopicARN = a});
 
--- | A list of cache security group names to authorize for the clusters in this replication group. This change is asynchronously applied as soon as possible. This parameter can be used only with replication group containing cache clusters running outside of an Amazon Virtual Private Cloud (Amazon VPC). Constraints: Must contain no more than 255 alphanumeric characters. Must not be @Default@ .
+-- | A list of cache security group names to authorize for the clusters in this replication group. This change is asynchronously applied as soon as possible. This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual Private Cloud (Amazon VPC). Constraints: Must contain no more than 255 alphanumeric characters. Must not be @Default@ .
 mrgCacheSecurityGroupNames :: Lens' ModifyReplicationGroup [Text]
 mrgCacheSecurityGroupNames = lens _mrgCacheSecurityGroupNames (\ s a -> s{_mrgCacheSecurityGroupNames = a}) . _Default . _Coerce;
 
@@ -235,9 +237,9 @@ instance AWSRequest ModifyReplicationGroup where
                  ModifyReplicationGroupResponse' <$>
                    (x .@? "ReplicationGroup") <*> (pure (fromEnum s)))
 
-instance Hashable ModifyReplicationGroup
+instance Hashable ModifyReplicationGroup where
 
-instance NFData ModifyReplicationGroup
+instance NFData ModifyReplicationGroup where
 
 instance ToHeaders ModifyReplicationGroup where
         toHeaders = const mempty
@@ -285,9 +287,10 @@ instance ToQuery ModifyReplicationGroup where
 
 -- | /See:/ 'modifyReplicationGroupResponse' smart constructor.
 data ModifyReplicationGroupResponse = ModifyReplicationGroupResponse'
-    { _mrgrsReplicationGroup :: !(Maybe ReplicationGroup)
-    , _mrgrsResponseStatus   :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mrgrsReplicationGroup :: !(Maybe ReplicationGroup)
+  , _mrgrsResponseStatus   :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyReplicationGroupResponse' with the minimum fields required to make a request.
 --
@@ -300,10 +303,9 @@ modifyReplicationGroupResponse
     :: Int -- ^ 'mrgrsResponseStatus'
     -> ModifyReplicationGroupResponse
 modifyReplicationGroupResponse pResponseStatus_ =
-    ModifyReplicationGroupResponse'
-    { _mrgrsReplicationGroup = Nothing
-    , _mrgrsResponseStatus = pResponseStatus_
-    }
+  ModifyReplicationGroupResponse'
+  {_mrgrsReplicationGroup = Nothing, _mrgrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 mrgrsReplicationGroup :: Lens' ModifyReplicationGroupResponse (Maybe ReplicationGroup)
@@ -313,4 +315,4 @@ mrgrsReplicationGroup = lens _mrgrsReplicationGroup (\ s a -> s{_mrgrsReplicatio
 mrgrsResponseStatus :: Lens' ModifyReplicationGroupResponse Int
 mrgrsResponseStatus = lens _mrgrsResponseStatus (\ s a -> s{_mrgrsResponseStatus = a});
 
-instance NFData ModifyReplicationGroupResponse
+instance NFData ModifyReplicationGroupResponse where

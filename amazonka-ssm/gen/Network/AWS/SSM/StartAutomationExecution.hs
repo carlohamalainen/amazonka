@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.SSM.StartAutomationExecution
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -27,6 +27,7 @@ module Network.AWS.SSM.StartAutomationExecution
       startAutomationExecution
     , StartAutomationExecution
     -- * Request Lenses
+    , saeClientToken
     , saeParameters
     , saeDocumentVersion
     , saeDocumentName
@@ -39,23 +40,27 @@ module Network.AWS.SSM.StartAutomationExecution
     , srsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'startAutomationExecution' smart constructor.
 data StartAutomationExecution = StartAutomationExecution'
-    { _saeParameters      :: !(Maybe (Map Text [Text]))
-    , _saeDocumentVersion :: !(Maybe Text)
-    , _saeDocumentName    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _saeClientToken     :: !(Maybe Text)
+  , _saeParameters      :: !(Maybe (Map Text [Text]))
+  , _saeDocumentVersion :: !(Maybe Text)
+  , _saeDocumentName    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StartAutomationExecution' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'saeClientToken' - User-provided idempotency token. The token must be unique, is case insensitive, enforces the UUID format, and can't be reused.
 --
 -- * 'saeParameters' - A key-value map of execution parameters, which match the declared parameters in the Automation document.
 --
@@ -66,11 +71,17 @@ startAutomationExecution
     :: Text -- ^ 'saeDocumentName'
     -> StartAutomationExecution
 startAutomationExecution pDocumentName_ =
-    StartAutomationExecution'
-    { _saeParameters = Nothing
-    , _saeDocumentVersion = Nothing
-    , _saeDocumentName = pDocumentName_
-    }
+  StartAutomationExecution'
+  { _saeClientToken = Nothing
+  , _saeParameters = Nothing
+  , _saeDocumentVersion = Nothing
+  , _saeDocumentName = pDocumentName_
+  }
+
+
+-- | User-provided idempotency token. The token must be unique, is case insensitive, enforces the UUID format, and can't be reused.
+saeClientToken :: Lens' StartAutomationExecution (Maybe Text)
+saeClientToken = lens _saeClientToken (\ s a -> s{_saeClientToken = a});
 
 -- | A key-value map of execution parameters, which match the declared parameters in the Automation document.
 saeParameters :: Lens' StartAutomationExecution (HashMap Text [Text])
@@ -95,9 +106,9 @@ instance AWSRequest StartAutomationExecution where
                    (x .?> "AutomationExecutionId") <*>
                      (pure (fromEnum s)))
 
-instance Hashable StartAutomationExecution
+instance Hashable StartAutomationExecution where
 
-instance NFData StartAutomationExecution
+instance NFData StartAutomationExecution where
 
 instance ToHeaders StartAutomationExecution where
         toHeaders
@@ -112,7 +123,8 @@ instance ToJSON StartAutomationExecution where
         toJSON StartAutomationExecution'{..}
           = object
               (catMaybes
-                 [("Parameters" .=) <$> _saeParameters,
+                 [("ClientToken" .=) <$> _saeClientToken,
+                  ("Parameters" .=) <$> _saeParameters,
                   ("DocumentVersion" .=) <$> _saeDocumentVersion,
                   Just ("DocumentName" .= _saeDocumentName)])
 
@@ -124,9 +136,10 @@ instance ToQuery StartAutomationExecution where
 
 -- | /See:/ 'startAutomationExecutionResponse' smart constructor.
 data StartAutomationExecutionResponse = StartAutomationExecutionResponse'
-    { _srsAutomationExecutionId :: !(Maybe Text)
-    , _srsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srsAutomationExecutionId :: !(Maybe Text)
+  , _srsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StartAutomationExecutionResponse' with the minimum fields required to make a request.
 --
@@ -139,10 +152,9 @@ startAutomationExecutionResponse
     :: Int -- ^ 'srsResponseStatus'
     -> StartAutomationExecutionResponse
 startAutomationExecutionResponse pResponseStatus_ =
-    StartAutomationExecutionResponse'
-    { _srsAutomationExecutionId = Nothing
-    , _srsResponseStatus = pResponseStatus_
-    }
+  StartAutomationExecutionResponse'
+  {_srsAutomationExecutionId = Nothing, _srsResponseStatus = pResponseStatus_}
+
 
 -- | The unique ID of a newly scheduled automation execution.
 srsAutomationExecutionId :: Lens' StartAutomationExecutionResponse (Maybe Text)
@@ -153,3 +165,4 @@ srsResponseStatus :: Lens' StartAutomationExecutionResponse Int
 srsResponseStatus = lens _srsResponseStatus (\ s a -> s{_srsResponseStatus = a});
 
 instance NFData StartAutomationExecutionResponse
+         where

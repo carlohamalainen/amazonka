@@ -18,43 +18,43 @@
 {-# LANGUAGE TypeOperators          #-}
 
 -- Module      : Gen.Types.Config
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla xtPublic License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.Types.Config where
 
-import           Control.Error
-import           Control.Lens              hiding ((.=))
+import Control.Error
+import Control.Lens  hiding ((.=))
 
-import           Data.Aeson
-import           Data.List                 (sort, sortOn, (\\))
-import           Data.Monoid               hiding (Product, Sum)
-import           Data.Ord
-import           Data.Text                 (Text)
-import           Data.Time
+import Data.Aeson
+import Data.List   (sort, sortOn, (\\))
+import Data.Monoid hiding (Product, Sum)
+import Data.Ord
+import Data.Text   (Text)
+import Data.Time
 
-import           Formatting
+import Formatting
 
-import           Gen.Text
-import           Gen.TH
-import           Gen.Types.Ann
-import           Gen.Types.Data
-import           Gen.Types.Id
-import           Gen.Types.Map
-import           Gen.Types.NS
-import           Gen.Types.Service
-import           Gen.Types.TypeOf
+import Gen.Text
+import Gen.TH
+import Gen.Types.Ann
+import Gen.Types.Data
+import Gen.Types.Id
+import Gen.Types.Map
+import Gen.Types.NS
+import Gen.Types.Service
+import Gen.Types.TypeOf
 
-import           GHC.Generics              (Generic)
-import           GHC.TypeLits
+import GHC.Generics (Generic)
+import GHC.TypeLits
 
-import           Text.EDE                  (Template)
+import Text.EDE (Template)
 
 import qualified Data.Text.Lazy            as LText
 import qualified Data.Text.Lazy.Builder    as Build

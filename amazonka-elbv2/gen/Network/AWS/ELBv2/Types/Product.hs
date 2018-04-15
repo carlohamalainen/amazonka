@@ -9,17 +9,17 @@
 
 -- |
 -- Module      : Network.AWS.ELBv2.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.ELBv2.Types.Product where
 
-import           Network.AWS.ELBv2.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.ELBv2.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
 -- | Information about an action.
 --
@@ -27,9 +27,10 @@ import           Network.AWS.Prelude
 --
 -- /See:/ 'action' smart constructor.
 data Action = Action'
-    { _aType           :: !ActionTypeEnum
-    , _aTargetGroupARN :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _aType           :: !ActionTypeEnum
+  , _aTargetGroupARN :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Action' with the minimum fields required to make a request.
 --
@@ -43,10 +44,8 @@ action
     -> Text -- ^ 'aTargetGroupARN'
     -> Action
 action pType_ pTargetGroupARN_ =
-    Action'
-    { _aType = pType_
-    , _aTargetGroupARN = pTargetGroupARN_
-    }
+  Action' {_aType = pType_, _aTargetGroupARN = pTargetGroupARN_}
+
 
 -- | The type of action.
 aType :: Lens' Action ActionTypeEnum
@@ -61,9 +60,9 @@ instance FromXML Action where
           = Action' <$>
               (x .@ "Type") <*> (x .@ "TargetGroupArn")
 
-instance Hashable Action
+instance Hashable Action where
 
-instance NFData Action
+instance NFData Action where
 
 instance ToQuery Action where
         toQuery Action'{..}
@@ -77,9 +76,11 @@ instance ToQuery Action where
 --
 -- /See:/ 'availabilityZone' smart constructor.
 data AvailabilityZone = AvailabilityZone'
-    { _azSubnetId :: !(Maybe Text)
-    , _azZoneName :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _azSubnetId              :: !(Maybe Text)
+  , _azZoneName              :: !(Maybe Text)
+  , _azLoadBalancerAddresses :: !(Maybe [LoadBalancerAddress])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AvailabilityZone' with the minimum fields required to make a request.
 --
@@ -88,13 +89,17 @@ data AvailabilityZone = AvailabilityZone'
 -- * 'azSubnetId' - The ID of the subnet.
 --
 -- * 'azZoneName' - The name of the Availability Zone.
+--
+-- * 'azLoadBalancerAddresses' - [Network Load Balancers] The static IP address.
 availabilityZone
     :: AvailabilityZone
 availabilityZone =
-    AvailabilityZone'
-    { _azSubnetId = Nothing
-    , _azZoneName = Nothing
-    }
+  AvailabilityZone'
+  { _azSubnetId = Nothing
+  , _azZoneName = Nothing
+  , _azLoadBalancerAddresses = Nothing
+  }
+
 
 -- | The ID of the subnet.
 azSubnetId :: Lens' AvailabilityZone (Maybe Text)
@@ -104,51 +109,66 @@ azSubnetId = lens _azSubnetId (\ s a -> s{_azSubnetId = a});
 azZoneName :: Lens' AvailabilityZone (Maybe Text)
 azZoneName = lens _azZoneName (\ s a -> s{_azZoneName = a});
 
+-- | [Network Load Balancers] The static IP address.
+azLoadBalancerAddresses :: Lens' AvailabilityZone [LoadBalancerAddress]
+azLoadBalancerAddresses = lens _azLoadBalancerAddresses (\ s a -> s{_azLoadBalancerAddresses = a}) . _Default . _Coerce;
+
 instance FromXML AvailabilityZone where
         parseXML x
           = AvailabilityZone' <$>
-              (x .@? "SubnetId") <*> (x .@? "ZoneName")
+              (x .@? "SubnetId") <*> (x .@? "ZoneName") <*>
+                (x .@? "LoadBalancerAddresses" .!@ mempty >>=
+                   may (parseXMLList "member"))
 
-instance Hashable AvailabilityZone
+instance Hashable AvailabilityZone where
 
-instance NFData AvailabilityZone
+instance NFData AvailabilityZone where
 
--- | Information about an SSL server certificate deployed on a load balancer.
+-- | Information about an SSL server certificate.
 --
 --
 --
 -- /See:/ 'certificate' smart constructor.
-newtype Certificate = Certificate'
-    { _cCertificateARN :: Maybe Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+data Certificate = Certificate'
+  { _cCertificateARN :: !(Maybe Text)
+  , _cIsDefault      :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Certificate' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'cCertificateARN' - The Amazon Resource Name (ARN) of the certificate.
+--
+-- * 'cIsDefault' - Indicates whether the certificate is the default certificate.
 certificate
     :: Certificate
-certificate =
-    Certificate'
-    { _cCertificateARN = Nothing
-    }
+certificate = Certificate' {_cCertificateARN = Nothing, _cIsDefault = Nothing}
+
 
 -- | The Amazon Resource Name (ARN) of the certificate.
 cCertificateARN :: Lens' Certificate (Maybe Text)
 cCertificateARN = lens _cCertificateARN (\ s a -> s{_cCertificateARN = a});
 
+-- | Indicates whether the certificate is the default certificate.
+cIsDefault :: Lens' Certificate (Maybe Bool)
+cIsDefault = lens _cIsDefault (\ s a -> s{_cIsDefault = a});
+
 instance FromXML Certificate where
         parseXML x
-          = Certificate' <$> (x .@? "CertificateArn")
+          = Certificate' <$>
+              (x .@? "CertificateArn") <*> (x .@? "IsDefault")
 
-instance Hashable Certificate
+instance Hashable Certificate where
 
-instance NFData Certificate
+instance NFData Certificate where
 
 instance ToQuery Certificate where
         toQuery Certificate'{..}
-          = mconcat ["CertificateArn" =: _cCertificateARN]
+          = mconcat
+              ["CertificateArn" =: _cCertificateARN,
+               "IsDefault" =: _cIsDefault]
 
 -- | Information about a cipher used in a policy.
 --
@@ -156,9 +176,10 @@ instance ToQuery Certificate where
 --
 -- /See:/ 'cipher' smart constructor.
 data Cipher = Cipher'
-    { _cPriority :: !(Maybe Int)
-    , _cName     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cPriority :: !(Maybe Int)
+  , _cName     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Cipher' with the minimum fields required to make a request.
 --
@@ -169,11 +190,8 @@ data Cipher = Cipher'
 -- * 'cName' - The name of the cipher.
 cipher
     :: Cipher
-cipher =
-    Cipher'
-    { _cPriority = Nothing
-    , _cName = Nothing
-    }
+cipher = Cipher' {_cPriority = Nothing, _cName = Nothing}
+
 
 -- | The priority of the cipher.
 cPriority :: Lens' Cipher (Maybe Int)
@@ -187,9 +205,9 @@ instance FromXML Cipher where
         parseXML x
           = Cipher' <$> (x .@? "Priority") <*> (x .@? "Name")
 
-instance Hashable Cipher
+instance Hashable Cipher where
 
-instance NFData Cipher
+instance NFData Cipher where
 
 -- | Information about an Elastic Load Balancing resource limit for your AWS account.
 --
@@ -197,9 +215,10 @@ instance NFData Cipher
 --
 -- /See:/ 'limit' smart constructor.
 data Limit = Limit'
-    { _lMax  :: !(Maybe Text)
-    , _lName :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lMax  :: !(Maybe Text)
+  , _lName :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Limit' with the minimum fields required to make a request.
 --
@@ -207,20 +226,17 @@ data Limit = Limit'
 --
 -- * 'lMax' - The maximum value of the limit.
 --
--- * 'lName' - The name of the limit. The possible values are:     * application-load-balancers     * listeners-per-application-load-balancer     * rules-per-application-load-balancer     * target-groups     * targets-per-application-load-balancer
+-- * 'lName' - The name of the limit. The possible values are:     * application-load-balancers     * listeners-per-application-load-balancer     * listeners-per-network-load-balancer     * network-load-balancers     * rules-per-application-load-balancer     * target-groups     * targets-per-application-load-balancer     * targets-per-availability-zone-per-network-load-balancer     * targets-per-network-load-balancer
 limit
     :: Limit
-limit =
-    Limit'
-    { _lMax = Nothing
-    , _lName = Nothing
-    }
+limit = Limit' {_lMax = Nothing, _lName = Nothing}
+
 
 -- | The maximum value of the limit.
 lMax :: Lens' Limit (Maybe Text)
 lMax = lens _lMax (\ s a -> s{_lMax = a});
 
--- | The name of the limit. The possible values are:     * application-load-balancers     * listeners-per-application-load-balancer     * rules-per-application-load-balancer     * target-groups     * targets-per-application-load-balancer
+-- | The name of the limit. The possible values are:     * application-load-balancers     * listeners-per-application-load-balancer     * listeners-per-network-load-balancer     * network-load-balancers     * rules-per-application-load-balancer     * target-groups     * targets-per-application-load-balancer     * targets-per-availability-zone-per-network-load-balancer     * targets-per-network-load-balancer
 lName :: Lens' Limit (Maybe Text)
 lName = lens _lName (\ s a -> s{_lName = a});
 
@@ -228,9 +244,9 @@ instance FromXML Limit where
         parseXML x
           = Limit' <$> (x .@? "Max") <*> (x .@? "Name")
 
-instance Hashable Limit
+instance Hashable Limit where
 
-instance NFData Limit
+instance NFData Limit where
 
 -- | Information about a listener.
 --
@@ -238,14 +254,15 @@ instance NFData Limit
 --
 -- /See:/ 'listener' smart constructor.
 data Listener = Listener'
-    { _lSSLPolicy       :: !(Maybe Text)
-    , _lListenerARN     :: !(Maybe Text)
-    , _lProtocol        :: !(Maybe ProtocolEnum)
-    , _lDefaultActions  :: !(Maybe [Action])
-    , _lCertificates    :: !(Maybe [Certificate])
-    , _lLoadBalancerARN :: !(Maybe Text)
-    , _lPort            :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lSSLPolicy       :: !(Maybe Text)
+  , _lListenerARN     :: !(Maybe Text)
+  , _lProtocol        :: !(Maybe ProtocolEnum)
+  , _lDefaultActions  :: !(Maybe [Action])
+  , _lCertificates    :: !(Maybe [Certificate])
+  , _lLoadBalancerARN :: !(Maybe Text)
+  , _lPort            :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Listener' with the minimum fields required to make a request.
 --
@@ -267,15 +284,16 @@ data Listener = Listener'
 listener
     :: Listener
 listener =
-    Listener'
-    { _lSSLPolicy = Nothing
-    , _lListenerARN = Nothing
-    , _lProtocol = Nothing
-    , _lDefaultActions = Nothing
-    , _lCertificates = Nothing
-    , _lLoadBalancerARN = Nothing
-    , _lPort = Nothing
-    }
+  Listener'
+  { _lSSLPolicy = Nothing
+  , _lListenerARN = Nothing
+  , _lProtocol = Nothing
+  , _lDefaultActions = Nothing
+  , _lCertificates = Nothing
+  , _lLoadBalancerARN = Nothing
+  , _lPort = Nothing
+  }
+
 
 -- | The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.
 lSSLPolicy :: Lens' Listener (Maybe Text)
@@ -319,9 +337,9 @@ instance FromXML Listener where
                 <*> (x .@? "LoadBalancerArn")
                 <*> (x .@? "Port")
 
-instance Hashable Listener
+instance Hashable Listener where
 
-instance NFData Listener
+instance NFData Listener where
 
 -- | Information about a load balancer.
 --
@@ -329,19 +347,20 @@ instance NFData Listener
 --
 -- /See:/ 'loadBalancer' smart constructor.
 data LoadBalancer = LoadBalancer'
-    { _lbState                 :: !(Maybe LoadBalancerState)
-    , _lbSecurityGroups        :: !(Maybe [Text])
-    , _lbLoadBalancerName      :: !(Maybe Text)
-    , _lbCreatedTime           :: !(Maybe ISO8601)
-    , _lbVPCId                 :: !(Maybe Text)
-    , _lbCanonicalHostedZoneId :: !(Maybe Text)
-    , _lbAvailabilityZones     :: !(Maybe [AvailabilityZone])
-    , _lbLoadBalancerARN       :: !(Maybe Text)
-    , _lbIPAddressType         :: !(Maybe IPAddressType)
-    , _lbScheme                :: !(Maybe LoadBalancerSchemeEnum)
-    , _lbType                  :: !(Maybe LoadBalancerTypeEnum)
-    , _lbDNSName               :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lbState                 :: !(Maybe LoadBalancerState)
+  , _lbSecurityGroups        :: !(Maybe [Text])
+  , _lbLoadBalancerName      :: !(Maybe Text)
+  , _lbCreatedTime           :: !(Maybe ISO8601)
+  , _lbVPCId                 :: !(Maybe Text)
+  , _lbCanonicalHostedZoneId :: !(Maybe Text)
+  , _lbAvailabilityZones     :: !(Maybe [AvailabilityZone])
+  , _lbLoadBalancerARN       :: !(Maybe Text)
+  , _lbIPAddressType         :: !(Maybe IPAddressType)
+  , _lbScheme                :: !(Maybe LoadBalancerSchemeEnum)
+  , _lbType                  :: !(Maybe LoadBalancerTypeEnum)
+  , _lbDNSName               :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LoadBalancer' with the minimum fields required to make a request.
 --
@@ -373,20 +392,21 @@ data LoadBalancer = LoadBalancer'
 loadBalancer
     :: LoadBalancer
 loadBalancer =
-    LoadBalancer'
-    { _lbState = Nothing
-    , _lbSecurityGroups = Nothing
-    , _lbLoadBalancerName = Nothing
-    , _lbCreatedTime = Nothing
-    , _lbVPCId = Nothing
-    , _lbCanonicalHostedZoneId = Nothing
-    , _lbAvailabilityZones = Nothing
-    , _lbLoadBalancerARN = Nothing
-    , _lbIPAddressType = Nothing
-    , _lbScheme = Nothing
-    , _lbType = Nothing
-    , _lbDNSName = Nothing
-    }
+  LoadBalancer'
+  { _lbState = Nothing
+  , _lbSecurityGroups = Nothing
+  , _lbLoadBalancerName = Nothing
+  , _lbCreatedTime = Nothing
+  , _lbVPCId = Nothing
+  , _lbCanonicalHostedZoneId = Nothing
+  , _lbAvailabilityZones = Nothing
+  , _lbLoadBalancerARN = Nothing
+  , _lbIPAddressType = Nothing
+  , _lbScheme = Nothing
+  , _lbType = Nothing
+  , _lbDNSName = Nothing
+  }
+
 
 -- | The state of the load balancer.
 lbState :: Lens' LoadBalancer (Maybe LoadBalancerState)
@@ -455,9 +475,50 @@ instance FromXML LoadBalancer where
                 <*> (x .@? "Type")
                 <*> (x .@? "DNSName")
 
-instance Hashable LoadBalancer
+instance Hashable LoadBalancer where
 
-instance NFData LoadBalancer
+instance NFData LoadBalancer where
+
+-- | Information about a static IP address for a load balancer.
+--
+--
+--
+-- /See:/ 'loadBalancerAddress' smart constructor.
+data LoadBalancerAddress = LoadBalancerAddress'
+  { _lbaIPAddress    :: !(Maybe Text)
+  , _lbaAllocationId :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'LoadBalancerAddress' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'lbaIPAddress' - The static IP address.
+--
+-- * 'lbaAllocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address.
+loadBalancerAddress
+    :: LoadBalancerAddress
+loadBalancerAddress =
+  LoadBalancerAddress' {_lbaIPAddress = Nothing, _lbaAllocationId = Nothing}
+
+
+-- | The static IP address.
+lbaIPAddress :: Lens' LoadBalancerAddress (Maybe Text)
+lbaIPAddress = lens _lbaIPAddress (\ s a -> s{_lbaIPAddress = a});
+
+-- | [Network Load Balancers] The allocation ID of the Elastic IP address.
+lbaAllocationId :: Lens' LoadBalancerAddress (Maybe Text)
+lbaAllocationId = lens _lbaAllocationId (\ s a -> s{_lbaAllocationId = a});
+
+instance FromXML LoadBalancerAddress where
+        parseXML x
+          = LoadBalancerAddress' <$>
+              (x .@? "IpAddress") <*> (x .@? "AllocationId")
+
+instance Hashable LoadBalancerAddress where
+
+instance NFData LoadBalancerAddress where
 
 -- | Information about a load balancer attribute.
 --
@@ -465,9 +526,10 @@ instance NFData LoadBalancer
 --
 -- /See:/ 'loadBalancerAttribute' smart constructor.
 data LoadBalancerAttribute = LoadBalancerAttribute'
-    { _lbaValue :: !(Maybe Text)
-    , _lbaKey   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lbaValue :: !(Maybe Text)
+  , _lbaKey   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LoadBalancerAttribute' with the minimum fields required to make a request.
 --
@@ -475,20 +537,18 @@ data LoadBalancerAttribute = LoadBalancerAttribute'
 --
 -- * 'lbaValue' - The value of the attribute.
 --
--- * 'lbaKey' - The name of the attribute.     * @access_logs.s3.enabled@ - Indicates whether access logs stored in Amazon S3 are enabled. The value is @true@ or @false@ .     * @access_logs.s3.bucket@ - The name of the S3 bucket for the access logs. This attribute is required if access logs in Amazon S3 are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permission to write to the bucket.     * @access_logs.s3.prefix@ - The prefix for the location in the S3 bucket. If you don't specify a prefix, the access logs are stored in the root of the bucket.     * @deletion_protection.enabled@ - Indicates whether deletion protection is enabled. The value is @true@ or @false@ .     * @idle_timeout.timeout_seconds@ - The idle timeout value, in seconds. The valid range is 1-3600. The default is 60 seconds.
+-- * 'lbaKey' - The name of the attribute.     * @access_logs.s3.enabled@ - [Application Load Balancers] Indicates whether access logs stored in Amazon S3 are enabled. The value is @true@ or @false@ .     * @access_logs.s3.bucket@ - [Application Load Balancers] The name of the S3 bucket for the access logs. This attribute is required if access logs in Amazon S3 are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permission to write to the bucket.     * @access_logs.s3.prefix@ - [Application Load Balancers] The prefix for the location in the S3 bucket. If you don't specify a prefix, the access logs are stored in the root of the bucket.     * @deletion_protection.enabled@ - Indicates whether deletion protection is enabled. The value is @true@ or @false@ .     * @idle_timeout.timeout_seconds@ - [Application Load Balancers] The idle timeout value, in seconds. The valid range is 1-4000. The default is 60 seconds.
 loadBalancerAttribute
     :: LoadBalancerAttribute
 loadBalancerAttribute =
-    LoadBalancerAttribute'
-    { _lbaValue = Nothing
-    , _lbaKey = Nothing
-    }
+  LoadBalancerAttribute' {_lbaValue = Nothing, _lbaKey = Nothing}
+
 
 -- | The value of the attribute.
 lbaValue :: Lens' LoadBalancerAttribute (Maybe Text)
 lbaValue = lens _lbaValue (\ s a -> s{_lbaValue = a});
 
--- | The name of the attribute.     * @access_logs.s3.enabled@ - Indicates whether access logs stored in Amazon S3 are enabled. The value is @true@ or @false@ .     * @access_logs.s3.bucket@ - The name of the S3 bucket for the access logs. This attribute is required if access logs in Amazon S3 are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permission to write to the bucket.     * @access_logs.s3.prefix@ - The prefix for the location in the S3 bucket. If you don't specify a prefix, the access logs are stored in the root of the bucket.     * @deletion_protection.enabled@ - Indicates whether deletion protection is enabled. The value is @true@ or @false@ .     * @idle_timeout.timeout_seconds@ - The idle timeout value, in seconds. The valid range is 1-3600. The default is 60 seconds.
+-- | The name of the attribute.     * @access_logs.s3.enabled@ - [Application Load Balancers] Indicates whether access logs stored in Amazon S3 are enabled. The value is @true@ or @false@ .     * @access_logs.s3.bucket@ - [Application Load Balancers] The name of the S3 bucket for the access logs. This attribute is required if access logs in Amazon S3 are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permission to write to the bucket.     * @access_logs.s3.prefix@ - [Application Load Balancers] The prefix for the location in the S3 bucket. If you don't specify a prefix, the access logs are stored in the root of the bucket.     * @deletion_protection.enabled@ - Indicates whether deletion protection is enabled. The value is @true@ or @false@ .     * @idle_timeout.timeout_seconds@ - [Application Load Balancers] The idle timeout value, in seconds. The valid range is 1-4000. The default is 60 seconds.
 lbaKey :: Lens' LoadBalancerAttribute (Maybe Text)
 lbaKey = lens _lbaKey (\ s a -> s{_lbaKey = a});
 
@@ -497,9 +557,9 @@ instance FromXML LoadBalancerAttribute where
           = LoadBalancerAttribute' <$>
               (x .@? "Value") <*> (x .@? "Key")
 
-instance Hashable LoadBalancerAttribute
+instance Hashable LoadBalancerAttribute where
 
-instance NFData LoadBalancerAttribute
+instance NFData LoadBalancerAttribute where
 
 instance ToQuery LoadBalancerAttribute where
         toQuery LoadBalancerAttribute'{..}
@@ -511,9 +571,10 @@ instance ToQuery LoadBalancerAttribute where
 --
 -- /See:/ 'loadBalancerState' smart constructor.
 data LoadBalancerState = LoadBalancerState'
-    { _lbsReason :: !(Maybe Text)
-    , _lbsCode   :: !(Maybe LoadBalancerStateEnum)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lbsReason :: !(Maybe Text)
+  , _lbsCode   :: !(Maybe LoadBalancerStateEnum)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LoadBalancerState' with the minimum fields required to make a request.
 --
@@ -525,10 +586,8 @@ data LoadBalancerState = LoadBalancerState'
 loadBalancerState
     :: LoadBalancerState
 loadBalancerState =
-    LoadBalancerState'
-    { _lbsReason = Nothing
-    , _lbsCode = Nothing
-    }
+  LoadBalancerState' {_lbsReason = Nothing, _lbsCode = Nothing}
+
 
 -- | A description of the state.
 lbsReason :: Lens' LoadBalancerState (Maybe Text)
@@ -543,9 +602,9 @@ instance FromXML LoadBalancerState where
           = LoadBalancerState' <$>
               (x .@? "Reason") <*> (x .@? "Code")
 
-instance Hashable LoadBalancerState
+instance Hashable LoadBalancerState where
 
-instance NFData LoadBalancerState
+instance NFData LoadBalancerState where
 
 -- | Information to use when checking for a successful response from a target.
 --
@@ -553,32 +612,31 @@ instance NFData LoadBalancerState
 --
 -- /See:/ 'matcher' smart constructor.
 newtype Matcher = Matcher'
-    { _mHTTPCode :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mHTTPCode :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Matcher' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'mHTTPCode' - The HTTP codes. You can specify values between 200 and 499. The default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299").
+-- * 'mHTTPCode' - The HTTP codes. For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299"). For Network Load Balancers, this is 200 to 399.
 matcher
     :: Text -- ^ 'mHTTPCode'
     -> Matcher
-matcher pHTTPCode_ =
-    Matcher'
-    { _mHTTPCode = pHTTPCode_
-    }
+matcher pHTTPCode_ = Matcher' {_mHTTPCode = pHTTPCode_}
 
--- | The HTTP codes. You can specify values between 200 and 499. The default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299").
+
+-- | The HTTP codes. For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299"). For Network Load Balancers, this is 200 to 399.
 mHTTPCode :: Lens' Matcher Text
 mHTTPCode = lens _mHTTPCode (\ s a -> s{_mHTTPCode = a});
 
 instance FromXML Matcher where
         parseXML x = Matcher' <$> (x .@ "HttpCode")
 
-instance Hashable Matcher
+instance Hashable Matcher where
 
-instance NFData Matcher
+instance NFData Matcher where
 
 instance ToQuery Matcher where
         toQuery Matcher'{..}
@@ -590,12 +648,13 @@ instance ToQuery Matcher where
 --
 -- /See:/ 'rule' smart constructor.
 data Rule = Rule'
-    { _rPriority   :: !(Maybe Text)
-    , _rActions    :: !(Maybe [Action])
-    , _rConditions :: !(Maybe [RuleCondition])
-    , _rRuleARN    :: !(Maybe Text)
-    , _rIsDefault  :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rPriority   :: !(Maybe Text)
+  , _rActions    :: !(Maybe [Action])
+  , _rConditions :: !(Maybe [RuleCondition])
+  , _rRuleARN    :: !(Maybe Text)
+  , _rIsDefault  :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Rule' with the minimum fields required to make a request.
 --
@@ -613,13 +672,14 @@ data Rule = Rule'
 rule
     :: Rule
 rule =
-    Rule'
-    { _rPriority = Nothing
-    , _rActions = Nothing
-    , _rConditions = Nothing
-    , _rRuleARN = Nothing
-    , _rIsDefault = Nothing
-    }
+  Rule'
+  { _rPriority = Nothing
+  , _rActions = Nothing
+  , _rConditions = Nothing
+  , _rRuleARN = Nothing
+  , _rIsDefault = Nothing
+  }
+
 
 -- | The priority.
 rPriority :: Lens' Rule (Maybe Text)
@@ -653,9 +713,9 @@ instance FromXML Rule where
                 <*> (x .@? "RuleArn")
                 <*> (x .@? "IsDefault")
 
-instance Hashable Rule
+instance Hashable Rule where
 
-instance NFData Rule
+instance NFData Rule where
 
 -- | Information about a condition for a rule.
 --
@@ -663,9 +723,10 @@ instance NFData Rule
 --
 -- /See:/ 'ruleCondition' smart constructor.
 data RuleCondition = RuleCondition'
-    { _rcField  :: !(Maybe Text)
-    , _rcValues :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rcField  :: !(Maybe Text)
+  , _rcValues :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RuleCondition' with the minimum fields required to make a request.
 --
@@ -676,11 +737,8 @@ data RuleCondition = RuleCondition'
 -- * 'rcValues' - The condition value. If the field name is @host-header@ , you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If the field name is @path-pattern@ , you can specify a single path pattern (for example, /img/*). A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
 ruleCondition
     :: RuleCondition
-ruleCondition =
-    RuleCondition'
-    { _rcField = Nothing
-    , _rcValues = Nothing
-    }
+ruleCondition = RuleCondition' {_rcField = Nothing, _rcValues = Nothing}
+
 
 -- | The name of the field. The possible values are @host-header@ and @path-pattern@ .
 rcField :: Lens' RuleCondition (Maybe Text)
@@ -697,9 +755,9 @@ instance FromXML RuleCondition where
                 (x .@? "Values" .!@ mempty >>=
                    may (parseXMLList "member"))
 
-instance Hashable RuleCondition
+instance Hashable RuleCondition where
 
-instance NFData RuleCondition
+instance NFData RuleCondition where
 
 instance ToQuery RuleCondition where
         toQuery RuleCondition'{..}
@@ -714,9 +772,10 @@ instance ToQuery RuleCondition where
 --
 -- /See:/ 'rulePriorityPair' smart constructor.
 data RulePriorityPair = RulePriorityPair'
-    { _rppPriority :: !(Maybe Nat)
-    , _rppRuleARN  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rppPriority :: !(Maybe Nat)
+  , _rppRuleARN  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RulePriorityPair' with the minimum fields required to make a request.
 --
@@ -728,10 +787,8 @@ data RulePriorityPair = RulePriorityPair'
 rulePriorityPair
     :: RulePriorityPair
 rulePriorityPair =
-    RulePriorityPair'
-    { _rppPriority = Nothing
-    , _rppRuleARN = Nothing
-    }
+  RulePriorityPair' {_rppPriority = Nothing, _rppRuleARN = Nothing}
+
 
 -- | The rule priority.
 rppPriority :: Lens' RulePriorityPair (Maybe Natural)
@@ -741,9 +798,9 @@ rppPriority = lens _rppPriority (\ s a -> s{_rppPriority = a}) . mapping _Nat;
 rppRuleARN :: Lens' RulePriorityPair (Maybe Text)
 rppRuleARN = lens _rppRuleARN (\ s a -> s{_rppRuleARN = a});
 
-instance Hashable RulePriorityPair
+instance Hashable RulePriorityPair where
 
-instance NFData RulePriorityPair
+instance NFData RulePriorityPair where
 
 instance ToQuery RulePriorityPair where
         toQuery RulePriorityPair'{..}
@@ -757,10 +814,11 @@ instance ToQuery RulePriorityPair where
 --
 -- /See:/ 'sslPolicy' smart constructor.
 data SSLPolicy = SSLPolicy'
-    { _spCiphers      :: !(Maybe [Cipher])
-    , _spName         :: !(Maybe Text)
-    , _spSSLProtocols :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spCiphers      :: !(Maybe [Cipher])
+  , _spName         :: !(Maybe Text)
+  , _spSSLProtocols :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SSLPolicy' with the minimum fields required to make a request.
 --
@@ -774,11 +832,9 @@ data SSLPolicy = SSLPolicy'
 sslPolicy
     :: SSLPolicy
 sslPolicy =
-    SSLPolicy'
-    { _spCiphers = Nothing
-    , _spName = Nothing
-    , _spSSLProtocols = Nothing
-    }
+  SSLPolicy'
+  {_spCiphers = Nothing, _spName = Nothing, _spSSLProtocols = Nothing}
+
 
 -- | The ciphers.
 spCiphers :: Lens' SSLPolicy [Cipher]
@@ -802,9 +858,51 @@ instance FromXML SSLPolicy where
                 (x .@? "SslProtocols" .!@ mempty >>=
                    may (parseXMLList "member"))
 
-instance Hashable SSLPolicy
+instance Hashable SSLPolicy where
 
-instance NFData SSLPolicy
+instance NFData SSLPolicy where
+
+-- | Information about a subnet mapping.
+--
+--
+--
+-- /See:/ 'subnetMapping' smart constructor.
+data SubnetMapping = SubnetMapping'
+  { _smAllocationId :: !(Maybe Text)
+  , _smSubnetId     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'SubnetMapping' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'smAllocationId' - [Network Load Balancers] The allocation ID of the Elastic IP address.
+--
+-- * 'smSubnetId' - The ID of the subnet.
+subnetMapping
+    :: SubnetMapping
+subnetMapping =
+  SubnetMapping' {_smAllocationId = Nothing, _smSubnetId = Nothing}
+
+
+-- | [Network Load Balancers] The allocation ID of the Elastic IP address.
+smAllocationId :: Lens' SubnetMapping (Maybe Text)
+smAllocationId = lens _smAllocationId (\ s a -> s{_smAllocationId = a});
+
+-- | The ID of the subnet.
+smSubnetId :: Lens' SubnetMapping (Maybe Text)
+smSubnetId = lens _smSubnetId (\ s a -> s{_smSubnetId = a});
+
+instance Hashable SubnetMapping where
+
+instance NFData SubnetMapping where
+
+instance ToQuery SubnetMapping where
+        toQuery SubnetMapping'{..}
+          = mconcat
+              ["AllocationId" =: _smAllocationId,
+               "SubnetId" =: _smSubnetId]
 
 -- | Information about a tag.
 --
@@ -812,9 +910,10 @@ instance NFData SSLPolicy
 --
 -- /See:/ 'tag' smart constructor.
 data Tag = Tag'
-    { _tagValue :: !(Maybe Text)
-    , _tagKey   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tagValue :: !(Maybe Text)
+  , _tagKey   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Tag' with the minimum fields required to make a request.
 --
@@ -826,11 +925,8 @@ data Tag = Tag'
 tag
     :: Text -- ^ 'tagKey'
     -> Tag
-tag pKey_ =
-    Tag'
-    { _tagValue = Nothing
-    , _tagKey = pKey_
-    }
+tag pKey_ = Tag' {_tagValue = Nothing, _tagKey = pKey_}
+
 
 -- | The value of the tag.
 tagValue :: Lens' Tag (Maybe Text)
@@ -844,9 +940,9 @@ instance FromXML Tag where
         parseXML x
           = Tag' <$> (x .@? "Value") <*> (x .@ "Key")
 
-instance Hashable Tag
+instance Hashable Tag where
 
-instance NFData Tag
+instance NFData Tag where
 
 instance ToQuery Tag where
         toQuery Tag'{..}
@@ -858,9 +954,10 @@ instance ToQuery Tag where
 --
 -- /See:/ 'tagDescription' smart constructor.
 data TagDescription = TagDescription'
-    { _tdResourceARN :: !(Maybe Text)
-    , _tdTags        :: !(Maybe (List1 Tag))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tdResourceARN :: !(Maybe Text)
+  , _tdTags        :: !(Maybe (List1 Tag))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TagDescription' with the minimum fields required to make a request.
 --
@@ -871,11 +968,8 @@ data TagDescription = TagDescription'
 -- * 'tdTags' - Information about the tags.
 tagDescription
     :: TagDescription
-tagDescription =
-    TagDescription'
-    { _tdResourceARN = Nothing
-    , _tdTags = Nothing
-    }
+tagDescription = TagDescription' {_tdResourceARN = Nothing, _tdTags = Nothing}
+
 
 -- | The Amazon Resource Name (ARN) of the resource.
 tdResourceARN :: Lens' TagDescription (Maybe Text)
@@ -892,9 +986,9 @@ instance FromXML TagDescription where
                 (x .@? "Tags" .!@ mempty >>=
                    may (parseXMLList1 "member"))
 
-instance Hashable TagDescription
+instance Hashable TagDescription where
 
-instance NFData TagDescription
+instance NFData TagDescription where
 
 -- | Information about a target.
 --
@@ -902,46 +996,56 @@ instance NFData TagDescription
 --
 -- /See:/ 'targetDescription' smart constructor.
 data TargetDescription = TargetDescription'
-    { _tdPort :: !(Maybe Nat)
-    , _tdId   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tdAvailabilityZone :: !(Maybe Text)
+  , _tdPort             :: !(Maybe Nat)
+  , _tdId               :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TargetDescription' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
+-- * 'tdAvailabilityZone' - An Availability Zone or @all@ . This determines whether the target receives traffic from the load balancer nodes in the specified Availability Zone or from all enabled Availability Zones for the load balancer. This parameter is not supported if the target type of the target group is @instance@ . If the IP address is in a subnet of the VPC for the target group, the Availability Zone is automatically detected and this parameter is optional. If the IP address is outside the VPC, this parameter is required. With an Application Load Balancer, if the IP address is outside the VPC for the target group, the only supported value is @all@ .
+--
 -- * 'tdPort' - The port on which the target is listening.
 --
--- * 'tdId' - The ID of the target.
+-- * 'tdId' - The ID of the target. If the target type of the target group is @instance@ , specify an instance ID. If the target type is @ip@ , specify an IP address.
 targetDescription
     :: Text -- ^ 'tdId'
     -> TargetDescription
 targetDescription pId_ =
-    TargetDescription'
-    { _tdPort = Nothing
-    , _tdId = pId_
-    }
+  TargetDescription'
+  {_tdAvailabilityZone = Nothing, _tdPort = Nothing, _tdId = pId_}
+
+
+-- | An Availability Zone or @all@ . This determines whether the target receives traffic from the load balancer nodes in the specified Availability Zone or from all enabled Availability Zones for the load balancer. This parameter is not supported if the target type of the target group is @instance@ . If the IP address is in a subnet of the VPC for the target group, the Availability Zone is automatically detected and this parameter is optional. If the IP address is outside the VPC, this parameter is required. With an Application Load Balancer, if the IP address is outside the VPC for the target group, the only supported value is @all@ .
+tdAvailabilityZone :: Lens' TargetDescription (Maybe Text)
+tdAvailabilityZone = lens _tdAvailabilityZone (\ s a -> s{_tdAvailabilityZone = a});
 
 -- | The port on which the target is listening.
 tdPort :: Lens' TargetDescription (Maybe Natural)
 tdPort = lens _tdPort (\ s a -> s{_tdPort = a}) . mapping _Nat;
 
--- | The ID of the target.
+-- | The ID of the target. If the target type of the target group is @instance@ , specify an instance ID. If the target type is @ip@ , specify an IP address.
 tdId :: Lens' TargetDescription Text
 tdId = lens _tdId (\ s a -> s{_tdId = a});
 
 instance FromXML TargetDescription where
         parseXML x
           = TargetDescription' <$>
-              (x .@? "Port") <*> (x .@ "Id")
+              (x .@? "AvailabilityZone") <*> (x .@? "Port") <*>
+                (x .@ "Id")
 
-instance Hashable TargetDescription
+instance Hashable TargetDescription where
 
-instance NFData TargetDescription
+instance NFData TargetDescription where
 
 instance ToQuery TargetDescription where
         toQuery TargetDescription'{..}
-          = mconcat ["Port" =: _tdPort, "Id" =: _tdId]
+          = mconcat
+              ["AvailabilityZone" =: _tdAvailabilityZone,
+               "Port" =: _tdPort, "Id" =: _tdId]
 
 -- | Information about a target group.
 --
@@ -949,21 +1053,23 @@ instance ToQuery TargetDescription where
 --
 -- /See:/ 'targetGroup' smart constructor.
 data TargetGroup = TargetGroup'
-    { _tgMatcher                    :: !(Maybe Matcher)
-    , _tgHealthCheckPath            :: !(Maybe Text)
-    , _tgUnhealthyThresholdCount    :: !(Maybe Nat)
-    , _tgVPCId                      :: !(Maybe Text)
-    , _tgTargetGroupARN             :: !(Maybe Text)
-    , _tgProtocol                   :: !(Maybe ProtocolEnum)
-    , _tgHealthCheckIntervalSeconds :: !(Maybe Nat)
-    , _tgHealthyThresholdCount      :: !(Maybe Nat)
-    , _tgHealthCheckProtocol        :: !(Maybe ProtocolEnum)
-    , _tgLoadBalancerARNs           :: !(Maybe [Text])
-    , _tgHealthCheckTimeoutSeconds  :: !(Maybe Nat)
-    , _tgHealthCheckPort            :: !(Maybe Text)
-    , _tgTargetGroupName            :: !(Maybe Text)
-    , _tgPort                       :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tgMatcher                    :: !(Maybe Matcher)
+  , _tgHealthCheckPath            :: !(Maybe Text)
+  , _tgUnhealthyThresholdCount    :: !(Maybe Nat)
+  , _tgVPCId                      :: !(Maybe Text)
+  , _tgTargetGroupARN             :: !(Maybe Text)
+  , _tgProtocol                   :: !(Maybe ProtocolEnum)
+  , _tgHealthCheckIntervalSeconds :: !(Maybe Nat)
+  , _tgTargetType                 :: !(Maybe TargetTypeEnum)
+  , _tgHealthyThresholdCount      :: !(Maybe Nat)
+  , _tgHealthCheckProtocol        :: !(Maybe ProtocolEnum)
+  , _tgLoadBalancerARNs           :: !(Maybe [Text])
+  , _tgHealthCheckTimeoutSeconds  :: !(Maybe Nat)
+  , _tgHealthCheckPort            :: !(Maybe Text)
+  , _tgTargetGroupName            :: !(Maybe Text)
+  , _tgPort                       :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TargetGroup' with the minimum fields required to make a request.
 --
@@ -983,6 +1089,8 @@ data TargetGroup = TargetGroup'
 --
 -- * 'tgHealthCheckIntervalSeconds' - The approximate amount of time, in seconds, between health checks of an individual target.
 --
+-- * 'tgTargetType' - The type of target that you must specify when registering targets with this target group. The possible values are @instance@ (targets are specified by instance ID) or @ip@ (targets are specified by IP address).
+--
 -- * 'tgHealthyThresholdCount' - The number of consecutive health checks successes required before considering an unhealthy target healthy.
 --
 -- * 'tgHealthCheckProtocol' - The protocol to use to connect with the target.
@@ -999,22 +1107,24 @@ data TargetGroup = TargetGroup'
 targetGroup
     :: TargetGroup
 targetGroup =
-    TargetGroup'
-    { _tgMatcher = Nothing
-    , _tgHealthCheckPath = Nothing
-    , _tgUnhealthyThresholdCount = Nothing
-    , _tgVPCId = Nothing
-    , _tgTargetGroupARN = Nothing
-    , _tgProtocol = Nothing
-    , _tgHealthCheckIntervalSeconds = Nothing
-    , _tgHealthyThresholdCount = Nothing
-    , _tgHealthCheckProtocol = Nothing
-    , _tgLoadBalancerARNs = Nothing
-    , _tgHealthCheckTimeoutSeconds = Nothing
-    , _tgHealthCheckPort = Nothing
-    , _tgTargetGroupName = Nothing
-    , _tgPort = Nothing
-    }
+  TargetGroup'
+  { _tgMatcher = Nothing
+  , _tgHealthCheckPath = Nothing
+  , _tgUnhealthyThresholdCount = Nothing
+  , _tgVPCId = Nothing
+  , _tgTargetGroupARN = Nothing
+  , _tgProtocol = Nothing
+  , _tgHealthCheckIntervalSeconds = Nothing
+  , _tgTargetType = Nothing
+  , _tgHealthyThresholdCount = Nothing
+  , _tgHealthCheckProtocol = Nothing
+  , _tgLoadBalancerARNs = Nothing
+  , _tgHealthCheckTimeoutSeconds = Nothing
+  , _tgHealthCheckPort = Nothing
+  , _tgTargetGroupName = Nothing
+  , _tgPort = Nothing
+  }
+
 
 -- | The HTTP codes to use when checking for a successful response from a target.
 tgMatcher :: Lens' TargetGroup (Maybe Matcher)
@@ -1043,6 +1153,10 @@ tgProtocol = lens _tgProtocol (\ s a -> s{_tgProtocol = a});
 -- | The approximate amount of time, in seconds, between health checks of an individual target.
 tgHealthCheckIntervalSeconds :: Lens' TargetGroup (Maybe Natural)
 tgHealthCheckIntervalSeconds = lens _tgHealthCheckIntervalSeconds (\ s a -> s{_tgHealthCheckIntervalSeconds = a}) . mapping _Nat;
+
+-- | The type of target that you must specify when registering targets with this target group. The possible values are @instance@ (targets are specified by instance ID) or @ip@ (targets are specified by IP address).
+tgTargetType :: Lens' TargetGroup (Maybe TargetTypeEnum)
+tgTargetType = lens _tgTargetType (\ s a -> s{_tgTargetType = a});
 
 -- | The number of consecutive health checks successes required before considering an unhealthy target healthy.
 tgHealthyThresholdCount :: Lens' TargetGroup (Maybe Natural)
@@ -1081,6 +1195,7 @@ instance FromXML TargetGroup where
                 <*> (x .@? "TargetGroupArn")
                 <*> (x .@? "Protocol")
                 <*> (x .@? "HealthCheckIntervalSeconds")
+                <*> (x .@? "TargetType")
                 <*> (x .@? "HealthyThresholdCount")
                 <*> (x .@? "HealthCheckProtocol")
                 <*>
@@ -1091,9 +1206,9 @@ instance FromXML TargetGroup where
                 <*> (x .@? "TargetGroupName")
                 <*> (x .@? "Port")
 
-instance Hashable TargetGroup
+instance Hashable TargetGroup where
 
-instance NFData TargetGroup
+instance NFData TargetGroup where
 
 -- | Information about a target group attribute.
 --
@@ -1101,9 +1216,10 @@ instance NFData TargetGroup
 --
 -- /See:/ 'targetGroupAttribute' smart constructor.
 data TargetGroupAttribute = TargetGroupAttribute'
-    { _tgaValue :: !(Maybe Text)
-    , _tgaKey   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tgaValue :: !(Maybe Text)
+  , _tgaKey   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TargetGroupAttribute' with the minimum fields required to make a request.
 --
@@ -1111,20 +1227,18 @@ data TargetGroupAttribute = TargetGroupAttribute'
 --
 -- * 'tgaValue' - The value of the attribute.
 --
--- * 'tgaKey' - The name of the attribute.     * @deregistration_delay.timeout_seconds@ - The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from @draining@ to @unused@ . The range is 0-3600 seconds. The default value is 300 seconds.     * @stickiness.enabled@ - Indicates whether sticky sessions are enabled. The value is @true@ or @false@ .     * @stickiness.type@ - The type of sticky sessions. The possible value is @lb_cookie@ .     * @stickiness.lb_cookie.duration_seconds@ - The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
+-- * 'tgaKey' - The name of the attribute.     * @deregistration_delay.timeout_seconds@ - The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from @draining@ to @unused@ . The range is 0-3600 seconds. The default value is 300 seconds.     * @stickiness.enabled@ - [Application Load Balancers] Indicates whether sticky sessions are enabled. The value is @true@ or @false@ .     * @stickiness.type@ - [Application Load Balancers] The type of sticky sessions. The possible value is @lb_cookie@ .     * @stickiness.lb_cookie.duration_seconds@ - [Application Load Balancers] The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
 targetGroupAttribute
     :: TargetGroupAttribute
 targetGroupAttribute =
-    TargetGroupAttribute'
-    { _tgaValue = Nothing
-    , _tgaKey = Nothing
-    }
+  TargetGroupAttribute' {_tgaValue = Nothing, _tgaKey = Nothing}
+
 
 -- | The value of the attribute.
 tgaValue :: Lens' TargetGroupAttribute (Maybe Text)
 tgaValue = lens _tgaValue (\ s a -> s{_tgaValue = a});
 
--- | The name of the attribute.     * @deregistration_delay.timeout_seconds@ - The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from @draining@ to @unused@ . The range is 0-3600 seconds. The default value is 300 seconds.     * @stickiness.enabled@ - Indicates whether sticky sessions are enabled. The value is @true@ or @false@ .     * @stickiness.type@ - The type of sticky sessions. The possible value is @lb_cookie@ .     * @stickiness.lb_cookie.duration_seconds@ - The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
+-- | The name of the attribute.     * @deregistration_delay.timeout_seconds@ - The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from @draining@ to @unused@ . The range is 0-3600 seconds. The default value is 300 seconds.     * @stickiness.enabled@ - [Application Load Balancers] Indicates whether sticky sessions are enabled. The value is @true@ or @false@ .     * @stickiness.type@ - [Application Load Balancers] The type of sticky sessions. The possible value is @lb_cookie@ .     * @stickiness.lb_cookie.duration_seconds@ - [Application Load Balancers] The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds).
 tgaKey :: Lens' TargetGroupAttribute (Maybe Text)
 tgaKey = lens _tgaKey (\ s a -> s{_tgaKey = a});
 
@@ -1133,9 +1247,9 @@ instance FromXML TargetGroupAttribute where
           = TargetGroupAttribute' <$>
               (x .@? "Value") <*> (x .@? "Key")
 
-instance Hashable TargetGroupAttribute
+instance Hashable TargetGroupAttribute where
 
-instance NFData TargetGroupAttribute
+instance NFData TargetGroupAttribute where
 
 instance ToQuery TargetGroupAttribute where
         toQuery TargetGroupAttribute'{..}
@@ -1147,10 +1261,11 @@ instance ToQuery TargetGroupAttribute where
 --
 -- /See:/ 'targetHealth' smart constructor.
 data TargetHealth = TargetHealth'
-    { _thState       :: !(Maybe TargetHealthStateEnum)
-    , _thReason      :: !(Maybe TargetHealthReasonEnum)
-    , _thDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _thState       :: !(Maybe TargetHealthStateEnum)
+  , _thReason      :: !(Maybe TargetHealthReasonEnum)
+  , _thDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TargetHealth' with the minimum fields required to make a request.
 --
@@ -1158,23 +1273,21 @@ data TargetHealth = TargetHealth'
 --
 -- * 'thState' - The state of the target.
 --
--- * 'thReason' - The reason code. If the target state is @healthy@ , a reason code is not provided. If the target state is @initial@ , the reason code can be one of the following values:     * @Elb.RegistrationInProgress@ - The target is in the process of being registered with the load balancer.     * @Elb.InitialHealthChecking@ - The load balancer is still sending the target the minimum number of health checks required to determine its health status. If the target state is @unhealthy@ , the reason code can be one of the following values:     * @Target.ResponseCodeMismatch@ - The health checks did not return an expected HTTP code.     * @Target.Timeout@ - The health check requests timed out.     * @Target.FailedHealthChecks@ - The health checks failed because the connection to the target timed out, the target response was malformed, or the target failed the health check for an unknown reason.     * @Elb.InternalError@ - The health checks failed due to an internal error. If the target state is @unused@ , the reason code can be one of the following values:     * @Target.NotRegistered@ - The target is not registered with the target group.     * @Target.NotInUse@ - The target group is not used by any load balancer or the target is in an Availability Zone that is not enabled for its load balancer.     * @Target.InvalidState@ - The target is in the stopped or terminated state. If the target state is @draining@ , the reason code can be the following value:     * @Target.DeregistrationInProgress@ - The target is in the process of being deregistered and the deregistration delay period has not expired.
+-- * 'thReason' - The reason code. If the target state is @healthy@ , a reason code is not provided. If the target state is @initial@ , the reason code can be one of the following values:     * @Elb.RegistrationInProgress@ - The target is in the process of being registered with the load balancer.     * @Elb.InitialHealthChecking@ - The load balancer is still sending the target the minimum number of health checks required to determine its health status. If the target state is @unhealthy@ , the reason code can be one of the following values:     * @Target.ResponseCodeMismatch@ - The health checks did not return an expected HTTP code.     * @Target.Timeout@ - The health check requests timed out.     * @Target.FailedHealthChecks@ - The health checks failed because the connection to the target timed out, the target response was malformed, or the target failed the health check for an unknown reason.     * @Elb.InternalError@ - The health checks failed due to an internal error. If the target state is @unused@ , the reason code can be one of the following values:     * @Target.NotRegistered@ - The target is not registered with the target group.     * @Target.NotInUse@ - The target group is not used by any load balancer or the target is in an Availability Zone that is not enabled for its load balancer.     * @Target.IpUnusable@ - The target IP address is reserved for use by a load balancer.     * @Target.InvalidState@ - The target is in the stopped or terminated state. If the target state is @draining@ , the reason code can be the following value:     * @Target.DeregistrationInProgress@ - The target is in the process of being deregistered and the deregistration delay period has not expired.
 --
 -- * 'thDescription' - A description of the target health that provides additional details. If the state is @healthy@ , a description is not provided.
 targetHealth
     :: TargetHealth
 targetHealth =
-    TargetHealth'
-    { _thState = Nothing
-    , _thReason = Nothing
-    , _thDescription = Nothing
-    }
+  TargetHealth'
+  {_thState = Nothing, _thReason = Nothing, _thDescription = Nothing}
+
 
 -- | The state of the target.
 thState :: Lens' TargetHealth (Maybe TargetHealthStateEnum)
 thState = lens _thState (\ s a -> s{_thState = a});
 
--- | The reason code. If the target state is @healthy@ , a reason code is not provided. If the target state is @initial@ , the reason code can be one of the following values:     * @Elb.RegistrationInProgress@ - The target is in the process of being registered with the load balancer.     * @Elb.InitialHealthChecking@ - The load balancer is still sending the target the minimum number of health checks required to determine its health status. If the target state is @unhealthy@ , the reason code can be one of the following values:     * @Target.ResponseCodeMismatch@ - The health checks did not return an expected HTTP code.     * @Target.Timeout@ - The health check requests timed out.     * @Target.FailedHealthChecks@ - The health checks failed because the connection to the target timed out, the target response was malformed, or the target failed the health check for an unknown reason.     * @Elb.InternalError@ - The health checks failed due to an internal error. If the target state is @unused@ , the reason code can be one of the following values:     * @Target.NotRegistered@ - The target is not registered with the target group.     * @Target.NotInUse@ - The target group is not used by any load balancer or the target is in an Availability Zone that is not enabled for its load balancer.     * @Target.InvalidState@ - The target is in the stopped or terminated state. If the target state is @draining@ , the reason code can be the following value:     * @Target.DeregistrationInProgress@ - The target is in the process of being deregistered and the deregistration delay period has not expired.
+-- | The reason code. If the target state is @healthy@ , a reason code is not provided. If the target state is @initial@ , the reason code can be one of the following values:     * @Elb.RegistrationInProgress@ - The target is in the process of being registered with the load balancer.     * @Elb.InitialHealthChecking@ - The load balancer is still sending the target the minimum number of health checks required to determine its health status. If the target state is @unhealthy@ , the reason code can be one of the following values:     * @Target.ResponseCodeMismatch@ - The health checks did not return an expected HTTP code.     * @Target.Timeout@ - The health check requests timed out.     * @Target.FailedHealthChecks@ - The health checks failed because the connection to the target timed out, the target response was malformed, or the target failed the health check for an unknown reason.     * @Elb.InternalError@ - The health checks failed due to an internal error. If the target state is @unused@ , the reason code can be one of the following values:     * @Target.NotRegistered@ - The target is not registered with the target group.     * @Target.NotInUse@ - The target group is not used by any load balancer or the target is in an Availability Zone that is not enabled for its load balancer.     * @Target.IpUnusable@ - The target IP address is reserved for use by a load balancer.     * @Target.InvalidState@ - The target is in the stopped or terminated state. If the target state is @draining@ , the reason code can be the following value:     * @Target.DeregistrationInProgress@ - The target is in the process of being deregistered and the deregistration delay period has not expired.
 thReason :: Lens' TargetHealth (Maybe TargetHealthReasonEnum)
 thReason = lens _thReason (\ s a -> s{_thReason = a});
 
@@ -1188,9 +1301,9 @@ instance FromXML TargetHealth where
               (x .@? "State") <*> (x .@? "Reason") <*>
                 (x .@? "Description")
 
-instance Hashable TargetHealth
+instance Hashable TargetHealth where
 
-instance NFData TargetHealth
+instance NFData TargetHealth where
 
 -- | Information about the health of a target.
 --
@@ -1198,10 +1311,11 @@ instance NFData TargetHealth
 --
 -- /See:/ 'targetHealthDescription' smart constructor.
 data TargetHealthDescription = TargetHealthDescription'
-    { _thdTargetHealth    :: !(Maybe TargetHealth)
-    , _thdHealthCheckPort :: !(Maybe Text)
-    , _thdTarget          :: !(Maybe TargetDescription)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _thdTargetHealth    :: !(Maybe TargetHealth)
+  , _thdHealthCheckPort :: !(Maybe Text)
+  , _thdTarget          :: !(Maybe TargetDescription)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TargetHealthDescription' with the minimum fields required to make a request.
 --
@@ -1215,11 +1329,12 @@ data TargetHealthDescription = TargetHealthDescription'
 targetHealthDescription
     :: TargetHealthDescription
 targetHealthDescription =
-    TargetHealthDescription'
-    { _thdTargetHealth = Nothing
-    , _thdHealthCheckPort = Nothing
-    , _thdTarget = Nothing
-    }
+  TargetHealthDescription'
+  { _thdTargetHealth = Nothing
+  , _thdHealthCheckPort = Nothing
+  , _thdTarget = Nothing
+  }
+
 
 -- | The health information for the target.
 thdTargetHealth :: Lens' TargetHealthDescription (Maybe TargetHealth)
@@ -1239,6 +1354,6 @@ instance FromXML TargetHealthDescription where
               (x .@? "TargetHealth") <*> (x .@? "HealthCheckPort")
                 <*> (x .@? "Target")
 
-instance Hashable TargetHealthDescription
+instance Hashable TargetHealthDescription where
 
-instance NFData TargetHealthDescription
+instance NFData TargetHealthDescription where

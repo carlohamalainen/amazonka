@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.EC2.CreateVPNGateway
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.
 --
 --
--- For more information about virtual private gateways, see <http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html Adding a Hardware Virtual Private Gateway to Your VPC> in the /Amazon Virtual Private Cloud User Guide/ .
+-- For more information about virtual private gateways, see <http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_VPN.html AWS Managed VPN Connections> in the /Amazon Virtual Private Cloud User Guide/ .
 --
 module Network.AWS.EC2.CreateVPNGateway
     (
@@ -29,6 +29,7 @@ module Network.AWS.EC2.CreateVPNGateway
       createVPNGateway
     , CreateVPNGateway
     -- * Request Lenses
+    , cvgAmazonSideASN
     , cvgAvailabilityZone
     , cvgDryRun
     , cvgType
@@ -41,12 +42,12 @@ module Network.AWS.EC2.CreateVPNGateway
     , cvgrsResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for CreateVpnGateway.
 --
@@ -54,14 +55,18 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createVPNGateway' smart constructor.
 data CreateVPNGateway = CreateVPNGateway'
-    { _cvgAvailabilityZone :: !(Maybe Text)
-    , _cvgDryRun           :: !(Maybe Bool)
-    , _cvgType             :: !GatewayType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cvgAmazonSideASN    :: !(Maybe Integer)
+  , _cvgAvailabilityZone :: !(Maybe Text)
+  , _cvgDryRun           :: !(Maybe Bool)
+  , _cvgType             :: !GatewayType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateVPNGateway' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'cvgAmazonSideASN' - A private Autonomous System Number (ASN) for the Amazon side of a BGP session. If you're using a 16-bit ASN, it must be in the 64512 to 65534 range. If you're using a 32-bit ASN, it must be in the 4200000000 to 4294967294 range. Default: 64512
 --
 -- * 'cvgAvailabilityZone' - The Availability Zone for the virtual private gateway.
 --
@@ -72,11 +77,17 @@ createVPNGateway
     :: GatewayType -- ^ 'cvgType'
     -> CreateVPNGateway
 createVPNGateway pType_ =
-    CreateVPNGateway'
-    { _cvgAvailabilityZone = Nothing
-    , _cvgDryRun = Nothing
-    , _cvgType = pType_
-    }
+  CreateVPNGateway'
+  { _cvgAmazonSideASN = Nothing
+  , _cvgAvailabilityZone = Nothing
+  , _cvgDryRun = Nothing
+  , _cvgType = pType_
+  }
+
+
+-- | A private Autonomous System Number (ASN) for the Amazon side of a BGP session. If you're using a 16-bit ASN, it must be in the 64512 to 65534 range. If you're using a 32-bit ASN, it must be in the 4200000000 to 4294967294 range. Default: 64512
+cvgAmazonSideASN :: Lens' CreateVPNGateway (Maybe Integer)
+cvgAmazonSideASN = lens _cvgAmazonSideASN (\ s a -> s{_cvgAmazonSideASN = a});
 
 -- | The Availability Zone for the virtual private gateway.
 cvgAvailabilityZone :: Lens' CreateVPNGateway (Maybe Text)
@@ -99,9 +110,9 @@ instance AWSRequest CreateVPNGateway where
                  CreateVPNGatewayResponse' <$>
                    (x .@? "vpnGateway") <*> (pure (fromEnum s)))
 
-instance Hashable CreateVPNGateway
+instance Hashable CreateVPNGateway where
 
-instance NFData CreateVPNGateway
+instance NFData CreateVPNGateway where
 
 instance ToHeaders CreateVPNGateway where
         toHeaders = const mempty
@@ -114,6 +125,7 @@ instance ToQuery CreateVPNGateway where
           = mconcat
               ["Action" =: ("CreateVpnGateway" :: ByteString),
                "Version" =: ("2016-11-15" :: ByteString),
+               "AmazonSideAsn" =: _cvgAmazonSideASN,
                "AvailabilityZone" =: _cvgAvailabilityZone,
                "DryRun" =: _cvgDryRun, "Type" =: _cvgType]
 
@@ -123,9 +135,10 @@ instance ToQuery CreateVPNGateway where
 --
 -- /See:/ 'createVPNGatewayResponse' smart constructor.
 data CreateVPNGatewayResponse = CreateVPNGatewayResponse'
-    { _cvgrsVPNGateway     :: !(Maybe VPNGateway)
-    , _cvgrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cvgrsVPNGateway     :: !(Maybe VPNGateway)
+  , _cvgrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateVPNGatewayResponse' with the minimum fields required to make a request.
 --
@@ -138,10 +151,9 @@ createVPNGatewayResponse
     :: Int -- ^ 'cvgrsResponseStatus'
     -> CreateVPNGatewayResponse
 createVPNGatewayResponse pResponseStatus_ =
-    CreateVPNGatewayResponse'
-    { _cvgrsVPNGateway = Nothing
-    , _cvgrsResponseStatus = pResponseStatus_
-    }
+  CreateVPNGatewayResponse'
+  {_cvgrsVPNGateway = Nothing, _cvgrsResponseStatus = pResponseStatus_}
+
 
 -- | Information about the virtual private gateway.
 cvgrsVPNGateway :: Lens' CreateVPNGatewayResponse (Maybe VPNGateway)
@@ -151,4 +163,4 @@ cvgrsVPNGateway = lens _cvgrsVPNGateway (\ s a -> s{_cvgrsVPNGateway = a});
 cvgrsResponseStatus :: Lens' CreateVPNGatewayResponse Int
 cvgrsResponseStatus = lens _cvgrsResponseStatus (\ s a -> s{_cvgrsResponseStatus = a});
 
-instance NFData CreateVPNGatewayResponse
+instance NFData CreateVPNGatewayResponse where

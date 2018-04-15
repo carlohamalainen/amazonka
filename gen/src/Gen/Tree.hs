@@ -9,12 +9,12 @@
 {-# LANGUAGE ViewPatterns          #-}
 
 -- Module      : Gen.Tree
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
@@ -24,31 +24,31 @@ module Gen.Tree
     , populate
     ) where
 
-import           Control.Lens              (each, (^.), (^..))
-import           Control.Monad
-import           Control.Monad.Except
+import Control.Lens         (each, (^.), (^..))
+import Control.Monad
+import Control.Monad.Except
 
-import           Data.Aeson                hiding (json)
-import           Data.Bifunctor
-import           Data.Functor.Identity
-import           Data.Monoid
-import           Data.Text                 (Text)
+import Data.Aeson            hiding (json)
+import Data.Bifunctor
+import Data.Functor.Identity
+import Data.Monoid
+import Data.Text             (Text)
 
-import           Filesystem.Path.CurrentOS hiding (FilePath, root)
+import Filesystem.Path.CurrentOS hiding (FilePath, root)
 
-import           Gen.Formatting            (failure, shown)
-import           Gen.Import
-import           Gen.Types
+import Gen.Formatting (failure, shown)
+import Gen.Import
+import Gen.Types
 
-import           Prelude                   hiding (mod)
+import Prelude hiding (mod)
 
-import           System.Directory.Tree     hiding (file)
+import System.Directory.Tree hiding (file)
 
-import           Text.EDE                  hiding (failure, render)
+import Text.EDE hiding (failure, render)
 
-import qualified Data.Text                 as Text
-import qualified Data.Text.Lazy            as LText
-import qualified Gen.JSON                  as JS
+import qualified Data.Text      as Text
+import qualified Data.Text.Lazy as LText
+import qualified Gen.JSON       as JS
 
 root :: AnchoredDirTree a -> Path
 root (p :/ d) = decodeString p </> decodeString (name d)

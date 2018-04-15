@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFront
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -115,6 +115,9 @@ module Network.AWS.CloudFront
 
     -- ** TooManyStreamingDistributionCNAMEs
     , _TooManyStreamingDistributionCNAMEs
+
+    -- ** ResourceInUse
+    , _ResourceInUse
 
     -- ** InvalidRequiredProtocol
     , _InvalidRequiredProtocol
@@ -232,6 +235,9 @@ module Network.AWS.CloudFront
 
     -- ** CreateStreamingDistributionWithTags
     , module Network.AWS.CloudFront.CreateStreamingDistributionWithTags
+
+    -- ** DeleteServiceLinkedRole
+    , module Network.AWS.CloudFront.DeleteServiceLinkedRole
 
     -- ** GetDistribution
     , module Network.AWS.CloudFront.GetDistribution
@@ -772,35 +778,36 @@ module Network.AWS.CloudFront
     , vcCloudFrontDefaultCertificate
     ) where
 
-import           Network.AWS.CloudFront.CreateCloudFrontOriginAccessIdentity
-import           Network.AWS.CloudFront.CreateDistribution
-import           Network.AWS.CloudFront.CreateDistributionWithTags
-import           Network.AWS.CloudFront.CreateInvalidation
-import           Network.AWS.CloudFront.CreateStreamingDistribution
-import           Network.AWS.CloudFront.CreateStreamingDistributionWithTags
-import           Network.AWS.CloudFront.DeleteCloudFrontOriginAccessIdentity
-import           Network.AWS.CloudFront.DeleteDistribution
-import           Network.AWS.CloudFront.DeleteStreamingDistribution
-import           Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentity
-import           Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentityConfig
-import           Network.AWS.CloudFront.GetDistribution
-import           Network.AWS.CloudFront.GetDistributionConfig
-import           Network.AWS.CloudFront.GetInvalidation
-import           Network.AWS.CloudFront.GetStreamingDistribution
-import           Network.AWS.CloudFront.GetStreamingDistributionConfig
-import           Network.AWS.CloudFront.ListCloudFrontOriginAccessIdentities
-import           Network.AWS.CloudFront.ListDistributions
-import           Network.AWS.CloudFront.ListDistributionsByWebACLId
-import           Network.AWS.CloudFront.ListInvalidations
-import           Network.AWS.CloudFront.ListStreamingDistributions
-import           Network.AWS.CloudFront.ListTagsForResource
-import           Network.AWS.CloudFront.TagResource
-import           Network.AWS.CloudFront.Types
-import           Network.AWS.CloudFront.UntagResource
-import           Network.AWS.CloudFront.UpdateCloudFrontOriginAccessIdentity
-import           Network.AWS.CloudFront.UpdateDistribution
-import           Network.AWS.CloudFront.UpdateStreamingDistribution
-import           Network.AWS.CloudFront.Waiters
+import Network.AWS.CloudFront.CreateCloudFrontOriginAccessIdentity
+import Network.AWS.CloudFront.CreateDistribution
+import Network.AWS.CloudFront.CreateDistributionWithTags
+import Network.AWS.CloudFront.CreateInvalidation
+import Network.AWS.CloudFront.CreateStreamingDistribution
+import Network.AWS.CloudFront.CreateStreamingDistributionWithTags
+import Network.AWS.CloudFront.DeleteCloudFrontOriginAccessIdentity
+import Network.AWS.CloudFront.DeleteDistribution
+import Network.AWS.CloudFront.DeleteServiceLinkedRole
+import Network.AWS.CloudFront.DeleteStreamingDistribution
+import Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentity
+import Network.AWS.CloudFront.GetCloudFrontOriginAccessIdentityConfig
+import Network.AWS.CloudFront.GetDistribution
+import Network.AWS.CloudFront.GetDistributionConfig
+import Network.AWS.CloudFront.GetInvalidation
+import Network.AWS.CloudFront.GetStreamingDistribution
+import Network.AWS.CloudFront.GetStreamingDistributionConfig
+import Network.AWS.CloudFront.ListCloudFrontOriginAccessIdentities
+import Network.AWS.CloudFront.ListDistributions
+import Network.AWS.CloudFront.ListDistributionsByWebACLId
+import Network.AWS.CloudFront.ListInvalidations
+import Network.AWS.CloudFront.ListStreamingDistributions
+import Network.AWS.CloudFront.ListTagsForResource
+import Network.AWS.CloudFront.TagResource
+import Network.AWS.CloudFront.Types
+import Network.AWS.CloudFront.UntagResource
+import Network.AWS.CloudFront.UpdateCloudFrontOriginAccessIdentity
+import Network.AWS.CloudFront.UpdateDistribution
+import Network.AWS.CloudFront.UpdateStreamingDistribution
+import Network.AWS.CloudFront.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

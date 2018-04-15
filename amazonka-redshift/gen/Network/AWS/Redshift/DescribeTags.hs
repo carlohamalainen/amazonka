@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Redshift.DescribeTags
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -57,12 +57,12 @@ module Network.AWS.Redshift.DescribeTags
     , dtrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Redshift.Types
-import           Network.AWS.Redshift.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Redshift.Types
+import Network.AWS.Redshift.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -70,13 +70,14 @@ import           Network.AWS.Response
 --
 -- /See:/ 'describeTags' smart constructor.
 data DescribeTags = DescribeTags'
-    { _dtTagValues    :: !(Maybe [Text])
-    , _dtResourceType :: !(Maybe Text)
-    , _dtResourceName :: !(Maybe Text)
-    , _dtTagKeys      :: !(Maybe [Text])
-    , _dtMarker       :: !(Maybe Text)
-    , _dtMaxRecords   :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dtTagValues    :: !(Maybe [Text])
+  , _dtResourceType :: !(Maybe Text)
+  , _dtResourceName :: !(Maybe Text)
+  , _dtTagKeys      :: !(Maybe [Text])
+  , _dtMarker       :: !(Maybe Text)
+  , _dtMaxRecords   :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeTags' with the minimum fields required to make a request.
 --
@@ -84,7 +85,7 @@ data DescribeTags = DescribeTags'
 --
 -- * 'dtTagValues' - A tag value or values for which you want to return all matching resources that are associated with the specified value or values. For example, suppose that you have resources tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with all resources that have either or both of these tag values associated with them.
 --
--- * 'dtResourceType' - The type of resource with which you want to view tags. Valid resource types are:      * Cluster     * CIDR/IP     * EC2 security group     * Snapshot     * Cluster security group     * Subnet group     * HSM connection     * HSM certificate     * Parameter group     * Snapshot copy grant For more information about Amazon Redshift resource types and constructing ARNs, go to <http://docs.aws.amazon.com/redshift/latest/mgmt/constructing-redshift-arn.html Constructing an Amazon Redshift Amazon Resource Name (ARN)> in the Amazon Redshift Cluster Management Guide.
+-- * 'dtResourceType' - The type of resource with which you want to view tags. Valid resource types are:      * Cluster     * CIDR/IP     * EC2 security group     * Snapshot     * Cluster security group     * Subnet group     * HSM connection     * HSM certificate     * Parameter group     * Snapshot copy grant For more information about Amazon Redshift resource types and constructing ARNs, go to <http://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions Specifying Policy Elements: Actions, Effects, Resources, and Principals> in the Amazon Redshift Cluster Management Guide.
 --
 -- * 'dtResourceName' - The Amazon Resource Name (ARN) for which you want to describe the tag or tags. For example, @arn:aws:redshift:us-east-1:123456789:cluster:t1@ .
 --
@@ -96,20 +97,21 @@ data DescribeTags = DescribeTags'
 describeTags
     :: DescribeTags
 describeTags =
-    DescribeTags'
-    { _dtTagValues = Nothing
-    , _dtResourceType = Nothing
-    , _dtResourceName = Nothing
-    , _dtTagKeys = Nothing
-    , _dtMarker = Nothing
-    , _dtMaxRecords = Nothing
-    }
+  DescribeTags'
+  { _dtTagValues = Nothing
+  , _dtResourceType = Nothing
+  , _dtResourceName = Nothing
+  , _dtTagKeys = Nothing
+  , _dtMarker = Nothing
+  , _dtMaxRecords = Nothing
+  }
+
 
 -- | A tag value or values for which you want to return all matching resources that are associated with the specified value or values. For example, suppose that you have resources tagged with values called @admin@ and @test@ . If you specify both of these tag values in the request, Amazon Redshift returns a response with all resources that have either or both of these tag values associated with them.
 dtTagValues :: Lens' DescribeTags [Text]
 dtTagValues = lens _dtTagValues (\ s a -> s{_dtTagValues = a}) . _Default . _Coerce;
 
--- | The type of resource with which you want to view tags. Valid resource types are:      * Cluster     * CIDR/IP     * EC2 security group     * Snapshot     * Cluster security group     * Subnet group     * HSM connection     * HSM certificate     * Parameter group     * Snapshot copy grant For more information about Amazon Redshift resource types and constructing ARNs, go to <http://docs.aws.amazon.com/redshift/latest/mgmt/constructing-redshift-arn.html Constructing an Amazon Redshift Amazon Resource Name (ARN)> in the Amazon Redshift Cluster Management Guide.
+-- | The type of resource with which you want to view tags. Valid resource types are:      * Cluster     * CIDR/IP     * EC2 security group     * Snapshot     * Cluster security group     * Subnet group     * HSM connection     * HSM certificate     * Parameter group     * Snapshot copy grant For more information about Amazon Redshift resource types and constructing ARNs, go to <http://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions Specifying Policy Elements: Actions, Effects, Resources, and Principals> in the Amazon Redshift Cluster Management Guide.
 dtResourceType :: Lens' DescribeTags (Maybe Text)
 dtResourceType = lens _dtResourceType (\ s a -> s{_dtResourceType = a});
 
@@ -141,9 +143,9 @@ instance AWSRequest DescribeTags where
                         may (parseXMLList "TaggedResource"))
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeTags
+instance Hashable DescribeTags where
 
-instance NFData DescribeTags
+instance NFData DescribeTags where
 
 instance ToHeaders DescribeTags where
         toHeaders = const mempty
@@ -170,10 +172,11 @@ instance ToQuery DescribeTags where
 --
 -- /See:/ 'describeTagsResponse' smart constructor.
 data DescribeTagsResponse = DescribeTagsResponse'
-    { _dtrsMarker          :: !(Maybe Text)
-    , _dtrsTaggedResources :: !(Maybe [TaggedResource])
-    , _dtrsResponseStatus  :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dtrsMarker          :: !(Maybe Text)
+  , _dtrsTaggedResources :: !(Maybe [TaggedResource])
+  , _dtrsResponseStatus  :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeTagsResponse' with the minimum fields required to make a request.
 --
@@ -188,11 +191,12 @@ describeTagsResponse
     :: Int -- ^ 'dtrsResponseStatus'
     -> DescribeTagsResponse
 describeTagsResponse pResponseStatus_ =
-    DescribeTagsResponse'
-    { _dtrsMarker = Nothing
-    , _dtrsTaggedResources = Nothing
-    , _dtrsResponseStatus = pResponseStatus_
-    }
+  DescribeTagsResponse'
+  { _dtrsMarker = Nothing
+  , _dtrsTaggedResources = Nothing
+  , _dtrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the @Marker@ parameter and retrying the command. If the @Marker@ field is empty, all response records have been retrieved for the request.
 dtrsMarker :: Lens' DescribeTagsResponse (Maybe Text)
@@ -206,4 +210,4 @@ dtrsTaggedResources = lens _dtrsTaggedResources (\ s a -> s{_dtrsTaggedResources
 dtrsResponseStatus :: Lens' DescribeTagsResponse Int
 dtrsResponseStatus = lens _dtrsResponseStatus (\ s a -> s{_dtrsResponseStatus = a});
 
-instance NFData DescribeTagsResponse
+instance NFData DescribeTagsResponse where

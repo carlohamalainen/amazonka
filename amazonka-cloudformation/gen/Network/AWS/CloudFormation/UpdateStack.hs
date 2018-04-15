@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.UpdateStack
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,6 +42,7 @@ module Network.AWS.CloudFormation.UpdateStack
     , usTemplateURL
     , usClientRequestToken
     , usCapabilities
+    , usRollbackConfiguration
     , usResourceTypes
     , usTags
     , usRoleARN
@@ -55,12 +56,12 @@ module Network.AWS.CloudFormation.UpdateStack
     , usrsResponseStatus
     ) where
 
-import           Network.AWS.CloudFormation.Types
-import           Network.AWS.CloudFormation.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudFormation.Types
+import Network.AWS.CloudFormation.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | The input for an 'UpdateStack' action.
 --
@@ -68,22 +69,24 @@ import           Network.AWS.Response
 --
 -- /See:/ 'updateStack' smart constructor.
 data UpdateStack = UpdateStack'
-    { _usUsePreviousTemplate         :: !(Maybe Bool)
-    , _usNotificationARNs            :: !(Maybe [Text])
-    , _usStackPolicyBody             :: !(Maybe Text)
-    , _usStackPolicyDuringUpdateBody :: !(Maybe Text)
-    , _usStackPolicyDuringUpdateURL  :: !(Maybe Text)
-    , _usParameters                  :: !(Maybe [Parameter])
-    , _usStackPolicyURL              :: !(Maybe Text)
-    , _usTemplateBody                :: !(Maybe Text)
-    , _usTemplateURL                 :: !(Maybe Text)
-    , _usClientRequestToken          :: !(Maybe Text)
-    , _usCapabilities                :: !(Maybe [Capability])
-    , _usResourceTypes               :: !(Maybe [Text])
-    , _usTags                        :: !(Maybe [Tag])
-    , _usRoleARN                     :: !(Maybe Text)
-    , _usStackName                   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _usUsePreviousTemplate         :: !(Maybe Bool)
+  , _usNotificationARNs            :: !(Maybe [Text])
+  , _usStackPolicyBody             :: !(Maybe Text)
+  , _usStackPolicyDuringUpdateBody :: !(Maybe Text)
+  , _usStackPolicyDuringUpdateURL  :: !(Maybe Text)
+  , _usParameters                  :: !(Maybe [Parameter])
+  , _usStackPolicyURL              :: !(Maybe Text)
+  , _usTemplateBody                :: !(Maybe Text)
+  , _usTemplateURL                 :: !(Maybe Text)
+  , _usClientRequestToken          :: !(Maybe Text)
+  , _usCapabilities                :: !(Maybe [Capability])
+  , _usRollbackConfiguration       :: !(Maybe RollbackConfiguration)
+  , _usResourceTypes               :: !(Maybe [Text])
+  , _usTags                        :: !(Maybe [Tag])
+  , _usRoleARN                     :: !(Maybe Text)
+  , _usStackName                   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateStack' with the minimum fields required to make a request.
 --
@@ -111,6 +114,8 @@ data UpdateStack = UpdateStack'
 --
 -- * 'usCapabilities' - A list of values that you must specify before AWS CloudFormation can update certain stacks. Some stack templates might include resources that can affect permissions in your AWS account, for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge their capabilities by specifying this parameter. The only valid values are @CAPABILITY_IAM@ and @CAPABILITY_NAMED_IAM@ . The following resources require you to specify this parameter: <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html AWS::IAM::AccessKey> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html AWS::IAM::Policy> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html AWS::IAM::User> , and <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html AWS::IAM::UserToGroupAddition> . If your stack template contains these resources, we recommend that you review all permissions associated with them and edit their permissions if necessary. If you have IAM resources, you can specify either capability. If you have IAM resources with custom names, you must specify @CAPABILITY_NAMED_IAM@ . If you don't specify this parameter, this action returns an @InsufficientCapabilities@ error. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in AWS CloudFormation Templates> .
 --
+-- * 'usRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+--
 -- * 'usResourceTypes' - The template resource types that you have permissions to work with for this update stack action, such as @AWS::EC2::Instance@ , @AWS::EC2::*@ , or @Custom::MyCustomInstance@ . If the list of resource types doesn't include a resource that you're updating, the stack update fails. By default, AWS CloudFormation grants permissions to all resource types. AWS Identity and Access Management (IAM) uses this parameter for AWS CloudFormation-specific condition keys in IAM policies. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html Controlling Access with AWS Identity and Access Management> .
 --
 -- * 'usTags' - Key-value pairs to associate with this stack. AWS CloudFormation also propagates these tags to supported resources in the stack. You can specify a maximum number of 50 tags. If you don't specify this parameter, AWS CloudFormation doesn't modify the stack's tags. If you specify an empty value, AWS CloudFormation removes all associated tags.
@@ -122,23 +127,25 @@ updateStack
     :: Text -- ^ 'usStackName'
     -> UpdateStack
 updateStack pStackName_ =
-    UpdateStack'
-    { _usUsePreviousTemplate = Nothing
-    , _usNotificationARNs = Nothing
-    , _usStackPolicyBody = Nothing
-    , _usStackPolicyDuringUpdateBody = Nothing
-    , _usStackPolicyDuringUpdateURL = Nothing
-    , _usParameters = Nothing
-    , _usStackPolicyURL = Nothing
-    , _usTemplateBody = Nothing
-    , _usTemplateURL = Nothing
-    , _usClientRequestToken = Nothing
-    , _usCapabilities = Nothing
-    , _usResourceTypes = Nothing
-    , _usTags = Nothing
-    , _usRoleARN = Nothing
-    , _usStackName = pStackName_
-    }
+  UpdateStack'
+  { _usUsePreviousTemplate = Nothing
+  , _usNotificationARNs = Nothing
+  , _usStackPolicyBody = Nothing
+  , _usStackPolicyDuringUpdateBody = Nothing
+  , _usStackPolicyDuringUpdateURL = Nothing
+  , _usParameters = Nothing
+  , _usStackPolicyURL = Nothing
+  , _usTemplateBody = Nothing
+  , _usTemplateURL = Nothing
+  , _usClientRequestToken = Nothing
+  , _usCapabilities = Nothing
+  , _usRollbackConfiguration = Nothing
+  , _usResourceTypes = Nothing
+  , _usTags = Nothing
+  , _usRoleARN = Nothing
+  , _usStackName = pStackName_
+  }
+
 
 -- | Reuse the existing template that is associated with the stack that you are updating. Conditional: You must specify only one of the following parameters: @TemplateBody@ , @TemplateURL@ , or set the @UsePreviousTemplate@ to @true@ .
 usUsePreviousTemplate :: Lens' UpdateStack (Maybe Bool)
@@ -184,6 +191,10 @@ usClientRequestToken = lens _usClientRequestToken (\ s a -> s{_usClientRequestTo
 usCapabilities :: Lens' UpdateStack [Capability]
 usCapabilities = lens _usCapabilities (\ s a -> s{_usCapabilities = a}) . _Default . _Coerce;
 
+-- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+usRollbackConfiguration :: Lens' UpdateStack (Maybe RollbackConfiguration)
+usRollbackConfiguration = lens _usRollbackConfiguration (\ s a -> s{_usRollbackConfiguration = a});
+
 -- | The template resource types that you have permissions to work with for this update stack action, such as @AWS::EC2::Instance@ , @AWS::EC2::*@ , or @Custom::MyCustomInstance@ . If the list of resource types doesn't include a resource that you're updating, the stack update fails. By default, AWS CloudFormation grants permissions to all resource types. AWS Identity and Access Management (IAM) uses this parameter for AWS CloudFormation-specific condition keys in IAM policies. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html Controlling Access with AWS Identity and Access Management> .
 usResourceTypes :: Lens' UpdateStack [Text]
 usResourceTypes = lens _usResourceTypes (\ s a -> s{_usResourceTypes = a}) . _Default . _Coerce;
@@ -209,9 +220,9 @@ instance AWSRequest UpdateStack where
                  UpdateStackResponse' <$>
                    (x .@? "StackId") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateStack
+instance Hashable UpdateStack where
 
-instance NFData UpdateStack
+instance NFData UpdateStack where
 
 instance ToHeaders UpdateStack where
         toHeaders = const mempty
@@ -241,6 +252,7 @@ instance ToQuery UpdateStack where
                "ClientRequestToken" =: _usClientRequestToken,
                "Capabilities" =:
                  toQuery (toQueryList "member" <$> _usCapabilities),
+               "RollbackConfiguration" =: _usRollbackConfiguration,
                "ResourceTypes" =:
                  toQuery (toQueryList "member" <$> _usResourceTypes),
                "Tags" =: toQuery (toQueryList "member" <$> _usTags),
@@ -252,9 +264,10 @@ instance ToQuery UpdateStack where
 --
 -- /See:/ 'updateStackResponse' smart constructor.
 data UpdateStackResponse = UpdateStackResponse'
-    { _usrsStackId        :: !(Maybe Text)
-    , _usrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _usrsStackId        :: !(Maybe Text)
+  , _usrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateStackResponse' with the minimum fields required to make a request.
 --
@@ -267,10 +280,9 @@ updateStackResponse
     :: Int -- ^ 'usrsResponseStatus'
     -> UpdateStackResponse
 updateStackResponse pResponseStatus_ =
-    UpdateStackResponse'
-    { _usrsStackId = Nothing
-    , _usrsResponseStatus = pResponseStatus_
-    }
+  UpdateStackResponse'
+  {_usrsStackId = Nothing, _usrsResponseStatus = pResponseStatus_}
+
 
 -- | Unique identifier of the stack.
 usrsStackId :: Lens' UpdateStackResponse (Maybe Text)
@@ -280,4 +292,4 @@ usrsStackId = lens _usrsStackId (\ s a -> s{_usrsStackId = a});
 usrsResponseStatus :: Lens' UpdateStackResponse Int
 usrsResponseStatus = lens _usrsResponseStatus (\ s a -> s{_usrsResponseStatus = a});
 
-instance NFData UpdateStackResponse
+instance NFData UpdateStackResponse where

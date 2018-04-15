@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Glue.CreateDevEndpoint
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -28,13 +28,13 @@ module Network.AWS.Glue.CreateDevEndpoint
     , CreateDevEndpoint
     -- * Request Lenses
     , cdeExtraPythonLibsS3Path
-    , cdePublicKey
+    , cdeSecurityGroupIds
+    , cdeSubnetId
     , cdeNumberOfNodes
     , cdeExtraJARsS3Path
     , cdeEndpointName
     , cdeRoleARN
-    , cdeSecurityGroupIds
-    , cdeSubnetId
+    , cdePublicKey
 
     -- * Destructuring the Response
     , createDevEndpointResponse
@@ -49,6 +49,7 @@ module Network.AWS.Glue.CreateDevEndpoint
     , cdersSubnetId
     , cdersNumberOfNodes
     , cdersAvailabilityZone
+    , cdersZeppelinRemoteSparkInterpreterPort
     , cdersExtraJARsS3Path
     , cdersCreatedTimestamp
     , cdersYarnEndpointAddress
@@ -56,34 +57,37 @@ module Network.AWS.Glue.CreateDevEndpoint
     , cdersResponseStatus
     ) where
 
-import           Network.AWS.Glue.Types
-import           Network.AWS.Glue.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Glue.Types
+import Network.AWS.Glue.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createDevEndpoint' smart constructor.
 data CreateDevEndpoint = CreateDevEndpoint'
-    { _cdeExtraPythonLibsS3Path :: !(Maybe Text)
-    , _cdePublicKey             :: !(Maybe Text)
-    , _cdeNumberOfNodes         :: !(Maybe Int)
-    , _cdeExtraJARsS3Path       :: !(Maybe Text)
-    , _cdeEndpointName          :: !Text
-    , _cdeRoleARN               :: !Text
-    , _cdeSecurityGroupIds      :: ![Text]
-    , _cdeSubnetId              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdeExtraPythonLibsS3Path :: !(Maybe Text)
+  , _cdeSecurityGroupIds      :: !(Maybe [Text])
+  , _cdeSubnetId              :: !(Maybe Text)
+  , _cdeNumberOfNodes         :: !(Maybe Int)
+  , _cdeExtraJARsS3Path       :: !(Maybe Text)
+  , _cdeEndpointName          :: !Text
+  , _cdeRoleARN               :: !Text
+  , _cdePublicKey             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDevEndpoint' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cdeExtraPythonLibsS3Path' - Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+-- * 'cdeExtraPythonLibsS3Path' - Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 --
--- * 'cdePublicKey' - The public key to use for authentication.
+-- * 'cdeSecurityGroupIds' - Security group IDs for the security groups to be used by the new DevEndpoint.
 --
--- * 'cdeNumberOfNodes' - The number of nodes to use.
+-- * 'cdeSubnetId' - The subnet ID for the new DevEndpoint to use.
+--
+-- * 'cdeNumberOfNodes' - The number of AWS Glue Data Processing Units (DPUs) to allocate to this DevEndpoint.
 --
 -- * 'cdeExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.
 --
@@ -91,35 +95,38 @@ data CreateDevEndpoint = CreateDevEndpoint'
 --
 -- * 'cdeRoleARN' - The IAM role for the DevEndpoint.
 --
--- * 'cdeSecurityGroupIds' - Security group IDs for the security groups to be used by the new DevEndpoint.
---
--- * 'cdeSubnetId' - The subnet ID for the new DevEndpoint to use.
+-- * 'cdePublicKey' - The public key to use for authentication.
 createDevEndpoint
     :: Text -- ^ 'cdeEndpointName'
     -> Text -- ^ 'cdeRoleARN'
-    -> Text -- ^ 'cdeSubnetId'
+    -> Text -- ^ 'cdePublicKey'
     -> CreateDevEndpoint
-createDevEndpoint pEndpointName_ pRoleARN_ pSubnetId_ =
-    CreateDevEndpoint'
-    { _cdeExtraPythonLibsS3Path = Nothing
-    , _cdePublicKey = Nothing
-    , _cdeNumberOfNodes = Nothing
-    , _cdeExtraJARsS3Path = Nothing
-    , _cdeEndpointName = pEndpointName_
-    , _cdeRoleARN = pRoleARN_
-    , _cdeSecurityGroupIds = mempty
-    , _cdeSubnetId = pSubnetId_
-    }
+createDevEndpoint pEndpointName_ pRoleARN_ pPublicKey_ =
+  CreateDevEndpoint'
+  { _cdeExtraPythonLibsS3Path = Nothing
+  , _cdeSecurityGroupIds = Nothing
+  , _cdeSubnetId = Nothing
+  , _cdeNumberOfNodes = Nothing
+  , _cdeExtraJARsS3Path = Nothing
+  , _cdeEndpointName = pEndpointName_
+  , _cdeRoleARN = pRoleARN_
+  , _cdePublicKey = pPublicKey_
+  }
 
--- | Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+
+-- | Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 cdeExtraPythonLibsS3Path :: Lens' CreateDevEndpoint (Maybe Text)
 cdeExtraPythonLibsS3Path = lens _cdeExtraPythonLibsS3Path (\ s a -> s{_cdeExtraPythonLibsS3Path = a});
 
--- | The public key to use for authentication.
-cdePublicKey :: Lens' CreateDevEndpoint (Maybe Text)
-cdePublicKey = lens _cdePublicKey (\ s a -> s{_cdePublicKey = a});
+-- | Security group IDs for the security groups to be used by the new DevEndpoint.
+cdeSecurityGroupIds :: Lens' CreateDevEndpoint [Text]
+cdeSecurityGroupIds = lens _cdeSecurityGroupIds (\ s a -> s{_cdeSecurityGroupIds = a}) . _Default . _Coerce;
 
--- | The number of nodes to use.
+-- | The subnet ID for the new DevEndpoint to use.
+cdeSubnetId :: Lens' CreateDevEndpoint (Maybe Text)
+cdeSubnetId = lens _cdeSubnetId (\ s a -> s{_cdeSubnetId = a});
+
+-- | The number of AWS Glue Data Processing Units (DPUs) to allocate to this DevEndpoint.
 cdeNumberOfNodes :: Lens' CreateDevEndpoint (Maybe Int)
 cdeNumberOfNodes = lens _cdeNumberOfNodes (\ s a -> s{_cdeNumberOfNodes = a});
 
@@ -135,13 +142,9 @@ cdeEndpointName = lens _cdeEndpointName (\ s a -> s{_cdeEndpointName = a});
 cdeRoleARN :: Lens' CreateDevEndpoint Text
 cdeRoleARN = lens _cdeRoleARN (\ s a -> s{_cdeRoleARN = a});
 
--- | Security group IDs for the security groups to be used by the new DevEndpoint.
-cdeSecurityGroupIds :: Lens' CreateDevEndpoint [Text]
-cdeSecurityGroupIds = lens _cdeSecurityGroupIds (\ s a -> s{_cdeSecurityGroupIds = a}) . _Coerce;
-
--- | The subnet ID for the new DevEndpoint to use.
-cdeSubnetId :: Lens' CreateDevEndpoint Text
-cdeSubnetId = lens _cdeSubnetId (\ s a -> s{_cdeSubnetId = a});
+-- | The public key to use for authentication.
+cdePublicKey :: Lens' CreateDevEndpoint Text
+cdePublicKey = lens _cdePublicKey (\ s a -> s{_cdePublicKey = a});
 
 instance AWSRequest CreateDevEndpoint where
         type Rs CreateDevEndpoint = CreateDevEndpointResponse
@@ -158,15 +161,16 @@ instance AWSRequest CreateDevEndpoint where
                      <*> (x .?> "SubnetId")
                      <*> (x .?> "NumberOfNodes")
                      <*> (x .?> "AvailabilityZone")
+                     <*> (x .?> "ZeppelinRemoteSparkInterpreterPort")
                      <*> (x .?> "ExtraJarsS3Path")
                      <*> (x .?> "CreatedTimestamp")
                      <*> (x .?> "YarnEndpointAddress")
                      <*> (x .?> "RoleArn")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateDevEndpoint
+instance Hashable CreateDevEndpoint where
 
-instance NFData CreateDevEndpoint
+instance NFData CreateDevEndpoint where
 
 instance ToHeaders CreateDevEndpoint where
         toHeaders
@@ -183,13 +187,13 @@ instance ToJSON CreateDevEndpoint where
               (catMaybes
                  [("ExtraPythonLibsS3Path" .=) <$>
                     _cdeExtraPythonLibsS3Path,
-                  ("PublicKey" .=) <$> _cdePublicKey,
+                  ("SecurityGroupIds" .=) <$> _cdeSecurityGroupIds,
+                  ("SubnetId" .=) <$> _cdeSubnetId,
                   ("NumberOfNodes" .=) <$> _cdeNumberOfNodes,
                   ("ExtraJarsS3Path" .=) <$> _cdeExtraJARsS3Path,
                   Just ("EndpointName" .= _cdeEndpointName),
                   Just ("RoleArn" .= _cdeRoleARN),
-                  Just ("SecurityGroupIds" .= _cdeSecurityGroupIds),
-                  Just ("SubnetId" .= _cdeSubnetId)])
+                  Just ("PublicKey" .= _cdePublicKey)])
 
 instance ToPath CreateDevEndpoint where
         toPath = const "/"
@@ -199,21 +203,23 @@ instance ToQuery CreateDevEndpoint where
 
 -- | /See:/ 'createDevEndpointResponse' smart constructor.
 data CreateDevEndpointResponse = CreateDevEndpointResponse'
-    { _cdersStatus                :: !(Maybe Text)
-    , _cdersFailureReason         :: !(Maybe Text)
-    , _cdersEndpointName          :: !(Maybe Text)
-    , _cdersExtraPythonLibsS3Path :: !(Maybe Text)
-    , _cdersSecurityGroupIds      :: !(Maybe [Text])
-    , _cdersVPCId                 :: !(Maybe Text)
-    , _cdersSubnetId              :: !(Maybe Text)
-    , _cdersNumberOfNodes         :: !(Maybe Int)
-    , _cdersAvailabilityZone      :: !(Maybe Text)
-    , _cdersExtraJARsS3Path       :: !(Maybe Text)
-    , _cdersCreatedTimestamp      :: !(Maybe POSIX)
-    , _cdersYarnEndpointAddress   :: !(Maybe Text)
-    , _cdersRoleARN               :: !(Maybe Text)
-    , _cdersResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdersStatus                             :: !(Maybe Text)
+  , _cdersFailureReason                      :: !(Maybe Text)
+  , _cdersEndpointName                       :: !(Maybe Text)
+  , _cdersExtraPythonLibsS3Path              :: !(Maybe Text)
+  , _cdersSecurityGroupIds                   :: !(Maybe [Text])
+  , _cdersVPCId                              :: !(Maybe Text)
+  , _cdersSubnetId                           :: !(Maybe Text)
+  , _cdersNumberOfNodes                      :: !(Maybe Int)
+  , _cdersAvailabilityZone                   :: !(Maybe Text)
+  , _cdersZeppelinRemoteSparkInterpreterPort :: !(Maybe Int)
+  , _cdersExtraJARsS3Path                    :: !(Maybe Text)
+  , _cdersCreatedTimestamp                   :: !(Maybe POSIX)
+  , _cdersYarnEndpointAddress                :: !(Maybe Text)
+  , _cdersRoleARN                            :: !(Maybe Text)
+  , _cdersResponseStatus                     :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDevEndpointResponse' with the minimum fields required to make a request.
 --
@@ -225,7 +231,7 @@ data CreateDevEndpointResponse = CreateDevEndpointResponse'
 --
 -- * 'cdersEndpointName' - The name assigned to the new DevEndpoint.
 --
--- * 'cdersExtraPythonLibsS3Path' - Path to one or more Python libraries in an S3 bucket that will be loaded in your DevEndpoint.
+-- * 'cdersExtraPythonLibsS3Path' - Path(s) to one or more Python libraries in an S3 bucket that will be loaded in your DevEndpoint.
 --
 -- * 'cdersSecurityGroupIds' - The security groups assigned to the new DevEndpoint.
 --
@@ -233,9 +239,11 @@ data CreateDevEndpointResponse = CreateDevEndpointResponse'
 --
 -- * 'cdersSubnetId' - The subnet ID assigned to the new DevEndpoint.
 --
--- * 'cdersNumberOfNodes' - The number of nodes in this DevEndpoint.
+-- * 'cdersNumberOfNodes' - The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
 --
 -- * 'cdersAvailabilityZone' - The AWS availability zone where this DevEndpoint is located.
+--
+-- * 'cdersZeppelinRemoteSparkInterpreterPort' - The Apache Zeppelin port for the remote Apache Spark interpreter.
 --
 -- * 'cdersExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that will be loaded in your DevEndpoint.
 --
@@ -250,22 +258,24 @@ createDevEndpointResponse
     :: Int -- ^ 'cdersResponseStatus'
     -> CreateDevEndpointResponse
 createDevEndpointResponse pResponseStatus_ =
-    CreateDevEndpointResponse'
-    { _cdersStatus = Nothing
-    , _cdersFailureReason = Nothing
-    , _cdersEndpointName = Nothing
-    , _cdersExtraPythonLibsS3Path = Nothing
-    , _cdersSecurityGroupIds = Nothing
-    , _cdersVPCId = Nothing
-    , _cdersSubnetId = Nothing
-    , _cdersNumberOfNodes = Nothing
-    , _cdersAvailabilityZone = Nothing
-    , _cdersExtraJARsS3Path = Nothing
-    , _cdersCreatedTimestamp = Nothing
-    , _cdersYarnEndpointAddress = Nothing
-    , _cdersRoleARN = Nothing
-    , _cdersResponseStatus = pResponseStatus_
-    }
+  CreateDevEndpointResponse'
+  { _cdersStatus = Nothing
+  , _cdersFailureReason = Nothing
+  , _cdersEndpointName = Nothing
+  , _cdersExtraPythonLibsS3Path = Nothing
+  , _cdersSecurityGroupIds = Nothing
+  , _cdersVPCId = Nothing
+  , _cdersSubnetId = Nothing
+  , _cdersNumberOfNodes = Nothing
+  , _cdersAvailabilityZone = Nothing
+  , _cdersZeppelinRemoteSparkInterpreterPort = Nothing
+  , _cdersExtraJARsS3Path = Nothing
+  , _cdersCreatedTimestamp = Nothing
+  , _cdersYarnEndpointAddress = Nothing
+  , _cdersRoleARN = Nothing
+  , _cdersResponseStatus = pResponseStatus_
+  }
+
 
 -- | The current status of the new DevEndpoint.
 cdersStatus :: Lens' CreateDevEndpointResponse (Maybe Text)
@@ -279,7 +289,7 @@ cdersFailureReason = lens _cdersFailureReason (\ s a -> s{_cdersFailureReason = 
 cdersEndpointName :: Lens' CreateDevEndpointResponse (Maybe Text)
 cdersEndpointName = lens _cdersEndpointName (\ s a -> s{_cdersEndpointName = a});
 
--- | Path to one or more Python libraries in an S3 bucket that will be loaded in your DevEndpoint.
+-- | Path(s) to one or more Python libraries in an S3 bucket that will be loaded in your DevEndpoint.
 cdersExtraPythonLibsS3Path :: Lens' CreateDevEndpointResponse (Maybe Text)
 cdersExtraPythonLibsS3Path = lens _cdersExtraPythonLibsS3Path (\ s a -> s{_cdersExtraPythonLibsS3Path = a});
 
@@ -295,13 +305,17 @@ cdersVPCId = lens _cdersVPCId (\ s a -> s{_cdersVPCId = a});
 cdersSubnetId :: Lens' CreateDevEndpointResponse (Maybe Text)
 cdersSubnetId = lens _cdersSubnetId (\ s a -> s{_cdersSubnetId = a});
 
--- | The number of nodes in this DevEndpoint.
+-- | The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
 cdersNumberOfNodes :: Lens' CreateDevEndpointResponse (Maybe Int)
 cdersNumberOfNodes = lens _cdersNumberOfNodes (\ s a -> s{_cdersNumberOfNodes = a});
 
 -- | The AWS availability zone where this DevEndpoint is located.
 cdersAvailabilityZone :: Lens' CreateDevEndpointResponse (Maybe Text)
 cdersAvailabilityZone = lens _cdersAvailabilityZone (\ s a -> s{_cdersAvailabilityZone = a});
+
+-- | The Apache Zeppelin port for the remote Apache Spark interpreter.
+cdersZeppelinRemoteSparkInterpreterPort :: Lens' CreateDevEndpointResponse (Maybe Int)
+cdersZeppelinRemoteSparkInterpreterPort = lens _cdersZeppelinRemoteSparkInterpreterPort (\ s a -> s{_cdersZeppelinRemoteSparkInterpreterPort = a});
 
 -- | Path to one or more Java Jars in an S3 bucket that will be loaded in your DevEndpoint.
 cdersExtraJARsS3Path :: Lens' CreateDevEndpointResponse (Maybe Text)
@@ -323,4 +337,4 @@ cdersRoleARN = lens _cdersRoleARN (\ s a -> s{_cdersRoleARN = a});
 cdersResponseStatus :: Lens' CreateDevEndpointResponse Int
 cdersResponseStatus = lens _cdersResponseStatus (\ s a -> s{_cdersResponseStatus = a});
 
-instance NFData CreateDevEndpointResponse
+instance NFData CreateDevEndpointResponse where

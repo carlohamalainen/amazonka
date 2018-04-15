@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DescribeProduct
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -41,36 +41,35 @@ module Network.AWS.ServiceCatalog.DescribeProduct
     , ddrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'describeProduct' smart constructor.
 data DescribeProduct = DescribeProduct'
-    { _dpAcceptLanguage :: !(Maybe Text)
-    , _dpId             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpAcceptLanguage :: !(Maybe Text)
+  , _dpId             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeProduct' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'dpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'dpId' - The @ProductId@ of the product to describe.
 describeProduct
     :: Text -- ^ 'dpId'
     -> DescribeProduct
 describeProduct pId_ =
-    DescribeProduct'
-    { _dpAcceptLanguage = Nothing
-    , _dpId = pId_
-    }
+  DescribeProduct' {_dpAcceptLanguage = Nothing, _dpId = pId_}
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 dpAcceptLanguage :: Lens' DescribeProduct (Maybe Text)
 dpAcceptLanguage = lens _dpAcceptLanguage (\ s a -> s{_dpAcceptLanguage = a});
 
@@ -89,9 +88,9 @@ instance AWSRequest DescribeProduct where
                      (x .?> "ProvisioningArtifacts" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeProduct
+instance Hashable DescribeProduct where
 
-instance NFData DescribeProduct
+instance NFData DescribeProduct where
 
 instance ToHeaders DescribeProduct where
         toHeaders
@@ -118,10 +117,11 @@ instance ToQuery DescribeProduct where
 
 -- | /See:/ 'describeProductResponse' smart constructor.
 data DescribeProductResponse = DescribeProductResponse'
-    { _ddrsProductViewSummary    :: !(Maybe ProductViewSummary)
-    , _ddrsProvisioningArtifacts :: !(Maybe [ProvisioningArtifact])
-    , _ddrsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ddrsProductViewSummary    :: !(Maybe ProductViewSummary)
+  , _ddrsProvisioningArtifacts :: !(Maybe [ProvisioningArtifact])
+  , _ddrsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeProductResponse' with the minimum fields required to make a request.
 --
@@ -136,11 +136,12 @@ describeProductResponse
     :: Int -- ^ 'ddrsResponseStatus'
     -> DescribeProductResponse
 describeProductResponse pResponseStatus_ =
-    DescribeProductResponse'
-    { _ddrsProductViewSummary = Nothing
-    , _ddrsProvisioningArtifacts = Nothing
-    , _ddrsResponseStatus = pResponseStatus_
-    }
+  DescribeProductResponse'
+  { _ddrsProductViewSummary = Nothing
+  , _ddrsProvisioningArtifacts = Nothing
+  , _ddrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The summary metadata about the specified product.
 ddrsProductViewSummary :: Lens' DescribeProductResponse (Maybe ProductViewSummary)
@@ -154,4 +155,4 @@ ddrsProvisioningArtifacts = lens _ddrsProvisioningArtifacts (\ s a -> s{_ddrsPro
 ddrsResponseStatus :: Lens' DescribeProductResponse Int
 ddrsResponseStatus = lens _ddrsResponseStatus (\ s a -> s{_ddrsResponseStatus = a});
 
-instance NFData DescribeProductResponse
+instance NFData DescribeProductResponse where

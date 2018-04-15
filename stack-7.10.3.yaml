@@ -1,6 +1,8 @@
 compiler:   ghc-7.10.3
 resolver:   lts-7.6
-flags:      {}
+flags:
+  semigroups:
+    bytestring-builder: false
 extra-deps:
   - http-conduit-2.2.0
   - http-client-0.5.0.1
@@ -41,13 +43,13 @@ packages:
   - amazonka-config
   - amazonka-cur
   - amazonka-datapipeline
-  - amazonka-dax
   - amazonka-devicefarm
   - amazonka-directconnect
   - amazonka-discovery
   - amazonka-dms
   - amazonka-ds
   - amazonka-dynamodb
+  - amazonka-dynamodb-dax
   - amazonka-dynamodb-streams
   - amazonka-ec2
   - amazonka-ecr
@@ -84,11 +86,13 @@ packages:
   - amazonka-mechanicalturk
   - amazonka-migrationhub
   - amazonka-ml
+  - amazonka-mobile
   - amazonka-opsworks
   - amazonka-opsworks-cm
   - amazonka-organizations
   - amazonka-pinpoint
   - amazonka-polly
+  - amazonka-pricing
   - amazonka-rds
   - amazonka-redshift
   - amazonka-rekognition

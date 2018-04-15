@@ -1,13 +1,13 @@
 name:                  amazonka-ecr
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon EC2 Container Registry SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-ecr
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.ECR
@@ -45,17 +50,22 @@ library
         , Network.AWS.ECR.BatchGetImage
         , Network.AWS.ECR.CompleteLayerUpload
         , Network.AWS.ECR.CreateRepository
+        , Network.AWS.ECR.DeleteLifecyclePolicy
         , Network.AWS.ECR.DeleteRepository
         , Network.AWS.ECR.DeleteRepositoryPolicy
         , Network.AWS.ECR.DescribeImages
         , Network.AWS.ECR.DescribeRepositories
         , Network.AWS.ECR.GetAuthorizationToken
         , Network.AWS.ECR.GetDownloadURLForLayer
+        , Network.AWS.ECR.GetLifecyclePolicy
+        , Network.AWS.ECR.GetLifecyclePolicyPreview
         , Network.AWS.ECR.GetRepositoryPolicy
         , Network.AWS.ECR.InitiateLayerUpload
         , Network.AWS.ECR.ListImages
         , Network.AWS.ECR.PutImage
+        , Network.AWS.ECR.PutLifecyclePolicy
         , Network.AWS.ECR.SetRepositoryPolicy
+        , Network.AWS.ECR.StartLifecyclePolicyPreview
         , Network.AWS.ECR.Types
         , Network.AWS.ECR.UploadLayerPart
         , Network.AWS.ECR.Waiters
@@ -65,7 +75,7 @@ library
         , Network.AWS.ECR.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-ecr-test
@@ -85,9 +95,9 @@ test-suite amazonka-ecr-test
         , Test.AWS.ECR.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-ecr == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-ecr
         , base
         , bytestring
         , tasty

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.OpsWorksCM.DescribeNodeAssociationStatus
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -36,28 +36,30 @@ module Network.AWS.OpsWorksCM.DescribeNodeAssociationStatus
     , describeNodeAssociationStatusResponse
     , DescribeNodeAssociationStatusResponse
     -- * Response Lenses
+    , dnasrsEngineAttributes
     , dnasrsResponseStatus
     , dnasrsNodeAssociationStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.OpsWorksCM.Types
-import           Network.AWS.OpsWorksCM.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.OpsWorksCM.Types
+import Network.AWS.OpsWorksCM.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'describeNodeAssociationStatus' smart constructor.
 data DescribeNodeAssociationStatus = DescribeNodeAssociationStatus'
-    { _dnasNodeAssociationStatusToken :: !Text
-    , _dnasServerName                 :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dnasNodeAssociationStatusToken :: !Text
+  , _dnasServerName                 :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeNodeAssociationStatus' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dnasNodeAssociationStatusToken' - Undocumented member.
+-- * 'dnasNodeAssociationStatusToken' - The token returned in either the AssociateNodeResponse or the DisassociateNodeResponse.
 --
 -- * 'dnasServerName' - The name of the server from which to disassociate the node.
 describeNodeAssociationStatus
@@ -65,12 +67,13 @@ describeNodeAssociationStatus
     -> Text -- ^ 'dnasServerName'
     -> DescribeNodeAssociationStatus
 describeNodeAssociationStatus pNodeAssociationStatusToken_ pServerName_ =
-    DescribeNodeAssociationStatus'
-    { _dnasNodeAssociationStatusToken = pNodeAssociationStatusToken_
-    , _dnasServerName = pServerName_
-    }
+  DescribeNodeAssociationStatus'
+  { _dnasNodeAssociationStatusToken = pNodeAssociationStatusToken_
+  , _dnasServerName = pServerName_
+  }
 
--- | Undocumented member.
+
+-- | The token returned in either the AssociateNodeResponse or the DisassociateNodeResponse.
 dnasNodeAssociationStatusToken :: Lens' DescribeNodeAssociationStatus Text
 dnasNodeAssociationStatusToken = lens _dnasNodeAssociationStatusToken (\ s a -> s{_dnasNodeAssociationStatusToken = a});
 
@@ -87,12 +90,13 @@ instance AWSRequest DescribeNodeAssociationStatus
           = receiveJSON
               (\ s h x ->
                  DescribeNodeAssociationStatusResponse' <$>
-                   (pure (fromEnum s)) <*>
-                     (x .:> "NodeAssociationStatus"))
+                   (x .?> "EngineAttributes" .!@ mempty) <*>
+                     (pure (fromEnum s))
+                     <*> (x .:> "NodeAssociationStatus"))
 
-instance Hashable DescribeNodeAssociationStatus
+instance Hashable DescribeNodeAssociationStatus where
 
-instance NFData DescribeNodeAssociationStatus
+instance NFData DescribeNodeAssociationStatus where
 
 instance ToHeaders DescribeNodeAssociationStatus
          where
@@ -122,13 +126,17 @@ instance ToQuery DescribeNodeAssociationStatus where
 
 -- | /See:/ 'describeNodeAssociationStatusResponse' smart constructor.
 data DescribeNodeAssociationStatusResponse = DescribeNodeAssociationStatusResponse'
-    { _dnasrsResponseStatus        :: !Int
-    , _dnasrsNodeAssociationStatus :: !NodeAssociationStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dnasrsEngineAttributes      :: !(Maybe [EngineAttribute])
+  , _dnasrsResponseStatus        :: !Int
+  , _dnasrsNodeAssociationStatus :: !NodeAssociationStatus
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeNodeAssociationStatusResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'dnasrsEngineAttributes' - Attributes specific to the node association.
 --
 -- * 'dnasrsResponseStatus' - -- | The response status code.
 --
@@ -138,10 +146,16 @@ describeNodeAssociationStatusResponse
     -> NodeAssociationStatus -- ^ 'dnasrsNodeAssociationStatus'
     -> DescribeNodeAssociationStatusResponse
 describeNodeAssociationStatusResponse pResponseStatus_ pNodeAssociationStatus_ =
-    DescribeNodeAssociationStatusResponse'
-    { _dnasrsResponseStatus = pResponseStatus_
-    , _dnasrsNodeAssociationStatus = pNodeAssociationStatus_
-    }
+  DescribeNodeAssociationStatusResponse'
+  { _dnasrsEngineAttributes = Nothing
+  , _dnasrsResponseStatus = pResponseStatus_
+  , _dnasrsNodeAssociationStatus = pNodeAssociationStatus_
+  }
+
+
+-- | Attributes specific to the node association.
+dnasrsEngineAttributes :: Lens' DescribeNodeAssociationStatusResponse [EngineAttribute]
+dnasrsEngineAttributes = lens _dnasrsEngineAttributes (\ s a -> s{_dnasrsEngineAttributes = a}) . _Default . _Coerce;
 
 -- | -- | The response status code.
 dnasrsResponseStatus :: Lens' DescribeNodeAssociationStatusResponse Int
@@ -152,3 +166,4 @@ dnasrsNodeAssociationStatus :: Lens' DescribeNodeAssociationStatusResponse NodeA
 dnasrsNodeAssociationStatus = lens _dnasrsNodeAssociationStatus (\ s a -> s{_dnasrsNodeAssociationStatus = a});
 
 instance NFData DescribeNodeAssociationStatusResponse
+         where

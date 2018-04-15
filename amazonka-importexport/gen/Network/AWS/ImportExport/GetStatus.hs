@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ImportExport.GetStatus
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -51,20 +51,21 @@ module Network.AWS.ImportExport.GetStatus
     , gsrsResponseStatus
     ) where
 
-import           Network.AWS.ImportExport.Types
-import           Network.AWS.ImportExport.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ImportExport.Types
+import Network.AWS.ImportExport.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Input structure for the GetStatus operation.
 --
 -- /See:/ 'getStatus' smart constructor.
 data GetStatus = GetStatus'
-    { _gsAPIVersion :: !(Maybe Text)
-    , _gsJobId      :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gsAPIVersion :: !(Maybe Text)
+  , _gsJobId      :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetStatus' with the minimum fields required to make a request.
 --
@@ -76,11 +77,8 @@ data GetStatus = GetStatus'
 getStatus
     :: Text -- ^ 'gsJobId'
     -> GetStatus
-getStatus pJobId_ =
-    GetStatus'
-    { _gsAPIVersion = Nothing
-    , _gsJobId = pJobId_
-    }
+getStatus pJobId_ = GetStatus' {_gsAPIVersion = Nothing, _gsJobId = pJobId_}
+
 
 -- | Undocumented member.
 gsAPIVersion :: Lens' GetStatus (Maybe Text)
@@ -116,9 +114,9 @@ instance AWSRequest GetStatus where
                      <*> (x .@? "ProgressMessage")
                      <*> (pure (fromEnum s)))
 
-instance Hashable GetStatus
+instance Hashable GetStatus where
 
-instance NFData GetStatus
+instance NFData GetStatus where
 
 instance ToHeaders GetStatus where
         toHeaders = const mempty
@@ -138,24 +136,25 @@ instance ToQuery GetStatus where
 --
 -- /See:/ 'getStatusResponse' smart constructor.
 data GetStatusResponse = GetStatusResponse'
-    { _gsrsCarrier               :: !(Maybe Text)
-    , _gsrsTrackingNumber        :: !(Maybe Text)
-    , _gsrsSignature             :: !(Maybe Text)
-    , _gsrsJobType               :: !(Maybe JobType)
-    , _gsrsJobId                 :: !(Maybe Text)
-    , _gsrsSignatureFileContents :: !(Maybe Text)
-    , _gsrsErrorCount            :: !(Maybe Int)
-    , _gsrsCurrentManifest       :: !(Maybe Text)
-    , _gsrsArtifactList          :: !(Maybe [Artifact])
-    , _gsrsLogBucket             :: !(Maybe Text)
-    , _gsrsCreationDate          :: !(Maybe ISO8601)
-    , _gsrsProgressCode          :: !(Maybe Text)
-    , _gsrsLocationCode          :: !(Maybe Text)
-    , _gsrsLogKey                :: !(Maybe Text)
-    , _gsrsLocationMessage       :: !(Maybe Text)
-    , _gsrsProgressMessage       :: !(Maybe Text)
-    , _gsrsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gsrsCarrier               :: !(Maybe Text)
+  , _gsrsTrackingNumber        :: !(Maybe Text)
+  , _gsrsSignature             :: !(Maybe Text)
+  , _gsrsJobType               :: !(Maybe JobType)
+  , _gsrsJobId                 :: !(Maybe Text)
+  , _gsrsSignatureFileContents :: !(Maybe Text)
+  , _gsrsErrorCount            :: !(Maybe Int)
+  , _gsrsCurrentManifest       :: !(Maybe Text)
+  , _gsrsArtifactList          :: !(Maybe [Artifact])
+  , _gsrsLogBucket             :: !(Maybe Text)
+  , _gsrsCreationDate          :: !(Maybe ISO8601)
+  , _gsrsProgressCode          :: !(Maybe Text)
+  , _gsrsLocationCode          :: !(Maybe Text)
+  , _gsrsLogKey                :: !(Maybe Text)
+  , _gsrsLocationMessage       :: !(Maybe Text)
+  , _gsrsProgressMessage       :: !(Maybe Text)
+  , _gsrsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetStatusResponse' with the minimum fields required to make a request.
 --
@@ -198,25 +197,26 @@ getStatusResponse
     :: Int -- ^ 'gsrsResponseStatus'
     -> GetStatusResponse
 getStatusResponse pResponseStatus_ =
-    GetStatusResponse'
-    { _gsrsCarrier = Nothing
-    , _gsrsTrackingNumber = Nothing
-    , _gsrsSignature = Nothing
-    , _gsrsJobType = Nothing
-    , _gsrsJobId = Nothing
-    , _gsrsSignatureFileContents = Nothing
-    , _gsrsErrorCount = Nothing
-    , _gsrsCurrentManifest = Nothing
-    , _gsrsArtifactList = Nothing
-    , _gsrsLogBucket = Nothing
-    , _gsrsCreationDate = Nothing
-    , _gsrsProgressCode = Nothing
-    , _gsrsLocationCode = Nothing
-    , _gsrsLogKey = Nothing
-    , _gsrsLocationMessage = Nothing
-    , _gsrsProgressMessage = Nothing
-    , _gsrsResponseStatus = pResponseStatus_
-    }
+  GetStatusResponse'
+  { _gsrsCarrier = Nothing
+  , _gsrsTrackingNumber = Nothing
+  , _gsrsSignature = Nothing
+  , _gsrsJobType = Nothing
+  , _gsrsJobId = Nothing
+  , _gsrsSignatureFileContents = Nothing
+  , _gsrsErrorCount = Nothing
+  , _gsrsCurrentManifest = Nothing
+  , _gsrsArtifactList = Nothing
+  , _gsrsLogBucket = Nothing
+  , _gsrsCreationDate = Nothing
+  , _gsrsProgressCode = Nothing
+  , _gsrsLocationCode = Nothing
+  , _gsrsLogKey = Nothing
+  , _gsrsLocationMessage = Nothing
+  , _gsrsProgressMessage = Nothing
+  , _gsrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 gsrsCarrier :: Lens' GetStatusResponse (Maybe Text)
@@ -286,4 +286,4 @@ gsrsProgressMessage = lens _gsrsProgressMessage (\ s a -> s{_gsrsProgressMessage
 gsrsResponseStatus :: Lens' GetStatusResponse Int
 gsrsResponseStatus = lens _gsrsResponseStatus (\ s a -> s{_gsrsResponseStatus = a});
 
-instance NFData GetStatusResponse
+instance NFData GetStatusResponse where

@@ -9,17 +9,17 @@
 
 -- |
 -- Module      : Network.AWS.KinesisAnalytics.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.KinesisAnalytics.Types.Product where
 
-import           Network.AWS.KinesisAnalytics.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.KinesisAnalytics.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
 -- | Provides a description of the application, including the application Amazon Resource Name (ARN), status, latest version, and input and output configuration.
 --
@@ -27,19 +27,20 @@ import           Network.AWS.Prelude
 --
 -- /See:/ 'applicationDetail' smart constructor.
 data ApplicationDetail = ApplicationDetail'
-    { _adApplicationDescription              :: !(Maybe Text)
-    , _adOutputDescriptions                  :: !(Maybe [OutputDescription])
-    , _adCloudWatchLoggingOptionDescriptions :: !(Maybe [CloudWatchLoggingOptionDescription])
-    , _adReferenceDataSourceDescriptions     :: !(Maybe [ReferenceDataSourceDescription])
-    , _adInputDescriptions                   :: !(Maybe [InputDescription])
-    , _adApplicationCode                     :: !(Maybe Text)
-    , _adCreateTimestamp                     :: !(Maybe POSIX)
-    , _adLastUpdateTimestamp                 :: !(Maybe POSIX)
-    , _adApplicationName                     :: !Text
-    , _adApplicationARN                      :: !Text
-    , _adApplicationStatus                   :: !ApplicationStatus
-    , _adApplicationVersionId                :: !Nat
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _adApplicationDescription :: !(Maybe Text)
+  , _adOutputDescriptions :: !(Maybe [OutputDescription])
+  , _adCloudWatchLoggingOptionDescriptions :: !(Maybe [CloudWatchLoggingOptionDescription])
+  , _adReferenceDataSourceDescriptions :: !(Maybe [ReferenceDataSourceDescription])
+  , _adInputDescriptions :: !(Maybe [InputDescription])
+  , _adApplicationCode :: !(Maybe Text)
+  , _adCreateTimestamp :: !(Maybe POSIX)
+  , _adLastUpdateTimestamp :: !(Maybe POSIX)
+  , _adApplicationName :: !Text
+  , _adApplicationARN :: !Text
+  , _adApplicationStatus :: !ApplicationStatus
+  , _adApplicationVersionId :: !Nat
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ApplicationDetail' with the minimum fields required to make a request.
 --
@@ -75,20 +76,21 @@ applicationDetail
     -> Natural -- ^ 'adApplicationVersionId'
     -> ApplicationDetail
 applicationDetail pApplicationName_ pApplicationARN_ pApplicationStatus_ pApplicationVersionId_ =
-    ApplicationDetail'
-    { _adApplicationDescription = Nothing
-    , _adOutputDescriptions = Nothing
-    , _adCloudWatchLoggingOptionDescriptions = Nothing
-    , _adReferenceDataSourceDescriptions = Nothing
-    , _adInputDescriptions = Nothing
-    , _adApplicationCode = Nothing
-    , _adCreateTimestamp = Nothing
-    , _adLastUpdateTimestamp = Nothing
-    , _adApplicationName = pApplicationName_
-    , _adApplicationARN = pApplicationARN_
-    , _adApplicationStatus = pApplicationStatus_
-    , _adApplicationVersionId = _Nat # pApplicationVersionId_
-    }
+  ApplicationDetail'
+  { _adApplicationDescription = Nothing
+  , _adOutputDescriptions = Nothing
+  , _adCloudWatchLoggingOptionDescriptions = Nothing
+  , _adReferenceDataSourceDescriptions = Nothing
+  , _adInputDescriptions = Nothing
+  , _adApplicationCode = Nothing
+  , _adCreateTimestamp = Nothing
+  , _adLastUpdateTimestamp = Nothing
+  , _adApplicationName = pApplicationName_
+  , _adApplicationARN = pApplicationARN_
+  , _adApplicationStatus = pApplicationStatus_
+  , _adApplicationVersionId = _Nat # pApplicationVersionId_
+  }
+
 
 -- | Description of the application.
 adApplicationDescription :: Lens' ApplicationDetail (Maybe Text)
@@ -159,9 +161,9 @@ instance FromJSON ApplicationDetail where
                      <*> (x .: "ApplicationStatus")
                      <*> (x .: "ApplicationVersionId"))
 
-instance Hashable ApplicationDetail
+instance Hashable ApplicationDetail where
 
-instance NFData ApplicationDetail
+instance NFData ApplicationDetail where
 
 -- | Provides application summary information, including the application Amazon Resource Name (ARN), name, and status.
 --
@@ -169,10 +171,11 @@ instance NFData ApplicationDetail
 --
 -- /See:/ 'applicationSummary' smart constructor.
 data ApplicationSummary = ApplicationSummary'
-    { _asApplicationName   :: !Text
-    , _asApplicationARN    :: !Text
-    , _asApplicationStatus :: !ApplicationStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _asApplicationName   :: !Text
+  , _asApplicationARN    :: !Text
+  , _asApplicationStatus :: !ApplicationStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ApplicationSummary' with the minimum fields required to make a request.
 --
@@ -189,11 +192,12 @@ applicationSummary
     -> ApplicationStatus -- ^ 'asApplicationStatus'
     -> ApplicationSummary
 applicationSummary pApplicationName_ pApplicationARN_ pApplicationStatus_ =
-    ApplicationSummary'
-    { _asApplicationName = pApplicationName_
-    , _asApplicationARN = pApplicationARN_
-    , _asApplicationStatus = pApplicationStatus_
-    }
+  ApplicationSummary'
+  { _asApplicationName = pApplicationName_
+  , _asApplicationARN = pApplicationARN_
+  , _asApplicationStatus = pApplicationStatus_
+  }
+
 
 -- | Name of the application.
 asApplicationName :: Lens' ApplicationSummary Text
@@ -215,9 +219,9 @@ instance FromJSON ApplicationSummary where
                    (x .: "ApplicationName") <*> (x .: "ApplicationARN")
                      <*> (x .: "ApplicationStatus"))
 
-instance Hashable ApplicationSummary
+instance Hashable ApplicationSummary where
 
-instance NFData ApplicationSummary
+instance NFData ApplicationSummary where
 
 -- | Describes updates to apply to an existing Amazon Kinesis Analytics application.
 --
@@ -225,12 +229,13 @@ instance NFData ApplicationSummary
 --
 -- /See:/ 'applicationUpdate' smart constructor.
 data ApplicationUpdate = ApplicationUpdate'
-    { _auReferenceDataSourceUpdates     :: !(Maybe [ReferenceDataSourceUpdate])
-    , _auInputUpdates                   :: !(Maybe [InputUpdate])
-    , _auCloudWatchLoggingOptionUpdates :: !(Maybe [CloudWatchLoggingOptionUpdate])
-    , _auOutputUpdates                  :: !(Maybe [OutputUpdate])
-    , _auApplicationCodeUpdate          :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _auReferenceDataSourceUpdates :: !(Maybe [ReferenceDataSourceUpdate])
+  , _auInputUpdates :: !(Maybe [InputUpdate])
+  , _auCloudWatchLoggingOptionUpdates :: !(Maybe [CloudWatchLoggingOptionUpdate])
+  , _auOutputUpdates :: !(Maybe [OutputUpdate])
+  , _auApplicationCodeUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ApplicationUpdate' with the minimum fields required to make a request.
 --
@@ -248,13 +253,14 @@ data ApplicationUpdate = ApplicationUpdate'
 applicationUpdate
     :: ApplicationUpdate
 applicationUpdate =
-    ApplicationUpdate'
-    { _auReferenceDataSourceUpdates = Nothing
-    , _auInputUpdates = Nothing
-    , _auCloudWatchLoggingOptionUpdates = Nothing
-    , _auOutputUpdates = Nothing
-    , _auApplicationCodeUpdate = Nothing
-    }
+  ApplicationUpdate'
+  { _auReferenceDataSourceUpdates = Nothing
+  , _auInputUpdates = Nothing
+  , _auCloudWatchLoggingOptionUpdates = Nothing
+  , _auOutputUpdates = Nothing
+  , _auApplicationCodeUpdate = Nothing
+  }
+
 
 -- | Describes application reference data source updates.
 auReferenceDataSourceUpdates :: Lens' ApplicationUpdate [ReferenceDataSourceUpdate]
@@ -276,9 +282,9 @@ auOutputUpdates = lens _auOutputUpdates (\ s a -> s{_auOutputUpdates = a}) . _De
 auApplicationCodeUpdate :: Lens' ApplicationUpdate (Maybe Text)
 auApplicationCodeUpdate = lens _auApplicationCodeUpdate (\ s a -> s{_auApplicationCodeUpdate = a});
 
-instance Hashable ApplicationUpdate
+instance Hashable ApplicationUpdate where
 
-instance NFData ApplicationUpdate
+instance NFData ApplicationUpdate where
 
 instance ToJSON ApplicationUpdate where
         toJSON ApplicationUpdate'{..}
@@ -303,9 +309,10 @@ instance ToJSON ApplicationUpdate where
 --
 -- /See:/ 'csvMappingParameters' smart constructor.
 data CSVMappingParameters = CSVMappingParameters'
-    { _cmpRecordRowDelimiter    :: !Text
-    , _cmpRecordColumnDelimiter :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cmpRecordRowDelimiter    :: !Text
+  , _cmpRecordColumnDelimiter :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CSVMappingParameters' with the minimum fields required to make a request.
 --
@@ -319,10 +326,11 @@ csvMappingParameters
     -> Text -- ^ 'cmpRecordColumnDelimiter'
     -> CSVMappingParameters
 csvMappingParameters pRecordRowDelimiter_ pRecordColumnDelimiter_ =
-    CSVMappingParameters'
-    { _cmpRecordRowDelimiter = pRecordRowDelimiter_
-    , _cmpRecordColumnDelimiter = pRecordColumnDelimiter_
-    }
+  CSVMappingParameters'
+  { _cmpRecordRowDelimiter = pRecordRowDelimiter_
+  , _cmpRecordColumnDelimiter = pRecordColumnDelimiter_
+  }
+
 
 -- | Row delimiter. For example, in a CSV format, /'\n'/ is the typical row delimiter.
 cmpRecordRowDelimiter :: Lens' CSVMappingParameters Text
@@ -340,9 +348,9 @@ instance FromJSON CSVMappingParameters where
                    (x .: "RecordRowDelimiter") <*>
                      (x .: "RecordColumnDelimiter"))
 
-instance Hashable CSVMappingParameters
+instance Hashable CSVMappingParameters where
 
-instance NFData CSVMappingParameters
+instance NFData CSVMappingParameters where
 
 instance ToJSON CSVMappingParameters where
         toJSON CSVMappingParameters'{..}
@@ -360,9 +368,10 @@ instance ToJSON CSVMappingParameters where
 --
 -- /See:/ 'cloudWatchLoggingOption' smart constructor.
 data CloudWatchLoggingOption = CloudWatchLoggingOption'
-    { _cwloLogStreamARN :: !Text
-    , _cwloRoleARN      :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cwloLogStreamARN :: !Text
+  , _cwloRoleARN      :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CloudWatchLoggingOption' with the minimum fields required to make a request.
 --
@@ -376,10 +385,9 @@ cloudWatchLoggingOption
     -> Text -- ^ 'cwloRoleARN'
     -> CloudWatchLoggingOption
 cloudWatchLoggingOption pLogStreamARN_ pRoleARN_ =
-    CloudWatchLoggingOption'
-    { _cwloLogStreamARN = pLogStreamARN_
-    , _cwloRoleARN = pRoleARN_
-    }
+  CloudWatchLoggingOption'
+  {_cwloLogStreamARN = pLogStreamARN_, _cwloRoleARN = pRoleARN_}
+
 
 -- | ARN of the CloudWatch log to receive application messages.
 cwloLogStreamARN :: Lens' CloudWatchLoggingOption Text
@@ -389,9 +397,9 @@ cwloLogStreamARN = lens _cwloLogStreamARN (\ s a -> s{_cwloLogStreamARN = a});
 cwloRoleARN :: Lens' CloudWatchLoggingOption Text
 cwloRoleARN = lens _cwloRoleARN (\ s a -> s{_cwloRoleARN = a});
 
-instance Hashable CloudWatchLoggingOption
+instance Hashable CloudWatchLoggingOption where
 
-instance NFData CloudWatchLoggingOption
+instance NFData CloudWatchLoggingOption where
 
 instance ToJSON CloudWatchLoggingOption where
         toJSON CloudWatchLoggingOption'{..}
@@ -406,10 +414,11 @@ instance ToJSON CloudWatchLoggingOption where
 --
 -- /See:/ 'cloudWatchLoggingOptionDescription' smart constructor.
 data CloudWatchLoggingOptionDescription = CloudWatchLoggingOptionDescription'
-    { _cwlodCloudWatchLoggingOptionId :: !(Maybe Text)
-    , _cwlodLogStreamARN              :: !Text
-    , _cwlodRoleARN                   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cwlodCloudWatchLoggingOptionId :: !(Maybe Text)
+  , _cwlodLogStreamARN              :: !Text
+  , _cwlodRoleARN                   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CloudWatchLoggingOptionDescription' with the minimum fields required to make a request.
 --
@@ -425,11 +434,12 @@ cloudWatchLoggingOptionDescription
     -> Text -- ^ 'cwlodRoleARN'
     -> CloudWatchLoggingOptionDescription
 cloudWatchLoggingOptionDescription pLogStreamARN_ pRoleARN_ =
-    CloudWatchLoggingOptionDescription'
-    { _cwlodCloudWatchLoggingOptionId = Nothing
-    , _cwlodLogStreamARN = pLogStreamARN_
-    , _cwlodRoleARN = pRoleARN_
-    }
+  CloudWatchLoggingOptionDescription'
+  { _cwlodCloudWatchLoggingOptionId = Nothing
+  , _cwlodLogStreamARN = pLogStreamARN_
+  , _cwlodRoleARN = pRoleARN_
+  }
+
 
 -- | ID of the CloudWatch logging option description.
 cwlodCloudWatchLoggingOptionId :: Lens' CloudWatchLoggingOptionDescription (Maybe Text)
@@ -454,8 +464,10 @@ instance FromJSON CloudWatchLoggingOptionDescription
                      <*> (x .: "RoleARN"))
 
 instance Hashable CloudWatchLoggingOptionDescription
+         where
 
 instance NFData CloudWatchLoggingOptionDescription
+         where
 
 -- | Describes CloudWatch logging option updates.
 --
@@ -463,10 +475,11 @@ instance NFData CloudWatchLoggingOptionDescription
 --
 -- /See:/ 'cloudWatchLoggingOptionUpdate' smart constructor.
 data CloudWatchLoggingOptionUpdate = CloudWatchLoggingOptionUpdate'
-    { _cwlouRoleARNUpdate             :: !(Maybe Text)
-    , _cwlouLogStreamARNUpdate        :: !(Maybe Text)
-    , _cwlouCloudWatchLoggingOptionId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cwlouRoleARNUpdate             :: !(Maybe Text)
+  , _cwlouLogStreamARNUpdate        :: !(Maybe Text)
+  , _cwlouCloudWatchLoggingOptionId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CloudWatchLoggingOptionUpdate' with the minimum fields required to make a request.
 --
@@ -481,11 +494,12 @@ cloudWatchLoggingOptionUpdate
     :: Text -- ^ 'cwlouCloudWatchLoggingOptionId'
     -> CloudWatchLoggingOptionUpdate
 cloudWatchLoggingOptionUpdate pCloudWatchLoggingOptionId_ =
-    CloudWatchLoggingOptionUpdate'
-    { _cwlouRoleARNUpdate = Nothing
-    , _cwlouLogStreamARNUpdate = Nothing
-    , _cwlouCloudWatchLoggingOptionId = pCloudWatchLoggingOptionId_
-    }
+  CloudWatchLoggingOptionUpdate'
+  { _cwlouRoleARNUpdate = Nothing
+  , _cwlouLogStreamARNUpdate = Nothing
+  , _cwlouCloudWatchLoggingOptionId = pCloudWatchLoggingOptionId_
+  }
+
 
 -- | IAM ARN of the role to use to send application messages. Note: To write application messages to CloudWatch, the IAM role used must have the @PutLogEvents@ policy action enabled.
 cwlouRoleARNUpdate :: Lens' CloudWatchLoggingOptionUpdate (Maybe Text)
@@ -499,9 +513,9 @@ cwlouLogStreamARNUpdate = lens _cwlouLogStreamARNUpdate (\ s a -> s{_cwlouLogStr
 cwlouCloudWatchLoggingOptionId :: Lens' CloudWatchLoggingOptionUpdate Text
 cwlouCloudWatchLoggingOptionId = lens _cwlouCloudWatchLoggingOptionId (\ s a -> s{_cwlouCloudWatchLoggingOptionId = a});
 
-instance Hashable CloudWatchLoggingOptionUpdate
+instance Hashable CloudWatchLoggingOptionUpdate where
 
-instance NFData CloudWatchLoggingOptionUpdate
+instance NFData CloudWatchLoggingOptionUpdate where
 
 instance ToJSON CloudWatchLoggingOptionUpdate where
         toJSON CloudWatchLoggingOptionUpdate'{..}
@@ -520,8 +534,9 @@ instance ToJSON CloudWatchLoggingOptionUpdate where
 --
 -- /See:/ 'destinationSchema' smart constructor.
 newtype DestinationSchema = DestinationSchema'
-    { _dsRecordFormatType :: Maybe RecordFormatType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsRecordFormatType :: Maybe RecordFormatType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DestinationSchema' with the minimum fields required to make a request.
 --
@@ -530,10 +545,8 @@ newtype DestinationSchema = DestinationSchema'
 -- * 'dsRecordFormatType' - Specifies the format of the records on the output stream.
 destinationSchema
     :: DestinationSchema
-destinationSchema =
-    DestinationSchema'
-    { _dsRecordFormatType = Nothing
-    }
+destinationSchema = DestinationSchema' {_dsRecordFormatType = Nothing}
+
 
 -- | Specifies the format of the records on the output stream.
 dsRecordFormatType :: Lens' DestinationSchema (Maybe RecordFormatType)
@@ -545,9 +558,9 @@ instance FromJSON DestinationSchema where
               (\ x ->
                  DestinationSchema' <$> (x .:? "RecordFormatType"))
 
-instance Hashable DestinationSchema
+instance Hashable DestinationSchema where
 
-instance NFData DestinationSchema
+instance NFData DestinationSchema where
 
 instance ToJSON DestinationSchema where
         toJSON DestinationSchema'{..}
@@ -561,18 +574,22 @@ instance ToJSON DestinationSchema where
 --
 -- /See:/ 'input' smart constructor.
 data Input = Input'
-    { _iInputParallelism     :: !(Maybe InputParallelism)
-    , _iKinesisStreamsInput  :: !(Maybe KinesisStreamsInput)
-    , _iKinesisFirehoseInput :: !(Maybe KinesisFirehoseInput)
-    , _iNamePrefix           :: !Text
-    , _iInputSchema          :: !SourceSchema
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _iInputParallelism             :: !(Maybe InputParallelism)
+  , _iInputProcessingConfiguration :: !(Maybe InputProcessingConfiguration)
+  , _iKinesisStreamsInput          :: !(Maybe KinesisStreamsInput)
+  , _iKinesisFirehoseInput         :: !(Maybe KinesisFirehoseInput)
+  , _iNamePrefix                   :: !Text
+  , _iInputSchema                  :: !SourceSchema
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Input' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'iInputParallelism' - Describes the number of in-application streams to create.  Data from your source will be routed to these in-application input streams. (see <http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input> .
+--
+-- * 'iInputProcessingConfiguration' - The 'InputProcessingConfiguration' for the Input. An input processor transforms records as they are received from the stream, before the application's SQL code executes. Currently, the only input processing configuration available is 'InputLambdaProcessor' .
 --
 -- * 'iKinesisStreamsInput' - If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf. Note: Either @KinesisStreamsInput@ or @KinesisFirehoseInput@ is required.
 --
@@ -586,17 +603,23 @@ input
     -> SourceSchema -- ^ 'iInputSchema'
     -> Input
 input pNamePrefix_ pInputSchema_ =
-    Input'
-    { _iInputParallelism = Nothing
-    , _iKinesisStreamsInput = Nothing
-    , _iKinesisFirehoseInput = Nothing
-    , _iNamePrefix = pNamePrefix_
-    , _iInputSchema = pInputSchema_
-    }
+  Input'
+  { _iInputParallelism = Nothing
+  , _iInputProcessingConfiguration = Nothing
+  , _iKinesisStreamsInput = Nothing
+  , _iKinesisFirehoseInput = Nothing
+  , _iNamePrefix = pNamePrefix_
+  , _iInputSchema = pInputSchema_
+  }
+
 
 -- | Describes the number of in-application streams to create.  Data from your source will be routed to these in-application input streams. (see <http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input> .
 iInputParallelism :: Lens' Input (Maybe InputParallelism)
 iInputParallelism = lens _iInputParallelism (\ s a -> s{_iInputParallelism = a});
+
+-- | The 'InputProcessingConfiguration' for the Input. An input processor transforms records as they are received from the stream, before the application's SQL code executes. Currently, the only input processing configuration available is 'InputLambdaProcessor' .
+iInputProcessingConfiguration :: Lens' Input (Maybe InputProcessingConfiguration)
+iInputProcessingConfiguration = lens _iInputProcessingConfiguration (\ s a -> s{_iInputProcessingConfiguration = a});
 
 -- | If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf. Note: Either @KinesisStreamsInput@ or @KinesisFirehoseInput@ is required.
 iKinesisStreamsInput :: Lens' Input (Maybe KinesisStreamsInput)
@@ -614,15 +637,17 @@ iNamePrefix = lens _iNamePrefix (\ s a -> s{_iNamePrefix = a});
 iInputSchema :: Lens' Input SourceSchema
 iInputSchema = lens _iInputSchema (\ s a -> s{_iInputSchema = a});
 
-instance Hashable Input
+instance Hashable Input where
 
-instance NFData Input
+instance NFData Input where
 
 instance ToJSON Input where
         toJSON Input'{..}
           = object
               (catMaybes
                  [("InputParallelism" .=) <$> _iInputParallelism,
+                  ("InputProcessingConfiguration" .=) <$>
+                    _iInputProcessingConfiguration,
                   ("KinesisStreamsInput" .=) <$> _iKinesisStreamsInput,
                   ("KinesisFirehoseInput" .=) <$>
                     _iKinesisFirehoseInput,
@@ -635,9 +660,10 @@ instance ToJSON Input where
 --
 -- /See:/ 'inputConfiguration' smart constructor.
 data InputConfiguration = InputConfiguration'
-    { _icId                                 :: !Text
-    , _icInputStartingPositionConfiguration :: !InputStartingPositionConfiguration
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _icId                                 :: !Text
+  , _icInputStartingPositionConfiguration :: !InputStartingPositionConfiguration
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputConfiguration' with the minimum fields required to make a request.
 --
@@ -651,10 +677,11 @@ inputConfiguration
     -> InputStartingPositionConfiguration -- ^ 'icInputStartingPositionConfiguration'
     -> InputConfiguration
 inputConfiguration pId_ pInputStartingPositionConfiguration_ =
-    InputConfiguration'
-    { _icId = pId_
-    , _icInputStartingPositionConfiguration = pInputStartingPositionConfiguration_
-    }
+  InputConfiguration'
+  { _icId = pId_
+  , _icInputStartingPositionConfiguration = pInputStartingPositionConfiguration_
+  }
+
 
 -- | Input source ID. You can get this ID by calling the 'DescribeApplication' operation.
 icId :: Lens' InputConfiguration Text
@@ -664,9 +691,9 @@ icId = lens _icId (\ s a -> s{_icId = a});
 icInputStartingPositionConfiguration :: Lens' InputConfiguration InputStartingPositionConfiguration
 icInputStartingPositionConfiguration = lens _icInputStartingPositionConfiguration (\ s a -> s{_icInputStartingPositionConfiguration = a});
 
-instance Hashable InputConfiguration
+instance Hashable InputConfiguration where
 
-instance NFData InputConfiguration
+instance NFData InputConfiguration where
 
 instance ToJSON InputConfiguration where
         toJSON InputConfiguration'{..}
@@ -683,15 +710,17 @@ instance ToJSON InputConfiguration where
 --
 -- /See:/ 'inputDescription' smart constructor.
 data InputDescription = InputDescription'
-    { _idInputStartingPositionConfiguration :: !(Maybe InputStartingPositionConfiguration)
-    , _idInputParallelism                   :: !(Maybe InputParallelism)
-    , _idInputId                            :: !(Maybe Text)
-    , _idInAppStreamNames                   :: !(Maybe [Text])
-    , _idKinesisFirehoseInputDescription    :: !(Maybe KinesisFirehoseInputDescription)
-    , _idInputSchema                        :: !(Maybe SourceSchema)
-    , _idKinesisStreamsInputDescription     :: !(Maybe KinesisStreamsInputDescription)
-    , _idNamePrefix                         :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _idInputStartingPositionConfiguration :: !(Maybe InputStartingPositionConfiguration)
+  , _idInputParallelism :: !(Maybe InputParallelism)
+  , _idInputId :: !(Maybe Text)
+  , _idInAppStreamNames :: !(Maybe [Text])
+  , _idKinesisFirehoseInputDescription :: !(Maybe KinesisFirehoseInputDescription)
+  , _idInputSchema :: !(Maybe SourceSchema)
+  , _idKinesisStreamsInputDescription :: !(Maybe KinesisStreamsInputDescription)
+  , _idNamePrefix :: !(Maybe Text)
+  , _idInputProcessingConfigurationDescription :: !(Maybe InputProcessingConfigurationDescription)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputDescription' with the minimum fields required to make a request.
 --
@@ -707,24 +736,28 @@ data InputDescription = InputDescription'
 --
 -- * 'idKinesisFirehoseInputDescription' - If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose delivery stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
 --
--- * 'idInputSchema' - Undocumented member.
+-- * 'idInputSchema' - Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.
 --
 -- * 'idKinesisStreamsInputDescription' - If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
 --
 -- * 'idNamePrefix' - In-application name prefix.
+--
+-- * 'idInputProcessingConfigurationDescription' - The description of the preprocessor that executes on records in this input before the application's code is run.
 inputDescription
     :: InputDescription
 inputDescription =
-    InputDescription'
-    { _idInputStartingPositionConfiguration = Nothing
-    , _idInputParallelism = Nothing
-    , _idInputId = Nothing
-    , _idInAppStreamNames = Nothing
-    , _idKinesisFirehoseInputDescription = Nothing
-    , _idInputSchema = Nothing
-    , _idKinesisStreamsInputDescription = Nothing
-    , _idNamePrefix = Nothing
-    }
+  InputDescription'
+  { _idInputStartingPositionConfiguration = Nothing
+  , _idInputParallelism = Nothing
+  , _idInputId = Nothing
+  , _idInAppStreamNames = Nothing
+  , _idKinesisFirehoseInputDescription = Nothing
+  , _idInputSchema = Nothing
+  , _idKinesisStreamsInputDescription = Nothing
+  , _idNamePrefix = Nothing
+  , _idInputProcessingConfigurationDescription = Nothing
+  }
+
 
 -- | Point at which the application is configured to read from the input stream.
 idInputStartingPositionConfiguration :: Lens' InputDescription (Maybe InputStartingPositionConfiguration)
@@ -746,7 +779,7 @@ idInAppStreamNames = lens _idInAppStreamNames (\ s a -> s{_idInAppStreamNames = 
 idKinesisFirehoseInputDescription :: Lens' InputDescription (Maybe KinesisFirehoseInputDescription)
 idKinesisFirehoseInputDescription = lens _idKinesisFirehoseInputDescription (\ s a -> s{_idKinesisFirehoseInputDescription = a});
 
--- | Undocumented member.
+-- | Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.
 idInputSchema :: Lens' InputDescription (Maybe SourceSchema)
 idInputSchema = lens _idInputSchema (\ s a -> s{_idInputSchema = a});
 
@@ -757,6 +790,10 @@ idKinesisStreamsInputDescription = lens _idKinesisStreamsInputDescription (\ s a
 -- | In-application name prefix.
 idNamePrefix :: Lens' InputDescription (Maybe Text)
 idNamePrefix = lens _idNamePrefix (\ s a -> s{_idNamePrefix = a});
+
+-- | The description of the preprocessor that executes on records in this input before the application's code is run.
+idInputProcessingConfigurationDescription :: Lens' InputDescription (Maybe InputProcessingConfigurationDescription)
+idInputProcessingConfigurationDescription = lens _idInputProcessingConfigurationDescription (\ s a -> s{_idInputProcessingConfigurationDescription = a});
 
 instance FromJSON InputDescription where
         parseJSON
@@ -770,11 +807,149 @@ instance FromJSON InputDescription where
                      <*> (x .:? "KinesisFirehoseInputDescription")
                      <*> (x .:? "InputSchema")
                      <*> (x .:? "KinesisStreamsInputDescription")
-                     <*> (x .:? "NamePrefix"))
+                     <*> (x .:? "NamePrefix")
+                     <*>
+                     (x .:? "InputProcessingConfigurationDescription"))
 
-instance Hashable InputDescription
+instance Hashable InputDescription where
 
-instance NFData InputDescription
+instance NFData InputDescription where
+
+-- | An object that contains the ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess records in the stream, and the ARN of the IAM role used to access the AWS Lambda function.
+--
+--
+--
+-- /See:/ 'inputLambdaProcessor' smart constructor.
+data InputLambdaProcessor = InputLambdaProcessor'
+  { _ilpResourceARN :: !Text
+  , _ilpRoleARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputLambdaProcessor' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ilpResourceARN' - The ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that operates on records in the stream.
+--
+-- * 'ilpRoleARN' - The ARN of the IAM role used to access the AWS Lambda function.
+inputLambdaProcessor
+    :: Text -- ^ 'ilpResourceARN'
+    -> Text -- ^ 'ilpRoleARN'
+    -> InputLambdaProcessor
+inputLambdaProcessor pResourceARN_ pRoleARN_ =
+  InputLambdaProcessor'
+  {_ilpResourceARN = pResourceARN_, _ilpRoleARN = pRoleARN_}
+
+
+-- | The ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that operates on records in the stream.
+ilpResourceARN :: Lens' InputLambdaProcessor Text
+ilpResourceARN = lens _ilpResourceARN (\ s a -> s{_ilpResourceARN = a});
+
+-- | The ARN of the IAM role used to access the AWS Lambda function.
+ilpRoleARN :: Lens' InputLambdaProcessor Text
+ilpRoleARN = lens _ilpRoleARN (\ s a -> s{_ilpRoleARN = a});
+
+instance Hashable InputLambdaProcessor where
+
+instance NFData InputLambdaProcessor where
+
+instance ToJSON InputLambdaProcessor where
+        toJSON InputLambdaProcessor'{..}
+          = object
+              (catMaybes
+                 [Just ("ResourceARN" .= _ilpResourceARN),
+                  Just ("RoleARN" .= _ilpRoleARN)])
+
+-- | An object that contains the ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess records in the stream, and the ARN of the IAM role used to access the AWS Lambda expression.
+--
+--
+--
+-- /See:/ 'inputLambdaProcessorDescription' smart constructor.
+data InputLambdaProcessorDescription = InputLambdaProcessorDescription'
+  { _ilpdResourceARN :: !(Maybe Text)
+  , _ilpdRoleARN     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputLambdaProcessorDescription' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ilpdResourceARN' - The ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
+--
+-- * 'ilpdRoleARN' - The ARN of the IAM role used to access the AWS Lambda function.
+inputLambdaProcessorDescription
+    :: InputLambdaProcessorDescription
+inputLambdaProcessorDescription =
+  InputLambdaProcessorDescription'
+  {_ilpdResourceARN = Nothing, _ilpdRoleARN = Nothing}
+
+
+-- | The ARN of the <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
+ilpdResourceARN :: Lens' InputLambdaProcessorDescription (Maybe Text)
+ilpdResourceARN = lens _ilpdResourceARN (\ s a -> s{_ilpdResourceARN = a});
+
+-- | The ARN of the IAM role used to access the AWS Lambda function.
+ilpdRoleARN :: Lens' InputLambdaProcessorDescription (Maybe Text)
+ilpdRoleARN = lens _ilpdRoleARN (\ s a -> s{_ilpdRoleARN = a});
+
+instance FromJSON InputLambdaProcessorDescription
+         where
+        parseJSON
+          = withObject "InputLambdaProcessorDescription"
+              (\ x ->
+                 InputLambdaProcessorDescription' <$>
+                   (x .:? "ResourceARN") <*> (x .:? "RoleARN"))
+
+instance Hashable InputLambdaProcessorDescription
+         where
+
+instance NFData InputLambdaProcessorDescription where
+
+-- | Represents an update to the 'InputLambdaProcessor' that is used to preprocess the records in the stream.
+--
+--
+--
+-- /See:/ 'inputLambdaProcessorUpdate' smart constructor.
+data InputLambdaProcessorUpdate = InputLambdaProcessorUpdate'
+  { _ilpuRoleARNUpdate     :: !(Maybe Text)
+  , _ilpuResourceARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputLambdaProcessorUpdate' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ilpuRoleARNUpdate' - The ARN of the new IAM role used to access the AWS Lambda function.
+--
+-- * 'ilpuResourceARNUpdate' - The ARN of the new <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
+inputLambdaProcessorUpdate
+    :: InputLambdaProcessorUpdate
+inputLambdaProcessorUpdate =
+  InputLambdaProcessorUpdate'
+  {_ilpuRoleARNUpdate = Nothing, _ilpuResourceARNUpdate = Nothing}
+
+
+-- | The ARN of the new IAM role used to access the AWS Lambda function.
+ilpuRoleARNUpdate :: Lens' InputLambdaProcessorUpdate (Maybe Text)
+ilpuRoleARNUpdate = lens _ilpuRoleARNUpdate (\ s a -> s{_ilpuRoleARNUpdate = a});
+
+-- | The ARN of the new <https://aws.amazon.com/documentation/lambda/ AWS Lambda> function that is used to preprocess the records in the stream.
+ilpuResourceARNUpdate :: Lens' InputLambdaProcessorUpdate (Maybe Text)
+ilpuResourceARNUpdate = lens _ilpuResourceARNUpdate (\ s a -> s{_ilpuResourceARNUpdate = a});
+
+instance Hashable InputLambdaProcessorUpdate where
+
+instance NFData InputLambdaProcessorUpdate where
+
+instance ToJSON InputLambdaProcessorUpdate where
+        toJSON InputLambdaProcessorUpdate'{..}
+          = object
+              (catMaybes
+                 [("RoleARNUpdate" .=) <$> _ilpuRoleARNUpdate,
+                  ("ResourceARNUpdate" .=) <$> _ilpuResourceARNUpdate])
 
 -- | Describes the number of in-application streams to create for a given streaming source. For information about parallelism, see <http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html Configuring Application Input> .
 --
@@ -782,8 +957,9 @@ instance NFData InputDescription
 --
 -- /See:/ 'inputParallelism' smart constructor.
 newtype InputParallelism = InputParallelism'
-    { _ipCount :: Maybe Nat
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ipCount :: Maybe Nat
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputParallelism' with the minimum fields required to make a request.
 --
@@ -792,10 +968,8 @@ newtype InputParallelism = InputParallelism'
 -- * 'ipCount' - Number of in-application streams to create. For more information, see <http://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits> .
 inputParallelism
     :: InputParallelism
-inputParallelism =
-    InputParallelism'
-    { _ipCount = Nothing
-    }
+inputParallelism = InputParallelism' {_ipCount = Nothing}
+
 
 -- | Number of in-application streams to create. For more information, see <http://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html Limits> .
 ipCount :: Lens' InputParallelism (Maybe Natural)
@@ -806,9 +980,9 @@ instance FromJSON InputParallelism where
           = withObject "InputParallelism"
               (\ x -> InputParallelism' <$> (x .:? "Count"))
 
-instance Hashable InputParallelism
+instance Hashable InputParallelism where
 
-instance NFData InputParallelism
+instance NFData InputParallelism where
 
 instance ToJSON InputParallelism where
         toJSON InputParallelism'{..}
@@ -820,8 +994,9 @@ instance ToJSON InputParallelism where
 --
 -- /See:/ 'inputParallelismUpdate' smart constructor.
 newtype InputParallelismUpdate = InputParallelismUpdate'
-    { _ipuCountUpdate :: Maybe Nat
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ipuCountUpdate :: Maybe Nat
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputParallelismUpdate' with the minimum fields required to make a request.
 --
@@ -830,23 +1005,146 @@ newtype InputParallelismUpdate = InputParallelismUpdate'
 -- * 'ipuCountUpdate' - Number of in-application streams to create for the specified streaming source.
 inputParallelismUpdate
     :: InputParallelismUpdate
-inputParallelismUpdate =
-    InputParallelismUpdate'
-    { _ipuCountUpdate = Nothing
-    }
+inputParallelismUpdate = InputParallelismUpdate' {_ipuCountUpdate = Nothing}
+
 
 -- | Number of in-application streams to create for the specified streaming source.
 ipuCountUpdate :: Lens' InputParallelismUpdate (Maybe Natural)
 ipuCountUpdate = lens _ipuCountUpdate (\ s a -> s{_ipuCountUpdate = a}) . mapping _Nat;
 
-instance Hashable InputParallelismUpdate
+instance Hashable InputParallelismUpdate where
 
-instance NFData InputParallelismUpdate
+instance NFData InputParallelismUpdate where
 
 instance ToJSON InputParallelismUpdate where
         toJSON InputParallelismUpdate'{..}
           = object
               (catMaybes [("CountUpdate" .=) <$> _ipuCountUpdate])
+
+-- | Provides a description of a processor that is used to preprocess the records in the stream prior to being processed by your application code. Currently, the only input processor available is <https://aws.amazon.com/documentation/lambda/ AWS Lambda> .
+--
+--
+--
+-- /See:/ 'inputProcessingConfiguration' smart constructor.
+newtype InputProcessingConfiguration = InputProcessingConfiguration'
+  { _ipcInputLambdaProcessor :: InputLambdaProcessor
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputProcessingConfiguration' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ipcInputLambdaProcessor' - The 'InputLambdaProcessor' that is used to preprocess the records in the stream prior to being processed by your application code.
+inputProcessingConfiguration
+    :: InputLambdaProcessor -- ^ 'ipcInputLambdaProcessor'
+    -> InputProcessingConfiguration
+inputProcessingConfiguration pInputLambdaProcessor_ =
+  InputProcessingConfiguration'
+  {_ipcInputLambdaProcessor = pInputLambdaProcessor_}
+
+
+-- | The 'InputLambdaProcessor' that is used to preprocess the records in the stream prior to being processed by your application code.
+ipcInputLambdaProcessor :: Lens' InputProcessingConfiguration InputLambdaProcessor
+ipcInputLambdaProcessor = lens _ipcInputLambdaProcessor (\ s a -> s{_ipcInputLambdaProcessor = a});
+
+instance Hashable InputProcessingConfiguration where
+
+instance NFData InputProcessingConfiguration where
+
+instance ToJSON InputProcessingConfiguration where
+        toJSON InputProcessingConfiguration'{..}
+          = object
+              (catMaybes
+                 [Just
+                    ("InputLambdaProcessor" .=
+                       _ipcInputLambdaProcessor)])
+
+-- | Provides configuration information about an input processor. Currently, the only input processor available is <https://aws.amazon.com/documentation/lambda/ AWS Lambda> .
+--
+--
+--
+-- /See:/ 'inputProcessingConfigurationDescription' smart constructor.
+newtype InputProcessingConfigurationDescription = InputProcessingConfigurationDescription'
+  { _ipcdInputLambdaProcessorDescription :: Maybe InputLambdaProcessorDescription
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputProcessingConfigurationDescription' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ipcdInputLambdaProcessorDescription' - Provides configuration information about the associated 'InputLambdaProcessorDescription' .
+inputProcessingConfigurationDescription
+    :: InputProcessingConfigurationDescription
+inputProcessingConfigurationDescription =
+  InputProcessingConfigurationDescription'
+  {_ipcdInputLambdaProcessorDescription = Nothing}
+
+
+-- | Provides configuration information about the associated 'InputLambdaProcessorDescription' .
+ipcdInputLambdaProcessorDescription :: Lens' InputProcessingConfigurationDescription (Maybe InputLambdaProcessorDescription)
+ipcdInputLambdaProcessorDescription = lens _ipcdInputLambdaProcessorDescription (\ s a -> s{_ipcdInputLambdaProcessorDescription = a});
+
+instance FromJSON
+           InputProcessingConfigurationDescription
+         where
+        parseJSON
+          = withObject
+              "InputProcessingConfigurationDescription"
+              (\ x ->
+                 InputProcessingConfigurationDescription' <$>
+                   (x .:? "InputLambdaProcessorDescription"))
+
+instance Hashable
+           InputProcessingConfigurationDescription
+         where
+
+instance NFData
+           InputProcessingConfigurationDescription
+         where
+
+-- | Describes updates to an 'InputProcessingConfiguration' .
+--
+--
+--
+-- /See:/ 'inputProcessingConfigurationUpdate' smart constructor.
+newtype InputProcessingConfigurationUpdate = InputProcessingConfigurationUpdate'
+  { _ipcuInputLambdaProcessorUpdate :: InputLambdaProcessorUpdate
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'InputProcessingConfigurationUpdate' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ipcuInputLambdaProcessorUpdate' - Provides update information for an 'InputLambdaProcessor' .
+inputProcessingConfigurationUpdate
+    :: InputLambdaProcessorUpdate -- ^ 'ipcuInputLambdaProcessorUpdate'
+    -> InputProcessingConfigurationUpdate
+inputProcessingConfigurationUpdate pInputLambdaProcessorUpdate_ =
+  InputProcessingConfigurationUpdate'
+  {_ipcuInputLambdaProcessorUpdate = pInputLambdaProcessorUpdate_}
+
+
+-- | Provides update information for an 'InputLambdaProcessor' .
+ipcuInputLambdaProcessorUpdate :: Lens' InputProcessingConfigurationUpdate InputLambdaProcessorUpdate
+ipcuInputLambdaProcessorUpdate = lens _ipcuInputLambdaProcessorUpdate (\ s a -> s{_ipcuInputLambdaProcessorUpdate = a});
+
+instance Hashable InputProcessingConfigurationUpdate
+         where
+
+instance NFData InputProcessingConfigurationUpdate
+         where
+
+instance ToJSON InputProcessingConfigurationUpdate
+         where
+        toJSON InputProcessingConfigurationUpdate'{..}
+          = object
+              (catMaybes
+                 [Just
+                    ("InputLambdaProcessorUpdate" .=
+                       _ipcuInputLambdaProcessorUpdate)])
 
 -- | Describes updates for the application's input schema.
 --
@@ -854,10 +1152,11 @@ instance ToJSON InputParallelismUpdate where
 --
 -- /See:/ 'inputSchemaUpdate' smart constructor.
 data InputSchemaUpdate = InputSchemaUpdate'
-    { _isuRecordFormatUpdate   :: !(Maybe RecordFormat)
-    , _isuRecordEncodingUpdate :: !(Maybe Text)
-    , _isuRecordColumnUpdates  :: !(Maybe (List1 RecordColumn))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _isuRecordFormatUpdate   :: !(Maybe RecordFormat)
+  , _isuRecordEncodingUpdate :: !(Maybe Text)
+  , _isuRecordColumnUpdates  :: !(Maybe (List1 RecordColumn))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputSchemaUpdate' with the minimum fields required to make a request.
 --
@@ -871,11 +1170,12 @@ data InputSchemaUpdate = InputSchemaUpdate'
 inputSchemaUpdate
     :: InputSchemaUpdate
 inputSchemaUpdate =
-    InputSchemaUpdate'
-    { _isuRecordFormatUpdate = Nothing
-    , _isuRecordEncodingUpdate = Nothing
-    , _isuRecordColumnUpdates = Nothing
-    }
+  InputSchemaUpdate'
+  { _isuRecordFormatUpdate = Nothing
+  , _isuRecordEncodingUpdate = Nothing
+  , _isuRecordColumnUpdates = Nothing
+  }
+
 
 -- | Specifies the format of the records on the streaming source.
 isuRecordFormatUpdate :: Lens' InputSchemaUpdate (Maybe RecordFormat)
@@ -889,9 +1189,9 @@ isuRecordEncodingUpdate = lens _isuRecordEncodingUpdate (\ s a -> s{_isuRecordEn
 isuRecordColumnUpdates :: Lens' InputSchemaUpdate (Maybe (NonEmpty RecordColumn))
 isuRecordColumnUpdates = lens _isuRecordColumnUpdates (\ s a -> s{_isuRecordColumnUpdates = a}) . mapping _List1;
 
-instance Hashable InputSchemaUpdate
+instance Hashable InputSchemaUpdate where
 
-instance NFData InputSchemaUpdate
+instance NFData InputSchemaUpdate where
 
 instance ToJSON InputSchemaUpdate where
         toJSON InputSchemaUpdate'{..}
@@ -910,8 +1210,9 @@ instance ToJSON InputSchemaUpdate where
 --
 -- /See:/ 'inputStartingPositionConfiguration' smart constructor.
 newtype InputStartingPositionConfiguration = InputStartingPositionConfiguration'
-    { _ispcInputStartingPosition :: Maybe InputStartingPosition
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ispcInputStartingPosition :: Maybe InputStartingPosition
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputStartingPositionConfiguration' with the minimum fields required to make a request.
 --
@@ -921,9 +1222,8 @@ newtype InputStartingPositionConfiguration = InputStartingPositionConfiguration'
 inputStartingPositionConfiguration
     :: InputStartingPositionConfiguration
 inputStartingPositionConfiguration =
-    InputStartingPositionConfiguration'
-    { _ispcInputStartingPosition = Nothing
-    }
+  InputStartingPositionConfiguration' {_ispcInputStartingPosition = Nothing}
+
 
 -- | The starting position on the stream.     * @NOW@ - Start reading just after the most recent record in the stream, start at the request timestamp that the customer issued.     * @TRIM_HORIZON@ - Start reading at the last untrimmed record in the stream, which is the oldest record available in the stream. This option is not available for an Amazon Kinesis Firehose delivery stream.     * @LAST_STOPPED_POINT@ - Resume reading from where the application last stopped reading.
 ispcInputStartingPosition :: Lens' InputStartingPositionConfiguration (Maybe InputStartingPosition)
@@ -938,8 +1238,10 @@ instance FromJSON InputStartingPositionConfiguration
                    (x .:? "InputStartingPosition"))
 
 instance Hashable InputStartingPositionConfiguration
+         where
 
 instance NFData InputStartingPositionConfiguration
+         where
 
 instance ToJSON InputStartingPositionConfiguration
          where
@@ -955,17 +1257,21 @@ instance ToJSON InputStartingPositionConfiguration
 --
 -- /See:/ 'inputUpdate' smart constructor.
 data InputUpdate = InputUpdate'
-    { _iuKinesisStreamsInputUpdate  :: !(Maybe KinesisStreamsInputUpdate)
-    , _iuInputParallelismUpdate     :: !(Maybe InputParallelismUpdate)
-    , _iuNamePrefixUpdate           :: !(Maybe Text)
-    , _iuInputSchemaUpdate          :: !(Maybe InputSchemaUpdate)
-    , _iuKinesisFirehoseInputUpdate :: !(Maybe KinesisFirehoseInputUpdate)
-    , _iuInputId                    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _iuInputProcessingConfigurationUpdate :: !(Maybe InputProcessingConfigurationUpdate)
+  , _iuKinesisStreamsInputUpdate :: !(Maybe KinesisStreamsInputUpdate)
+  , _iuInputParallelismUpdate :: !(Maybe InputParallelismUpdate)
+  , _iuNamePrefixUpdate :: !(Maybe Text)
+  , _iuInputSchemaUpdate :: !(Maybe InputSchemaUpdate)
+  , _iuKinesisFirehoseInputUpdate :: !(Maybe KinesisFirehoseInputUpdate)
+  , _iuInputId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InputUpdate' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'iuInputProcessingConfigurationUpdate' - Describes updates for an input processing configuration.
 --
 -- * 'iuKinesisStreamsInputUpdate' - If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role ARN.
 --
@@ -982,14 +1288,20 @@ inputUpdate
     :: Text -- ^ 'iuInputId'
     -> InputUpdate
 inputUpdate pInputId_ =
-    InputUpdate'
-    { _iuKinesisStreamsInputUpdate = Nothing
-    , _iuInputParallelismUpdate = Nothing
-    , _iuNamePrefixUpdate = Nothing
-    , _iuInputSchemaUpdate = Nothing
-    , _iuKinesisFirehoseInputUpdate = Nothing
-    , _iuInputId = pInputId_
-    }
+  InputUpdate'
+  { _iuInputProcessingConfigurationUpdate = Nothing
+  , _iuKinesisStreamsInputUpdate = Nothing
+  , _iuInputParallelismUpdate = Nothing
+  , _iuNamePrefixUpdate = Nothing
+  , _iuInputSchemaUpdate = Nothing
+  , _iuKinesisFirehoseInputUpdate = Nothing
+  , _iuInputId = pInputId_
+  }
+
+
+-- | Describes updates for an input processing configuration.
+iuInputProcessingConfigurationUpdate :: Lens' InputUpdate (Maybe InputProcessingConfigurationUpdate)
+iuInputProcessingConfigurationUpdate = lens _iuInputProcessingConfigurationUpdate (\ s a -> s{_iuInputProcessingConfigurationUpdate = a});
 
 -- | If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role ARN.
 iuKinesisStreamsInputUpdate :: Lens' InputUpdate (Maybe KinesisStreamsInputUpdate)
@@ -1015,15 +1327,17 @@ iuKinesisFirehoseInputUpdate = lens _iuKinesisFirehoseInputUpdate (\ s a -> s{_i
 iuInputId :: Lens' InputUpdate Text
 iuInputId = lens _iuInputId (\ s a -> s{_iuInputId = a});
 
-instance Hashable InputUpdate
+instance Hashable InputUpdate where
 
-instance NFData InputUpdate
+instance NFData InputUpdate where
 
 instance ToJSON InputUpdate where
         toJSON InputUpdate'{..}
           = object
               (catMaybes
-                 [("KinesisStreamsInputUpdate" .=) <$>
+                 [("InputProcessingConfigurationUpdate" .=) <$>
+                    _iuInputProcessingConfigurationUpdate,
+                  ("KinesisStreamsInputUpdate" .=) <$>
                     _iuKinesisStreamsInputUpdate,
                   ("InputParallelismUpdate" .=) <$>
                     _iuInputParallelismUpdate,
@@ -1039,8 +1353,9 @@ instance ToJSON InputUpdate where
 --
 -- /See:/ 'jsonMappingParameters' smart constructor.
 newtype JSONMappingParameters = JSONMappingParameters'
-    { _jmpRecordRowPath :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jmpRecordRowPath :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JSONMappingParameters' with the minimum fields required to make a request.
 --
@@ -1051,9 +1366,8 @@ jsonMappingParameters
     :: Text -- ^ 'jmpRecordRowPath'
     -> JSONMappingParameters
 jsonMappingParameters pRecordRowPath_ =
-    JSONMappingParameters'
-    { _jmpRecordRowPath = pRecordRowPath_
-    }
+  JSONMappingParameters' {_jmpRecordRowPath = pRecordRowPath_}
+
 
 -- | Path to the top-level parent that contains the records.
 jmpRecordRowPath :: Lens' JSONMappingParameters Text
@@ -1065,9 +1379,9 @@ instance FromJSON JSONMappingParameters where
               (\ x ->
                  JSONMappingParameters' <$> (x .: "RecordRowPath"))
 
-instance Hashable JSONMappingParameters
+instance Hashable JSONMappingParameters where
 
-instance NFData JSONMappingParameters
+instance NFData JSONMappingParameters where
 
 instance ToJSON JSONMappingParameters where
         toJSON JSONMappingParameters'{..}
@@ -1081,9 +1395,10 @@ instance ToJSON JSONMappingParameters where
 --
 -- /See:/ 'kinesisFirehoseInput' smart constructor.
 data KinesisFirehoseInput = KinesisFirehoseInput'
-    { _kfiResourceARN :: !Text
-    , _kfiRoleARN     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfiResourceARN :: !Text
+  , _kfiRoleARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseInput' with the minimum fields required to make a request.
 --
@@ -1097,10 +1412,9 @@ kinesisFirehoseInput
     -> Text -- ^ 'kfiRoleARN'
     -> KinesisFirehoseInput
 kinesisFirehoseInput pResourceARN_ pRoleARN_ =
-    KinesisFirehoseInput'
-    { _kfiResourceARN = pResourceARN_
-    , _kfiRoleARN = pRoleARN_
-    }
+  KinesisFirehoseInput'
+  {_kfiResourceARN = pResourceARN_, _kfiRoleARN = pRoleARN_}
+
 
 -- | ARN of the input Firehose delivery stream.
 kfiResourceARN :: Lens' KinesisFirehoseInput Text
@@ -1110,9 +1424,9 @@ kfiResourceARN = lens _kfiResourceARN (\ s a -> s{_kfiResourceARN = a});
 kfiRoleARN :: Lens' KinesisFirehoseInput Text
 kfiRoleARN = lens _kfiRoleARN (\ s a -> s{_kfiRoleARN = a});
 
-instance Hashable KinesisFirehoseInput
+instance Hashable KinesisFirehoseInput where
 
-instance NFData KinesisFirehoseInput
+instance NFData KinesisFirehoseInput where
 
 instance ToJSON KinesisFirehoseInput where
         toJSON KinesisFirehoseInput'{..}
@@ -1127,9 +1441,10 @@ instance ToJSON KinesisFirehoseInput where
 --
 -- /See:/ 'kinesisFirehoseInputDescription' smart constructor.
 data KinesisFirehoseInputDescription = KinesisFirehoseInputDescription'
-    { _kfidResourceARN :: !(Maybe Text)
-    , _kfidRoleARN     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfidResourceARN :: !(Maybe Text)
+  , _kfidRoleARN     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseInputDescription' with the minimum fields required to make a request.
 --
@@ -1141,10 +1456,9 @@ data KinesisFirehoseInputDescription = KinesisFirehoseInputDescription'
 kinesisFirehoseInputDescription
     :: KinesisFirehoseInputDescription
 kinesisFirehoseInputDescription =
-    KinesisFirehoseInputDescription'
-    { _kfidResourceARN = Nothing
-    , _kfidRoleARN = Nothing
-    }
+  KinesisFirehoseInputDescription'
+  {_kfidResourceARN = Nothing, _kfidRoleARN = Nothing}
+
 
 -- | Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery stream.
 kfidResourceARN :: Lens' KinesisFirehoseInputDescription (Maybe Text)
@@ -1163,8 +1477,9 @@ instance FromJSON KinesisFirehoseInputDescription
                    (x .:? "ResourceARN") <*> (x .:? "RoleARN"))
 
 instance Hashable KinesisFirehoseInputDescription
+         where
 
-instance NFData KinesisFirehoseInputDescription
+instance NFData KinesisFirehoseInputDescription where
 
 -- | When updating application input configuration, provides information about an Amazon Kinesis Firehose delivery stream as the streaming source.
 --
@@ -1172,9 +1487,10 @@ instance NFData KinesisFirehoseInputDescription
 --
 -- /See:/ 'kinesisFirehoseInputUpdate' smart constructor.
 data KinesisFirehoseInputUpdate = KinesisFirehoseInputUpdate'
-    { _kfiuRoleARNUpdate     :: !(Maybe Text)
-    , _kfiuResourceARNUpdate :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfiuRoleARNUpdate     :: !(Maybe Text)
+  , _kfiuResourceARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseInputUpdate' with the minimum fields required to make a request.
 --
@@ -1186,10 +1502,9 @@ data KinesisFirehoseInputUpdate = KinesisFirehoseInputUpdate'
 kinesisFirehoseInputUpdate
     :: KinesisFirehoseInputUpdate
 kinesisFirehoseInputUpdate =
-    KinesisFirehoseInputUpdate'
-    { _kfiuRoleARNUpdate = Nothing
-    , _kfiuResourceARNUpdate = Nothing
-    }
+  KinesisFirehoseInputUpdate'
+  {_kfiuRoleARNUpdate = Nothing, _kfiuResourceARNUpdate = Nothing}
+
 
 -- | Amazon Resource Name (ARN) of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf. You need to grant necessary permissions to this role.
 kfiuRoleARNUpdate :: Lens' KinesisFirehoseInputUpdate (Maybe Text)
@@ -1199,9 +1514,9 @@ kfiuRoleARNUpdate = lens _kfiuRoleARNUpdate (\ s a -> s{_kfiuRoleARNUpdate = a})
 kfiuResourceARNUpdate :: Lens' KinesisFirehoseInputUpdate (Maybe Text)
 kfiuResourceARNUpdate = lens _kfiuResourceARNUpdate (\ s a -> s{_kfiuResourceARNUpdate = a});
 
-instance Hashable KinesisFirehoseInputUpdate
+instance Hashable KinesisFirehoseInputUpdate where
 
-instance NFData KinesisFirehoseInputUpdate
+instance NFData KinesisFirehoseInputUpdate where
 
 instance ToJSON KinesisFirehoseInputUpdate where
         toJSON KinesisFirehoseInputUpdate'{..}
@@ -1216,9 +1531,10 @@ instance ToJSON KinesisFirehoseInputUpdate where
 --
 -- /See:/ 'kinesisFirehoseOutput' smart constructor.
 data KinesisFirehoseOutput = KinesisFirehoseOutput'
-    { _kfoResourceARN :: !Text
-    , _kfoRoleARN     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfoResourceARN :: !Text
+  , _kfoRoleARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseOutput' with the minimum fields required to make a request.
 --
@@ -1232,10 +1548,9 @@ kinesisFirehoseOutput
     -> Text -- ^ 'kfoRoleARN'
     -> KinesisFirehoseOutput
 kinesisFirehoseOutput pResourceARN_ pRoleARN_ =
-    KinesisFirehoseOutput'
-    { _kfoResourceARN = pResourceARN_
-    , _kfoRoleARN = pRoleARN_
-    }
+  KinesisFirehoseOutput'
+  {_kfoResourceARN = pResourceARN_, _kfoRoleARN = pRoleARN_}
+
 
 -- | ARN of the destination Amazon Kinesis Firehose delivery stream to write to.
 kfoResourceARN :: Lens' KinesisFirehoseOutput Text
@@ -1245,9 +1560,9 @@ kfoResourceARN = lens _kfoResourceARN (\ s a -> s{_kfoResourceARN = a});
 kfoRoleARN :: Lens' KinesisFirehoseOutput Text
 kfoRoleARN = lens _kfoRoleARN (\ s a -> s{_kfoRoleARN = a});
 
-instance Hashable KinesisFirehoseOutput
+instance Hashable KinesisFirehoseOutput where
 
-instance NFData KinesisFirehoseOutput
+instance NFData KinesisFirehoseOutput where
 
 instance ToJSON KinesisFirehoseOutput where
         toJSON KinesisFirehoseOutput'{..}
@@ -1262,9 +1577,10 @@ instance ToJSON KinesisFirehoseOutput where
 --
 -- /See:/ 'kinesisFirehoseOutputDescription' smart constructor.
 data KinesisFirehoseOutputDescription = KinesisFirehoseOutputDescription'
-    { _kfodResourceARN :: !(Maybe Text)
-    , _kfodRoleARN     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfodResourceARN :: !(Maybe Text)
+  , _kfodRoleARN     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseOutputDescription' with the minimum fields required to make a request.
 --
@@ -1276,10 +1592,9 @@ data KinesisFirehoseOutputDescription = KinesisFirehoseOutputDescription'
 kinesisFirehoseOutputDescription
     :: KinesisFirehoseOutputDescription
 kinesisFirehoseOutputDescription =
-    KinesisFirehoseOutputDescription'
-    { _kfodResourceARN = Nothing
-    , _kfodRoleARN = Nothing
-    }
+  KinesisFirehoseOutputDescription'
+  {_kfodResourceARN = Nothing, _kfodRoleARN = Nothing}
+
 
 -- | Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery stream.
 kfodResourceARN :: Lens' KinesisFirehoseOutputDescription (Maybe Text)
@@ -1298,8 +1613,10 @@ instance FromJSON KinesisFirehoseOutputDescription
                    (x .:? "ResourceARN") <*> (x .:? "RoleARN"))
 
 instance Hashable KinesisFirehoseOutputDescription
+         where
 
 instance NFData KinesisFirehoseOutputDescription
+         where
 
 -- | When updating an output configuration using the 'UpdateApplication' operation, provides information about an Amazon Kinesis Firehose delivery stream configured as the destination.
 --
@@ -1307,9 +1624,10 @@ instance NFData KinesisFirehoseOutputDescription
 --
 -- /See:/ 'kinesisFirehoseOutputUpdate' smart constructor.
 data KinesisFirehoseOutputUpdate = KinesisFirehoseOutputUpdate'
-    { _kfouRoleARNUpdate     :: !(Maybe Text)
-    , _kfouResourceARNUpdate :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _kfouRoleARNUpdate     :: !(Maybe Text)
+  , _kfouResourceARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisFirehoseOutputUpdate' with the minimum fields required to make a request.
 --
@@ -1321,10 +1639,9 @@ data KinesisFirehoseOutputUpdate = KinesisFirehoseOutputUpdate'
 kinesisFirehoseOutputUpdate
     :: KinesisFirehoseOutputUpdate
 kinesisFirehoseOutputUpdate =
-    KinesisFirehoseOutputUpdate'
-    { _kfouRoleARNUpdate = Nothing
-    , _kfouResourceARNUpdate = Nothing
-    }
+  KinesisFirehoseOutputUpdate'
+  {_kfouRoleARNUpdate = Nothing, _kfouResourceARNUpdate = Nothing}
+
 
 -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf. You need to grant necessary permissions to this role.
 kfouRoleARNUpdate :: Lens' KinesisFirehoseOutputUpdate (Maybe Text)
@@ -1334,9 +1651,9 @@ kfouRoleARNUpdate = lens _kfouRoleARNUpdate (\ s a -> s{_kfouRoleARNUpdate = a})
 kfouResourceARNUpdate :: Lens' KinesisFirehoseOutputUpdate (Maybe Text)
 kfouResourceARNUpdate = lens _kfouResourceARNUpdate (\ s a -> s{_kfouResourceARNUpdate = a});
 
-instance Hashable KinesisFirehoseOutputUpdate
+instance Hashable KinesisFirehoseOutputUpdate where
 
-instance NFData KinesisFirehoseOutputUpdate
+instance NFData KinesisFirehoseOutputUpdate where
 
 instance ToJSON KinesisFirehoseOutputUpdate where
         toJSON KinesisFirehoseOutputUpdate'{..}
@@ -1351,9 +1668,10 @@ instance ToJSON KinesisFirehoseOutputUpdate where
 --
 -- /See:/ 'kinesisStreamsInput' smart constructor.
 data KinesisStreamsInput = KinesisStreamsInput'
-    { _ksiResourceARN :: !Text
-    , _ksiRoleARN     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksiResourceARN :: !Text
+  , _ksiRoleARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsInput' with the minimum fields required to make a request.
 --
@@ -1367,10 +1685,9 @@ kinesisStreamsInput
     -> Text -- ^ 'ksiRoleARN'
     -> KinesisStreamsInput
 kinesisStreamsInput pResourceARN_ pRoleARN_ =
-    KinesisStreamsInput'
-    { _ksiResourceARN = pResourceARN_
-    , _ksiRoleARN = pRoleARN_
-    }
+  KinesisStreamsInput'
+  {_ksiResourceARN = pResourceARN_, _ksiRoleARN = pRoleARN_}
+
 
 -- | ARN of the input Amazon Kinesis stream to read.
 ksiResourceARN :: Lens' KinesisStreamsInput Text
@@ -1380,9 +1697,9 @@ ksiResourceARN = lens _ksiResourceARN (\ s a -> s{_ksiResourceARN = a});
 ksiRoleARN :: Lens' KinesisStreamsInput Text
 ksiRoleARN = lens _ksiRoleARN (\ s a -> s{_ksiRoleARN = a});
 
-instance Hashable KinesisStreamsInput
+instance Hashable KinesisStreamsInput where
 
-instance NFData KinesisStreamsInput
+instance NFData KinesisStreamsInput where
 
 instance ToJSON KinesisStreamsInput where
         toJSON KinesisStreamsInput'{..}
@@ -1397,9 +1714,10 @@ instance ToJSON KinesisStreamsInput where
 --
 -- /See:/ 'kinesisStreamsInputDescription' smart constructor.
 data KinesisStreamsInputDescription = KinesisStreamsInputDescription'
-    { _ksidResourceARN :: !(Maybe Text)
-    , _ksidRoleARN     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksidResourceARN :: !(Maybe Text)
+  , _ksidRoleARN     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsInputDescription' with the minimum fields required to make a request.
 --
@@ -1411,10 +1729,9 @@ data KinesisStreamsInputDescription = KinesisStreamsInputDescription'
 kinesisStreamsInputDescription
     :: KinesisStreamsInputDescription
 kinesisStreamsInputDescription =
-    KinesisStreamsInputDescription'
-    { _ksidResourceARN = Nothing
-    , _ksidRoleARN = Nothing
-    }
+  KinesisStreamsInputDescription'
+  {_ksidResourceARN = Nothing, _ksidRoleARN = Nothing}
+
 
 -- | Amazon Resource Name (ARN) of the Amazon Kinesis stream.
 ksidResourceARN :: Lens' KinesisStreamsInputDescription (Maybe Text)
@@ -1433,8 +1750,9 @@ instance FromJSON KinesisStreamsInputDescription
                    (x .:? "ResourceARN") <*> (x .:? "RoleARN"))
 
 instance Hashable KinesisStreamsInputDescription
+         where
 
-instance NFData KinesisStreamsInputDescription
+instance NFData KinesisStreamsInputDescription where
 
 -- | When updating application input configuration, provides information about an Amazon Kinesis stream as the streaming source.
 --
@@ -1442,9 +1760,10 @@ instance NFData KinesisStreamsInputDescription
 --
 -- /See:/ 'kinesisStreamsInputUpdate' smart constructor.
 data KinesisStreamsInputUpdate = KinesisStreamsInputUpdate'
-    { _ksiuRoleARNUpdate     :: !(Maybe Text)
-    , _ksiuResourceARNUpdate :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksiuRoleARNUpdate     :: !(Maybe Text)
+  , _ksiuResourceARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsInputUpdate' with the minimum fields required to make a request.
 --
@@ -1456,10 +1775,9 @@ data KinesisStreamsInputUpdate = KinesisStreamsInputUpdate'
 kinesisStreamsInputUpdate
     :: KinesisStreamsInputUpdate
 kinesisStreamsInputUpdate =
-    KinesisStreamsInputUpdate'
-    { _ksiuRoleARNUpdate = Nothing
-    , _ksiuResourceARNUpdate = Nothing
-    }
+  KinesisStreamsInputUpdate'
+  {_ksiuRoleARNUpdate = Nothing, _ksiuResourceARNUpdate = Nothing}
+
 
 -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf. You need to grant the necessary permissions to this role.
 ksiuRoleARNUpdate :: Lens' KinesisStreamsInputUpdate (Maybe Text)
@@ -1469,9 +1787,9 @@ ksiuRoleARNUpdate = lens _ksiuRoleARNUpdate (\ s a -> s{_ksiuRoleARNUpdate = a})
 ksiuResourceARNUpdate :: Lens' KinesisStreamsInputUpdate (Maybe Text)
 ksiuResourceARNUpdate = lens _ksiuResourceARNUpdate (\ s a -> s{_ksiuResourceARNUpdate = a});
 
-instance Hashable KinesisStreamsInputUpdate
+instance Hashable KinesisStreamsInputUpdate where
 
-instance NFData KinesisStreamsInputUpdate
+instance NFData KinesisStreamsInputUpdate where
 
 instance ToJSON KinesisStreamsInputUpdate where
         toJSON KinesisStreamsInputUpdate'{..}
@@ -1486,9 +1804,10 @@ instance ToJSON KinesisStreamsInputUpdate where
 --
 -- /See:/ 'kinesisStreamsOutput' smart constructor.
 data KinesisStreamsOutput = KinesisStreamsOutput'
-    { _ksoResourceARN :: !Text
-    , _ksoRoleARN     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksoResourceARN :: !Text
+  , _ksoRoleARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsOutput' with the minimum fields required to make a request.
 --
@@ -1502,10 +1821,9 @@ kinesisStreamsOutput
     -> Text -- ^ 'ksoRoleARN'
     -> KinesisStreamsOutput
 kinesisStreamsOutput pResourceARN_ pRoleARN_ =
-    KinesisStreamsOutput'
-    { _ksoResourceARN = pResourceARN_
-    , _ksoRoleARN = pRoleARN_
-    }
+  KinesisStreamsOutput'
+  {_ksoResourceARN = pResourceARN_, _ksoRoleARN = pRoleARN_}
+
 
 -- | ARN of the destination Amazon Kinesis stream to write to.
 ksoResourceARN :: Lens' KinesisStreamsOutput Text
@@ -1515,9 +1833,9 @@ ksoResourceARN = lens _ksoResourceARN (\ s a -> s{_ksoResourceARN = a});
 ksoRoleARN :: Lens' KinesisStreamsOutput Text
 ksoRoleARN = lens _ksoRoleARN (\ s a -> s{_ksoRoleARN = a});
 
-instance Hashable KinesisStreamsOutput
+instance Hashable KinesisStreamsOutput where
 
-instance NFData KinesisStreamsOutput
+instance NFData KinesisStreamsOutput where
 
 instance ToJSON KinesisStreamsOutput where
         toJSON KinesisStreamsOutput'{..}
@@ -1532,9 +1850,10 @@ instance ToJSON KinesisStreamsOutput where
 --
 -- /See:/ 'kinesisStreamsOutputDescription' smart constructor.
 data KinesisStreamsOutputDescription = KinesisStreamsOutputDescription'
-    { _ksodResourceARN :: !(Maybe Text)
-    , _ksodRoleARN     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksodResourceARN :: !(Maybe Text)
+  , _ksodRoleARN     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsOutputDescription' with the minimum fields required to make a request.
 --
@@ -1546,10 +1865,9 @@ data KinesisStreamsOutputDescription = KinesisStreamsOutputDescription'
 kinesisStreamsOutputDescription
     :: KinesisStreamsOutputDescription
 kinesisStreamsOutputDescription =
-    KinesisStreamsOutputDescription'
-    { _ksodResourceARN = Nothing
-    , _ksodRoleARN = Nothing
-    }
+  KinesisStreamsOutputDescription'
+  {_ksodResourceARN = Nothing, _ksodRoleARN = Nothing}
+
 
 -- | Amazon Resource Name (ARN) of the Amazon Kinesis stream.
 ksodResourceARN :: Lens' KinesisStreamsOutputDescription (Maybe Text)
@@ -1568,8 +1886,9 @@ instance FromJSON KinesisStreamsOutputDescription
                    (x .:? "ResourceARN") <*> (x .:? "RoleARN"))
 
 instance Hashable KinesisStreamsOutputDescription
+         where
 
-instance NFData KinesisStreamsOutputDescription
+instance NFData KinesisStreamsOutputDescription where
 
 -- | When updating an output configuration using the 'UpdateApplication' operation, provides information about an Amazon Kinesis stream configured as the destination.
 --
@@ -1577,9 +1896,10 @@ instance NFData KinesisStreamsOutputDescription
 --
 -- /See:/ 'kinesisStreamsOutputUpdate' smart constructor.
 data KinesisStreamsOutputUpdate = KinesisStreamsOutputUpdate'
-    { _ksouRoleARNUpdate     :: !(Maybe Text)
-    , _ksouResourceARNUpdate :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ksouRoleARNUpdate     :: !(Maybe Text)
+  , _ksouResourceARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'KinesisStreamsOutputUpdate' with the minimum fields required to make a request.
 --
@@ -1591,10 +1911,9 @@ data KinesisStreamsOutputUpdate = KinesisStreamsOutputUpdate'
 kinesisStreamsOutputUpdate
     :: KinesisStreamsOutputUpdate
 kinesisStreamsOutputUpdate =
-    KinesisStreamsOutputUpdate'
-    { _ksouRoleARNUpdate = Nothing
-    , _ksouResourceARNUpdate = Nothing
-    }
+  KinesisStreamsOutputUpdate'
+  {_ksouRoleARNUpdate = Nothing, _ksouResourceARNUpdate = Nothing}
+
 
 -- | ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf. You need to grant the necessary permissions to this role.
 ksouRoleARNUpdate :: Lens' KinesisStreamsOutputUpdate (Maybe Text)
@@ -1604,9 +1923,9 @@ ksouRoleARNUpdate = lens _ksouRoleARNUpdate (\ s a -> s{_ksouRoleARNUpdate = a})
 ksouResourceARNUpdate :: Lens' KinesisStreamsOutputUpdate (Maybe Text)
 ksouResourceARNUpdate = lens _ksouResourceARNUpdate (\ s a -> s{_ksouResourceARNUpdate = a});
 
-instance Hashable KinesisStreamsOutputUpdate
+instance Hashable KinesisStreamsOutputUpdate where
 
-instance NFData KinesisStreamsOutputUpdate
+instance NFData KinesisStreamsOutputUpdate where
 
 instance ToJSON KinesisStreamsOutputUpdate where
         toJSON KinesisStreamsOutputUpdate'{..}
@@ -1621,9 +1940,10 @@ instance ToJSON KinesisStreamsOutputUpdate where
 --
 -- /See:/ 'mappingParameters' smart constructor.
 data MappingParameters = MappingParameters'
-    { _mpCSVMappingParameters  :: !(Maybe CSVMappingParameters)
-    , _mpJSONMappingParameters :: !(Maybe JSONMappingParameters)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mpCSVMappingParameters  :: !(Maybe CSVMappingParameters)
+  , _mpJSONMappingParameters :: !(Maybe JSONMappingParameters)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MappingParameters' with the minimum fields required to make a request.
 --
@@ -1635,10 +1955,9 @@ data MappingParameters = MappingParameters'
 mappingParameters
     :: MappingParameters
 mappingParameters =
-    MappingParameters'
-    { _mpCSVMappingParameters = Nothing
-    , _mpJSONMappingParameters = Nothing
-    }
+  MappingParameters'
+  {_mpCSVMappingParameters = Nothing, _mpJSONMappingParameters = Nothing}
+
 
 -- | Provides additional mapping information when the record format uses delimiters (for example, CSV).
 mpCSVMappingParameters :: Lens' MappingParameters (Maybe CSVMappingParameters)
@@ -1656,9 +1975,9 @@ instance FromJSON MappingParameters where
                    (x .:? "CSVMappingParameters") <*>
                      (x .:? "JSONMappingParameters"))
 
-instance Hashable MappingParameters
+instance Hashable MappingParameters where
 
-instance NFData MappingParameters
+instance NFData MappingParameters where
 
 instance ToJSON MappingParameters where
         toJSON MappingParameters'{..}
@@ -1679,11 +1998,12 @@ instance ToJSON MappingParameters where
 --
 -- /See:/ 'output' smart constructor.
 data Output = Output'
-    { _oKinesisStreamsOutput  :: !(Maybe KinesisStreamsOutput)
-    , _oKinesisFirehoseOutput :: !(Maybe KinesisFirehoseOutput)
-    , _oName                  :: !Text
-    , _oDestinationSchema     :: !DestinationSchema
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _oKinesisStreamsOutput  :: !(Maybe KinesisStreamsOutput)
+  , _oKinesisFirehoseOutput :: !(Maybe KinesisFirehoseOutput)
+  , _oName                  :: !Text
+  , _oDestinationSchema     :: !DestinationSchema
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Output' with the minimum fields required to make a request.
 --
@@ -1701,12 +2021,13 @@ output
     -> DestinationSchema -- ^ 'oDestinationSchema'
     -> Output
 output pName_ pDestinationSchema_ =
-    Output'
-    { _oKinesisStreamsOutput = Nothing
-    , _oKinesisFirehoseOutput = Nothing
-    , _oName = pName_
-    , _oDestinationSchema = pDestinationSchema_
-    }
+  Output'
+  { _oKinesisStreamsOutput = Nothing
+  , _oKinesisFirehoseOutput = Nothing
+  , _oName = pName_
+  , _oDestinationSchema = pDestinationSchema_
+  }
+
 
 -- | Identifies an Amazon Kinesis stream as the destination.
 oKinesisStreamsOutput :: Lens' Output (Maybe KinesisStreamsOutput)
@@ -1724,9 +2045,9 @@ oName = lens _oName (\ s a -> s{_oName = a});
 oDestinationSchema :: Lens' Output DestinationSchema
 oDestinationSchema = lens _oDestinationSchema (\ s a -> s{_oDestinationSchema = a});
 
-instance Hashable Output
+instance Hashable Output where
 
-instance NFData Output
+instance NFData Output where
 
 instance ToJSON Output where
         toJSON Output'{..}
@@ -1745,12 +2066,13 @@ instance ToJSON Output where
 --
 -- /See:/ 'outputDescription' smart constructor.
 data OutputDescription = OutputDescription'
-    { _odOutputId                         :: !(Maybe Text)
-    , _odDestinationSchema                :: !(Maybe DestinationSchema)
-    , _odKinesisFirehoseOutputDescription :: !(Maybe KinesisFirehoseOutputDescription)
-    , _odKinesisStreamsOutputDescription  :: !(Maybe KinesisStreamsOutputDescription)
-    , _odName                             :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _odOutputId :: !(Maybe Text)
+  , _odDestinationSchema :: !(Maybe DestinationSchema)
+  , _odKinesisFirehoseOutputDescription :: !(Maybe KinesisFirehoseOutputDescription)
+  , _odKinesisStreamsOutputDescription :: !(Maybe KinesisStreamsOutputDescription)
+  , _odName :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'OutputDescription' with the minimum fields required to make a request.
 --
@@ -1768,13 +2090,14 @@ data OutputDescription = OutputDescription'
 outputDescription
     :: OutputDescription
 outputDescription =
-    OutputDescription'
-    { _odOutputId = Nothing
-    , _odDestinationSchema = Nothing
-    , _odKinesisFirehoseOutputDescription = Nothing
-    , _odKinesisStreamsOutputDescription = Nothing
-    , _odName = Nothing
-    }
+  OutputDescription'
+  { _odOutputId = Nothing
+  , _odDestinationSchema = Nothing
+  , _odKinesisFirehoseOutputDescription = Nothing
+  , _odKinesisStreamsOutputDescription = Nothing
+  , _odName = Nothing
+  }
+
 
 -- | A unique identifier for the output configuration.
 odOutputId :: Lens' OutputDescription (Maybe Text)
@@ -1806,9 +2129,9 @@ instance FromJSON OutputDescription where
                      <*> (x .:? "KinesisStreamsOutputDescription")
                      <*> (x .:? "Name"))
 
-instance Hashable OutputDescription
+instance Hashable OutputDescription where
 
-instance NFData OutputDescription
+instance NFData OutputDescription where
 
 -- | Describes updates to the output configuration identified by the @OutputId@ .
 --
@@ -1816,12 +2139,13 @@ instance NFData OutputDescription
 --
 -- /See:/ 'outputUpdate' smart constructor.
 data OutputUpdate = OutputUpdate'
-    { _ouKinesisStreamsOutputUpdate  :: !(Maybe KinesisStreamsOutputUpdate)
-    , _ouDestinationSchemaUpdate     :: !(Maybe DestinationSchema)
-    , _ouKinesisFirehoseOutputUpdate :: !(Maybe KinesisFirehoseOutputUpdate)
-    , _ouNameUpdate                  :: !(Maybe Text)
-    , _ouOutputId                    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ouKinesisStreamsOutputUpdate  :: !(Maybe KinesisStreamsOutputUpdate)
+  , _ouDestinationSchemaUpdate     :: !(Maybe DestinationSchema)
+  , _ouKinesisFirehoseOutputUpdate :: !(Maybe KinesisFirehoseOutputUpdate)
+  , _ouNameUpdate                  :: !(Maybe Text)
+  , _ouOutputId                    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'OutputUpdate' with the minimum fields required to make a request.
 --
@@ -1840,13 +2164,14 @@ outputUpdate
     :: Text -- ^ 'ouOutputId'
     -> OutputUpdate
 outputUpdate pOutputId_ =
-    OutputUpdate'
-    { _ouKinesisStreamsOutputUpdate = Nothing
-    , _ouDestinationSchemaUpdate = Nothing
-    , _ouKinesisFirehoseOutputUpdate = Nothing
-    , _ouNameUpdate = Nothing
-    , _ouOutputId = pOutputId_
-    }
+  OutputUpdate'
+  { _ouKinesisStreamsOutputUpdate = Nothing
+  , _ouDestinationSchemaUpdate = Nothing
+  , _ouKinesisFirehoseOutputUpdate = Nothing
+  , _ouNameUpdate = Nothing
+  , _ouOutputId = pOutputId_
+  }
+
 
 -- | Describes an Amazon Kinesis stream as the destination for the output.
 ouKinesisStreamsOutputUpdate :: Lens' OutputUpdate (Maybe KinesisStreamsOutputUpdate)
@@ -1868,9 +2193,9 @@ ouNameUpdate = lens _ouNameUpdate (\ s a -> s{_ouNameUpdate = a});
 ouOutputId :: Lens' OutputUpdate Text
 ouOutputId = lens _ouOutputId (\ s a -> s{_ouOutputId = a});
 
-instance Hashable OutputUpdate
+instance Hashable OutputUpdate where
 
-instance NFData OutputUpdate
+instance NFData OutputUpdate where
 
 instance ToJSON OutputUpdate where
         toJSON OutputUpdate'{..}
@@ -1893,10 +2218,11 @@ instance ToJSON OutputUpdate where
 --
 -- /See:/ 'recordColumn' smart constructor.
 data RecordColumn = RecordColumn'
-    { _rcMapping :: !(Maybe Text)
-    , _rcName    :: !Text
-    , _rcSqlType :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rcMapping :: !(Maybe Text)
+  , _rcName    :: !Text
+  , _rcSqlType :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RecordColumn' with the minimum fields required to make a request.
 --
@@ -1912,11 +2238,8 @@ recordColumn
     -> Text -- ^ 'rcSqlType'
     -> RecordColumn
 recordColumn pName_ pSqlType_ =
-    RecordColumn'
-    { _rcMapping = Nothing
-    , _rcName = pName_
-    , _rcSqlType = pSqlType_
-    }
+  RecordColumn' {_rcMapping = Nothing, _rcName = pName_, _rcSqlType = pSqlType_}
+
 
 -- | Reference to the data element in the streaming input of the reference data source.
 rcMapping :: Lens' RecordColumn (Maybe Text)
@@ -1938,9 +2261,9 @@ instance FromJSON RecordColumn where
                    (x .:? "Mapping") <*> (x .: "Name") <*>
                      (x .: "SqlType"))
 
-instance Hashable RecordColumn
+instance Hashable RecordColumn where
 
-instance NFData RecordColumn
+instance NFData RecordColumn where
 
 instance ToJSON RecordColumn where
         toJSON RecordColumn'{..}
@@ -1956,9 +2279,10 @@ instance ToJSON RecordColumn where
 --
 -- /See:/ 'recordFormat' smart constructor.
 data RecordFormat = RecordFormat'
-    { _rfMappingParameters :: !(Maybe MappingParameters)
-    , _rfRecordFormatType  :: !RecordFormatType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rfMappingParameters :: !(Maybe MappingParameters)
+  , _rfRecordFormatType  :: !RecordFormatType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RecordFormat' with the minimum fields required to make a request.
 --
@@ -1971,10 +2295,9 @@ recordFormat
     :: RecordFormatType -- ^ 'rfRecordFormatType'
     -> RecordFormat
 recordFormat pRecordFormatType_ =
-    RecordFormat'
-    { _rfMappingParameters = Nothing
-    , _rfRecordFormatType = pRecordFormatType_
-    }
+  RecordFormat'
+  {_rfMappingParameters = Nothing, _rfRecordFormatType = pRecordFormatType_}
+
 
 -- | Undocumented member.
 rfMappingParameters :: Lens' RecordFormat (Maybe MappingParameters)
@@ -1992,9 +2315,9 @@ instance FromJSON RecordFormat where
                    (x .:? "MappingParameters") <*>
                      (x .: "RecordFormatType"))
 
-instance Hashable RecordFormat
+instance Hashable RecordFormat where
 
-instance NFData RecordFormat
+instance NFData RecordFormat where
 
 instance ToJSON RecordFormat where
         toJSON RecordFormat'{..}
@@ -2009,10 +2332,11 @@ instance ToJSON RecordFormat where
 --
 -- /See:/ 'referenceDataSource' smart constructor.
 data ReferenceDataSource = ReferenceDataSource'
-    { _rdsS3ReferenceDataSource :: !(Maybe S3ReferenceDataSource)
-    , _rdsTableName             :: !Text
-    , _rdsReferenceSchema       :: !SourceSchema
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdsS3ReferenceDataSource :: !(Maybe S3ReferenceDataSource)
+  , _rdsTableName             :: !Text
+  , _rdsReferenceSchema       :: !SourceSchema
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ReferenceDataSource' with the minimum fields required to make a request.
 --
@@ -2028,11 +2352,12 @@ referenceDataSource
     -> SourceSchema -- ^ 'rdsReferenceSchema'
     -> ReferenceDataSource
 referenceDataSource pTableName_ pReferenceSchema_ =
-    ReferenceDataSource'
-    { _rdsS3ReferenceDataSource = Nothing
-    , _rdsTableName = pTableName_
-    , _rdsReferenceSchema = pReferenceSchema_
-    }
+  ReferenceDataSource'
+  { _rdsS3ReferenceDataSource = Nothing
+  , _rdsTableName = pTableName_
+  , _rdsReferenceSchema = pReferenceSchema_
+  }
+
 
 -- | Undocumented member.
 rdsS3ReferenceDataSource :: Lens' ReferenceDataSource (Maybe S3ReferenceDataSource)
@@ -2046,9 +2371,9 @@ rdsTableName = lens _rdsTableName (\ s a -> s{_rdsTableName = a});
 rdsReferenceSchema :: Lens' ReferenceDataSource SourceSchema
 rdsReferenceSchema = lens _rdsReferenceSchema (\ s a -> s{_rdsReferenceSchema = a});
 
-instance Hashable ReferenceDataSource
+instance Hashable ReferenceDataSource where
 
-instance NFData ReferenceDataSource
+instance NFData ReferenceDataSource where
 
 instance ToJSON ReferenceDataSource where
         toJSON ReferenceDataSource'{..}
@@ -2065,11 +2390,12 @@ instance ToJSON ReferenceDataSource where
 --
 -- /See:/ 'referenceDataSourceDescription' smart constructor.
 data ReferenceDataSourceDescription = ReferenceDataSourceDescription'
-    { _rdsdReferenceSchema                  :: !(Maybe SourceSchema)
-    , _rdsdReferenceId                      :: !Text
-    , _rdsdTableName                        :: !Text
-    , _rdsdS3ReferenceDataSourceDescription :: !S3ReferenceDataSourceDescription
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdsdReferenceSchema                  :: !(Maybe SourceSchema)
+  , _rdsdReferenceId                      :: !Text
+  , _rdsdTableName                        :: !Text
+  , _rdsdS3ReferenceDataSourceDescription :: !S3ReferenceDataSourceDescription
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ReferenceDataSourceDescription' with the minimum fields required to make a request.
 --
@@ -2088,12 +2414,13 @@ referenceDataSourceDescription
     -> S3ReferenceDataSourceDescription -- ^ 'rdsdS3ReferenceDataSourceDescription'
     -> ReferenceDataSourceDescription
 referenceDataSourceDescription pReferenceId_ pTableName_ pS3ReferenceDataSourceDescription_ =
-    ReferenceDataSourceDescription'
-    { _rdsdReferenceSchema = Nothing
-    , _rdsdReferenceId = pReferenceId_
-    , _rdsdTableName = pTableName_
-    , _rdsdS3ReferenceDataSourceDescription = pS3ReferenceDataSourceDescription_
-    }
+  ReferenceDataSourceDescription'
+  { _rdsdReferenceSchema = Nothing
+  , _rdsdReferenceId = pReferenceId_
+  , _rdsdTableName = pTableName_
+  , _rdsdS3ReferenceDataSourceDescription = pS3ReferenceDataSourceDescription_
+  }
+
 
 -- | Undocumented member.
 rdsdReferenceSchema :: Lens' ReferenceDataSourceDescription (Maybe SourceSchema)
@@ -2122,8 +2449,9 @@ instance FromJSON ReferenceDataSourceDescription
                      <*> (x .: "S3ReferenceDataSourceDescription"))
 
 instance Hashable ReferenceDataSourceDescription
+         where
 
-instance NFData ReferenceDataSourceDescription
+instance NFData ReferenceDataSourceDescription where
 
 -- | When you update a reference data source configuration for an application, this object provides all the updated values (such as the source bucket name and object key name), the in-application table name that is created, and updated mapping information that maps the data in the Amazon S3 object to the in-application reference table that is created.
 --
@@ -2131,11 +2459,12 @@ instance NFData ReferenceDataSourceDescription
 --
 -- /See:/ 'referenceDataSourceUpdate' smart constructor.
 data ReferenceDataSourceUpdate = ReferenceDataSourceUpdate'
-    { _rdsuTableNameUpdate             :: !(Maybe Text)
-    , _rdsuS3ReferenceDataSourceUpdate :: !(Maybe S3ReferenceDataSourceUpdate)
-    , _rdsuReferenceSchemaUpdate       :: !(Maybe SourceSchema)
-    , _rdsuReferenceId                 :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdsuTableNameUpdate             :: !(Maybe Text)
+  , _rdsuS3ReferenceDataSourceUpdate :: !(Maybe S3ReferenceDataSourceUpdate)
+  , _rdsuReferenceSchemaUpdate       :: !(Maybe SourceSchema)
+  , _rdsuReferenceId                 :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ReferenceDataSourceUpdate' with the minimum fields required to make a request.
 --
@@ -2152,12 +2481,13 @@ referenceDataSourceUpdate
     :: Text -- ^ 'rdsuReferenceId'
     -> ReferenceDataSourceUpdate
 referenceDataSourceUpdate pReferenceId_ =
-    ReferenceDataSourceUpdate'
-    { _rdsuTableNameUpdate = Nothing
-    , _rdsuS3ReferenceDataSourceUpdate = Nothing
-    , _rdsuReferenceSchemaUpdate = Nothing
-    , _rdsuReferenceId = pReferenceId_
-    }
+  ReferenceDataSourceUpdate'
+  { _rdsuTableNameUpdate = Nothing
+  , _rdsuS3ReferenceDataSourceUpdate = Nothing
+  , _rdsuReferenceSchemaUpdate = Nothing
+  , _rdsuReferenceId = pReferenceId_
+  }
+
 
 -- | In-application table name that is created by this update.
 rdsuTableNameUpdate :: Lens' ReferenceDataSourceUpdate (Maybe Text)
@@ -2175,9 +2505,9 @@ rdsuReferenceSchemaUpdate = lens _rdsuReferenceSchemaUpdate (\ s a -> s{_rdsuRef
 rdsuReferenceId :: Lens' ReferenceDataSourceUpdate Text
 rdsuReferenceId = lens _rdsuReferenceId (\ s a -> s{_rdsuReferenceId = a});
 
-instance Hashable ReferenceDataSourceUpdate
+instance Hashable ReferenceDataSourceUpdate where
 
-instance NFData ReferenceDataSourceUpdate
+instance NFData ReferenceDataSourceUpdate where
 
 instance ToJSON ReferenceDataSourceUpdate where
         toJSON ReferenceDataSourceUpdate'{..}
@@ -2190,6 +2520,57 @@ instance ToJSON ReferenceDataSourceUpdate where
                     _rdsuReferenceSchemaUpdate,
                   Just ("ReferenceId" .= _rdsuReferenceId)])
 
+-- | /See:/ 's3Configuration' smart constructor.
+data S3Configuration = S3Configuration'
+  { _scRoleARN   :: !Text
+  , _scBucketARN :: !Text
+  , _scFileKey   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'S3Configuration' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'scRoleARN' - Undocumented member.
+--
+-- * 'scBucketARN' - Undocumented member.
+--
+-- * 'scFileKey' - Undocumented member.
+s3Configuration
+    :: Text -- ^ 'scRoleARN'
+    -> Text -- ^ 'scBucketARN'
+    -> Text -- ^ 'scFileKey'
+    -> S3Configuration
+s3Configuration pRoleARN_ pBucketARN_ pFileKey_ =
+  S3Configuration'
+  {_scRoleARN = pRoleARN_, _scBucketARN = pBucketARN_, _scFileKey = pFileKey_}
+
+
+-- | Undocumented member.
+scRoleARN :: Lens' S3Configuration Text
+scRoleARN = lens _scRoleARN (\ s a -> s{_scRoleARN = a});
+
+-- | Undocumented member.
+scBucketARN :: Lens' S3Configuration Text
+scBucketARN = lens _scBucketARN (\ s a -> s{_scBucketARN = a});
+
+-- | Undocumented member.
+scFileKey :: Lens' S3Configuration Text
+scFileKey = lens _scFileKey (\ s a -> s{_scFileKey = a});
+
+instance Hashable S3Configuration where
+
+instance NFData S3Configuration where
+
+instance ToJSON S3Configuration where
+        toJSON S3Configuration'{..}
+          = object
+              (catMaybes
+                 [Just ("RoleARN" .= _scRoleARN),
+                  Just ("BucketARN" .= _scBucketARN),
+                  Just ("FileKey" .= _scFileKey)])
+
 -- | Identifies the S3 bucket and object that contains the reference data. Also identifies the IAM role Amazon Kinesis Analytics can assume to read this object on your behalf.
 --
 --
@@ -2198,10 +2579,11 @@ instance ToJSON ReferenceDataSourceUpdate where
 --
 -- /See:/ 's3ReferenceDataSource' smart constructor.
 data S3ReferenceDataSource = S3ReferenceDataSource'
-    { _srdsBucketARN        :: !Text
-    , _srdsFileKey          :: !Text
-    , _srdsReferenceRoleARN :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srdsBucketARN        :: !Text
+  , _srdsFileKey          :: !Text
+  , _srdsReferenceRoleARN :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'S3ReferenceDataSource' with the minimum fields required to make a request.
 --
@@ -2218,11 +2600,12 @@ s3ReferenceDataSource
     -> Text -- ^ 'srdsReferenceRoleARN'
     -> S3ReferenceDataSource
 s3ReferenceDataSource pBucketARN_ pFileKey_ pReferenceRoleARN_ =
-    S3ReferenceDataSource'
-    { _srdsBucketARN = pBucketARN_
-    , _srdsFileKey = pFileKey_
-    , _srdsReferenceRoleARN = pReferenceRoleARN_
-    }
+  S3ReferenceDataSource'
+  { _srdsBucketARN = pBucketARN_
+  , _srdsFileKey = pFileKey_
+  , _srdsReferenceRoleARN = pReferenceRoleARN_
+  }
+
 
 -- | Amazon Resource Name (ARN) of the S3 bucket.
 srdsBucketARN :: Lens' S3ReferenceDataSource Text
@@ -2236,9 +2619,9 @@ srdsFileKey = lens _srdsFileKey (\ s a -> s{_srdsFileKey = a});
 srdsReferenceRoleARN :: Lens' S3ReferenceDataSource Text
 srdsReferenceRoleARN = lens _srdsReferenceRoleARN (\ s a -> s{_srdsReferenceRoleARN = a});
 
-instance Hashable S3ReferenceDataSource
+instance Hashable S3ReferenceDataSource where
 
-instance NFData S3ReferenceDataSource
+instance NFData S3ReferenceDataSource where
 
 instance ToJSON S3ReferenceDataSource where
         toJSON S3ReferenceDataSource'{..}
@@ -2254,10 +2637,11 @@ instance ToJSON S3ReferenceDataSource where
 --
 -- /See:/ 's3ReferenceDataSourceDescription' smart constructor.
 data S3ReferenceDataSourceDescription = S3ReferenceDataSourceDescription'
-    { _srdsdBucketARN        :: !Text
-    , _srdsdFileKey          :: !Text
-    , _srdsdReferenceRoleARN :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srdsdBucketARN        :: !Text
+  , _srdsdFileKey          :: !Text
+  , _srdsdReferenceRoleARN :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'S3ReferenceDataSourceDescription' with the minimum fields required to make a request.
 --
@@ -2274,11 +2658,12 @@ s3ReferenceDataSourceDescription
     -> Text -- ^ 'srdsdReferenceRoleARN'
     -> S3ReferenceDataSourceDescription
 s3ReferenceDataSourceDescription pBucketARN_ pFileKey_ pReferenceRoleARN_ =
-    S3ReferenceDataSourceDescription'
-    { _srdsdBucketARN = pBucketARN_
-    , _srdsdFileKey = pFileKey_
-    , _srdsdReferenceRoleARN = pReferenceRoleARN_
-    }
+  S3ReferenceDataSourceDescription'
+  { _srdsdBucketARN = pBucketARN_
+  , _srdsdFileKey = pFileKey_
+  , _srdsdReferenceRoleARN = pReferenceRoleARN_
+  }
+
 
 -- | Amazon Resource Name (ARN) of the S3 bucket.
 srdsdBucketARN :: Lens' S3ReferenceDataSourceDescription Text
@@ -2302,8 +2687,10 @@ instance FromJSON S3ReferenceDataSourceDescription
                      (x .: "ReferenceRoleARN"))
 
 instance Hashable S3ReferenceDataSourceDescription
+         where
 
 instance NFData S3ReferenceDataSourceDescription
+         where
 
 -- | Describes the S3 bucket name, object key name, and IAM role that Amazon Kinesis Analytics can assume to read the Amazon S3 object on your behalf and populate the in-application reference table.
 --
@@ -2311,10 +2698,11 @@ instance NFData S3ReferenceDataSourceDescription
 --
 -- /See:/ 's3ReferenceDataSourceUpdate' smart constructor.
 data S3ReferenceDataSourceUpdate = S3ReferenceDataSourceUpdate'
-    { _srdsuBucketARNUpdate        :: !(Maybe Text)
-    , _srdsuFileKeyUpdate          :: !(Maybe Text)
-    , _srdsuReferenceRoleARNUpdate :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srdsuBucketARNUpdate        :: !(Maybe Text)
+  , _srdsuFileKeyUpdate          :: !(Maybe Text)
+  , _srdsuReferenceRoleARNUpdate :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'S3ReferenceDataSourceUpdate' with the minimum fields required to make a request.
 --
@@ -2328,11 +2716,12 @@ data S3ReferenceDataSourceUpdate = S3ReferenceDataSourceUpdate'
 s3ReferenceDataSourceUpdate
     :: S3ReferenceDataSourceUpdate
 s3ReferenceDataSourceUpdate =
-    S3ReferenceDataSourceUpdate'
-    { _srdsuBucketARNUpdate = Nothing
-    , _srdsuFileKeyUpdate = Nothing
-    , _srdsuReferenceRoleARNUpdate = Nothing
-    }
+  S3ReferenceDataSourceUpdate'
+  { _srdsuBucketARNUpdate = Nothing
+  , _srdsuFileKeyUpdate = Nothing
+  , _srdsuReferenceRoleARNUpdate = Nothing
+  }
+
 
 -- | Amazon Resource Name (ARN) of the S3 bucket.
 srdsuBucketARNUpdate :: Lens' S3ReferenceDataSourceUpdate (Maybe Text)
@@ -2346,9 +2735,9 @@ srdsuFileKeyUpdate = lens _srdsuFileKeyUpdate (\ s a -> s{_srdsuFileKeyUpdate = 
 srdsuReferenceRoleARNUpdate :: Lens' S3ReferenceDataSourceUpdate (Maybe Text)
 srdsuReferenceRoleARNUpdate = lens _srdsuReferenceRoleARNUpdate (\ s a -> s{_srdsuReferenceRoleARNUpdate = a});
 
-instance Hashable S3ReferenceDataSourceUpdate
+instance Hashable S3ReferenceDataSourceUpdate where
 
-instance NFData S3ReferenceDataSourceUpdate
+instance NFData S3ReferenceDataSourceUpdate where
 
 instance ToJSON S3ReferenceDataSourceUpdate where
         toJSON S3ReferenceDataSourceUpdate'{..}
@@ -2365,10 +2754,11 @@ instance ToJSON S3ReferenceDataSourceUpdate where
 --
 -- /See:/ 'sourceSchema' smart constructor.
 data SourceSchema = SourceSchema'
-    { _ssRecordEncoding :: !(Maybe Text)
-    , _ssRecordFormat   :: !RecordFormat
-    , _ssRecordColumns  :: !(List1 RecordColumn)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssRecordEncoding :: !(Maybe Text)
+  , _ssRecordFormat   :: !RecordFormat
+  , _ssRecordColumns  :: !(List1 RecordColumn)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SourceSchema' with the minimum fields required to make a request.
 --
@@ -2384,11 +2774,12 @@ sourceSchema
     -> NonEmpty RecordColumn -- ^ 'ssRecordColumns'
     -> SourceSchema
 sourceSchema pRecordFormat_ pRecordColumns_ =
-    SourceSchema'
-    { _ssRecordEncoding = Nothing
-    , _ssRecordFormat = pRecordFormat_
-    , _ssRecordColumns = _List1 # pRecordColumns_
-    }
+  SourceSchema'
+  { _ssRecordEncoding = Nothing
+  , _ssRecordFormat = pRecordFormat_
+  , _ssRecordColumns = _List1 # pRecordColumns_
+  }
+
 
 -- | Specifies the encoding of the records in the streaming source. For example, UTF-8.
 ssRecordEncoding :: Lens' SourceSchema (Maybe Text)
@@ -2410,9 +2801,9 @@ instance FromJSON SourceSchema where
                    (x .:? "RecordEncoding") <*> (x .: "RecordFormat")
                      <*> (x .: "RecordColumns"))
 
-instance Hashable SourceSchema
+instance Hashable SourceSchema where
 
-instance NFData SourceSchema
+instance NFData SourceSchema where
 
 instance ToJSON SourceSchema where
         toJSON SourceSchema'{..}

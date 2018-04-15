@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.PutIntent
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -92,36 +92,37 @@ module Network.AWS.LexModels.PutIntent
     , pirsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putIntent' smart constructor.
 data PutIntent = PutIntent'
-    { _piFulfillmentActivity   :: !(Maybe FulfillmentActivity)
-    , _piSlots                 :: !(Maybe [Slot])
-    , _piRejectionStatement    :: !(Maybe Statement)
-    , _piChecksum              :: !(Maybe Text)
-    , _piConclusionStatement   :: !(Maybe Statement)
-    , _piSampleUtterances      :: !(Maybe [Text])
-    , _piParentIntentSignature :: !(Maybe Text)
-    , _piFollowUpPrompt        :: !(Maybe FollowUpPrompt)
-    , _piConfirmationPrompt    :: !(Maybe Prompt)
-    , _piDialogCodeHook        :: !(Maybe CodeHook)
-    , _piDescription           :: !(Maybe Text)
-    , _piName                  :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _piFulfillmentActivity   :: !(Maybe FulfillmentActivity)
+  , _piSlots                 :: !(Maybe [Slot])
+  , _piRejectionStatement    :: !(Maybe Statement)
+  , _piChecksum              :: !(Maybe Text)
+  , _piConclusionStatement   :: !(Maybe Statement)
+  , _piSampleUtterances      :: !(Maybe [Text])
+  , _piParentIntentSignature :: !(Maybe Text)
+  , _piFollowUpPrompt        :: !(Maybe FollowUpPrompt)
+  , _piConfirmationPrompt    :: !(Maybe Prompt)
+  , _piDialogCodeHook        :: !(Maybe CodeHook)
+  , _piDescription           :: !(Maybe Text)
+  , _piName                  :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutIntent' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'piFulfillmentActivity' - Describes how the intent is fulfilled. For example, after a user provides all of the information for a pizza order, @fulfillmentActivity@ defines how the bot places an order with a local pizza store.  You might configure Amazon Lex to return all of the intent information to the client application, or direct it to invoke a Lambda function that can process the intent (for example, place an order with a pizzeria).
+-- * 'piFulfillmentActivity' - Required. Describes how the intent is fulfilled. For example, after a user provides all of the information for a pizza order, @fulfillmentActivity@ defines how the bot places an order with a local pizza store.  You might configure Amazon Lex to return all of the intent information to the client application, or direct it to invoke a Lambda function that can process the intent (for example, place an order with a pizzeria).
 --
--- * 'piSlots' - An array of intent slots. At runtime, Amazon Lex elicits required slot values from the user using prompts defined in the slots. For more information, see <xref linkend="how-it-works"/>.
+-- * 'piSlots' - An array of intent slots. At runtime, Amazon Lex elicits required slot values from the user using prompts defined in the slots. For more information, see 'how-it-works' .
 --
 -- * 'piRejectionStatement' - When the user answers "no" to the question defined in @confirmationPrompt@ , Amazon Lex responds with this statement to acknowledge that the intent was canceled.
 --
@@ -146,26 +147,27 @@ putIntent
     :: Text -- ^ 'piName'
     -> PutIntent
 putIntent pName_ =
-    PutIntent'
-    { _piFulfillmentActivity = Nothing
-    , _piSlots = Nothing
-    , _piRejectionStatement = Nothing
-    , _piChecksum = Nothing
-    , _piConclusionStatement = Nothing
-    , _piSampleUtterances = Nothing
-    , _piParentIntentSignature = Nothing
-    , _piFollowUpPrompt = Nothing
-    , _piConfirmationPrompt = Nothing
-    , _piDialogCodeHook = Nothing
-    , _piDescription = Nothing
-    , _piName = pName_
-    }
+  PutIntent'
+  { _piFulfillmentActivity = Nothing
+  , _piSlots = Nothing
+  , _piRejectionStatement = Nothing
+  , _piChecksum = Nothing
+  , _piConclusionStatement = Nothing
+  , _piSampleUtterances = Nothing
+  , _piParentIntentSignature = Nothing
+  , _piFollowUpPrompt = Nothing
+  , _piConfirmationPrompt = Nothing
+  , _piDialogCodeHook = Nothing
+  , _piDescription = Nothing
+  , _piName = pName_
+  }
 
--- | Describes how the intent is fulfilled. For example, after a user provides all of the information for a pizza order, @fulfillmentActivity@ defines how the bot places an order with a local pizza store.  You might configure Amazon Lex to return all of the intent information to the client application, or direct it to invoke a Lambda function that can process the intent (for example, place an order with a pizzeria).
+
+-- | Required. Describes how the intent is fulfilled. For example, after a user provides all of the information for a pizza order, @fulfillmentActivity@ defines how the bot places an order with a local pizza store.  You might configure Amazon Lex to return all of the intent information to the client application, or direct it to invoke a Lambda function that can process the intent (for example, place an order with a pizzeria).
 piFulfillmentActivity :: Lens' PutIntent (Maybe FulfillmentActivity)
 piFulfillmentActivity = lens _piFulfillmentActivity (\ s a -> s{_piFulfillmentActivity = a});
 
--- | An array of intent slots. At runtime, Amazon Lex elicits required slot values from the user using prompts defined in the slots. For more information, see <xref linkend="how-it-works"/>.
+-- | An array of intent slots. At runtime, Amazon Lex elicits required slot values from the user using prompts defined in the slots. For more information, see 'how-it-works' .
 piSlots :: Lens' PutIntent [Slot]
 piSlots = lens _piSlots (\ s a -> s{_piSlots = a}) . _Default . _Coerce;
 
@@ -233,9 +235,9 @@ instance AWSRequest PutIntent where
                      <*> (x .?> "description")
                      <*> (pure (fromEnum s)))
 
-instance Hashable PutIntent
+instance Hashable PutIntent where
 
-instance NFData PutIntent
+instance NFData PutIntent where
 
 instance ToHeaders PutIntent where
         toHeaders
@@ -273,23 +275,24 @@ instance ToQuery PutIntent where
 
 -- | /See:/ 'putIntentResponse' smart constructor.
 data PutIntentResponse = PutIntentResponse'
-    { _pirsFulfillmentActivity   :: !(Maybe FulfillmentActivity)
-    , _pirsSlots                 :: !(Maybe [Slot])
-    , _pirsRejectionStatement    :: !(Maybe Statement)
-    , _pirsChecksum              :: !(Maybe Text)
-    , _pirsConclusionStatement   :: !(Maybe Statement)
-    , _pirsSampleUtterances      :: !(Maybe [Text])
-    , _pirsParentIntentSignature :: !(Maybe Text)
-    , _pirsCreatedDate           :: !(Maybe POSIX)
-    , _pirsName                  :: !(Maybe Text)
-    , _pirsVersion               :: !(Maybe Text)
-    , _pirsFollowUpPrompt        :: !(Maybe FollowUpPrompt)
-    , _pirsLastUpdatedDate       :: !(Maybe POSIX)
-    , _pirsConfirmationPrompt    :: !(Maybe Prompt)
-    , _pirsDialogCodeHook        :: !(Maybe CodeHook)
-    , _pirsDescription           :: !(Maybe Text)
-    , _pirsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pirsFulfillmentActivity   :: !(Maybe FulfillmentActivity)
+  , _pirsSlots                 :: !(Maybe [Slot])
+  , _pirsRejectionStatement    :: !(Maybe Statement)
+  , _pirsChecksum              :: !(Maybe Text)
+  , _pirsConclusionStatement   :: !(Maybe Statement)
+  , _pirsSampleUtterances      :: !(Maybe [Text])
+  , _pirsParentIntentSignature :: !(Maybe Text)
+  , _pirsCreatedDate           :: !(Maybe POSIX)
+  , _pirsName                  :: !(Maybe Text)
+  , _pirsVersion               :: !(Maybe Text)
+  , _pirsFollowUpPrompt        :: !(Maybe FollowUpPrompt)
+  , _pirsLastUpdatedDate       :: !(Maybe POSIX)
+  , _pirsConfirmationPrompt    :: !(Maybe Prompt)
+  , _pirsDialogCodeHook        :: !(Maybe CodeHook)
+  , _pirsDescription           :: !(Maybe Text)
+  , _pirsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutIntentResponse' with the minimum fields required to make a request.
 --
@@ -330,24 +333,25 @@ putIntentResponse
     :: Int -- ^ 'pirsResponseStatus'
     -> PutIntentResponse
 putIntentResponse pResponseStatus_ =
-    PutIntentResponse'
-    { _pirsFulfillmentActivity = Nothing
-    , _pirsSlots = Nothing
-    , _pirsRejectionStatement = Nothing
-    , _pirsChecksum = Nothing
-    , _pirsConclusionStatement = Nothing
-    , _pirsSampleUtterances = Nothing
-    , _pirsParentIntentSignature = Nothing
-    , _pirsCreatedDate = Nothing
-    , _pirsName = Nothing
-    , _pirsVersion = Nothing
-    , _pirsFollowUpPrompt = Nothing
-    , _pirsLastUpdatedDate = Nothing
-    , _pirsConfirmationPrompt = Nothing
-    , _pirsDialogCodeHook = Nothing
-    , _pirsDescription = Nothing
-    , _pirsResponseStatus = pResponseStatus_
-    }
+  PutIntentResponse'
+  { _pirsFulfillmentActivity = Nothing
+  , _pirsSlots = Nothing
+  , _pirsRejectionStatement = Nothing
+  , _pirsChecksum = Nothing
+  , _pirsConclusionStatement = Nothing
+  , _pirsSampleUtterances = Nothing
+  , _pirsParentIntentSignature = Nothing
+  , _pirsCreatedDate = Nothing
+  , _pirsName = Nothing
+  , _pirsVersion = Nothing
+  , _pirsFollowUpPrompt = Nothing
+  , _pirsLastUpdatedDate = Nothing
+  , _pirsConfirmationPrompt = Nothing
+  , _pirsDialogCodeHook = Nothing
+  , _pirsDescription = Nothing
+  , _pirsResponseStatus = pResponseStatus_
+  }
+
 
 -- | If defined in the intent, Amazon Lex invokes this Lambda function to fulfill the intent after the user provides all of the information required by the intent.
 pirsFulfillmentActivity :: Lens' PutIntentResponse (Maybe FulfillmentActivity)
@@ -413,4 +417,4 @@ pirsDescription = lens _pirsDescription (\ s a -> s{_pirsDescription = a});
 pirsResponseStatus :: Lens' PutIntentResponse Int
 pirsResponseStatus = lens _pirsResponseStatus (\ s a -> s{_pirsResponseStatus = a});
 
-instance NFData PutIntentResponse
+instance NFData PutIntentResponse where

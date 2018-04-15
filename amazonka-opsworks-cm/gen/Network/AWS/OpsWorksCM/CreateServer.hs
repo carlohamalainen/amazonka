@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.OpsWorksCM.CreateServer
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -61,33 +61,34 @@ module Network.AWS.OpsWorksCM.CreateServer
     , csrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.OpsWorksCM.Types
-import           Network.AWS.OpsWorksCM.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.OpsWorksCM.Types
+import Network.AWS.OpsWorksCM.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createServer' smart constructor.
 data CreateServer = CreateServer'
-    { _csEngineVersion              :: !(Maybe Text)
-    , _csDisableAutomatedBackup     :: !(Maybe Bool)
-    , _csSecurityGroupIds           :: !(Maybe [Text])
-    , _csAssociatePublicIPAddress   :: !(Maybe Bool)
-    , _csSubnetIds                  :: !(Maybe [Text])
-    , _csKeyPair                    :: !(Maybe Text)
-    , _csBackupId                   :: !(Maybe Text)
-    , _csEngine                     :: !(Maybe Text)
-    , _csEngineModel                :: !(Maybe Text)
-    , _csEngineAttributes           :: !(Maybe [EngineAttribute])
-    , _csPreferredMaintenanceWindow :: !(Maybe Text)
-    , _csPreferredBackupWindow      :: !(Maybe Text)
-    , _csBackupRetentionCount       :: !(Maybe Nat)
-    , _csServerName                 :: !Text
-    , _csInstanceProfileARN         :: !Text
-    , _csInstanceType               :: !Text
-    , _csServiceRoleARN             :: !Text
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _csEngineVersion              :: !(Maybe Text)
+  , _csDisableAutomatedBackup     :: !(Maybe Bool)
+  , _csSecurityGroupIds           :: !(Maybe [Text])
+  , _csAssociatePublicIPAddress   :: !(Maybe Bool)
+  , _csSubnetIds                  :: !(Maybe [Text])
+  , _csKeyPair                    :: !(Maybe Text)
+  , _csBackupId                   :: !(Maybe Text)
+  , _csEngine                     :: !(Maybe Text)
+  , _csEngineModel                :: !(Maybe Text)
+  , _csEngineAttributes           :: !(Maybe [EngineAttribute])
+  , _csPreferredMaintenanceWindow :: !(Maybe Text)
+  , _csPreferredBackupWindow      :: !(Maybe Text)
+  , _csBackupRetentionCount       :: !(Maybe Nat)
+  , _csServerName                 :: !Text
+  , _csInstanceProfileARN         :: !Text
+  , _csInstanceType               :: !Text
+  , _csServiceRoleARN             :: !Text
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateServer' with the minimum fields required to make a request.
 --
@@ -101,7 +102,7 @@ data CreateServer = CreateServer'
 --
 -- * 'csAssociatePublicIPAddress' - Associate a public IP address with a server that you are launching. Valid values are @true@ or @false@ . The default value is @true@ .
 --
--- * 'csSubnetIds' - The IDs of subnets in which to launch the server EC2 instance.  Amazon EC2-Classic customers: This field is required. All servers must run within a VPC. The VPC must have "Auto Assign Public IP" enabled.  EC2-VPC customers: This field is optional. If you do not specify subnet IDs, your EC2 instances are created in a default subnet that is selected by Amazon EC2. If you specify subnet IDs, the VPC must have "Auto Assign Public IP" enabled.  For more information about supported Amazon EC2 platforms, see <http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms> .
+-- * 'csSubnetIds' - The IDs of subnets in which to launch the server EC2 instance.  Amazon EC2-Classic customers: This field is required. All servers must run within a VPC. The VPC must have "Auto Assign Public IP" enabled.  EC2-VPC customers: This field is optional. If you do not specify subnet IDs, your EC2 instances are created in a default subnet that is selected by Amazon EC2. If you specify subnet IDs, the VPC must have "Auto Assign Public IP" enabled.  For more information about supported Amazon EC2 platforms, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms> .
 --
 -- * 'csKeyPair' - The Amazon EC2 key pair to set for the instance. This parameter is optional; if desired, you may specify this parameter to connect to your instances by using SSH.
 --
@@ -125,7 +126,7 @@ data CreateServer = CreateServer'
 --
 -- * 'csInstanceType' - The Amazon EC2 instance type to use. Valid values must be specified in the following format: @^([cm][34]|t2).*@ For example, @m4.large@ . Valid values are @t2.medium@ , @m4.large@ , or @m4.2xlarge@ .
 --
--- * 'csServiceRoleARN' - The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation stack that includes the service role that you need.
+-- * 'csServiceRoleARN' - The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template creates a CloudFormation stack that includes the service role that you need.
 createServer
     :: Text -- ^ 'csServerName'
     -> Text -- ^ 'csInstanceProfileARN'
@@ -133,25 +134,26 @@ createServer
     -> Text -- ^ 'csServiceRoleARN'
     -> CreateServer
 createServer pServerName_ pInstanceProfileARN_ pInstanceType_ pServiceRoleARN_ =
-    CreateServer'
-    { _csEngineVersion = Nothing
-    , _csDisableAutomatedBackup = Nothing
-    , _csSecurityGroupIds = Nothing
-    , _csAssociatePublicIPAddress = Nothing
-    , _csSubnetIds = Nothing
-    , _csKeyPair = Nothing
-    , _csBackupId = Nothing
-    , _csEngine = Nothing
-    , _csEngineModel = Nothing
-    , _csEngineAttributes = Nothing
-    , _csPreferredMaintenanceWindow = Nothing
-    , _csPreferredBackupWindow = Nothing
-    , _csBackupRetentionCount = Nothing
-    , _csServerName = pServerName_
-    , _csInstanceProfileARN = pInstanceProfileARN_
-    , _csInstanceType = pInstanceType_
-    , _csServiceRoleARN = pServiceRoleARN_
-    }
+  CreateServer'
+  { _csEngineVersion = Nothing
+  , _csDisableAutomatedBackup = Nothing
+  , _csSecurityGroupIds = Nothing
+  , _csAssociatePublicIPAddress = Nothing
+  , _csSubnetIds = Nothing
+  , _csKeyPair = Nothing
+  , _csBackupId = Nothing
+  , _csEngine = Nothing
+  , _csEngineModel = Nothing
+  , _csEngineAttributes = Nothing
+  , _csPreferredMaintenanceWindow = Nothing
+  , _csPreferredBackupWindow = Nothing
+  , _csBackupRetentionCount = Nothing
+  , _csServerName = pServerName_
+  , _csInstanceProfileARN = pInstanceProfileARN_
+  , _csInstanceType = pInstanceType_
+  , _csServiceRoleARN = pServiceRoleARN_
+  }
+
 
 -- | The major release version of the engine that you want to use. Values depend on the engine that you choose.
 csEngineVersion :: Lens' CreateServer (Maybe Text)
@@ -169,7 +171,7 @@ csSecurityGroupIds = lens _csSecurityGroupIds (\ s a -> s{_csSecurityGroupIds = 
 csAssociatePublicIPAddress :: Lens' CreateServer (Maybe Bool)
 csAssociatePublicIPAddress = lens _csAssociatePublicIPAddress (\ s a -> s{_csAssociatePublicIPAddress = a});
 
--- | The IDs of subnets in which to launch the server EC2 instance.  Amazon EC2-Classic customers: This field is required. All servers must run within a VPC. The VPC must have "Auto Assign Public IP" enabled.  EC2-VPC customers: This field is optional. If you do not specify subnet IDs, your EC2 instances are created in a default subnet that is selected by Amazon EC2. If you specify subnet IDs, the VPC must have "Auto Assign Public IP" enabled.  For more information about supported Amazon EC2 platforms, see <http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms> .
+-- | The IDs of subnets in which to launch the server EC2 instance.  Amazon EC2-Classic customers: This field is required. All servers must run within a VPC. The VPC must have "Auto Assign Public IP" enabled.  EC2-VPC customers: This field is optional. If you do not specify subnet IDs, your EC2 instances are created in a default subnet that is selected by Amazon EC2. If you specify subnet IDs, the VPC must have "Auto Assign Public IP" enabled.  For more information about supported Amazon EC2 platforms, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms> .
 csSubnetIds :: Lens' CreateServer [Text]
 csSubnetIds = lens _csSubnetIds (\ s a -> s{_csSubnetIds = a}) . _Default . _Coerce;
 
@@ -217,7 +219,7 @@ csInstanceProfileARN = lens _csInstanceProfileARN (\ s a -> s{_csInstanceProfile
 csInstanceType :: Lens' CreateServer Text
 csInstanceType = lens _csInstanceType (\ s a -> s{_csInstanceType = a});
 
--- | The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation stack that includes the service role that you need.
+-- | The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template creates a CloudFormation stack that includes the service role that you need.
 csServiceRoleARN :: Lens' CreateServer Text
 csServiceRoleARN = lens _csServiceRoleARN (\ s a -> s{_csServiceRoleARN = a});
 
@@ -230,9 +232,9 @@ instance AWSRequest CreateServer where
                  CreateServerResponse' <$>
                    (x .?> "Server") <*> (pure (fromEnum s)))
 
-instance Hashable CreateServer
+instance Hashable CreateServer where
 
-instance NFData CreateServer
+instance NFData CreateServer where
 
 instance ToHeaders CreateServer where
         toHeaders
@@ -279,9 +281,10 @@ instance ToQuery CreateServer where
 
 -- | /See:/ 'createServerResponse' smart constructor.
 data CreateServerResponse = CreateServerResponse'
-    { _csrsServer         :: !(Maybe Server)
-    , _csrsResponseStatus :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _csrsServer         :: !(Maybe Server)
+  , _csrsResponseStatus :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateServerResponse' with the minimum fields required to make a request.
 --
@@ -294,10 +297,9 @@ createServerResponse
     :: Int -- ^ 'csrsResponseStatus'
     -> CreateServerResponse
 createServerResponse pResponseStatus_ =
-    CreateServerResponse'
-    { _csrsServer = Nothing
-    , _csrsResponseStatus = pResponseStatus_
-    }
+  CreateServerResponse'
+  {_csrsServer = Nothing, _csrsResponseStatus = pResponseStatus_}
+
 
 -- | The server that is created by the request.
 csrsServer :: Lens' CreateServerResponse (Maybe Server)
@@ -307,4 +309,4 @@ csrsServer = lens _csrsServer (\ s a -> s{_csrsServer = a});
 csrsResponseStatus :: Lens' CreateServerResponse Int
 csrsResponseStatus = lens _csrsResponseStatus (\ s a -> s{_csrsResponseStatus = a});
 
-instance NFData CreateServerResponse
+instance NFData CreateServerResponse where

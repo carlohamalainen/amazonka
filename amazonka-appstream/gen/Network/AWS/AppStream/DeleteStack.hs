@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.DeleteStack
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the stack. After this operation completes, the environment can no longer be activated, and any reservations made for the stack are released.
+-- Deletes the specified stack. After this operation completes, the environment can no longer be activated and any reservations made for the stack are released.
 --
 --
 module Network.AWS.AppStream.DeleteStack
@@ -36,32 +36,31 @@ module Network.AWS.AppStream.DeleteStack
     , dsrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'deleteStack' smart constructor.
 newtype DeleteStack = DeleteStack'
-    { _dsName :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsName :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStack' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dsName' - The name of the stack to delete.
+-- * 'dsName' - The name of the stack.
 deleteStack
     :: Text -- ^ 'dsName'
     -> DeleteStack
-deleteStack pName_ =
-    DeleteStack'
-    { _dsName = pName_
-    }
+deleteStack pName_ = DeleteStack' {_dsName = pName_}
 
--- | The name of the stack to delete.
+
+-- | The name of the stack.
 dsName :: Lens' DeleteStack Text
 dsName = lens _dsName (\ s a -> s{_dsName = a});
 
@@ -73,9 +72,9 @@ instance AWSRequest DeleteStack where
               (\ s h x ->
                  DeleteStackResponse' <$> (pure (fromEnum s)))
 
-instance Hashable DeleteStack
+instance Hashable DeleteStack where
 
-instance NFData DeleteStack
+instance NFData DeleteStack where
 
 instance ToHeaders DeleteStack where
         toHeaders
@@ -99,8 +98,9 @@ instance ToQuery DeleteStack where
 
 -- | /See:/ 'deleteStackResponse' smart constructor.
 newtype DeleteStackResponse = DeleteStackResponse'
-    { _dsrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStackResponse' with the minimum fields required to make a request.
 --
@@ -111,12 +111,11 @@ deleteStackResponse
     :: Int -- ^ 'dsrsResponseStatus'
     -> DeleteStackResponse
 deleteStackResponse pResponseStatus_ =
-    DeleteStackResponse'
-    { _dsrsResponseStatus = pResponseStatus_
-    }
+  DeleteStackResponse' {_dsrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 dsrsResponseStatus :: Lens' DeleteStackResponse Int
 dsrsResponseStatus = lens _dsrsResponseStatus (\ s a -> s{_dsrsResponseStatus = a});
 
-instance NFData DeleteStackResponse
+instance NFData DeleteStackResponse where

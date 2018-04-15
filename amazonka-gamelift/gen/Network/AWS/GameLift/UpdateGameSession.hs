@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.GameLift.UpdateGameSession
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -67,12 +67,12 @@ module Network.AWS.GameLift.UpdateGameSession
     , ugsrsResponseStatus
     ) where
 
-import           Network.AWS.GameLift.Types
-import           Network.AWS.GameLift.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.GameLift.Types
+import Network.AWS.GameLift.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Represents the input for a request action.
 --
@@ -80,12 +80,13 @@ import           Network.AWS.Response
 --
 -- /See:/ 'updateGameSession' smart constructor.
 data UpdateGameSession = UpdateGameSession'
-    { _ugsMaximumPlayerSessionCount   :: !(Maybe Nat)
-    , _ugsPlayerSessionCreationPolicy :: !(Maybe PlayerSessionCreationPolicy)
-    , _ugsName                        :: !(Maybe Text)
-    , _ugsProtectionPolicy            :: !(Maybe ProtectionPolicy)
-    , _ugsGameSessionId               :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ugsMaximumPlayerSessionCount   :: !(Maybe Nat)
+  , _ugsPlayerSessionCreationPolicy :: !(Maybe PlayerSessionCreationPolicy)
+  , _ugsName                        :: !(Maybe Text)
+  , _ugsProtectionPolicy            :: !(Maybe ProtectionPolicy)
+  , _ugsGameSessionId               :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateGameSession' with the minimum fields required to make a request.
 --
@@ -97,20 +98,21 @@ data UpdateGameSession = UpdateGameSession'
 --
 -- * 'ugsName' - Descriptive label that is associated with a game session. Session names do not need to be unique.
 --
--- * 'ugsProtectionPolicy' - Game session protection policy to apply to this game session only.     * __NoProtection__ – The game session can be terminated during a scale-down event.     * __FullProtection__ – If the game session is in an @ACTIVE@ status, it cannot be terminated during a scale-down event.
+-- * 'ugsProtectionPolicy' - Game session protection policy to apply to this game session only.     * __NoProtection__ -- The game session can be terminated during a scale-down event.     * __FullProtection__ -- If the game session is in an @ACTIVE@ status, it cannot be terminated during a scale-down event.
 --
 -- * 'ugsGameSessionId' - Unique identifier for the game session to update.
 updateGameSession
     :: Text -- ^ 'ugsGameSessionId'
     -> UpdateGameSession
 updateGameSession pGameSessionId_ =
-    UpdateGameSession'
-    { _ugsMaximumPlayerSessionCount = Nothing
-    , _ugsPlayerSessionCreationPolicy = Nothing
-    , _ugsName = Nothing
-    , _ugsProtectionPolicy = Nothing
-    , _ugsGameSessionId = pGameSessionId_
-    }
+  UpdateGameSession'
+  { _ugsMaximumPlayerSessionCount = Nothing
+  , _ugsPlayerSessionCreationPolicy = Nothing
+  , _ugsName = Nothing
+  , _ugsProtectionPolicy = Nothing
+  , _ugsGameSessionId = pGameSessionId_
+  }
+
 
 -- | Maximum number of players that can be connected simultaneously to the game session.
 ugsMaximumPlayerSessionCount :: Lens' UpdateGameSession (Maybe Natural)
@@ -124,7 +126,7 @@ ugsPlayerSessionCreationPolicy = lens _ugsPlayerSessionCreationPolicy (\ s a -> 
 ugsName :: Lens' UpdateGameSession (Maybe Text)
 ugsName = lens _ugsName (\ s a -> s{_ugsName = a});
 
--- | Game session protection policy to apply to this game session only.     * __NoProtection__ – The game session can be terminated during a scale-down event.     * __FullProtection__ – If the game session is in an @ACTIVE@ status, it cannot be terminated during a scale-down event.
+-- | Game session protection policy to apply to this game session only.     * __NoProtection__ -- The game session can be terminated during a scale-down event.     * __FullProtection__ -- If the game session is in an @ACTIVE@ status, it cannot be terminated during a scale-down event.
 ugsProtectionPolicy :: Lens' UpdateGameSession (Maybe ProtectionPolicy)
 ugsProtectionPolicy = lens _ugsProtectionPolicy (\ s a -> s{_ugsProtectionPolicy = a});
 
@@ -141,9 +143,9 @@ instance AWSRequest UpdateGameSession where
                  UpdateGameSessionResponse' <$>
                    (x .?> "GameSession") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateGameSession
+instance Hashable UpdateGameSession where
 
-instance NFData UpdateGameSession
+instance NFData UpdateGameSession where
 
 instance ToHeaders UpdateGameSession where
         toHeaders
@@ -178,9 +180,10 @@ instance ToQuery UpdateGameSession where
 --
 -- /See:/ 'updateGameSessionResponse' smart constructor.
 data UpdateGameSessionResponse = UpdateGameSessionResponse'
-    { _ugsrsGameSession    :: !(Maybe GameSession)
-    , _ugsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ugsrsGameSession    :: !(Maybe GameSession)
+  , _ugsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateGameSessionResponse' with the minimum fields required to make a request.
 --
@@ -193,10 +196,9 @@ updateGameSessionResponse
     :: Int -- ^ 'ugsrsResponseStatus'
     -> UpdateGameSessionResponse
 updateGameSessionResponse pResponseStatus_ =
-    UpdateGameSessionResponse'
-    { _ugsrsGameSession = Nothing
-    , _ugsrsResponseStatus = pResponseStatus_
-    }
+  UpdateGameSessionResponse'
+  {_ugsrsGameSession = Nothing, _ugsrsResponseStatus = pResponseStatus_}
+
 
 -- | Object that contains the updated game session metadata.
 ugsrsGameSession :: Lens' UpdateGameSessionResponse (Maybe GameSession)
@@ -206,4 +208,4 @@ ugsrsGameSession = lens _ugsrsGameSession (\ s a -> s{_ugsrsGameSession = a});
 ugsrsResponseStatus :: Lens' UpdateGameSessionResponse Int
 ugsrsResponseStatus = lens _ugsrsResponseStatus (\ s a -> s{_ugsrsResponseStatus = a});
 
-instance NFData UpdateGameSessionResponse
+instance NFData UpdateGameSessionResponse where

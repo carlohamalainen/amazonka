@@ -7,34 +7,34 @@
 {-# LANGUAGE ViewPatterns      #-}
 
 -- Module      : Gen.AST.Data.Field
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.AST.Data.Field where
 
-import           Control.Applicative
-import           Control.Comonad.Cofree
-import           Control.Lens
+import Control.Applicative
+import Control.Comonad.Cofree
+import Control.Lens
 
-import           Data.Function                (on)
-import           Data.List                    (elemIndex, sortBy)
-import           Data.Maybe
-import           Data.Monoid
-import           Data.Text                    (Text)
-import           Data.Text.Manipulate
+import Data.Function        (on)
+import Data.List            (elemIndex, sortBy)
+import Data.Maybe
+import Data.Monoid
+import Data.Text            (Text)
+import Data.Text.Manipulate
 
-import           Gen.Types
+import Gen.Types
 
-import           Language.Haskell.Exts.Syntax (Name (..))
+import Language.Haskell.Exts.Syntax (Name (..))
 
-import qualified Data.HashMap.Strict          as Map
-import qualified Data.Text                    as Text
+import qualified Data.HashMap.Strict as Map
+import qualified Data.Text           as Text
 
 -- | Convenience type to package up some information from the struct with the
 -- related field, namely the memberId and the (Set.member required).
@@ -135,8 +135,9 @@ fieldAccessor f = accessorId (_fieldPrefix f) (_fieldId f)
 fieldIsParam :: Field -> Bool
 fieldIsParam f = not (fieldMaybe f) && not (fieldMonoid f)
 
-fieldParamName :: Field -> Name
-fieldParamName = Ident
+fieldParamName :: Field -> Name ()
+fieldParamName =
+      Ident ()
     . Text.unpack
     . Text.cons 'p'
     . flip Text.snoc '_'

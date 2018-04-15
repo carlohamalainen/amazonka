@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DisassociatePrincipalFromPortfolio
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -38,25 +38,26 @@ module Network.AWS.ServiceCatalog.DisassociatePrincipalFromPortfolio
     , dpfprsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'disassociatePrincipalFromPortfolio' smart constructor.
 data DisassociatePrincipalFromPortfolio = DisassociatePrincipalFromPortfolio'
-    { _disAcceptLanguage :: !(Maybe Text)
-    , _disPortfolioId    :: !Text
-    , _disPrincipalARN   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _disAcceptLanguage :: !(Maybe Text)
+  , _disPortfolioId    :: !Text
+  , _disPrincipalARN   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DisassociatePrincipalFromPortfolio' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'disAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'disAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'disPortfolioId' - The portfolio identifier.
 --
@@ -66,13 +67,14 @@ disassociatePrincipalFromPortfolio
     -> Text -- ^ 'disPrincipalARN'
     -> DisassociatePrincipalFromPortfolio
 disassociatePrincipalFromPortfolio pPortfolioId_ pPrincipalARN_ =
-    DisassociatePrincipalFromPortfolio'
-    { _disAcceptLanguage = Nothing
-    , _disPortfolioId = pPortfolioId_
-    , _disPrincipalARN = pPrincipalARN_
-    }
+  DisassociatePrincipalFromPortfolio'
+  { _disAcceptLanguage = Nothing
+  , _disPortfolioId = pPortfolioId_
+  , _disPrincipalARN = pPrincipalARN_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 disAcceptLanguage :: Lens' DisassociatePrincipalFromPortfolio (Maybe Text)
 disAcceptLanguage = lens _disAcceptLanguage (\ s a -> s{_disAcceptLanguage = a});
 
@@ -85,7 +87,8 @@ disPrincipalARN :: Lens' DisassociatePrincipalFromPortfolio Text
 disPrincipalARN = lens _disPrincipalARN (\ s a -> s{_disPrincipalARN = a});
 
 instance AWSRequest
-         DisassociatePrincipalFromPortfolio where
+           DisassociatePrincipalFromPortfolio
+         where
         type Rs DisassociatePrincipalFromPortfolio =
              DisassociatePrincipalFromPortfolioResponse
         request = postJSON serviceCatalog
@@ -96,8 +99,10 @@ instance AWSRequest
                    (pure (fromEnum s)))
 
 instance Hashable DisassociatePrincipalFromPortfolio
+         where
 
 instance NFData DisassociatePrincipalFromPortfolio
+         where
 
 instance ToHeaders DisassociatePrincipalFromPortfolio
          where
@@ -129,8 +134,9 @@ instance ToQuery DisassociatePrincipalFromPortfolio
 
 -- | /See:/ 'disassociatePrincipalFromPortfolioResponse' smart constructor.
 newtype DisassociatePrincipalFromPortfolioResponse = DisassociatePrincipalFromPortfolioResponse'
-    { _dpfprsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpfprsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DisassociatePrincipalFromPortfolioResponse' with the minimum fields required to make a request.
 --
@@ -141,13 +147,14 @@ disassociatePrincipalFromPortfolioResponse
     :: Int -- ^ 'dpfprsResponseStatus'
     -> DisassociatePrincipalFromPortfolioResponse
 disassociatePrincipalFromPortfolioResponse pResponseStatus_ =
-    DisassociatePrincipalFromPortfolioResponse'
-    { _dpfprsResponseStatus = pResponseStatus_
-    }
+  DisassociatePrincipalFromPortfolioResponse'
+  {_dpfprsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 dpfprsResponseStatus :: Lens' DisassociatePrincipalFromPortfolioResponse Int
 dpfprsResponseStatus = lens _dpfprsResponseStatus (\ s a -> s{_dpfprsResponseStatus = a});
 
 instance NFData
-         DisassociatePrincipalFromPortfolioResponse
+           DisassociatePrincipalFromPortfolioResponse
+         where

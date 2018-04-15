@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.CreateDBClusterParameterGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -48,12 +48,12 @@ module Network.AWS.RDS.CreateDBClusterParameterGroup
     , cdbcpgrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -61,11 +61,12 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createDBClusterParameterGroup' smart constructor.
 data CreateDBClusterParameterGroup = CreateDBClusterParameterGroup'
-    { _cdcpgTags                        :: !(Maybe [Tag])
-    , _cdcpgDBClusterParameterGroupName :: !Text
-    , _cdcpgDBParameterGroupFamily      :: !Text
-    , _cdcpgDescription                 :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdcpgTags                        :: !(Maybe [Tag])
+  , _cdcpgDBClusterParameterGroupName :: !Text
+  , _cdcpgDBParameterGroupFamily      :: !Text
+  , _cdcpgDescription                 :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBClusterParameterGroup' with the minimum fields required to make a request.
 --
@@ -73,7 +74,7 @@ data CreateDBClusterParameterGroup = CreateDBClusterParameterGroup'
 --
 -- * 'cdcpgTags' - Undocumented member.
 --
--- * 'cdcpgDBClusterParameterGroupName' - The name of the DB cluster parameter group. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'cdcpgDBClusterParameterGroupName' - The name of the DB cluster parameter group. Constraints:     * Must match the name of an existing DBClusterParameterGroup.
 --
 -- * 'cdcpgDBParameterGroupFamily' - The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and only one DB cluster parameter group family, and can be applied only to a DB cluster running a database engine and engine version compatible with that DB cluster parameter group family.
 --
@@ -84,18 +85,19 @@ createDBClusterParameterGroup
     -> Text -- ^ 'cdcpgDescription'
     -> CreateDBClusterParameterGroup
 createDBClusterParameterGroup pDBClusterParameterGroupName_ pDBParameterGroupFamily_ pDescription_ =
-    CreateDBClusterParameterGroup'
-    { _cdcpgTags = Nothing
-    , _cdcpgDBClusterParameterGroupName = pDBClusterParameterGroupName_
-    , _cdcpgDBParameterGroupFamily = pDBParameterGroupFamily_
-    , _cdcpgDescription = pDescription_
-    }
+  CreateDBClusterParameterGroup'
+  { _cdcpgTags = Nothing
+  , _cdcpgDBClusterParameterGroupName = pDBClusterParameterGroupName_
+  , _cdcpgDBParameterGroupFamily = pDBParameterGroupFamily_
+  , _cdcpgDescription = pDescription_
+  }
+
 
 -- | Undocumented member.
 cdcpgTags :: Lens' CreateDBClusterParameterGroup [Tag]
 cdcpgTags = lens _cdcpgTags (\ s a -> s{_cdcpgTags = a}) . _Default . _Coerce;
 
--- | The name of the DB cluster parameter group. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The name of the DB cluster parameter group. Constraints:     * Must match the name of an existing DBClusterParameterGroup.
 cdcpgDBClusterParameterGroupName :: Lens' CreateDBClusterParameterGroup Text
 cdcpgDBClusterParameterGroupName = lens _cdcpgDBClusterParameterGroupName (\ s a -> s{_cdcpgDBClusterParameterGroupName = a});
 
@@ -120,9 +122,9 @@ instance AWSRequest CreateDBClusterParameterGroup
                    (x .@? "DBClusterParameterGroup") <*>
                      (pure (fromEnum s)))
 
-instance Hashable CreateDBClusterParameterGroup
+instance Hashable CreateDBClusterParameterGroup where
 
-instance NFData CreateDBClusterParameterGroup
+instance NFData CreateDBClusterParameterGroup where
 
 instance ToHeaders CreateDBClusterParameterGroup
          where
@@ -146,9 +148,10 @@ instance ToQuery CreateDBClusterParameterGroup where
 
 -- | /See:/ 'createDBClusterParameterGroupResponse' smart constructor.
 data CreateDBClusterParameterGroupResponse = CreateDBClusterParameterGroupResponse'
-    { _cdbcpgrsDBClusterParameterGroup :: !(Maybe DBClusterParameterGroup)
-    , _cdbcpgrsResponseStatus          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdbcpgrsDBClusterParameterGroup :: !(Maybe DBClusterParameterGroup)
+  , _cdbcpgrsResponseStatus          :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBClusterParameterGroupResponse' with the minimum fields required to make a request.
 --
@@ -161,10 +164,11 @@ createDBClusterParameterGroupResponse
     :: Int -- ^ 'cdbcpgrsResponseStatus'
     -> CreateDBClusterParameterGroupResponse
 createDBClusterParameterGroupResponse pResponseStatus_ =
-    CreateDBClusterParameterGroupResponse'
-    { _cdbcpgrsDBClusterParameterGroup = Nothing
-    , _cdbcpgrsResponseStatus = pResponseStatus_
-    }
+  CreateDBClusterParameterGroupResponse'
+  { _cdbcpgrsDBClusterParameterGroup = Nothing
+  , _cdbcpgrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 cdbcpgrsDBClusterParameterGroup :: Lens' CreateDBClusterParameterGroupResponse (Maybe DBClusterParameterGroup)
@@ -175,3 +179,4 @@ cdbcpgrsResponseStatus :: Lens' CreateDBClusterParameterGroupResponse Int
 cdbcpgrsResponseStatus = lens _cdbcpgrsResponseStatus (\ s a -> s{_cdbcpgrsResponseStatus = a});
 
 instance NFData CreateDBClusterParameterGroupResponse
+         where

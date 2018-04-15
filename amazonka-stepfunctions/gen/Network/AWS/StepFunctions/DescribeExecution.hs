@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.StepFunctions.DescribeExecution
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,17 +44,18 @@ module Network.AWS.StepFunctions.DescribeExecution
     , dersInput
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.StepFunctions.Types
-import           Network.AWS.StepFunctions.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.Product
 
 -- | /See:/ 'describeExecution' smart constructor.
 newtype DescribeExecution = DescribeExecution'
-    { _deExecutionARN :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _deExecutionARN :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeExecution' with the minimum fields required to make a request.
 --
@@ -65,9 +66,8 @@ describeExecution
     :: Text -- ^ 'deExecutionARN'
     -> DescribeExecution
 describeExecution pExecutionARN_ =
-    DescribeExecution'
-    { _deExecutionARN = pExecutionARN_
-    }
+  DescribeExecution' {_deExecutionARN = pExecutionARN_}
+
 
 -- | The Amazon Resource Name (ARN) of the execution to describe.
 deExecutionARN :: Lens' DescribeExecution Text
@@ -89,9 +89,9 @@ instance AWSRequest DescribeExecution where
                      <*> (x .:> "startDate")
                      <*> (x .:> "input"))
 
-instance Hashable DescribeExecution
+instance Hashable DescribeExecution where
 
-instance NFData DescribeExecution
+instance NFData DescribeExecution where
 
 instance ToHeaders DescribeExecution where
         toHeaders
@@ -116,16 +116,17 @@ instance ToQuery DescribeExecution where
 
 -- | /See:/ 'describeExecutionResponse' smart constructor.
 data DescribeExecutionResponse = DescribeExecutionResponse'
-    { _dersStopDate        :: !(Maybe POSIX)
-    , _dersName            :: !(Maybe Text)
-    , _dersOutput          :: !(Maybe Text)
-    , _dersResponseStatus  :: !Int
-    , _dersExecutionARN    :: !Text
-    , _dersStateMachineARN :: !Text
-    , _dersStatus          :: !ExecutionStatus
-    , _dersStartDate       :: !POSIX
-    , _dersInput           :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dersStopDate        :: !(Maybe POSIX)
+  , _dersName            :: !(Maybe Text)
+  , _dersOutput          :: !(Maybe Text)
+  , _dersResponseStatus  :: !Int
+  , _dersExecutionARN    :: !Text
+  , _dersStateMachineARN :: !Text
+  , _dersStatus          :: !ExecutionStatus
+  , _dersStartDate       :: !POSIX
+  , _dersInput           :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeExecutionResponse' with the minimum fields required to make a request.
 --
@@ -133,7 +134,7 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
 --
 -- * 'dersStopDate' - If the execution has already ended, the date the execution stopped.
 --
--- * 'dersName' - The name of the execution.
+-- * 'dersName' - The name of the execution. A name must /not/ contain:     * whitespace     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ )
 --
 -- * 'dersOutput' - The JSON output data of the execution.
 --
@@ -147,7 +148,7 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
 --
 -- * 'dersStartDate' - The date the execution was started.
 --
--- * 'dersInput' - The JSON input data of the execution.
+-- * 'dersInput' - The string that contains the JSON input data of the execution.
 describeExecutionResponse
     :: Int -- ^ 'dersResponseStatus'
     -> Text -- ^ 'dersExecutionARN'
@@ -157,23 +158,24 @@ describeExecutionResponse
     -> Text -- ^ 'dersInput'
     -> DescribeExecutionResponse
 describeExecutionResponse pResponseStatus_ pExecutionARN_ pStateMachineARN_ pStatus_ pStartDate_ pInput_ =
-    DescribeExecutionResponse'
-    { _dersStopDate = Nothing
-    , _dersName = Nothing
-    , _dersOutput = Nothing
-    , _dersResponseStatus = pResponseStatus_
-    , _dersExecutionARN = pExecutionARN_
-    , _dersStateMachineARN = pStateMachineARN_
-    , _dersStatus = pStatus_
-    , _dersStartDate = _Time # pStartDate_
-    , _dersInput = pInput_
-    }
+  DescribeExecutionResponse'
+  { _dersStopDate = Nothing
+  , _dersName = Nothing
+  , _dersOutput = Nothing
+  , _dersResponseStatus = pResponseStatus_
+  , _dersExecutionARN = pExecutionARN_
+  , _dersStateMachineARN = pStateMachineARN_
+  , _dersStatus = pStatus_
+  , _dersStartDate = _Time # pStartDate_
+  , _dersInput = pInput_
+  }
+
 
 -- | If the execution has already ended, the date the execution stopped.
 dersStopDate :: Lens' DescribeExecutionResponse (Maybe UTCTime)
 dersStopDate = lens _dersStopDate (\ s a -> s{_dersStopDate = a}) . mapping _Time;
 
--- | The name of the execution.
+-- | The name of the execution. A name must /not/ contain:     * whitespace     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ )
 dersName :: Lens' DescribeExecutionResponse (Maybe Text)
 dersName = lens _dersName (\ s a -> s{_dersName = a});
 
@@ -201,8 +203,8 @@ dersStatus = lens _dersStatus (\ s a -> s{_dersStatus = a});
 dersStartDate :: Lens' DescribeExecutionResponse UTCTime
 dersStartDate = lens _dersStartDate (\ s a -> s{_dersStartDate = a}) . _Time;
 
--- | The JSON input data of the execution.
+-- | The string that contains the JSON input data of the execution.
 dersInput :: Lens' DescribeExecutionResponse Text
 dersInput = lens _dersInput (\ s a -> s{_dersInput = a});
 
-instance NFData DescribeExecutionResponse
+instance NFData DescribeExecutionResponse where

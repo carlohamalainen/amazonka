@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudWatchEvents.PutTargets
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -37,9 +37,15 @@
 --
 --     * AWS Step Functions state machines
 --
+--     * Pipelines in Amazon Code Pipeline
+--
+--     * Amazon Inspector assessment templates
+--
 --     * Amazon SNS topics
 --
 --     * Amazon SQS queues
+--
+--     * The default event bus of another AWS account
 --
 --
 --
@@ -49,7 +55,9 @@
 --
 -- To be able to make API calls against the resources that you own, Amazon CloudWatch Events needs the appropriate permissions. For AWS Lambda and Amazon SNS resources, CloudWatch Events relies on resource-based policies. For EC2 instances, Amazon Kinesis streams, and AWS Step Functions state machines, CloudWatch Events relies on IAM roles that you specify in the @RoleARN@ argument in @PutTargets@ . For more information, see <http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/auth-and-access-control-cwe.html Authentication and Access Control> in the /Amazon CloudWatch Events User Guide/ .
 --
--- If another AWS account is in the same region and has granted you permission (using @PutPermission@ ), you can set that account's event bus as a target of the rules in your account. To send the matched events to the other account, specify that account's event bus as the @Arn@ when you run @PutTargets@ . For more information about enabling cross-account events, see 'PutPermission' .
+-- If another AWS account is in the same region and has granted you permission (using @PutPermission@ ), you can send events to that account by setting that account's event bus as a target of the rules in your account. To send the matched events to the other account, specify that account's event bus as the @Arn@ when you run @PutTargets@ . If your account sends events to another account, your account is charged for each sent event. Each event sent to antoher account is charged as a custom event. The account receiving the event is not charged. For more information on pricing, see <https://aws.amazon.com/cloudwatch/pricing/ Amazon CloudWatch Pricing> .
+--
+-- For more information about enabling cross-account events, see 'PutPermission' .
 --
 -- __Input__ , __InputPath__ and __InputTransformer__ are mutually exclusive and optional parameters of a target. When a rule is triggered due to a matched event:
 --
@@ -87,18 +95,19 @@ module Network.AWS.CloudWatchEvents.PutTargets
     , ptrsResponseStatus
     ) where
 
-import           Network.AWS.CloudWatchEvents.Types
-import           Network.AWS.CloudWatchEvents.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudWatchEvents.Types
+import Network.AWS.CloudWatchEvents.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putTargets' smart constructor.
 data PutTargets = PutTargets'
-    { _ptRule    :: !Text
-    , _ptTargets :: !(List1 Target)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ptRule    :: !Text
+  , _ptTargets :: !(List1 Target)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutTargets' with the minimum fields required to make a request.
 --
@@ -112,10 +121,8 @@ putTargets
     -> NonEmpty Target -- ^ 'ptTargets'
     -> PutTargets
 putTargets pRule_ pTargets_ =
-    PutTargets'
-    { _ptRule = pRule_
-    , _ptTargets = _List1 # pTargets_
-    }
+  PutTargets' {_ptRule = pRule_, _ptTargets = _List1 # pTargets_}
+
 
 -- | The name of the rule.
 ptRule :: Lens' PutTargets Text
@@ -136,9 +143,9 @@ instance AWSRequest PutTargets where
                      (x .?> "FailedEntries" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable PutTargets
+instance Hashable PutTargets where
 
-instance NFData PutTargets
+instance NFData PutTargets where
 
 instance ToHeaders PutTargets where
         toHeaders
@@ -164,10 +171,11 @@ instance ToQuery PutTargets where
 
 -- | /See:/ 'putTargetsResponse' smart constructor.
 data PutTargetsResponse = PutTargetsResponse'
-    { _ptrsFailedEntryCount :: !(Maybe Int)
-    , _ptrsFailedEntries    :: !(Maybe [PutTargetsResultEntry])
-    , _ptrsResponseStatus   :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ptrsFailedEntryCount :: !(Maybe Int)
+  , _ptrsFailedEntries    :: !(Maybe [PutTargetsResultEntry])
+  , _ptrsResponseStatus   :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutTargetsResponse' with the minimum fields required to make a request.
 --
@@ -182,11 +190,12 @@ putTargetsResponse
     :: Int -- ^ 'ptrsResponseStatus'
     -> PutTargetsResponse
 putTargetsResponse pResponseStatus_ =
-    PutTargetsResponse'
-    { _ptrsFailedEntryCount = Nothing
-    , _ptrsFailedEntries = Nothing
-    , _ptrsResponseStatus = pResponseStatus_
-    }
+  PutTargetsResponse'
+  { _ptrsFailedEntryCount = Nothing
+  , _ptrsFailedEntries = Nothing
+  , _ptrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The number of failed entries.
 ptrsFailedEntryCount :: Lens' PutTargetsResponse (Maybe Int)
@@ -200,4 +209,4 @@ ptrsFailedEntries = lens _ptrsFailedEntries (\ s a -> s{_ptrsFailedEntries = a})
 ptrsResponseStatus :: Lens' PutTargetsResponse Int
 ptrsResponseStatus = lens _ptrsResponseStatus (\ s a -> s{_ptrsResponseStatus = a});
 
-instance NFData PutTargetsResponse
+instance NFData PutTargetsResponse where

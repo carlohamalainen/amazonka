@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.UpdatePortfolio
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,23 +44,24 @@ module Network.AWS.ServiceCatalog.UpdatePortfolio
     , uprsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'updatePortfolio' smart constructor.
 data UpdatePortfolio = UpdatePortfolio'
-    { _uRemoveTags     :: !(Maybe [Text])
-    , _uAcceptLanguage :: !(Maybe Text)
-    , _uDisplayName    :: !(Maybe Text)
-    , _uAddTags        :: !(Maybe [Tag])
-    , _uDescription    :: !(Maybe Text)
-    , _uProviderName   :: !(Maybe Text)
-    , _uId             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uRemoveTags     :: !(Maybe [Text])
+  , _uAcceptLanguage :: !(Maybe Text)
+  , _uDisplayName    :: !(Maybe Text)
+  , _uAddTags        :: !(Maybe [Tag])
+  , _uDescription    :: !(Maybe Text)
+  , _uProviderName   :: !(Maybe Text)
+  , _uId             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdatePortfolio' with the minimum fields required to make a request.
 --
@@ -68,7 +69,7 @@ data UpdatePortfolio = UpdatePortfolio'
 --
 -- * 'uRemoveTags' - Tags to remove from the existing list of tags associated with the portfolio.
 --
--- * 'uAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'uAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'uDisplayName' - The name to use for display purposes.
 --
@@ -83,21 +84,22 @@ updatePortfolio
     :: Text -- ^ 'uId'
     -> UpdatePortfolio
 updatePortfolio pId_ =
-    UpdatePortfolio'
-    { _uRemoveTags = Nothing
-    , _uAcceptLanguage = Nothing
-    , _uDisplayName = Nothing
-    , _uAddTags = Nothing
-    , _uDescription = Nothing
-    , _uProviderName = Nothing
-    , _uId = pId_
-    }
+  UpdatePortfolio'
+  { _uRemoveTags = Nothing
+  , _uAcceptLanguage = Nothing
+  , _uDisplayName = Nothing
+  , _uAddTags = Nothing
+  , _uDescription = Nothing
+  , _uProviderName = Nothing
+  , _uId = pId_
+  }
+
 
 -- | Tags to remove from the existing list of tags associated with the portfolio.
 uRemoveTags :: Lens' UpdatePortfolio [Text]
 uRemoveTags = lens _uRemoveTags (\ s a -> s{_uRemoveTags = a}) . _Default . _Coerce;
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 uAcceptLanguage :: Lens' UpdatePortfolio (Maybe Text)
 uAcceptLanguage = lens _uAcceptLanguage (\ s a -> s{_uAcceptLanguage = a});
 
@@ -132,9 +134,9 @@ instance AWSRequest UpdatePortfolio where
                      (x .?> "Tags" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable UpdatePortfolio
+instance Hashable UpdatePortfolio where
 
-instance NFData UpdatePortfolio
+instance NFData UpdatePortfolio where
 
 instance ToHeaders UpdatePortfolio where
         toHeaders
@@ -166,10 +168,11 @@ instance ToQuery UpdatePortfolio where
 
 -- | /See:/ 'updatePortfolioResponse' smart constructor.
 data UpdatePortfolioResponse = UpdatePortfolioResponse'
-    { _uprsPortfolioDetail :: !(Maybe PortfolioDetail)
-    , _uprsTags            :: !(Maybe [Tag])
-    , _uprsResponseStatus  :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uprsPortfolioDetail :: !(Maybe PortfolioDetail)
+  , _uprsTags            :: !(Maybe [Tag])
+  , _uprsResponseStatus  :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdatePortfolioResponse' with the minimum fields required to make a request.
 --
@@ -184,11 +187,12 @@ updatePortfolioResponse
     :: Int -- ^ 'uprsResponseStatus'
     -> UpdatePortfolioResponse
 updatePortfolioResponse pResponseStatus_ =
-    UpdatePortfolioResponse'
-    { _uprsPortfolioDetail = Nothing
-    , _uprsTags = Nothing
-    , _uprsResponseStatus = pResponseStatus_
-    }
+  UpdatePortfolioResponse'
+  { _uprsPortfolioDetail = Nothing
+  , _uprsTags = Nothing
+  , _uprsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The resulting detailed portfolio information.
 uprsPortfolioDetail :: Lens' UpdatePortfolioResponse (Maybe PortfolioDetail)
@@ -202,4 +206,4 @@ uprsTags = lens _uprsTags (\ s a -> s{_uprsTags = a}) . _Default . _Coerce;
 uprsResponseStatus :: Lens' UpdatePortfolioResponse Int
 uprsResponseStatus = lens _uprsResponseStatus (\ s a -> s{_uprsResponseStatus = a});
 
-instance NFData UpdatePortfolioResponse
+instance NFData UpdatePortfolioResponse where

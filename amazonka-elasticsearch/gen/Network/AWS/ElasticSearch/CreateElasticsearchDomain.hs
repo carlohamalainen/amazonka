@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ElasticSearch.CreateElasticsearchDomain
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -29,8 +29,10 @@ module Network.AWS.ElasticSearch.CreateElasticsearchDomain
     -- * Request Lenses
     , cedEBSOptions
     , cedAccessPolicies
+    , cedLogPublishingOptions
     , cedElasticsearchClusterConfig
     , cedSnapshotOptions
+    , cedVPCOptions
     , cedAdvancedOptions
     , cedElasticsearchVersion
     , cedDomainName
@@ -43,23 +45,26 @@ module Network.AWS.ElasticSearch.CreateElasticsearchDomain
     , cedrsResponseStatus
     ) where
 
-import           Network.AWS.ElasticSearch.Types
-import           Network.AWS.ElasticSearch.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ElasticSearch.Types
+import Network.AWS.ElasticSearch.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createElasticsearchDomain' smart constructor.
 data CreateElasticsearchDomain = CreateElasticsearchDomain'
-    { _cedEBSOptions                 :: !(Maybe EBSOptions)
-    , _cedAccessPolicies             :: !(Maybe Text)
-    , _cedElasticsearchClusterConfig :: !(Maybe ElasticsearchClusterConfig)
-    , _cedSnapshotOptions            :: !(Maybe SnapshotOptions)
-    , _cedAdvancedOptions            :: !(Maybe (Map Text Text))
-    , _cedElasticsearchVersion       :: !(Maybe Text)
-    , _cedDomainName                 :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cedEBSOptions                 :: !(Maybe EBSOptions)
+  , _cedAccessPolicies             :: !(Maybe Text)
+  , _cedLogPublishingOptions       :: !(Maybe (Map LogType LogPublishingOption))
+  , _cedElasticsearchClusterConfig :: !(Maybe ElasticsearchClusterConfig)
+  , _cedSnapshotOptions            :: !(Maybe SnapshotOptions)
+  , _cedVPCOptions                 :: !(Maybe VPCOptions)
+  , _cedAdvancedOptions            :: !(Maybe (Map Text Text))
+  , _cedElasticsearchVersion       :: !(Maybe Text)
+  , _cedDomainName                 :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateElasticsearchDomain' with the minimum fields required to make a request.
 --
@@ -69,9 +74,13 @@ data CreateElasticsearchDomain = CreateElasticsearchDomain'
 --
 -- * 'cedAccessPolicies' - IAM access policy as a JSON-formatted string.
 --
+-- * 'cedLogPublishingOptions' - Map of @LogType@ and @LogPublishingOption@ , each containing options to publish a given type of Elasticsearch log.
+--
 -- * 'cedElasticsearchClusterConfig' - Configuration options for an Elasticsearch domain. Specifies the instance type and number of instances in the domain cluster.
 --
 -- * 'cedSnapshotOptions' - Option to set time, in UTC format, of the daily automated snapshot. Default value is 0 hours.
+--
+-- * 'cedVPCOptions' - Options to specify the subnets and security groups for VPC endpoint. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc Creating a VPC> in /VPC Endpoints for Amazon Elasticsearch Service Domains/
 --
 -- * 'cedAdvancedOptions' - Option to allow references to indices in an HTTP request body. Must be @false@ when configuring access to individual sub-resources. By default, the value is @true@ . See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuration Advanced Options> for more information.
 --
@@ -82,15 +91,18 @@ createElasticsearchDomain
     :: Text -- ^ 'cedDomainName'
     -> CreateElasticsearchDomain
 createElasticsearchDomain pDomainName_ =
-    CreateElasticsearchDomain'
-    { _cedEBSOptions = Nothing
-    , _cedAccessPolicies = Nothing
-    , _cedElasticsearchClusterConfig = Nothing
-    , _cedSnapshotOptions = Nothing
-    , _cedAdvancedOptions = Nothing
-    , _cedElasticsearchVersion = Nothing
-    , _cedDomainName = pDomainName_
-    }
+  CreateElasticsearchDomain'
+  { _cedEBSOptions = Nothing
+  , _cedAccessPolicies = Nothing
+  , _cedLogPublishingOptions = Nothing
+  , _cedElasticsearchClusterConfig = Nothing
+  , _cedSnapshotOptions = Nothing
+  , _cedVPCOptions = Nothing
+  , _cedAdvancedOptions = Nothing
+  , _cedElasticsearchVersion = Nothing
+  , _cedDomainName = pDomainName_
+  }
+
 
 -- | Options to enable, disable and specify the type and size of EBS storage volumes.
 cedEBSOptions :: Lens' CreateElasticsearchDomain (Maybe EBSOptions)
@@ -100,6 +112,10 @@ cedEBSOptions = lens _cedEBSOptions (\ s a -> s{_cedEBSOptions = a});
 cedAccessPolicies :: Lens' CreateElasticsearchDomain (Maybe Text)
 cedAccessPolicies = lens _cedAccessPolicies (\ s a -> s{_cedAccessPolicies = a});
 
+-- | Map of @LogType@ and @LogPublishingOption@ , each containing options to publish a given type of Elasticsearch log.
+cedLogPublishingOptions :: Lens' CreateElasticsearchDomain (HashMap LogType LogPublishingOption)
+cedLogPublishingOptions = lens _cedLogPublishingOptions (\ s a -> s{_cedLogPublishingOptions = a}) . _Default . _Map;
+
 -- | Configuration options for an Elasticsearch domain. Specifies the instance type and number of instances in the domain cluster.
 cedElasticsearchClusterConfig :: Lens' CreateElasticsearchDomain (Maybe ElasticsearchClusterConfig)
 cedElasticsearchClusterConfig = lens _cedElasticsearchClusterConfig (\ s a -> s{_cedElasticsearchClusterConfig = a});
@@ -107,6 +123,10 @@ cedElasticsearchClusterConfig = lens _cedElasticsearchClusterConfig (\ s a -> s{
 -- | Option to set time, in UTC format, of the daily automated snapshot. Default value is 0 hours.
 cedSnapshotOptions :: Lens' CreateElasticsearchDomain (Maybe SnapshotOptions)
 cedSnapshotOptions = lens _cedSnapshotOptions (\ s a -> s{_cedSnapshotOptions = a});
+
+-- | Options to specify the subnets and security groups for VPC endpoint. For more information, see <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc Creating a VPC> in /VPC Endpoints for Amazon Elasticsearch Service Domains/
+cedVPCOptions :: Lens' CreateElasticsearchDomain (Maybe VPCOptions)
+cedVPCOptions = lens _cedVPCOptions (\ s a -> s{_cedVPCOptions = a});
 
 -- | Option to allow references to indices in an HTTP request body. Must be @false@ when configuring access to individual sub-resources. By default, the value is @true@ . See <http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options Configuration Advanced Options> for more information.
 cedAdvancedOptions :: Lens' CreateElasticsearchDomain (HashMap Text Text)
@@ -130,9 +150,9 @@ instance AWSRequest CreateElasticsearchDomain where
                  CreateElasticsearchDomainResponse' <$>
                    (x .?> "DomainStatus") <*> (pure (fromEnum s)))
 
-instance Hashable CreateElasticsearchDomain
+instance Hashable CreateElasticsearchDomain where
 
-instance NFData CreateElasticsearchDomain
+instance NFData CreateElasticsearchDomain where
 
 instance ToHeaders CreateElasticsearchDomain where
         toHeaders = const mempty
@@ -143,9 +163,12 @@ instance ToJSON CreateElasticsearchDomain where
               (catMaybes
                  [("EBSOptions" .=) <$> _cedEBSOptions,
                   ("AccessPolicies" .=) <$> _cedAccessPolicies,
+                  ("LogPublishingOptions" .=) <$>
+                    _cedLogPublishingOptions,
                   ("ElasticsearchClusterConfig" .=) <$>
                     _cedElasticsearchClusterConfig,
                   ("SnapshotOptions" .=) <$> _cedSnapshotOptions,
+                  ("VPCOptions" .=) <$> _cedVPCOptions,
                   ("AdvancedOptions" .=) <$> _cedAdvancedOptions,
                   ("ElasticsearchVersion" .=) <$>
                     _cedElasticsearchVersion,
@@ -163,9 +186,10 @@ instance ToQuery CreateElasticsearchDomain where
 --
 -- /See:/ 'createElasticsearchDomainResponse' smart constructor.
 data CreateElasticsearchDomainResponse = CreateElasticsearchDomainResponse'
-    { _cedrsDomainStatus   :: !(Maybe ElasticsearchDomainStatus)
-    , _cedrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cedrsDomainStatus   :: !(Maybe ElasticsearchDomainStatus)
+  , _cedrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateElasticsearchDomainResponse' with the minimum fields required to make a request.
 --
@@ -178,10 +202,9 @@ createElasticsearchDomainResponse
     :: Int -- ^ 'cedrsResponseStatus'
     -> CreateElasticsearchDomainResponse
 createElasticsearchDomainResponse pResponseStatus_ =
-    CreateElasticsearchDomainResponse'
-    { _cedrsDomainStatus = Nothing
-    , _cedrsResponseStatus = pResponseStatus_
-    }
+  CreateElasticsearchDomainResponse'
+  {_cedrsDomainStatus = Nothing, _cedrsResponseStatus = pResponseStatus_}
+
 
 -- | The status of the newly created Elasticsearch domain.
 cedrsDomainStatus :: Lens' CreateElasticsearchDomainResponse (Maybe ElasticsearchDomainStatus)
@@ -192,3 +215,4 @@ cedrsResponseStatus :: Lens' CreateElasticsearchDomainResponse Int
 cedrsResponseStatus = lens _cedrsResponseStatus (\ s a -> s{_cedrsResponseStatus = a});
 
 instance NFData CreateElasticsearchDomainResponse
+         where

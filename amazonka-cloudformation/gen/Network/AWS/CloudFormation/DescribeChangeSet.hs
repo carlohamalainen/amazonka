@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.DescribeChangeSet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -47,18 +47,19 @@ module Network.AWS.CloudFormation.DescribeChangeSet
     , desrsStackId
     , desrsDescription
     , desrsCapabilities
+    , desrsRollbackConfiguration
     , desrsTags
     , desrsStackName
     , desrsResponseStatus
     , desrsStatus
     ) where
 
-import           Network.AWS.CloudFormation.Types
-import           Network.AWS.CloudFormation.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudFormation.Types
+import Network.AWS.CloudFormation.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | The input for the 'DescribeChangeSet' action.
 --
@@ -66,10 +67,11 @@ import           Network.AWS.Response
 --
 -- /See:/ 'describeChangeSet' smart constructor.
 data DescribeChangeSet = DescribeChangeSet'
-    { _desNextToken     :: !(Maybe Text)
-    , _desStackName     :: !(Maybe Text)
-    , _desChangeSetName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _desNextToken     :: !(Maybe Text)
+  , _desStackName     :: !(Maybe Text)
+  , _desChangeSetName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeChangeSet' with the minimum fields required to make a request.
 --
@@ -84,11 +86,12 @@ describeChangeSet
     :: Text -- ^ 'desChangeSetName'
     -> DescribeChangeSet
 describeChangeSet pChangeSetName_ =
-    DescribeChangeSet'
-    { _desNextToken = Nothing
-    , _desStackName = Nothing
-    , _desChangeSetName = pChangeSetName_
-    }
+  DescribeChangeSet'
+  { _desNextToken = Nothing
+  , _desStackName = Nothing
+  , _desChangeSetName = pChangeSetName_
+  }
+
 
 -- | A string (provided by the 'DescribeChangeSet' response output) that identifies the next page of information that you want to retrieve.
 desNextToken :: Lens' DescribeChangeSet (Maybe Text)
@@ -128,6 +131,7 @@ instance AWSRequest DescribeChangeSet where
                      <*>
                      (x .@? "Capabilities" .!@ mempty >>=
                         may (parseXMLList "member"))
+                     <*> (x .@? "RollbackConfiguration")
                      <*>
                      (x .@? "Tags" .!@ mempty >>=
                         may (parseXMLList "member"))
@@ -135,9 +139,9 @@ instance AWSRequest DescribeChangeSet where
                      <*> (pure (fromEnum s))
                      <*> (x .@ "Status"))
 
-instance Hashable DescribeChangeSet
+instance Hashable DescribeChangeSet where
 
-instance NFData DescribeChangeSet
+instance NFData DescribeChangeSet where
 
 instance ToHeaders DescribeChangeSet where
         toHeaders = const mempty
@@ -160,23 +164,25 @@ instance ToQuery DescribeChangeSet where
 --
 -- /See:/ 'describeChangeSetResponse' smart constructor.
 data DescribeChangeSetResponse = DescribeChangeSetResponse'
-    { _desrsCreationTime     :: !(Maybe ISO8601)
-    , _desrsChanges          :: !(Maybe [Change])
-    , _desrsNotificationARNs :: !(Maybe [Text])
-    , _desrsChangeSetName    :: !(Maybe Text)
-    , _desrsExecutionStatus  :: !(Maybe ExecutionStatus)
-    , _desrsChangeSetId      :: !(Maybe Text)
-    , _desrsNextToken        :: !(Maybe Text)
-    , _desrsParameters       :: !(Maybe [Parameter])
-    , _desrsStatusReason     :: !(Maybe Text)
-    , _desrsStackId          :: !(Maybe Text)
-    , _desrsDescription      :: !(Maybe Text)
-    , _desrsCapabilities     :: !(Maybe [Capability])
-    , _desrsTags             :: !(Maybe [Tag])
-    , _desrsStackName        :: !(Maybe Text)
-    , _desrsResponseStatus   :: !Int
-    , _desrsStatus           :: !ChangeSetStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _desrsCreationTime          :: !(Maybe ISO8601)
+  , _desrsChanges               :: !(Maybe [Change])
+  , _desrsNotificationARNs      :: !(Maybe [Text])
+  , _desrsChangeSetName         :: !(Maybe Text)
+  , _desrsExecutionStatus       :: !(Maybe ExecutionStatus)
+  , _desrsChangeSetId           :: !(Maybe Text)
+  , _desrsNextToken             :: !(Maybe Text)
+  , _desrsParameters            :: !(Maybe [Parameter])
+  , _desrsStatusReason          :: !(Maybe Text)
+  , _desrsStackId               :: !(Maybe Text)
+  , _desrsDescription           :: !(Maybe Text)
+  , _desrsCapabilities          :: !(Maybe [Capability])
+  , _desrsRollbackConfiguration :: !(Maybe RollbackConfiguration)
+  , _desrsTags                  :: !(Maybe [Tag])
+  , _desrsStackName             :: !(Maybe Text)
+  , _desrsResponseStatus        :: !Int
+  , _desrsStatus                :: !ChangeSetStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeChangeSetResponse' with the minimum fields required to make a request.
 --
@@ -206,6 +212,8 @@ data DescribeChangeSetResponse = DescribeChangeSetResponse'
 --
 -- * 'desrsCapabilities' - If you execute the change set, the list of capabilities that were explicitly acknowledged when the change set was created.
 --
+-- * 'desrsRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+--
 -- * 'desrsTags' - If you execute the change set, the tags that will be associated with the stack.
 --
 -- * 'desrsStackName' - The name of the stack that is associated with the change set.
@@ -218,24 +226,26 @@ describeChangeSetResponse
     -> ChangeSetStatus -- ^ 'desrsStatus'
     -> DescribeChangeSetResponse
 describeChangeSetResponse pResponseStatus_ pStatus_ =
-    DescribeChangeSetResponse'
-    { _desrsCreationTime = Nothing
-    , _desrsChanges = Nothing
-    , _desrsNotificationARNs = Nothing
-    , _desrsChangeSetName = Nothing
-    , _desrsExecutionStatus = Nothing
-    , _desrsChangeSetId = Nothing
-    , _desrsNextToken = Nothing
-    , _desrsParameters = Nothing
-    , _desrsStatusReason = Nothing
-    , _desrsStackId = Nothing
-    , _desrsDescription = Nothing
-    , _desrsCapabilities = Nothing
-    , _desrsTags = Nothing
-    , _desrsStackName = Nothing
-    , _desrsResponseStatus = pResponseStatus_
-    , _desrsStatus = pStatus_
-    }
+  DescribeChangeSetResponse'
+  { _desrsCreationTime = Nothing
+  , _desrsChanges = Nothing
+  , _desrsNotificationARNs = Nothing
+  , _desrsChangeSetName = Nothing
+  , _desrsExecutionStatus = Nothing
+  , _desrsChangeSetId = Nothing
+  , _desrsNextToken = Nothing
+  , _desrsParameters = Nothing
+  , _desrsStatusReason = Nothing
+  , _desrsStackId = Nothing
+  , _desrsDescription = Nothing
+  , _desrsCapabilities = Nothing
+  , _desrsRollbackConfiguration = Nothing
+  , _desrsTags = Nothing
+  , _desrsStackName = Nothing
+  , _desrsResponseStatus = pResponseStatus_
+  , _desrsStatus = pStatus_
+  }
+
 
 -- | The start time when the change set was created, in UTC.
 desrsCreationTime :: Lens' DescribeChangeSetResponse (Maybe UTCTime)
@@ -285,6 +295,10 @@ desrsDescription = lens _desrsDescription (\ s a -> s{_desrsDescription = a});
 desrsCapabilities :: Lens' DescribeChangeSetResponse [Capability]
 desrsCapabilities = lens _desrsCapabilities (\ s a -> s{_desrsCapabilities = a}) . _Default . _Coerce;
 
+-- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+desrsRollbackConfiguration :: Lens' DescribeChangeSetResponse (Maybe RollbackConfiguration)
+desrsRollbackConfiguration = lens _desrsRollbackConfiguration (\ s a -> s{_desrsRollbackConfiguration = a});
+
 -- | If you execute the change set, the tags that will be associated with the stack.
 desrsTags :: Lens' DescribeChangeSetResponse [Tag]
 desrsTags = lens _desrsTags (\ s a -> s{_desrsTags = a}) . _Default . _Coerce;
@@ -301,4 +315,4 @@ desrsResponseStatus = lens _desrsResponseStatus (\ s a -> s{_desrsResponseStatus
 desrsStatus :: Lens' DescribeChangeSetResponse ChangeSetStatus
 desrsStatus = lens _desrsStatus (\ s a -> s{_desrsStatus = a});
 
-instance NFData DescribeChangeSetResponse
+instance NFData DescribeChangeSetResponse where

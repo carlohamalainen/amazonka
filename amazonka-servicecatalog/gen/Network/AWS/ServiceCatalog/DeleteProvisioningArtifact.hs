@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DeleteProvisioningArtifact
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -38,25 +38,26 @@ module Network.AWS.ServiceCatalog.DeleteProvisioningArtifact
     , dparsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'deleteProvisioningArtifact' smart constructor.
 data DeleteProvisioningArtifact = DeleteProvisioningArtifact'
-    { _dpapAcceptLanguage         :: !(Maybe Text)
-    , _dpapProductId              :: !Text
-    , _dpapProvisioningArtifactId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpapAcceptLanguage         :: !(Maybe Text)
+  , _dpapProductId              :: !Text
+  , _dpapProvisioningArtifactId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteProvisioningArtifact' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpapAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'dpapAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'dpapProductId' - The product identifier.
 --
@@ -66,13 +67,14 @@ deleteProvisioningArtifact
     -> Text -- ^ 'dpapProvisioningArtifactId'
     -> DeleteProvisioningArtifact
 deleteProvisioningArtifact pProductId_ pProvisioningArtifactId_ =
-    DeleteProvisioningArtifact'
-    { _dpapAcceptLanguage = Nothing
-    , _dpapProductId = pProductId_
-    , _dpapProvisioningArtifactId = pProvisioningArtifactId_
-    }
+  DeleteProvisioningArtifact'
+  { _dpapAcceptLanguage = Nothing
+  , _dpapProductId = pProductId_
+  , _dpapProvisioningArtifactId = pProvisioningArtifactId_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 dpapAcceptLanguage :: Lens' DeleteProvisioningArtifact (Maybe Text)
 dpapAcceptLanguage = lens _dpapAcceptLanguage (\ s a -> s{_dpapAcceptLanguage = a});
 
@@ -94,9 +96,9 @@ instance AWSRequest DeleteProvisioningArtifact where
                  DeleteProvisioningArtifactResponse' <$>
                    (pure (fromEnum s)))
 
-instance Hashable DeleteProvisioningArtifact
+instance Hashable DeleteProvisioningArtifact where
 
-instance NFData DeleteProvisioningArtifact
+instance NFData DeleteProvisioningArtifact where
 
 instance ToHeaders DeleteProvisioningArtifact where
         toHeaders
@@ -126,8 +128,9 @@ instance ToQuery DeleteProvisioningArtifact where
 
 -- | /See:/ 'deleteProvisioningArtifactResponse' smart constructor.
 newtype DeleteProvisioningArtifactResponse = DeleteProvisioningArtifactResponse'
-    { _dparsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dparsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteProvisioningArtifactResponse' with the minimum fields required to make a request.
 --
@@ -138,12 +141,12 @@ deleteProvisioningArtifactResponse
     :: Int -- ^ 'dparsResponseStatus'
     -> DeleteProvisioningArtifactResponse
 deleteProvisioningArtifactResponse pResponseStatus_ =
-    DeleteProvisioningArtifactResponse'
-    { _dparsResponseStatus = pResponseStatus_
-    }
+  DeleteProvisioningArtifactResponse' {_dparsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 dparsResponseStatus :: Lens' DeleteProvisioningArtifactResponse Int
 dparsResponseStatus = lens _dparsResponseStatus (\ s a -> s{_dparsResponseStatus = a});
 
 instance NFData DeleteProvisioningArtifactResponse
+         where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.CreateChangeSet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,6 +40,7 @@ module Network.AWS.CloudFormation.CreateChangeSet
     , ccsTemplateURL
     , ccsDescription
     , ccsCapabilities
+    , ccsRollbackConfiguration
     , ccsResourceTypes
     , ccsTags
     , ccsRoleARN
@@ -55,12 +56,12 @@ module Network.AWS.CloudFormation.CreateChangeSet
     , ccsrsResponseStatus
     ) where
 
-import           Network.AWS.CloudFormation.Types
-import           Network.AWS.CloudFormation.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudFormation.Types
+import Network.AWS.CloudFormation.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | The input for the 'CreateChangeSet' action.
 --
@@ -68,21 +69,23 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createChangeSet' smart constructor.
 data CreateChangeSet = CreateChangeSet'
-    { _ccsChangeSetType       :: !(Maybe ChangeSetType)
-    , _ccsUsePreviousTemplate :: !(Maybe Bool)
-    , _ccsClientToken         :: !(Maybe Text)
-    , _ccsNotificationARNs    :: !(Maybe [Text])
-    , _ccsParameters          :: !(Maybe [Parameter])
-    , _ccsTemplateBody        :: !(Maybe Text)
-    , _ccsTemplateURL         :: !(Maybe Text)
-    , _ccsDescription         :: !(Maybe Text)
-    , _ccsCapabilities        :: !(Maybe [Capability])
-    , _ccsResourceTypes       :: !(Maybe [Text])
-    , _ccsTags                :: !(Maybe [Tag])
-    , _ccsRoleARN             :: !(Maybe Text)
-    , _ccsStackName           :: !Text
-    , _ccsChangeSetName       :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccsChangeSetType         :: !(Maybe ChangeSetType)
+  , _ccsUsePreviousTemplate   :: !(Maybe Bool)
+  , _ccsClientToken           :: !(Maybe Text)
+  , _ccsNotificationARNs      :: !(Maybe [Text])
+  , _ccsParameters            :: !(Maybe [Parameter])
+  , _ccsTemplateBody          :: !(Maybe Text)
+  , _ccsTemplateURL           :: !(Maybe Text)
+  , _ccsDescription           :: !(Maybe Text)
+  , _ccsCapabilities          :: !(Maybe [Capability])
+  , _ccsRollbackConfiguration :: !(Maybe RollbackConfiguration)
+  , _ccsResourceTypes         :: !(Maybe [Text])
+  , _ccsTags                  :: !(Maybe [Tag])
+  , _ccsRoleARN               :: !(Maybe Text)
+  , _ccsStackName             :: !Text
+  , _ccsChangeSetName         :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateChangeSet' with the minimum fields required to make a request.
 --
@@ -106,6 +109,8 @@ data CreateChangeSet = CreateChangeSet'
 --
 -- * 'ccsCapabilities' - A list of values that you must specify before AWS CloudFormation can update certain stacks. Some stack templates might include resources that can affect permissions in your AWS account, for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge their capabilities by specifying this parameter. The only valid values are @CAPABILITY_IAM@ and @CAPABILITY_NAMED_IAM@ . The following resources require you to specify this parameter: <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html AWS::IAM::AccessKey> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html AWS::IAM::Group> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html AWS::IAM::InstanceProfile> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html AWS::IAM::Policy> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html AWS::IAM::Role> , <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html AWS::IAM::User> , and <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html AWS::IAM::UserToGroupAddition> . If your stack template contains these resources, we recommend that you review all permissions associated with them and edit their permissions if necessary. If you have IAM resources, you can specify either capability. If you have IAM resources with custom names, you must specify @CAPABILITY_NAMED_IAM@ . If you don't specify this parameter, this action returns an @InsufficientCapabilities@ error. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in AWS CloudFormation Templates> .
 --
+-- * 'ccsRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+--
 -- * 'ccsResourceTypes' - The template resource types that you have permissions to work with if you execute this change set, such as @AWS::EC2::Instance@ , @AWS::EC2::*@ , or @Custom::MyCustomInstance@ . If the list of resource types doesn't include a resource type that you're updating, the stack update fails. By default, AWS CloudFormation grants permissions to all resource types. AWS Identity and Access Management (IAM) uses this parameter for condition keys in IAM policies for AWS CloudFormation. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html Controlling Access with AWS Identity and Access Management> in the AWS CloudFormation User Guide.
 --
 -- * 'ccsTags' - Key-value pairs to associate with this stack. AWS CloudFormation also propagates these tags to resources in the stack. You can specify a maximum of 50 tags.
@@ -120,22 +125,24 @@ createChangeSet
     -> Text -- ^ 'ccsChangeSetName'
     -> CreateChangeSet
 createChangeSet pStackName_ pChangeSetName_ =
-    CreateChangeSet'
-    { _ccsChangeSetType = Nothing
-    , _ccsUsePreviousTemplate = Nothing
-    , _ccsClientToken = Nothing
-    , _ccsNotificationARNs = Nothing
-    , _ccsParameters = Nothing
-    , _ccsTemplateBody = Nothing
-    , _ccsTemplateURL = Nothing
-    , _ccsDescription = Nothing
-    , _ccsCapabilities = Nothing
-    , _ccsResourceTypes = Nothing
-    , _ccsTags = Nothing
-    , _ccsRoleARN = Nothing
-    , _ccsStackName = pStackName_
-    , _ccsChangeSetName = pChangeSetName_
-    }
+  CreateChangeSet'
+  { _ccsChangeSetType = Nothing
+  , _ccsUsePreviousTemplate = Nothing
+  , _ccsClientToken = Nothing
+  , _ccsNotificationARNs = Nothing
+  , _ccsParameters = Nothing
+  , _ccsTemplateBody = Nothing
+  , _ccsTemplateURL = Nothing
+  , _ccsDescription = Nothing
+  , _ccsCapabilities = Nothing
+  , _ccsRollbackConfiguration = Nothing
+  , _ccsResourceTypes = Nothing
+  , _ccsTags = Nothing
+  , _ccsRoleARN = Nothing
+  , _ccsStackName = pStackName_
+  , _ccsChangeSetName = pChangeSetName_
+  }
+
 
 -- | The type of change set operation. To create a change set for a new stack, specify @CREATE@ . To create a change set for an existing stack, specify @UPDATE@ . If you create a change set for a new stack, AWS Cloudformation creates a stack with a unique stack ID, but no template or resources. The stack will be in the <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995 @REVIEW_IN_PROGRESS@ > state until you execute the change set. By default, AWS CloudFormation specifies @UPDATE@ . You can't use the @UPDATE@ type to create a change set for a new stack or the @CREATE@ type to create a change set for an existing stack.
 ccsChangeSetType :: Lens' CreateChangeSet (Maybe ChangeSetType)
@@ -173,6 +180,10 @@ ccsDescription = lens _ccsDescription (\ s a -> s{_ccsDescription = a});
 ccsCapabilities :: Lens' CreateChangeSet [Capability]
 ccsCapabilities = lens _ccsCapabilities (\ s a -> s{_ccsCapabilities = a}) . _Default . _Coerce;
 
+-- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+ccsRollbackConfiguration :: Lens' CreateChangeSet (Maybe RollbackConfiguration)
+ccsRollbackConfiguration = lens _ccsRollbackConfiguration (\ s a -> s{_ccsRollbackConfiguration = a});
+
 -- | The template resource types that you have permissions to work with if you execute this change set, such as @AWS::EC2::Instance@ , @AWS::EC2::*@ , or @Custom::MyCustomInstance@ . If the list of resource types doesn't include a resource type that you're updating, the stack update fails. By default, AWS CloudFormation grants permissions to all resource types. AWS Identity and Access Management (IAM) uses this parameter for condition keys in IAM policies for AWS CloudFormation. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html Controlling Access with AWS Identity and Access Management> in the AWS CloudFormation User Guide.
 ccsResourceTypes :: Lens' CreateChangeSet [Text]
 ccsResourceTypes = lens _ccsResourceTypes (\ s a -> s{_ccsResourceTypes = a}) . _Default . _Coerce;
@@ -203,9 +214,9 @@ instance AWSRequest CreateChangeSet where
                    (x .@? "Id") <*> (x .@? "StackId") <*>
                      (pure (fromEnum s)))
 
-instance Hashable CreateChangeSet
+instance Hashable CreateChangeSet where
 
-instance NFData CreateChangeSet
+instance NFData CreateChangeSet where
 
 instance ToHeaders CreateChangeSet where
         toHeaders = const mempty
@@ -231,6 +242,7 @@ instance ToQuery CreateChangeSet where
                "Description" =: _ccsDescription,
                "Capabilities" =:
                  toQuery (toQueryList "member" <$> _ccsCapabilities),
+               "RollbackConfiguration" =: _ccsRollbackConfiguration,
                "ResourceTypes" =:
                  toQuery (toQueryList "member" <$> _ccsResourceTypes),
                "Tags" =:
@@ -245,10 +257,11 @@ instance ToQuery CreateChangeSet where
 --
 -- /See:/ 'createChangeSetResponse' smart constructor.
 data CreateChangeSetResponse = CreateChangeSetResponse'
-    { _ccsrsId             :: !(Maybe Text)
-    , _ccsrsStackId        :: !(Maybe Text)
-    , _ccsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccsrsId             :: !(Maybe Text)
+  , _ccsrsStackId        :: !(Maybe Text)
+  , _ccsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateChangeSetResponse' with the minimum fields required to make a request.
 --
@@ -263,11 +276,12 @@ createChangeSetResponse
     :: Int -- ^ 'ccsrsResponseStatus'
     -> CreateChangeSetResponse
 createChangeSetResponse pResponseStatus_ =
-    CreateChangeSetResponse'
-    { _ccsrsId = Nothing
-    , _ccsrsStackId = Nothing
-    , _ccsrsResponseStatus = pResponseStatus_
-    }
+  CreateChangeSetResponse'
+  { _ccsrsId = Nothing
+  , _ccsrsStackId = Nothing
+  , _ccsrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The Amazon Resource Name (ARN) of the change set.
 ccsrsId :: Lens' CreateChangeSetResponse (Maybe Text)
@@ -281,4 +295,4 @@ ccsrsStackId = lens _ccsrsStackId (\ s a -> s{_ccsrsStackId = a});
 ccsrsResponseStatus :: Lens' CreateChangeSetResponse Int
 ccsrsResponseStatus = lens _ccsrsResponseStatus (\ s a -> s{_ccsrsResponseStatus = a});
 
-instance NFData CreateChangeSetResponse
+instance NFData CreateChangeSetResponse where

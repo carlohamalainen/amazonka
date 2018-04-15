@@ -4,12 +4,12 @@
 {-# LANGUAGE OverloadedStrings          #-}
 
 -- Module      : Gen.Types.Help
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
@@ -17,12 +17,12 @@ module Gen.Types.Help
     ( Help (..)
     ) where
 
-import           Data.Aeson
-import           Data.Monoid          ((<>))
-import           Data.String
-import           Data.Text            (Text)
+import Data.Aeson
+import Data.Monoid ((<>))
+import Data.String
+import Data.Text   (Text)
 
-import           Text.XML             (Node (..))
+import Text.XML (Node (..))
 
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Char            as Char

@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.CloudWatchLogs.DescribeMetricFilters
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the specified metric filters. You can list all the metric filters or filter the results by log name, prefix, metric name, and metric namespace. The results are ASCII-sorted by filter name.
+-- Lists the specified metric filters. You can list all the metric filters or filter the results by log name, prefix, metric name, or metric namespace. The results are ASCII-sorted by filter name.
 --
 --
 --
@@ -45,23 +45,24 @@ module Network.AWS.CloudWatchLogs.DescribeMetricFilters
     , dmfrsResponseStatus
     ) where
 
-import           Network.AWS.CloudWatchLogs.Types
-import           Network.AWS.CloudWatchLogs.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudWatchLogs.Types
+import Network.AWS.CloudWatchLogs.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'describeMetricFilters' smart constructor.
 data DescribeMetricFilters = DescribeMetricFilters'
-    { _dmfFilterNamePrefix :: !(Maybe Text)
-    , _dmfMetricName       :: !(Maybe Text)
-    , _dmfLogGroupName     :: !(Maybe Text)
-    , _dmfNextToken        :: !(Maybe Text)
-    , _dmfMetricNamespace  :: !(Maybe Text)
-    , _dmfLimit            :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dmfFilterNamePrefix :: !(Maybe Text)
+  , _dmfMetricName       :: !(Maybe Text)
+  , _dmfLogGroupName     :: !(Maybe Text)
+  , _dmfNextToken        :: !(Maybe Text)
+  , _dmfMetricNamespace  :: !(Maybe Text)
+  , _dmfLimit            :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeMetricFilters' with the minimum fields required to make a request.
 --
@@ -69,7 +70,7 @@ data DescribeMetricFilters = DescribeMetricFilters'
 --
 -- * 'dmfFilterNamePrefix' - The prefix to match.
 --
--- * 'dmfMetricName' - The name of the CloudWatch metric.
+-- * 'dmfMetricName' - Undocumented member.
 --
 -- * 'dmfLogGroupName' - The name of the log group.
 --
@@ -81,20 +82,21 @@ data DescribeMetricFilters = DescribeMetricFilters'
 describeMetricFilters
     :: DescribeMetricFilters
 describeMetricFilters =
-    DescribeMetricFilters'
-    { _dmfFilterNamePrefix = Nothing
-    , _dmfMetricName = Nothing
-    , _dmfLogGroupName = Nothing
-    , _dmfNextToken = Nothing
-    , _dmfMetricNamespace = Nothing
-    , _dmfLimit = Nothing
-    }
+  DescribeMetricFilters'
+  { _dmfFilterNamePrefix = Nothing
+  , _dmfMetricName = Nothing
+  , _dmfLogGroupName = Nothing
+  , _dmfNextToken = Nothing
+  , _dmfMetricNamespace = Nothing
+  , _dmfLimit = Nothing
+  }
+
 
 -- | The prefix to match.
 dmfFilterNamePrefix :: Lens' DescribeMetricFilters (Maybe Text)
 dmfFilterNamePrefix = lens _dmfFilterNamePrefix (\ s a -> s{_dmfFilterNamePrefix = a});
 
--- | The name of the CloudWatch metric.
+-- | Undocumented member.
 dmfMetricName :: Lens' DescribeMetricFilters (Maybe Text)
 dmfMetricName = lens _dmfMetricName (\ s a -> s{_dmfMetricName = a});
 
@@ -133,9 +135,9 @@ instance AWSRequest DescribeMetricFilters where
                      (x .?> "metricFilters" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeMetricFilters
+instance Hashable DescribeMetricFilters where
 
-instance NFData DescribeMetricFilters
+instance NFData DescribeMetricFilters where
 
 instance ToHeaders DescribeMetricFilters where
         toHeaders
@@ -166,10 +168,11 @@ instance ToQuery DescribeMetricFilters where
 
 -- | /See:/ 'describeMetricFiltersResponse' smart constructor.
 data DescribeMetricFiltersResponse = DescribeMetricFiltersResponse'
-    { _dmfrsNextToken      :: !(Maybe Text)
-    , _dmfrsMetricFilters  :: !(Maybe [MetricFilter])
-    , _dmfrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dmfrsNextToken      :: !(Maybe Text)
+  , _dmfrsMetricFilters  :: !(Maybe [MetricFilter])
+  , _dmfrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeMetricFiltersResponse' with the minimum fields required to make a request.
 --
@@ -184,11 +187,12 @@ describeMetricFiltersResponse
     :: Int -- ^ 'dmfrsResponseStatus'
     -> DescribeMetricFiltersResponse
 describeMetricFiltersResponse pResponseStatus_ =
-    DescribeMetricFiltersResponse'
-    { _dmfrsNextToken = Nothing
-    , _dmfrsMetricFilters = Nothing
-    , _dmfrsResponseStatus = pResponseStatus_
-    }
+  DescribeMetricFiltersResponse'
+  { _dmfrsNextToken = Nothing
+  , _dmfrsMetricFilters = Nothing
+  , _dmfrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 dmfrsNextToken :: Lens' DescribeMetricFiltersResponse (Maybe Text)
@@ -202,4 +206,4 @@ dmfrsMetricFilters = lens _dmfrsMetricFilters (\ s a -> s{_dmfrsMetricFilters = 
 dmfrsResponseStatus :: Lens' DescribeMetricFiltersResponse Int
 dmfrsResponseStatus = lens _dmfrsResponseStatus (\ s a -> s{_dmfrsResponseStatus = a});
 
-instance NFData DescribeMetricFiltersResponse
+instance NFData DescribeMetricFiltersResponse where

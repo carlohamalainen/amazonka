@@ -9,19 +9,20 @@
 
 -- |
 -- Module      : Network.AWS.APIGateway.Types.Sum
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.APIGateway.Types.Sum where
 
-import           Network.AWS.Prelude
+import Network.AWS.Prelude
 
 data APIKeysFormat =
-    CSV
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  CSV
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText APIKeysFormat where
     parser = takeLowerText >>= \case
@@ -42,25 +43,29 @@ instance ToHeader     APIKeysFormat
 instance ToJSON APIKeysFormat where
     toJSON = toJSONText
 
--- | The authorizer type. the current value is @TOKEN@ for a Lambda function or @COGNITO_USER_POOLS@ for an Amazon Cognito Your User Pool.
+-- | [Required] The authorizer type. Valid values are @TOKEN@ for a Lambda function using a single authorization token submitted in a custom header, @REQUEST@ for a Lambda function using incoming request parameters, and @COGNITO_USER_POOLS@ for using an Amazon Cognito user pool.
 --
 --
 data AuthorizerType
-    = CognitoUserPools
-    | Token
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = AuthorizerCognitoUserPools
+  | AuthorizerRequest
+  | AuthorizerToken
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText AuthorizerType where
     parser = takeLowerText >>= \case
-        "cognito_user_pools" -> pure CognitoUserPools
-        "token" -> pure Token
+        "cognito_user_pools" -> pure AuthorizerCognitoUserPools
+        "request" -> pure AuthorizerRequest
+        "token" -> pure AuthorizerToken
         e -> fromTextError $ "Failure parsing AuthorizerType from value: '" <> e
-           <> "'. Accepted values: cognito_user_pools, token"
+           <> "'. Accepted values: cognito_user_pools, request, token"
 
 instance ToText AuthorizerType where
     toText = \case
-        CognitoUserPools -> "COGNITO_USER_POOLS"
-        Token -> "TOKEN"
+        AuthorizerCognitoUserPools -> "COGNITO_USER_POOLS"
+        AuthorizerRequest -> "REQUEST"
+        AuthorizerToken -> "TOKEN"
 
 instance Hashable     AuthorizerType
 instance NFData       AuthorizerType
@@ -78,15 +83,16 @@ instance FromJSON AuthorizerType where
 --
 --
 data CacheClusterSize
-    = D0_5
-    | D118
-    | D13_5
-    | D1_6
-    | D237
-    | D28_4
-    | D58_2
-    | D6_1
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = D0_5
+  | D118
+  | D13_5
+  | D1_6
+  | D237
+  | D28_4
+  | D58_2
+  | D6_1
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText CacheClusterSize where
     parser = takeLowerText >>= \case
@@ -128,12 +134,13 @@ instance FromJSON CacheClusterSize where
 --
 --
 data CacheClusterStatus
-    = Available
-    | CreateInProgress
-    | DeleteInProgress
-    | FlushInProgress
-    | NotAvailable
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Available
+  | CreateInProgress
+  | DeleteInProgress
+  | FlushInProgress
+  | NotAvailable
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText CacheClusterStatus where
     parser = takeLowerText >>= \case
@@ -163,9 +170,10 @@ instance FromJSON CacheClusterStatus where
     parseJSON = parseJSONText "CacheClusterStatus"
 
 data ContentHandlingStrategy
-    = ConvertToBinary
-    | ConvertToText
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = ConvertToBinary
+  | ConvertToText
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ContentHandlingStrategy where
     parser = takeLowerText >>= \case
@@ -192,19 +200,20 @@ instance FromJSON ContentHandlingStrategy where
     parseJSON = parseJSONText "ContentHandlingStrategy"
 
 data DocumentationPartType
-    = API
-    | Authorizer
-    | Method
-    | Model
-    | PathParameter
-    | QueryParameter
-    | RequestBody
-    | RequestHeader
-    | Resource
-    | Response
-    | ResponseBody
-    | ResponseHeader
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = API
+  | Authorizer
+  | Method
+  | Model
+  | PathParameter
+  | QueryParameter
+  | RequestBody
+  | RequestHeader
+  | Resource
+  | Response
+  | ResponseBody
+  | ResponseHeader
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText DocumentationPartType where
     parser = takeLowerText >>= \case
@@ -250,28 +259,62 @@ instance ToJSON DocumentationPartType where
 instance FromJSON DocumentationPartType where
     parseJSON = parseJSONText "DocumentationPartType"
 
+-- | The endpoint type. The valid value is @EDGE@ for edge-optimized API setup, most suitable for mobile applications, @REGIONAL@ for regional API endpoint setup, most suitable for calling from AWS Region
+--
+--
+data EndpointType
+  = Edge
+  | Regional
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText EndpointType where
+    parser = takeLowerText >>= \case
+        "edge" -> pure Edge
+        "regional" -> pure Regional
+        e -> fromTextError $ "Failure parsing EndpointType from value: '" <> e
+           <> "'. Accepted values: edge, regional"
+
+instance ToText EndpointType where
+    toText = \case
+        Edge -> "EDGE"
+        Regional -> "REGIONAL"
+
+instance Hashable     EndpointType
+instance NFData       EndpointType
+instance ToByteString EndpointType
+instance ToQuery      EndpointType
+instance ToHeader     EndpointType
+
+instance ToJSON EndpointType where
+    toJSON = toJSONText
+
+instance FromJSON EndpointType where
+    parseJSON = parseJSONText "EndpointType"
+
 data GatewayResponseType
-    = APIConfigurationError
-    | AccessDenied
-    | AuthorizerConfigurationError
-    | AuthorizerFailure
-    | BadRequestBody
-    | BadRequestParameters
-    | Default4XX
-    | Default5XX
-    | ExpiredToken
-    | IntegrationFailure
-    | IntegrationTimeout
-    | InvalidAPIKey
-    | InvalidSignature
-    | MissingAuthenticationToken
-    | QuotaExceeded
-    | RequestTooLarge
-    | ResourceNotFound
-    | Throttled
-    | Unauthorized
-    | UnsupportedMediaType
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = APIConfigurationError
+  | AccessDenied
+  | AuthorizerConfigurationError
+  | AuthorizerFailure
+  | BadRequestBody
+  | BadRequestParameters
+  | Default4XX
+  | Default5XX
+  | ExpiredToken
+  | IntegrationFailure
+  | IntegrationTimeout
+  | InvalidAPIKey
+  | InvalidSignature
+  | MissingAuthenticationToken
+  | QuotaExceeded
+  | RequestTooLarge
+  | ResourceNotFound
+  | Throttled
+  | Unauthorized
+  | UnsupportedMediaType
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText GatewayResponseType where
     parser = takeLowerText >>= \case
@@ -337,12 +380,13 @@ instance FromJSON GatewayResponseType where
 --
 --
 data IntegrationType
-    = AWS
-    | AWSProxy
-    | HTTP
-    | HTTPProxy
-    | Mock
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = AWS
+  | AWSProxy
+  | HTTP
+  | HTTPProxy
+  | Mock
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText IntegrationType where
     parser = takeLowerText >>= \case
@@ -375,13 +419,14 @@ instance FromJSON IntegrationType where
     parseJSON = parseJSONText "IntegrationType"
 
 data Op
-    = Add
-    | Copy
-    | Move
-    | Remove
-    | Replace
-    | Test
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Add
+  | Copy
+  | Move
+  | Remove
+  | Replace
+  | Test
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText Op where
     parser = takeLowerText >>= \case
@@ -413,9 +458,10 @@ instance ToJSON Op where
     toJSON = toJSONText
 
 data PutMode
-    = Merge
-    | Overwrite
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Merge
+  | Overwrite
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText PutMode where
     parser = takeLowerText >>= \case
@@ -439,10 +485,11 @@ instance ToJSON PutMode where
     toJSON = toJSONText
 
 data QuotaPeriodType
-    = Day
-    | Month
-    | Week
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Day
+  | Month
+  | Week
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText QuotaPeriodType where
     parser = takeLowerText >>= \case
@@ -471,10 +518,11 @@ instance FromJSON QuotaPeriodType where
     parseJSON = parseJSONText "QuotaPeriodType"
 
 data UnauthorizedCacheControlHeaderStrategy
-    = FailWith403
-    | SucceedWithResponseHeader
-    | SucceedWithoutResponseHeader
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = FailWith403
+  | SucceedWithResponseHeader
+  | SucceedWithoutResponseHeader
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText UnauthorizedCacheControlHeaderStrategy where
     parser = takeLowerText >>= \case

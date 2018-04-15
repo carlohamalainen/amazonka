@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.SQS
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -30,13 +30,13 @@
 --
 --     * <http://aws.amazon.com/sqs/ Amazon SQS Product Page>
 --
---     * /Amazon SQS Developer Guide/
+--     * /Amazon Simple Queue Service Developer Guide/
 --
 --     * <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/MakingRequestsArticle.html Making API Requests>
 --
 --     * <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html Using Amazon SQS Message Attributes>
 --
---     * <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead Letter Queues>
+--     * <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues>
 --
 --
 --
@@ -137,6 +137,9 @@ module Network.AWS.SQS
     -- ** DeleteQueue
     , module Network.AWS.SQS.DeleteQueue
 
+    -- ** TagQueue
+    , module Network.AWS.SQS.TagQueue
+
     -- ** DeleteMessageBatch
     , module Network.AWS.SQS.DeleteMessageBatch
 
@@ -152,8 +155,14 @@ module Network.AWS.SQS
     -- ** DeleteMessage
     , module Network.AWS.SQS.DeleteMessage
 
+    -- ** ListQueueTags
+    , module Network.AWS.SQS.ListQueueTags
+
     -- ** CreateQueue
     , module Network.AWS.SQS.CreateQueue
+
+    -- ** UntagQueue
+    , module Network.AWS.SQS.UntagQueue
 
     -- ** SendMessageBatch
     , module Network.AWS.SQS.SendMessageBatch
@@ -240,25 +249,28 @@ module Network.AWS.SQS
     , smbreMD5OfMessageBody
     ) where
 
-import           Network.AWS.SQS.AddPermission
-import           Network.AWS.SQS.ChangeMessageVisibility
-import           Network.AWS.SQS.ChangeMessageVisibilityBatch
-import           Network.AWS.SQS.CreateQueue
-import           Network.AWS.SQS.DeleteMessage
-import           Network.AWS.SQS.DeleteMessageBatch
-import           Network.AWS.SQS.DeleteQueue
-import           Network.AWS.SQS.GetQueueAttributes
-import           Network.AWS.SQS.GetQueueURL
-import           Network.AWS.SQS.ListDeadLetterSourceQueues
-import           Network.AWS.SQS.ListQueues
-import           Network.AWS.SQS.PurgeQueue
-import           Network.AWS.SQS.ReceiveMessage
-import           Network.AWS.SQS.RemovePermission
-import           Network.AWS.SQS.SendMessage
-import           Network.AWS.SQS.SendMessageBatch
-import           Network.AWS.SQS.SetQueueAttributes
-import           Network.AWS.SQS.Types
-import           Network.AWS.SQS.Waiters
+import Network.AWS.SQS.AddPermission
+import Network.AWS.SQS.ChangeMessageVisibility
+import Network.AWS.SQS.ChangeMessageVisibilityBatch
+import Network.AWS.SQS.CreateQueue
+import Network.AWS.SQS.DeleteMessage
+import Network.AWS.SQS.DeleteMessageBatch
+import Network.AWS.SQS.DeleteQueue
+import Network.AWS.SQS.GetQueueAttributes
+import Network.AWS.SQS.GetQueueURL
+import Network.AWS.SQS.ListDeadLetterSourceQueues
+import Network.AWS.SQS.ListQueues
+import Network.AWS.SQS.ListQueueTags
+import Network.AWS.SQS.PurgeQueue
+import Network.AWS.SQS.ReceiveMessage
+import Network.AWS.SQS.RemovePermission
+import Network.AWS.SQS.SendMessage
+import Network.AWS.SQS.SendMessageBatch
+import Network.AWS.SQS.SetQueueAttributes
+import Network.AWS.SQS.TagQueue
+import Network.AWS.SQS.Types
+import Network.AWS.SQS.UntagQueue
+import Network.AWS.SQS.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

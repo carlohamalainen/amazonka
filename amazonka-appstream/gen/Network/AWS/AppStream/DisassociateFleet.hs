@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.DisassociateFleet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a fleet from a stack.
+-- Disassociates the specified fleet from the specified stack.
 --
 --
 module Network.AWS.AppStream.DisassociateFleet
@@ -37,41 +37,40 @@ module Network.AWS.AppStream.DisassociateFleet
     , drsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'disassociateFleet' smart constructor.
 data DisassociateFleet = DisassociateFleet'
-    { _dfFleetName :: !Text
-    , _dfStackName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dfFleetName :: !Text
+  , _dfStackName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DisassociateFleet' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dfFleetName' - The name of the fleet to disassociate.
+-- * 'dfFleetName' - The name of the fleet.
 --
--- * 'dfStackName' - The name of the stack with which the fleet is associated.
+-- * 'dfStackName' - The name of the stack.
 disassociateFleet
     :: Text -- ^ 'dfFleetName'
     -> Text -- ^ 'dfStackName'
     -> DisassociateFleet
 disassociateFleet pFleetName_ pStackName_ =
-    DisassociateFleet'
-    { _dfFleetName = pFleetName_
-    , _dfStackName = pStackName_
-    }
+  DisassociateFleet' {_dfFleetName = pFleetName_, _dfStackName = pStackName_}
 
--- | The name of the fleet to disassociate.
+
+-- | The name of the fleet.
 dfFleetName :: Lens' DisassociateFleet Text
 dfFleetName = lens _dfFleetName (\ s a -> s{_dfFleetName = a});
 
--- | The name of the stack with which the fleet is associated.
+-- | The name of the stack.
 dfStackName :: Lens' DisassociateFleet Text
 dfStackName = lens _dfStackName (\ s a -> s{_dfStackName = a});
 
@@ -83,9 +82,9 @@ instance AWSRequest DisassociateFleet where
               (\ s h x ->
                  DisassociateFleetResponse' <$> (pure (fromEnum s)))
 
-instance Hashable DisassociateFleet
+instance Hashable DisassociateFleet where
 
-instance NFData DisassociateFleet
+instance NFData DisassociateFleet where
 
 instance ToHeaders DisassociateFleet where
         toHeaders
@@ -112,8 +111,9 @@ instance ToQuery DisassociateFleet where
 
 -- | /See:/ 'disassociateFleetResponse' smart constructor.
 newtype DisassociateFleetResponse = DisassociateFleetResponse'
-    { _drsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _drsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DisassociateFleetResponse' with the minimum fields required to make a request.
 --
@@ -124,12 +124,11 @@ disassociateFleetResponse
     :: Int -- ^ 'drsResponseStatus'
     -> DisassociateFleetResponse
 disassociateFleetResponse pResponseStatus_ =
-    DisassociateFleetResponse'
-    { _drsResponseStatus = pResponseStatus_
-    }
+  DisassociateFleetResponse' {_drsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 drsResponseStatus :: Lens' DisassociateFleetResponse Int
 drsResponseStatus = lens _drsResponseStatus (\ s a -> s{_drsResponseStatus = a});
 
-instance NFData DisassociateFleetResponse
+instance NFData DisassociateFleetResponse where

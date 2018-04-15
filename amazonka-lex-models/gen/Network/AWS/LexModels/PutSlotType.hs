@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.PutSlotType
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -34,6 +34,7 @@ module Network.AWS.LexModels.PutSlotType
     , PutSlotType
     -- * Request Lenses
     , pstChecksum
+    , pstValueSelectionStrategy
     , pstDescription
     , pstEnumerationValues
     , pstName
@@ -43,6 +44,7 @@ module Network.AWS.LexModels.PutSlotType
     , PutSlotTypeResponse
     -- * Response Lenses
     , pstrsChecksum
+    , pstrsValueSelectionStrategy
     , pstrsCreatedDate
     , pstrsName
     , pstrsVersion
@@ -52,20 +54,22 @@ module Network.AWS.LexModels.PutSlotType
     , pstrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putSlotType' smart constructor.
 data PutSlotType = PutSlotType'
-    { _pstChecksum          :: !(Maybe Text)
-    , _pstDescription       :: !(Maybe Text)
-    , _pstEnumerationValues :: !(Maybe (List1 EnumerationValue))
-    , _pstName              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pstChecksum               :: !(Maybe Text)
+  , _pstValueSelectionStrategy :: !(Maybe SlotValueSelectionStrategy)
+  , _pstDescription            :: !(Maybe Text)
+  , _pstEnumerationValues      :: !(Maybe (List1 EnumerationValue))
+  , _pstName                   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutSlotType' with the minimum fields required to make a request.
 --
@@ -73,31 +77,39 @@ data PutSlotType = PutSlotType'
 --
 -- * 'pstChecksum' - Identifies a specific revision of the @> LATEST@ version. When you create a new slot type, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a slot type, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
 --
+-- * 'pstValueSelectionStrategy' - Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to one of the following values:     * @ORIGINAL_VALUE@ - Returns the value entered by the user, if the user value is similar to the slot value.     * @TOP_RESOLUTION@ - If there is a resolution list for the slot, return the first value in the resolution list as the slot type value. If there is no resolution list, null is returned. If you don't specify the @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
+--
 -- * 'pstDescription' - A description of the slot type.
 --
--- * 'pstEnumerationValues' - A list of @EnumerationValue@ objects that defines the values that the slot type can take.
+-- * 'pstEnumerationValues' - A list of @EnumerationValue@ objects that defines the values that the slot type can take. Each value can have a list of @synonyms@ , which are additional values that help train the machine learning model about the values that it resolves for a slot.  When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not using a Lambda function you can choose to return the value that the user entered or the first value in the resolution list as the slot value. The @valueSelectionStrategy@ field indicates the option to use.
 --
 -- * 'pstName' - The name of the slot type. The name is /not/ case sensitive.  The name can't match a built-in slot type name, or a built-in slot type name with "AMAZON." removed. For example, because there is a built-in slot type called @AMAZON.DATE@ , you can't create a custom slot type called @DATE@ . For a list of built-in slot types, see <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference Slot Type Reference> in the /Alexa Skills Kit/ .
 putSlotType
     :: Text -- ^ 'pstName'
     -> PutSlotType
 putSlotType pName_ =
-    PutSlotType'
-    { _pstChecksum = Nothing
-    , _pstDescription = Nothing
-    , _pstEnumerationValues = Nothing
-    , _pstName = pName_
-    }
+  PutSlotType'
+  { _pstChecksum = Nothing
+  , _pstValueSelectionStrategy = Nothing
+  , _pstDescription = Nothing
+  , _pstEnumerationValues = Nothing
+  , _pstName = pName_
+  }
+
 
 -- | Identifies a specific revision of the @> LATEST@ version. When you create a new slot type, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a slot type, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
 pstChecksum :: Lens' PutSlotType (Maybe Text)
 pstChecksum = lens _pstChecksum (\ s a -> s{_pstChecksum = a});
 
+-- | Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to one of the following values:     * @ORIGINAL_VALUE@ - Returns the value entered by the user, if the user value is similar to the slot value.     * @TOP_RESOLUTION@ - If there is a resolution list for the slot, return the first value in the resolution list as the slot type value. If there is no resolution list, null is returned. If you don't specify the @valueSelectionStrategy@ , the default is @ORIGINAL_VALUE@ .
+pstValueSelectionStrategy :: Lens' PutSlotType (Maybe SlotValueSelectionStrategy)
+pstValueSelectionStrategy = lens _pstValueSelectionStrategy (\ s a -> s{_pstValueSelectionStrategy = a});
+
 -- | A description of the slot type.
 pstDescription :: Lens' PutSlotType (Maybe Text)
 pstDescription = lens _pstDescription (\ s a -> s{_pstDescription = a});
 
--- | A list of @EnumerationValue@ objects that defines the values that the slot type can take.
+-- | A list of @EnumerationValue@ objects that defines the values that the slot type can take. Each value can have a list of @synonyms@ , which are additional values that help train the machine learning model about the values that it resolves for a slot.  When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not using a Lambda function you can choose to return the value that the user entered or the first value in the resolution list as the slot value. The @valueSelectionStrategy@ field indicates the option to use.
 pstEnumerationValues :: Lens' PutSlotType (Maybe (NonEmpty EnumerationValue))
 pstEnumerationValues = lens _pstEnumerationValues (\ s a -> s{_pstEnumerationValues = a}) . mapping _List1;
 
@@ -112,17 +124,19 @@ instance AWSRequest PutSlotType where
           = receiveJSON
               (\ s h x ->
                  PutSlotTypeResponse' <$>
-                   (x .?> "checksum") <*> (x .?> "createdDate") <*>
-                     (x .?> "name")
+                   (x .?> "checksum") <*>
+                     (x .?> "valueSelectionStrategy")
+                     <*> (x .?> "createdDate")
+                     <*> (x .?> "name")
                      <*> (x .?> "version")
                      <*> (x .?> "lastUpdatedDate")
                      <*> (x .?> "description")
                      <*> (x .?> "enumerationValues")
                      <*> (pure (fromEnum s)))
 
-instance Hashable PutSlotType
+instance Hashable PutSlotType where
 
-instance NFData PutSlotType
+instance NFData PutSlotType where
 
 instance ToHeaders PutSlotType where
         toHeaders
@@ -136,6 +150,8 @@ instance ToJSON PutSlotType where
           = object
               (catMaybes
                  [("checksum" .=) <$> _pstChecksum,
+                  ("valueSelectionStrategy" .=) <$>
+                    _pstValueSelectionStrategy,
                   ("description" .=) <$> _pstDescription,
                   ("enumerationValues" .=) <$> _pstEnumerationValues])
 
@@ -149,21 +165,25 @@ instance ToQuery PutSlotType where
 
 -- | /See:/ 'putSlotTypeResponse' smart constructor.
 data PutSlotTypeResponse = PutSlotTypeResponse'
-    { _pstrsChecksum          :: !(Maybe Text)
-    , _pstrsCreatedDate       :: !(Maybe POSIX)
-    , _pstrsName              :: !(Maybe Text)
-    , _pstrsVersion           :: !(Maybe Text)
-    , _pstrsLastUpdatedDate   :: !(Maybe POSIX)
-    , _pstrsDescription       :: !(Maybe Text)
-    , _pstrsEnumerationValues :: !(Maybe (List1 EnumerationValue))
-    , _pstrsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pstrsChecksum               :: !(Maybe Text)
+  , _pstrsValueSelectionStrategy :: !(Maybe SlotValueSelectionStrategy)
+  , _pstrsCreatedDate            :: !(Maybe POSIX)
+  , _pstrsName                   :: !(Maybe Text)
+  , _pstrsVersion                :: !(Maybe Text)
+  , _pstrsLastUpdatedDate        :: !(Maybe POSIX)
+  , _pstrsDescription            :: !(Maybe Text)
+  , _pstrsEnumerationValues      :: !(Maybe (List1 EnumerationValue))
+  , _pstrsResponseStatus         :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutSlotTypeResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'pstrsChecksum' - Checksum of the @> LATEST@ version of the slot type.
+--
+-- * 'pstrsValueSelectionStrategy' - The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
 --
 -- * 'pstrsCreatedDate' - The date that the slot type was created.
 --
@@ -182,20 +202,26 @@ putSlotTypeResponse
     :: Int -- ^ 'pstrsResponseStatus'
     -> PutSlotTypeResponse
 putSlotTypeResponse pResponseStatus_ =
-    PutSlotTypeResponse'
-    { _pstrsChecksum = Nothing
-    , _pstrsCreatedDate = Nothing
-    , _pstrsName = Nothing
-    , _pstrsVersion = Nothing
-    , _pstrsLastUpdatedDate = Nothing
-    , _pstrsDescription = Nothing
-    , _pstrsEnumerationValues = Nothing
-    , _pstrsResponseStatus = pResponseStatus_
-    }
+  PutSlotTypeResponse'
+  { _pstrsChecksum = Nothing
+  , _pstrsValueSelectionStrategy = Nothing
+  , _pstrsCreatedDate = Nothing
+  , _pstrsName = Nothing
+  , _pstrsVersion = Nothing
+  , _pstrsLastUpdatedDate = Nothing
+  , _pstrsDescription = Nothing
+  , _pstrsEnumerationValues = Nothing
+  , _pstrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Checksum of the @> LATEST@ version of the slot type.
 pstrsChecksum :: Lens' PutSlotTypeResponse (Maybe Text)
 pstrsChecksum = lens _pstrsChecksum (\ s a -> s{_pstrsChecksum = a});
+
+-- | The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
+pstrsValueSelectionStrategy :: Lens' PutSlotTypeResponse (Maybe SlotValueSelectionStrategy)
+pstrsValueSelectionStrategy = lens _pstrsValueSelectionStrategy (\ s a -> s{_pstrsValueSelectionStrategy = a});
 
 -- | The date that the slot type was created.
 pstrsCreatedDate :: Lens' PutSlotTypeResponse (Maybe UTCTime)
@@ -225,4 +251,4 @@ pstrsEnumerationValues = lens _pstrsEnumerationValues (\ s a -> s{_pstrsEnumerat
 pstrsResponseStatus :: Lens' PutSlotTypeResponse Int
 pstrsResponseStatus = lens _pstrsResponseStatus (\ s a -> s{_pstrsResponseStatus = a});
 
-instance NFData PutSlotTypeResponse
+instance NFData PutSlotTypeResponse where

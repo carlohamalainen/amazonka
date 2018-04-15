@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.CreateConstraint
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -45,29 +45,30 @@ module Network.AWS.ServiceCatalog.CreateConstraint
     , ccrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'createConstraint' smart constructor.
 data CreateConstraint = CreateConstraint'
-    { _ccAcceptLanguage   :: !(Maybe Text)
-    , _ccDescription      :: !(Maybe Text)
-    , _ccPortfolioId      :: !Text
-    , _ccProductId        :: !Text
-    , _ccParameters       :: !Text
-    , _ccType             :: !Text
-    , _ccIdempotencyToken :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccAcceptLanguage   :: !(Maybe Text)
+  , _ccDescription      :: !(Maybe Text)
+  , _ccPortfolioId      :: !Text
+  , _ccProductId        :: !Text
+  , _ccParameters       :: !Text
+  , _ccType             :: !Text
+  , _ccIdempotencyToken :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateConstraint' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ccAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'ccAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'ccDescription' - The text description of the constraint.
 --
@@ -75,11 +76,11 @@ data CreateConstraint = CreateConstraint'
 --
 -- * 'ccProductId' - The product identifier.
 --
--- * 'ccParameters' - The constraint parameters. Expected values vary depending on which __Type__ is specified. For examples, see the bottom of this topic. For Type @LAUNCH@ , the @RoleArn@ property is required.  For Type @NOTIFICATION@ , the @NotificationArns@ property is required. For Type @TEMPLATE@ , the @Rules@ property is required.
+-- * 'ccParameters' - The constraint parameters. Expected values vary depending on which __Type__ is specified. For more information, see the Examples section. For Type @LAUNCH@ , the @RoleArn@ property is required.  For Type @NOTIFICATION@ , the @NotificationArns@ property is required. For Type @TEMPLATE@ , the @Rules@ property is required.
 --
 -- * 'ccType' - The type of the constraint. Case-sensitive valid values are: @LAUNCH@ , @NOTIFICATION@ , or @TEMPLATE@ .
 --
--- * 'ccIdempotencyToken' - A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple requests, provided that you also specify a different idempotency token for each request.
+-- * 'ccIdempotencyToken' - A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.
 createConstraint
     :: Text -- ^ 'ccPortfolioId'
     -> Text -- ^ 'ccProductId'
@@ -88,17 +89,18 @@ createConstraint
     -> Text -- ^ 'ccIdempotencyToken'
     -> CreateConstraint
 createConstraint pPortfolioId_ pProductId_ pParameters_ pType_ pIdempotencyToken_ =
-    CreateConstraint'
-    { _ccAcceptLanguage = Nothing
-    , _ccDescription = Nothing
-    , _ccPortfolioId = pPortfolioId_
-    , _ccProductId = pProductId_
-    , _ccParameters = pParameters_
-    , _ccType = pType_
-    , _ccIdempotencyToken = pIdempotencyToken_
-    }
+  CreateConstraint'
+  { _ccAcceptLanguage = Nothing
+  , _ccDescription = Nothing
+  , _ccPortfolioId = pPortfolioId_
+  , _ccProductId = pProductId_
+  , _ccParameters = pParameters_
+  , _ccType = pType_
+  , _ccIdempotencyToken = pIdempotencyToken_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 ccAcceptLanguage :: Lens' CreateConstraint (Maybe Text)
 ccAcceptLanguage = lens _ccAcceptLanguage (\ s a -> s{_ccAcceptLanguage = a});
 
@@ -114,7 +116,7 @@ ccPortfolioId = lens _ccPortfolioId (\ s a -> s{_ccPortfolioId = a});
 ccProductId :: Lens' CreateConstraint Text
 ccProductId = lens _ccProductId (\ s a -> s{_ccProductId = a});
 
--- | The constraint parameters. Expected values vary depending on which __Type__ is specified. For examples, see the bottom of this topic. For Type @LAUNCH@ , the @RoleArn@ property is required.  For Type @NOTIFICATION@ , the @NotificationArns@ property is required. For Type @TEMPLATE@ , the @Rules@ property is required.
+-- | The constraint parameters. Expected values vary depending on which __Type__ is specified. For more information, see the Examples section. For Type @LAUNCH@ , the @RoleArn@ property is required.  For Type @NOTIFICATION@ , the @NotificationArns@ property is required. For Type @TEMPLATE@ , the @Rules@ property is required.
 ccParameters :: Lens' CreateConstraint Text
 ccParameters = lens _ccParameters (\ s a -> s{_ccParameters = a});
 
@@ -122,7 +124,7 @@ ccParameters = lens _ccParameters (\ s a -> s{_ccParameters = a});
 ccType :: Lens' CreateConstraint Text
 ccType = lens _ccType (\ s a -> s{_ccType = a});
 
--- | A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple requests, provided that you also specify a different idempotency token for each request.
+-- | A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.
 ccIdempotencyToken :: Lens' CreateConstraint Text
 ccIdempotencyToken = lens _ccIdempotencyToken (\ s a -> s{_ccIdempotencyToken = a});
 
@@ -137,9 +139,9 @@ instance AWSRequest CreateConstraint where
                      (x .?> "ConstraintParameters")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateConstraint
+instance Hashable CreateConstraint where
 
-instance NFData CreateConstraint
+instance NFData CreateConstraint where
 
 instance ToHeaders CreateConstraint where
         toHeaders
@@ -171,11 +173,12 @@ instance ToQuery CreateConstraint where
 
 -- | /See:/ 'createConstraintResponse' smart constructor.
 data CreateConstraintResponse = CreateConstraintResponse'
-    { _ccrsStatus               :: !(Maybe RequestStatus)
-    , _ccrsConstraintDetail     :: !(Maybe ConstraintDetail)
-    , _ccrsConstraintParameters :: !(Maybe Text)
-    , _ccrsResponseStatus       :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccrsStatus               :: !(Maybe RequestStatus)
+  , _ccrsConstraintDetail     :: !(Maybe ConstraintDetail)
+  , _ccrsConstraintParameters :: !(Maybe Text)
+  , _ccrsResponseStatus       :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateConstraintResponse' with the minimum fields required to make a request.
 --
@@ -192,12 +195,13 @@ createConstraintResponse
     :: Int -- ^ 'ccrsResponseStatus'
     -> CreateConstraintResponse
 createConstraintResponse pResponseStatus_ =
-    CreateConstraintResponse'
-    { _ccrsStatus = Nothing
-    , _ccrsConstraintDetail = Nothing
-    , _ccrsConstraintParameters = Nothing
-    , _ccrsResponseStatus = pResponseStatus_
-    }
+  CreateConstraintResponse'
+  { _ccrsStatus = Nothing
+  , _ccrsConstraintDetail = Nothing
+  , _ccrsConstraintParameters = Nothing
+  , _ccrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The status of the current request.
 ccrsStatus :: Lens' CreateConstraintResponse (Maybe RequestStatus)
@@ -215,4 +219,4 @@ ccrsConstraintParameters = lens _ccrsConstraintParameters (\ s a -> s{_ccrsConst
 ccrsResponseStatus :: Lens' CreateConstraintResponse Int
 ccrsResponseStatus = lens _ccrsResponseStatus (\ s a -> s{_ccrsResponseStatus = a});
 
-instance NFData CreateConstraintResponse
+instance NFData CreateConstraintResponse where

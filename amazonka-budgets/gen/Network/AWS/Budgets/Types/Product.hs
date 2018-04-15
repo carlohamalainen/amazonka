@@ -9,31 +9,32 @@
 
 -- |
 -- Module      : Network.AWS.Budgets.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.Budgets.Types.Product where
 
-import           Network.AWS.Budgets.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.Budgets.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
 -- | AWS Budget model
 --
 -- /See:/ 'budget' smart constructor.
 data Budget = Budget'
-    { _bCalculatedSpend :: !(Maybe CalculatedSpend)
-    , _bCostFilters     :: !(Maybe (Map Text [Text]))
-    , _bBudgetName      :: !Text
-    , _bBudgetLimit     :: !Spend
-    , _bCostTypes       :: !CostTypes
-    , _bTimeUnit        :: !TimeUnit
-    , _bTimePeriod      :: !TimePeriod
-    , _bBudgetType      :: !BudgetType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _bCalculatedSpend :: !(Maybe CalculatedSpend)
+  , _bCostFilters     :: !(Maybe (Map Text [Text]))
+  , _bBudgetName      :: !Text
+  , _bBudgetLimit     :: !Spend
+  , _bCostTypes       :: !CostTypes
+  , _bTimeUnit        :: !TimeUnit
+  , _bTimePeriod      :: !TimePeriod
+  , _bBudgetType      :: !BudgetType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Budget' with the minimum fields required to make a request.
 --
@@ -63,16 +64,17 @@ budget
     -> BudgetType -- ^ 'bBudgetType'
     -> Budget
 budget pBudgetName_ pBudgetLimit_ pCostTypes_ pTimeUnit_ pTimePeriod_ pBudgetType_ =
-    Budget'
-    { _bCalculatedSpend = Nothing
-    , _bCostFilters = Nothing
-    , _bBudgetName = pBudgetName_
-    , _bBudgetLimit = pBudgetLimit_
-    , _bCostTypes = pCostTypes_
-    , _bTimeUnit = pTimeUnit_
-    , _bTimePeriod = pTimePeriod_
-    , _bBudgetType = pBudgetType_
-    }
+  Budget'
+  { _bCalculatedSpend = Nothing
+  , _bCostFilters = Nothing
+  , _bBudgetName = pBudgetName_
+  , _bBudgetLimit = pBudgetLimit_
+  , _bCostTypes = pCostTypes_
+  , _bTimeUnit = pTimeUnit_
+  , _bTimePeriod = pTimePeriod_
+  , _bBudgetType = pBudgetType_
+  }
+
 
 -- | Undocumented member.
 bCalculatedSpend :: Lens' Budget (Maybe CalculatedSpend)
@@ -120,9 +122,9 @@ instance FromJSON Budget where
                      <*> (x .: "TimePeriod")
                      <*> (x .: "BudgetType"))
 
-instance Hashable Budget
+instance Hashable Budget where
 
-instance NFData Budget
+instance NFData Budget where
 
 instance ToJSON Budget where
         toJSON Budget'{..}
@@ -137,13 +139,14 @@ instance ToJSON Budget where
                   Just ("TimePeriod" .= _bTimePeriod),
                   Just ("BudgetType" .= _bBudgetType)])
 
--- | A structure holds the actual and forecasted spend for a budget.
+-- | A structure that holds the actual and forecasted spend for a budget.
 --
 -- /See:/ 'calculatedSpend' smart constructor.
 data CalculatedSpend = CalculatedSpend'
-    { _csForecastedSpend :: !(Maybe Spend)
-    , _csActualSpend     :: !Spend
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csForecastedSpend :: !(Maybe Spend)
+  , _csActualSpend     :: !Spend
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CalculatedSpend' with the minimum fields required to make a request.
 --
@@ -156,10 +159,9 @@ calculatedSpend
     :: Spend -- ^ 'csActualSpend'
     -> CalculatedSpend
 calculatedSpend pActualSpend_ =
-    CalculatedSpend'
-    { _csForecastedSpend = Nothing
-    , _csActualSpend = pActualSpend_
-    }
+  CalculatedSpend'
+  {_csForecastedSpend = Nothing, _csActualSpend = pActualSpend_}
+
 
 -- | Undocumented member.
 csForecastedSpend :: Lens' CalculatedSpend (Maybe Spend)
@@ -176,9 +178,9 @@ instance FromJSON CalculatedSpend where
                  CalculatedSpend' <$>
                    (x .:? "ForecastedSpend") <*> (x .: "ActualSpend"))
 
-instance Hashable CalculatedSpend
+instance Hashable CalculatedSpend where
 
-instance NFData CalculatedSpend
+instance NFData CalculatedSpend where
 
 instance ToJSON CalculatedSpend where
         toJSON CalculatedSpend'{..}
@@ -191,10 +193,11 @@ instance ToJSON CalculatedSpend where
 --
 -- /See:/ 'costTypes' smart constructor.
 data CostTypes = CostTypes'
-    { _ctIncludeTax          :: !Bool
-    , _ctIncludeSubscription :: !Bool
-    , _ctUseBlended          :: !Bool
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ctIncludeTax          :: !Bool
+  , _ctIncludeSubscription :: !Bool
+  , _ctUseBlended          :: !Bool
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CostTypes' with the minimum fields required to make a request.
 --
@@ -211,11 +214,12 @@ costTypes
     -> Bool -- ^ 'ctUseBlended'
     -> CostTypes
 costTypes pIncludeTax_ pIncludeSubscription_ pUseBlended_ =
-    CostTypes'
-    { _ctIncludeTax = pIncludeTax_
-    , _ctIncludeSubscription = pIncludeSubscription_
-    , _ctUseBlended = pUseBlended_
-    }
+  CostTypes'
+  { _ctIncludeTax = pIncludeTax_
+  , _ctIncludeSubscription = pIncludeSubscription_
+  , _ctUseBlended = pUseBlended_
+  }
+
 
 -- | Undocumented member.
 ctIncludeTax :: Lens' CostTypes Bool
@@ -237,9 +241,9 @@ instance FromJSON CostTypes where
                    (x .: "IncludeTax") <*> (x .: "IncludeSubscription")
                      <*> (x .: "UseBlended"))
 
-instance Hashable CostTypes
+instance Hashable CostTypes where
 
-instance NFData CostTypes
+instance NFData CostTypes where
 
 instance ToJSON CostTypes where
         toJSON CostTypes'{..}
@@ -254,14 +258,18 @@ instance ToJSON CostTypes where
 --
 -- /See:/ 'notification' smart constructor.
 data Notification = Notification'
-    { _nNotificationType   :: !NotificationType
-    , _nComparisonOperator :: !ComparisonOperator
-    , _nThreshold          :: !Double
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _nThresholdType      :: !(Maybe ThresholdType)
+  , _nNotificationType   :: !NotificationType
+  , _nComparisonOperator :: !ComparisonOperator
+  , _nThreshold          :: !Double
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Notification' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'nThresholdType' - Undocumented member.
 --
 -- * 'nNotificationType' - Undocumented member.
 --
@@ -274,11 +282,17 @@ notification
     -> Double -- ^ 'nThreshold'
     -> Notification
 notification pNotificationType_ pComparisonOperator_ pThreshold_ =
-    Notification'
-    { _nNotificationType = pNotificationType_
-    , _nComparisonOperator = pComparisonOperator_
-    , _nThreshold = pThreshold_
-    }
+  Notification'
+  { _nThresholdType = Nothing
+  , _nNotificationType = pNotificationType_
+  , _nComparisonOperator = pComparisonOperator_
+  , _nThreshold = pThreshold_
+  }
+
+
+-- | Undocumented member.
+nThresholdType :: Lens' Notification (Maybe ThresholdType)
+nThresholdType = lens _nThresholdType (\ s a -> s{_nThresholdType = a});
 
 -- | Undocumented member.
 nNotificationType :: Lens' Notification NotificationType
@@ -297,19 +311,20 @@ instance FromJSON Notification where
           = withObject "Notification"
               (\ x ->
                  Notification' <$>
-                   (x .: "NotificationType") <*>
-                     (x .: "ComparisonOperator")
+                   (x .:? "ThresholdType") <*> (x .: "NotificationType")
+                     <*> (x .: "ComparisonOperator")
                      <*> (x .: "Threshold"))
 
-instance Hashable Notification
+instance Hashable Notification where
 
-instance NFData Notification
+instance NFData Notification where
 
 instance ToJSON Notification where
         toJSON Notification'{..}
           = object
               (catMaybes
-                 [Just ("NotificationType" .= _nNotificationType),
+                 [("ThresholdType" .=) <$> _nThresholdType,
+                  Just ("NotificationType" .= _nNotificationType),
                   Just ("ComparisonOperator" .= _nComparisonOperator),
                   Just ("Threshold" .= _nThreshold)])
 
@@ -317,9 +332,10 @@ instance ToJSON Notification where
 --
 -- /See:/ 'notificationWithSubscribers' smart constructor.
 data NotificationWithSubscribers = NotificationWithSubscribers'
-    { _nwsNotification :: !Notification
-    , _nwsSubscribers  :: !(List1 Subscriber)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _nwsNotification :: !Notification
+  , _nwsSubscribers  :: !(List1 Subscriber)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'NotificationWithSubscribers' with the minimum fields required to make a request.
 --
@@ -333,10 +349,9 @@ notificationWithSubscribers
     -> NonEmpty Subscriber -- ^ 'nwsSubscribers'
     -> NotificationWithSubscribers
 notificationWithSubscribers pNotification_ pSubscribers_ =
-    NotificationWithSubscribers'
-    { _nwsNotification = pNotification_
-    , _nwsSubscribers = _List1 # pSubscribers_
-    }
+  NotificationWithSubscribers'
+  {_nwsNotification = pNotification_, _nwsSubscribers = _List1 # pSubscribers_}
+
 
 -- | Undocumented member.
 nwsNotification :: Lens' NotificationWithSubscribers Notification
@@ -346,9 +361,9 @@ nwsNotification = lens _nwsNotification (\ s a -> s{_nwsNotification = a});
 nwsSubscribers :: Lens' NotificationWithSubscribers (NonEmpty Subscriber)
 nwsSubscribers = lens _nwsSubscribers (\ s a -> s{_nwsSubscribers = a}) . _List1;
 
-instance Hashable NotificationWithSubscribers
+instance Hashable NotificationWithSubscribers where
 
-instance NFData NotificationWithSubscribers
+instance NFData NotificationWithSubscribers where
 
 instance ToJSON NotificationWithSubscribers where
         toJSON NotificationWithSubscribers'{..}
@@ -357,13 +372,14 @@ instance ToJSON NotificationWithSubscribers where
                  [Just ("Notification" .= _nwsNotification),
                   Just ("Subscribers" .= _nwsSubscribers)])
 
--- | A structure represent either a cost spend or usage spend. Contains an amount and a unit.
+-- | A structure that represents either a cost spend or usage spend. Contains an amount and a unit.
 --
 -- /See:/ 'spend' smart constructor.
 data Spend = Spend'
-    { _sAmount :: !Text
-    , _sUnit   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sAmount :: !Text
+  , _sUnit   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Spend' with the minimum fields required to make a request.
 --
@@ -376,11 +392,8 @@ spend
     :: Text -- ^ 'sAmount'
     -> Text -- ^ 'sUnit'
     -> Spend
-spend pAmount_ pUnit_ =
-    Spend'
-    { _sAmount = pAmount_
-    , _sUnit = pUnit_
-    }
+spend pAmount_ pUnit_ = Spend' {_sAmount = pAmount_, _sUnit = pUnit_}
+
 
 -- | Undocumented member.
 sAmount :: Lens' Spend Text
@@ -395,9 +408,9 @@ instance FromJSON Spend where
           = withObject "Spend"
               (\ x -> Spend' <$> (x .: "Amount") <*> (x .: "Unit"))
 
-instance Hashable Spend
+instance Hashable Spend where
 
-instance NFData Spend
+instance NFData Spend where
 
 instance ToJSON Spend where
         toJSON Spend'{..}
@@ -410,9 +423,10 @@ instance ToJSON Spend where
 --
 -- /See:/ 'subscriber' smart constructor.
 data Subscriber = Subscriber'
-    { _sSubscriptionType :: !SubscriptionType
-    , _sAddress          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sSubscriptionType :: !SubscriptionType
+  , _sAddress          :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Subscriber' with the minimum fields required to make a request.
 --
@@ -426,10 +440,8 @@ subscriber
     -> Text -- ^ 'sAddress'
     -> Subscriber
 subscriber pSubscriptionType_ pAddress_ =
-    Subscriber'
-    { _sSubscriptionType = pSubscriptionType_
-    , _sAddress = pAddress_
-    }
+  Subscriber' {_sSubscriptionType = pSubscriptionType_, _sAddress = pAddress_}
+
 
 -- | Undocumented member.
 sSubscriptionType :: Lens' Subscriber SubscriptionType
@@ -446,9 +458,9 @@ instance FromJSON Subscriber where
                  Subscriber' <$>
                    (x .: "SubscriptionType") <*> (x .: "Address"))
 
-instance Hashable Subscriber
+instance Hashable Subscriber where
 
-instance NFData Subscriber
+instance NFData Subscriber where
 
 instance ToJSON Subscriber where
         toJSON Subscriber'{..}
@@ -457,13 +469,14 @@ instance ToJSON Subscriber where
                  [Just ("SubscriptionType" .= _sSubscriptionType),
                   Just ("Address" .= _sAddress)])
 
--- | A time period indicated the start date and end date of a budget.
+-- | A time period indicating the start date and end date of a budget.
 --
 -- /See:/ 'timePeriod' smart constructor.
 data TimePeriod = TimePeriod'
-    { _tpStart :: !POSIX
-    , _tpEnd   :: !POSIX
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tpStart :: !POSIX
+  , _tpEnd   :: !POSIX
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TimePeriod' with the minimum fields required to make a request.
 --
@@ -477,10 +490,8 @@ timePeriod
     -> UTCTime -- ^ 'tpEnd'
     -> TimePeriod
 timePeriod pStart_ pEnd_ =
-    TimePeriod'
-    { _tpStart = _Time # pStart_
-    , _tpEnd = _Time # pEnd_
-    }
+  TimePeriod' {_tpStart = _Time # pStart_, _tpEnd = _Time # pEnd_}
+
 
 -- | Undocumented member.
 tpStart :: Lens' TimePeriod UTCTime
@@ -496,9 +507,9 @@ instance FromJSON TimePeriod where
               (\ x ->
                  TimePeriod' <$> (x .: "Start") <*> (x .: "End"))
 
-instance Hashable TimePeriod
+instance Hashable TimePeriod where
 
-instance NFData TimePeriod
+instance NFData TimePeriod where
 
 instance ToJSON TimePeriod where
         toJSON TimePeriod'{..}

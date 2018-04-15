@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DescribeProvisioningParameters
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -45,26 +45,27 @@ module Network.AWS.ServiceCatalog.DescribeProvisioningParameters
     , dpprsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'describeProvisioningParameters' smart constructor.
 data DescribeProvisioningParameters = DescribeProvisioningParameters'
-    { _dppsAcceptLanguage         :: !(Maybe Text)
-    , _dppsPathId                 :: !(Maybe Text)
-    , _dppsProductId              :: !Text
-    , _dppsProvisioningArtifactId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dppsAcceptLanguage         :: !(Maybe Text)
+  , _dppsPathId                 :: !(Maybe Text)
+  , _dppsProductId              :: !Text
+  , _dppsProvisioningArtifactId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeProvisioningParameters' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dppsAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'dppsAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'dppsPathId' - The identifier of the path for this product's provisioning. This value is optional if the product has a default path, and is required if there is more than one path for the specified product.
 --
@@ -76,14 +77,15 @@ describeProvisioningParameters
     -> Text -- ^ 'dppsProvisioningArtifactId'
     -> DescribeProvisioningParameters
 describeProvisioningParameters pProductId_ pProvisioningArtifactId_ =
-    DescribeProvisioningParameters'
-    { _dppsAcceptLanguage = Nothing
-    , _dppsPathId = Nothing
-    , _dppsProductId = pProductId_
-    , _dppsProvisioningArtifactId = pProvisioningArtifactId_
-    }
+  DescribeProvisioningParameters'
+  { _dppsAcceptLanguage = Nothing
+  , _dppsPathId = Nothing
+  , _dppsProductId = pProductId_
+  , _dppsProvisioningArtifactId = pProvisioningArtifactId_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 dppsAcceptLanguage :: Lens' DescribeProvisioningParameters (Maybe Text)
 dppsAcceptLanguage = lens _dppsAcceptLanguage (\ s a -> s{_dppsAcceptLanguage = a});
 
@@ -115,8 +117,9 @@ instance AWSRequest DescribeProvisioningParameters
                      <*> (pure (fromEnum s)))
 
 instance Hashable DescribeProvisioningParameters
+         where
 
-instance NFData DescribeProvisioningParameters
+instance NFData DescribeProvisioningParameters where
 
 instance ToHeaders DescribeProvisioningParameters
          where
@@ -148,12 +151,13 @@ instance ToQuery DescribeProvisioningParameters where
 
 -- | /See:/ 'describeProvisioningParametersResponse' smart constructor.
 data DescribeProvisioningParametersResponse = DescribeProvisioningParametersResponse'
-    { _dpprsProvisioningArtifactParameters :: !(Maybe [ProvisioningArtifactParameter])
-    , _dpprsUsageInstructions              :: !(Maybe [UsageInstruction])
-    , _dpprsConstraintSummaries            :: !(Maybe [ConstraintSummary])
-    , _dpprsTagOptions                     :: !(Maybe [TagOptionSummary])
-    , _dpprsResponseStatus                 :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpprsProvisioningArtifactParameters :: !(Maybe [ProvisioningArtifactParameter])
+  , _dpprsUsageInstructions :: !(Maybe [UsageInstruction])
+  , _dpprsConstraintSummaries :: !(Maybe [ConstraintSummary])
+  , _dpprsTagOptions :: !(Maybe [TagOptionSummary])
+  , _dpprsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeProvisioningParametersResponse' with the minimum fields required to make a request.
 --
@@ -172,13 +176,14 @@ describeProvisioningParametersResponse
     :: Int -- ^ 'dpprsResponseStatus'
     -> DescribeProvisioningParametersResponse
 describeProvisioningParametersResponse pResponseStatus_ =
-    DescribeProvisioningParametersResponse'
-    { _dpprsProvisioningArtifactParameters = Nothing
-    , _dpprsUsageInstructions = Nothing
-    , _dpprsConstraintSummaries = Nothing
-    , _dpprsTagOptions = Nothing
-    , _dpprsResponseStatus = pResponseStatus_
-    }
+  DescribeProvisioningParametersResponse'
+  { _dpprsProvisioningArtifactParameters = Nothing
+  , _dpprsUsageInstructions = Nothing
+  , _dpprsConstraintSummaries = Nothing
+  , _dpprsTagOptions = Nothing
+  , _dpprsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The list of parameters used to successfully provision the product. Each parameter includes a list of allowable values and additional metadata about each parameter.
 dpprsProvisioningArtifactParameters :: Lens' DescribeProvisioningParametersResponse [ProvisioningArtifactParameter]
@@ -201,4 +206,5 @@ dpprsResponseStatus :: Lens' DescribeProvisioningParametersResponse Int
 dpprsResponseStatus = lens _dpprsResponseStatus (\ s a -> s{_dpprsResponseStatus = a});
 
 instance NFData
-         DescribeProvisioningParametersResponse
+           DescribeProvisioningParametersResponse
+         where

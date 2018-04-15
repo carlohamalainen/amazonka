@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ApplicationAutoScaling.DescribeScalingActivities
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -33,89 +33,91 @@ module Network.AWS.ApplicationAutoScaling.DescribeScalingActivities
       describeScalingActivities
     , DescribeScalingActivities
     -- * Request Lenses
-    , dsaScalableDimension
-    , dsaResourceId
-    , dsaNextToken
-    , dsaMaxResults
-    , dsaServiceNamespace
+    , desScalableDimension
+    , desResourceId
+    , desNextToken
+    , desMaxResults
+    , desServiceNamespace
 
     -- * Destructuring the Response
     , describeScalingActivitiesResponse
     , DescribeScalingActivitiesResponse
     -- * Response Lenses
-    , dsarsScalingActivities
-    , dsarsNextToken
-    , dsarsResponseStatus
+    , dsasrsScalingActivities
+    , dsasrsNextToken
+    , dsasrsResponseStatus
     ) where
 
-import           Network.AWS.ApplicationAutoScaling.Types
-import           Network.AWS.ApplicationAutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ApplicationAutoScaling.Types
+import Network.AWS.ApplicationAutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'describeScalingActivities' smart constructor.
 data DescribeScalingActivities = DescribeScalingActivities'
-    { _dsaScalableDimension :: !(Maybe ScalableDimension)
-    , _dsaResourceId        :: !(Maybe Text)
-    , _dsaNextToken         :: !(Maybe Text)
-    , _dsaMaxResults        :: !(Maybe Int)
-    , _dsaServiceNamespace  :: !ServiceNamespace
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _desScalableDimension :: !(Maybe ScalableDimension)
+  , _desResourceId        :: !(Maybe Text)
+  , _desNextToken         :: !(Maybe Text)
+  , _desMaxResults        :: !(Maybe Int)
+  , _desServiceNamespace  :: !ServiceNamespace
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeScalingActivities' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dsaScalableDimension' - The scalable dimension. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot fleet request.     * @elasticmapreduce:instancegroup:InstanceCount@ - The instance count of an EMR Instance Group.     * @appstream:fleet:DesiredCapacity@ - The desired capacity of an AppStream 2.0 fleet.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.
+-- * 'desScalableDimension' - The scalable dimension. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot fleet request.     * @elasticmapreduce:instancegroup:InstanceCount@ - The instance count of an EMR Instance Group.     * @appstream:fleet:DesiredCapacity@ - The desired capacity of an AppStream 2.0 fleet.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.
 --
--- * 'dsaResourceId' - The identifier of the resource associated with the scaling activity. This string consists of the resource type and unique identifier. If you specify a scalable dimension, you must also specify a resource ID.     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * EMR cluster - The resource type is @instancegroup@ and the unique identifier is the cluster ID and instance group ID. Example: @instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0@ .     * AppStream 2.0 fleet - The resource type is @fleet@ and the unique identifier is the fleet name. Example: @fleet/sample-fleet@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the resource ID. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the resource ID. Example: @table/my-table/index/my-table-index@ .
+-- * 'desResourceId' - The identifier of the resource associated with the scaling activity. This string consists of the resource type and unique identifier. If you specify a scalable dimension, you must also specify a resource ID.     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * EMR cluster - The resource type is @instancegroup@ and the unique identifier is the cluster ID and instance group ID. Example: @instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0@ .     * AppStream 2.0 fleet - The resource type is @fleet@ and the unique identifier is the fleet name. Example: @fleet/sample-fleet@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the resource ID. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the resource ID. Example: @table/my-table/index/my-table-index@ .
 --
--- * 'dsaNextToken' - The token for the next set of results.
+-- * 'desNextToken' - The token for the next set of results.
 --
--- * 'dsaMaxResults' - The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50. If this parameter is used, the operation returns up to @MaxResults@ results at a time, along with a @NextToken@ value. To get the next set of results, include the @NextToken@ value in a subsequent call. If this parameter is not used, the operation returns up to 50 results and a @NextToken@ value, if applicable.
+-- * 'desMaxResults' - The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50. If this parameter is used, the operation returns up to @MaxResults@ results at a time, along with a @NextToken@ value. To get the next set of results, include the @NextToken@ value in a subsequent call. If this parameter is not used, the operation returns up to 50 results and a @NextToken@ value, if applicable.
 --
--- * 'dsaServiceNamespace' - The namespace of the AWS service. For more information, see <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces> in the /Amazon Web Services General Reference/ .
+-- * 'desServiceNamespace' - The namespace of the AWS service. For more information, see <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces> in the /Amazon Web Services General Reference/ .
 describeScalingActivities
-    :: ServiceNamespace -- ^ 'dsaServiceNamespace'
+    :: ServiceNamespace -- ^ 'desServiceNamespace'
     -> DescribeScalingActivities
 describeScalingActivities pServiceNamespace_ =
-    DescribeScalingActivities'
-    { _dsaScalableDimension = Nothing
-    , _dsaResourceId = Nothing
-    , _dsaNextToken = Nothing
-    , _dsaMaxResults = Nothing
-    , _dsaServiceNamespace = pServiceNamespace_
-    }
+  DescribeScalingActivities'
+  { _desScalableDimension = Nothing
+  , _desResourceId = Nothing
+  , _desNextToken = Nothing
+  , _desMaxResults = Nothing
+  , _desServiceNamespace = pServiceNamespace_
+  }
+
 
 -- | The scalable dimension. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.     * @ecs:service:DesiredCount@ - The desired task count of an ECS service.     * @ec2:spot-fleet-request:TargetCapacity@ - The target capacity of a Spot fleet request.     * @elasticmapreduce:instancegroup:InstanceCount@ - The instance count of an EMR Instance Group.     * @appstream:fleet:DesiredCapacity@ - The desired capacity of an AppStream 2.0 fleet.     * @dynamodb:table:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB table.     * @dynamodb:table:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB table.     * @dynamodb:index:ReadCapacityUnits@ - The provisioned read capacity for a DynamoDB global secondary index.     * @dynamodb:index:WriteCapacityUnits@ - The provisioned write capacity for a DynamoDB global secondary index.
-dsaScalableDimension :: Lens' DescribeScalingActivities (Maybe ScalableDimension)
-dsaScalableDimension = lens _dsaScalableDimension (\ s a -> s{_dsaScalableDimension = a});
+desScalableDimension :: Lens' DescribeScalingActivities (Maybe ScalableDimension)
+desScalableDimension = lens _desScalableDimension (\ s a -> s{_desScalableDimension = a});
 
 -- | The identifier of the resource associated with the scaling activity. This string consists of the resource type and unique identifier. If you specify a scalable dimension, you must also specify a resource ID.     * ECS service - The resource type is @service@ and the unique identifier is the cluster name and service name. Example: @service/default/sample-webapp@ .     * Spot fleet request - The resource type is @spot-fleet-request@ and the unique identifier is the Spot fleet request ID. Example: @spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE@ .     * EMR cluster - The resource type is @instancegroup@ and the unique identifier is the cluster ID and instance group ID. Example: @instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0@ .     * AppStream 2.0 fleet - The resource type is @fleet@ and the unique identifier is the fleet name. Example: @fleet/sample-fleet@ .     * DynamoDB table - The resource type is @table@ and the unique identifier is the resource ID. Example: @table/my-table@ .     * DynamoDB global secondary index - The resource type is @index@ and the unique identifier is the resource ID. Example: @table/my-table/index/my-table-index@ .
-dsaResourceId :: Lens' DescribeScalingActivities (Maybe Text)
-dsaResourceId = lens _dsaResourceId (\ s a -> s{_dsaResourceId = a});
+desResourceId :: Lens' DescribeScalingActivities (Maybe Text)
+desResourceId = lens _desResourceId (\ s a -> s{_desResourceId = a});
 
 -- | The token for the next set of results.
-dsaNextToken :: Lens' DescribeScalingActivities (Maybe Text)
-dsaNextToken = lens _dsaNextToken (\ s a -> s{_dsaNextToken = a});
+desNextToken :: Lens' DescribeScalingActivities (Maybe Text)
+desNextToken = lens _desNextToken (\ s a -> s{_desNextToken = a});
 
 -- | The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50. If this parameter is used, the operation returns up to @MaxResults@ results at a time, along with a @NextToken@ value. To get the next set of results, include the @NextToken@ value in a subsequent call. If this parameter is not used, the operation returns up to 50 results and a @NextToken@ value, if applicable.
-dsaMaxResults :: Lens' DescribeScalingActivities (Maybe Int)
-dsaMaxResults = lens _dsaMaxResults (\ s a -> s{_dsaMaxResults = a});
+desMaxResults :: Lens' DescribeScalingActivities (Maybe Int)
+desMaxResults = lens _desMaxResults (\ s a -> s{_desMaxResults = a});
 
 -- | The namespace of the AWS service. For more information, see <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS Service Namespaces> in the /Amazon Web Services General Reference/ .
-dsaServiceNamespace :: Lens' DescribeScalingActivities ServiceNamespace
-dsaServiceNamespace = lens _dsaServiceNamespace (\ s a -> s{_dsaServiceNamespace = a});
+desServiceNamespace :: Lens' DescribeScalingActivities ServiceNamespace
+desServiceNamespace = lens _desServiceNamespace (\ s a -> s{_desServiceNamespace = a});
 
 instance AWSPager DescribeScalingActivities where
         page rq rs
-          | stop (rs ^. dsarsNextToken) = Nothing
-          | stop (rs ^. dsarsScalingActivities) = Nothing
+          | stop (rs ^. dsasrsNextToken) = Nothing
+          | stop (rs ^. dsasrsScalingActivities) = Nothing
           | otherwise =
-            Just $ rq & dsaNextToken .~ rs ^. dsarsNextToken
+            Just $ rq & desNextToken .~ rs ^. dsasrsNextToken
 
 instance AWSRequest DescribeScalingActivities where
         type Rs DescribeScalingActivities =
@@ -129,9 +131,9 @@ instance AWSRequest DescribeScalingActivities where
                      (x .?> "NextToken")
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeScalingActivities
+instance Hashable DescribeScalingActivities where
 
-instance NFData DescribeScalingActivities
+instance NFData DescribeScalingActivities where
 
 instance ToHeaders DescribeScalingActivities where
         toHeaders
@@ -147,11 +149,11 @@ instance ToJSON DescribeScalingActivities where
         toJSON DescribeScalingActivities'{..}
           = object
               (catMaybes
-                 [("ScalableDimension" .=) <$> _dsaScalableDimension,
-                  ("ResourceId" .=) <$> _dsaResourceId,
-                  ("NextToken" .=) <$> _dsaNextToken,
-                  ("MaxResults" .=) <$> _dsaMaxResults,
-                  Just ("ServiceNamespace" .= _dsaServiceNamespace)])
+                 [("ScalableDimension" .=) <$> _desScalableDimension,
+                  ("ResourceId" .=) <$> _desResourceId,
+                  ("NextToken" .=) <$> _desNextToken,
+                  ("MaxResults" .=) <$> _desMaxResults,
+                  Just ("ServiceNamespace" .= _desServiceNamespace)])
 
 instance ToPath DescribeScalingActivities where
         toPath = const "/"
@@ -161,40 +163,43 @@ instance ToQuery DescribeScalingActivities where
 
 -- | /See:/ 'describeScalingActivitiesResponse' smart constructor.
 data DescribeScalingActivitiesResponse = DescribeScalingActivitiesResponse'
-    { _dsarsScalingActivities :: !(Maybe [ScalingActivity])
-    , _dsarsNextToken         :: !(Maybe Text)
-    , _dsarsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsasrsScalingActivities :: !(Maybe [ScalingActivity])
+  , _dsasrsNextToken         :: !(Maybe Text)
+  , _dsasrsResponseStatus    :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeScalingActivitiesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dsarsScalingActivities' - A list of scaling activity objects.
+-- * 'dsasrsScalingActivities' - A list of scaling activity objects.
 --
--- * 'dsarsNextToken' - The token required to get the next set of results. This value is @null@ if there are no more results to return.
+-- * 'dsasrsNextToken' - The token required to get the next set of results. This value is @null@ if there are no more results to return.
 --
--- * 'dsarsResponseStatus' - -- | The response status code.
+-- * 'dsasrsResponseStatus' - -- | The response status code.
 describeScalingActivitiesResponse
-    :: Int -- ^ 'dsarsResponseStatus'
+    :: Int -- ^ 'dsasrsResponseStatus'
     -> DescribeScalingActivitiesResponse
 describeScalingActivitiesResponse pResponseStatus_ =
-    DescribeScalingActivitiesResponse'
-    { _dsarsScalingActivities = Nothing
-    , _dsarsNextToken = Nothing
-    , _dsarsResponseStatus = pResponseStatus_
-    }
+  DescribeScalingActivitiesResponse'
+  { _dsasrsScalingActivities = Nothing
+  , _dsasrsNextToken = Nothing
+  , _dsasrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | A list of scaling activity objects.
-dsarsScalingActivities :: Lens' DescribeScalingActivitiesResponse [ScalingActivity]
-dsarsScalingActivities = lens _dsarsScalingActivities (\ s a -> s{_dsarsScalingActivities = a}) . _Default . _Coerce;
+dsasrsScalingActivities :: Lens' DescribeScalingActivitiesResponse [ScalingActivity]
+dsasrsScalingActivities = lens _dsasrsScalingActivities (\ s a -> s{_dsasrsScalingActivities = a}) . _Default . _Coerce;
 
 -- | The token required to get the next set of results. This value is @null@ if there are no more results to return.
-dsarsNextToken :: Lens' DescribeScalingActivitiesResponse (Maybe Text)
-dsarsNextToken = lens _dsarsNextToken (\ s a -> s{_dsarsNextToken = a});
+dsasrsNextToken :: Lens' DescribeScalingActivitiesResponse (Maybe Text)
+dsasrsNextToken = lens _dsasrsNextToken (\ s a -> s{_dsasrsNextToken = a});
 
 -- | -- | The response status code.
-dsarsResponseStatus :: Lens' DescribeScalingActivitiesResponse Int
-dsarsResponseStatus = lens _dsarsResponseStatus (\ s a -> s{_dsarsResponseStatus = a});
+dsasrsResponseStatus :: Lens' DescribeScalingActivitiesResponse Int
+dsasrsResponseStatus = lens _dsasrsResponseStatus (\ s a -> s{_dsasrsResponseStatus = a});
 
 instance NFData DescribeScalingActivitiesResponse
+         where

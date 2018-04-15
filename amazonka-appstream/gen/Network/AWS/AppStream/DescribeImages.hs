@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.DescribeImages
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the images. If a list of names is not provided, all images in your account are returned. This operation does not return a paginated result.
+-- Describes the specified images or all images in the account.
 --
 --
 module Network.AWS.AppStream.DescribeImages
@@ -33,35 +33,34 @@ module Network.AWS.AppStream.DescribeImages
     , describeImagesResponse
     , DescribeImagesResponse
     -- * Response Lenses
-    , dirsImages
-    , dirsResponseStatus
+    , disrsImages
+    , disrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'describeImages' smart constructor.
 newtype DescribeImages = DescribeImages'
-    { _diNames :: Maybe [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _diNames :: Maybe [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeImages' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'diNames' - A specific list of images to describe.
+-- * 'diNames' - The names of the images to describe.
 describeImages
     :: DescribeImages
-describeImages =
-    DescribeImages'
-    { _diNames = Nothing
-    }
+describeImages = DescribeImages' {_diNames = Nothing}
 
--- | A specific list of images to describe.
+
+-- | The names of the images to describe.
 diNames :: Lens' DescribeImages [Text]
 diNames = lens _diNames (\ s a -> s{_diNames = a}) . _Default . _Coerce;
 
@@ -74,9 +73,9 @@ instance AWSRequest DescribeImages where
                  DescribeImagesResponse' <$>
                    (x .?> "Images" .!@ mempty) <*> (pure (fromEnum s)))
 
-instance Hashable DescribeImages
+instance Hashable DescribeImages where
 
-instance NFData DescribeImages
+instance NFData DescribeImages where
 
 instance ToHeaders DescribeImages where
         toHeaders
@@ -100,32 +99,32 @@ instance ToQuery DescribeImages where
 
 -- | /See:/ 'describeImagesResponse' smart constructor.
 data DescribeImagesResponse = DescribeImagesResponse'
-    { _dirsImages         :: !(Maybe [Image])
-    , _dirsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _disrsImages         :: !(Maybe [Image])
+  , _disrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeImagesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dirsImages' - The list of images.
+-- * 'disrsImages' - Information about the images.
 --
--- * 'dirsResponseStatus' - -- | The response status code.
+-- * 'disrsResponseStatus' - -- | The response status code.
 describeImagesResponse
-    :: Int -- ^ 'dirsResponseStatus'
+    :: Int -- ^ 'disrsResponseStatus'
     -> DescribeImagesResponse
 describeImagesResponse pResponseStatus_ =
-    DescribeImagesResponse'
-    { _dirsImages = Nothing
-    , _dirsResponseStatus = pResponseStatus_
-    }
+  DescribeImagesResponse'
+  {_disrsImages = Nothing, _disrsResponseStatus = pResponseStatus_}
 
--- | The list of images.
-dirsImages :: Lens' DescribeImagesResponse [Image]
-dirsImages = lens _dirsImages (\ s a -> s{_dirsImages = a}) . _Default . _Coerce;
+
+-- | Information about the images.
+disrsImages :: Lens' DescribeImagesResponse [Image]
+disrsImages = lens _disrsImages (\ s a -> s{_disrsImages = a}) . _Default . _Coerce;
 
 -- | -- | The response status code.
-dirsResponseStatus :: Lens' DescribeImagesResponse Int
-dirsResponseStatus = lens _dirsResponseStatus (\ s a -> s{_dirsResponseStatus = a});
+disrsResponseStatus :: Lens' DescribeImagesResponse Int
+disrsResponseStatus = lens _disrsResponseStatus (\ s a -> s{_disrsResponseStatus = a});
 
-instance NFData DescribeImagesResponse
+instance NFData DescribeImagesResponse where

@@ -7,12 +7,12 @@
 {-# LANGUAGE TupleSections     #-}
 
 -- Module      : Gen.AST.Subst
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
@@ -20,17 +20,20 @@ module Gen.AST.Subst
     ( substitute
     ) where
 
-import           Control.Comonad.Cofree
-import           Control.Error
-import           Control.Lens           hiding ((:<))
-import           Control.Monad.Except
-import           Control.Monad.State
-import qualified Data.HashMap.Strict    as Map
-import           Data.List              (find)
-import qualified Data.Text.Lazy         as LText
-import           Gen.AST.Override
-import           Gen.Formatting
-import           Gen.Types
+import Control.Comonad.Cofree
+import Control.Error
+import Control.Lens           hiding ((:<))
+import Control.Monad.Except
+import Control.Monad.State
+
+import Data.List (find)
+
+import Gen.AST.Override
+import Gen.Formatting
+import Gen.Types
+
+import qualified Data.HashMap.Strict as Map
+import qualified Data.Text.Lazy      as LText
 
 data Env a = Env
     { _overrides :: Map Id Override

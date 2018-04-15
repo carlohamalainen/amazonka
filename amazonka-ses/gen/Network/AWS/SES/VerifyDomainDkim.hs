@@ -12,18 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.SES.VerifyDomainDkim
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns a set of DKIM tokens for a domain. DKIM /tokens/ are character strings that represent your domain's identity. Using these tokens, you will need to create DNS CNAME records that point to DKIM public keys hosted by Amazon SES. Amazon Web Services will eventually detect that you have updated your DNS records; this detection process may take up to 72 hours. Upon successful detection, Amazon SES will be able to DKIM-sign email originating from that domain.
 --
 --
--- This action is throttled at one request per second.
+-- You can execute this operation no more than once per second.
 --
--- To enable or disable Easy DKIM signing for a domain, use the @SetIdentityDkimEnabled@ action.
+-- To enable or disable Easy DKIM signing for a domain, use the @SetIdentityDkimEnabled@ operation.
 --
 -- For more information about creating DNS records using DKIM tokens, go to the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html Amazon SES Developer Guide> .
 --
@@ -43,12 +43,12 @@ module Network.AWS.SES.VerifyDomainDkim
     , vddrsDkimTokens
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SES.Types
-import           Network.AWS.SES.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SES.Types
+import Network.AWS.SES.Types.Product
 
 -- | Represents a request to generate the CNAME records needed to set up Easy DKIM with Amazon SES. For more information about setting up Easy DKIM, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Amazon SES Developer Guide> .
 --
@@ -56,8 +56,9 @@ import           Network.AWS.SES.Types.Product
 --
 -- /See:/ 'verifyDomainDkim' smart constructor.
 newtype VerifyDomainDkim = VerifyDomainDkim'
-    { _vddDomain :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _vddDomain :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'VerifyDomainDkim' with the minimum fields required to make a request.
 --
@@ -67,10 +68,8 @@ newtype VerifyDomainDkim = VerifyDomainDkim'
 verifyDomainDkim
     :: Text -- ^ 'vddDomain'
     -> VerifyDomainDkim
-verifyDomainDkim pDomain_ =
-    VerifyDomainDkim'
-    { _vddDomain = pDomain_
-    }
+verifyDomainDkim pDomain_ = VerifyDomainDkim' {_vddDomain = pDomain_}
+
 
 -- | The name of the domain to be verified for Easy DKIM signing.
 vddDomain :: Lens' VerifyDomainDkim Text
@@ -87,9 +86,9 @@ instance AWSRequest VerifyDomainDkim where
                      (x .@? "DkimTokens" .!@ mempty >>=
                         parseXMLList "member"))
 
-instance Hashable VerifyDomainDkim
+instance Hashable VerifyDomainDkim where
 
-instance NFData VerifyDomainDkim
+instance NFData VerifyDomainDkim where
 
 instance ToHeaders VerifyDomainDkim where
         toHeaders = const mempty
@@ -110,9 +109,10 @@ instance ToQuery VerifyDomainDkim where
 --
 -- /See:/ 'verifyDomainDkimResponse' smart constructor.
 data VerifyDomainDkimResponse = VerifyDomainDkimResponse'
-    { _vddrsResponseStatus :: !Int
-    , _vddrsDkimTokens     :: ![Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _vddrsResponseStatus :: !Int
+  , _vddrsDkimTokens     :: ![Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'VerifyDomainDkimResponse' with the minimum fields required to make a request.
 --
@@ -125,10 +125,9 @@ verifyDomainDkimResponse
     :: Int -- ^ 'vddrsResponseStatus'
     -> VerifyDomainDkimResponse
 verifyDomainDkimResponse pResponseStatus_ =
-    VerifyDomainDkimResponse'
-    { _vddrsResponseStatus = pResponseStatus_
-    , _vddrsDkimTokens = mempty
-    }
+  VerifyDomainDkimResponse'
+  {_vddrsResponseStatus = pResponseStatus_, _vddrsDkimTokens = mempty}
+
 
 -- | -- | The response status code.
 vddrsResponseStatus :: Lens' VerifyDomainDkimResponse Int
@@ -138,4 +137,4 @@ vddrsResponseStatus = lens _vddrsResponseStatus (\ s a -> s{_vddrsResponseStatus
 vddrsDkimTokens :: Lens' VerifyDomainDkimResponse [Text]
 vddrsDkimTokens = lens _vddrsDkimTokens (\ s a -> s{_vddrsDkimTokens = a}) . _Coerce;
 
-instance NFData VerifyDomainDkimResponse
+instance NFData VerifyDomainDkimResponse where

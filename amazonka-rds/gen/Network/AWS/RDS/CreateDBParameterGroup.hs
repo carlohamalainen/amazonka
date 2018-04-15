@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.CreateDBParameterGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,12 +44,12 @@ module Network.AWS.RDS.CreateDBParameterGroup
     , cdpgrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -57,11 +57,12 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createDBParameterGroup' smart constructor.
 data CreateDBParameterGroup = CreateDBParameterGroup'
-    { _cdbpgTags                   :: !(Maybe [Tag])
-    , _cdbpgDBParameterGroupName   :: !Text
-    , _cdbpgDBParameterGroupFamily :: !Text
-    , _cdbpgDescription            :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdbpgTags                   :: !(Maybe [Tag])
+  , _cdbpgDBParameterGroupName   :: !Text
+  , _cdbpgDBParameterGroupFamily :: !Text
+  , _cdbpgDescription            :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBParameterGroup' with the minimum fields required to make a request.
 --
@@ -69,7 +70,7 @@ data CreateDBParameterGroup = CreateDBParameterGroup'
 --
 -- * 'cdbpgTags' - Undocumented member.
 --
--- * 'cdbpgDBParameterGroupName' - The name of the DB parameter group. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'cdbpgDBParameterGroupName' - The name of the DB parameter group. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
 --
 -- * 'cdbpgDBParameterGroupFamily' - The DB parameter group family name. A DB parameter group can be associated with one and only one DB parameter group family, and can be applied only to a DB instance running a database engine and engine version compatible with that DB parameter group family.
 --
@@ -80,18 +81,19 @@ createDBParameterGroup
     -> Text -- ^ 'cdbpgDescription'
     -> CreateDBParameterGroup
 createDBParameterGroup pDBParameterGroupName_ pDBParameterGroupFamily_ pDescription_ =
-    CreateDBParameterGroup'
-    { _cdbpgTags = Nothing
-    , _cdbpgDBParameterGroupName = pDBParameterGroupName_
-    , _cdbpgDBParameterGroupFamily = pDBParameterGroupFamily_
-    , _cdbpgDescription = pDescription_
-    }
+  CreateDBParameterGroup'
+  { _cdbpgTags = Nothing
+  , _cdbpgDBParameterGroupName = pDBParameterGroupName_
+  , _cdbpgDBParameterGroupFamily = pDBParameterGroupFamily_
+  , _cdbpgDescription = pDescription_
+  }
+
 
 -- | Undocumented member.
 cdbpgTags :: Lens' CreateDBParameterGroup [Tag]
 cdbpgTags = lens _cdbpgTags (\ s a -> s{_cdbpgTags = a}) . _Default . _Coerce;
 
--- | The name of the DB parameter group. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The name of the DB parameter group. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
 cdbpgDBParameterGroupName :: Lens' CreateDBParameterGroup Text
 cdbpgDBParameterGroupName = lens _cdbpgDBParameterGroupName (\ s a -> s{_cdbpgDBParameterGroupName = a});
 
@@ -113,9 +115,9 @@ instance AWSRequest CreateDBParameterGroup where
                  CreateDBParameterGroupResponse' <$>
                    (x .@? "DBParameterGroup") <*> (pure (fromEnum s)))
 
-instance Hashable CreateDBParameterGroup
+instance Hashable CreateDBParameterGroup where
 
-instance NFData CreateDBParameterGroup
+instance NFData CreateDBParameterGroup where
 
 instance ToHeaders CreateDBParameterGroup where
         toHeaders = const mempty
@@ -137,9 +139,10 @@ instance ToQuery CreateDBParameterGroup where
 
 -- | /See:/ 'createDBParameterGroupResponse' smart constructor.
 data CreateDBParameterGroupResponse = CreateDBParameterGroupResponse'
-    { _cdpgrsDBParameterGroup :: !(Maybe DBParameterGroup)
-    , _cdpgrsResponseStatus   :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdpgrsDBParameterGroup :: !(Maybe DBParameterGroup)
+  , _cdpgrsResponseStatus   :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBParameterGroupResponse' with the minimum fields required to make a request.
 --
@@ -152,10 +155,9 @@ createDBParameterGroupResponse
     :: Int -- ^ 'cdpgrsResponseStatus'
     -> CreateDBParameterGroupResponse
 createDBParameterGroupResponse pResponseStatus_ =
-    CreateDBParameterGroupResponse'
-    { _cdpgrsDBParameterGroup = Nothing
-    , _cdpgrsResponseStatus = pResponseStatus_
-    }
+  CreateDBParameterGroupResponse'
+  {_cdpgrsDBParameterGroup = Nothing, _cdpgrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 cdpgrsDBParameterGroup :: Lens' CreateDBParameterGroupResponse (Maybe DBParameterGroup)
@@ -165,4 +167,4 @@ cdpgrsDBParameterGroup = lens _cdpgrsDBParameterGroup (\ s a -> s{_cdpgrsDBParam
 cdpgrsResponseStatus :: Lens' CreateDBParameterGroupResponse Int
 cdpgrsResponseStatus = lens _cdpgrsResponseStatus (\ s a -> s{_cdpgrsResponseStatus = a});
 
-instance NFData CreateDBParameterGroupResponse
+instance NFData CreateDBParameterGroupResponse where

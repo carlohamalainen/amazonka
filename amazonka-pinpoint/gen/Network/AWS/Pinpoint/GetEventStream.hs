@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Pinpoint.GetEventStream
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -35,19 +35,20 @@ module Network.AWS.Pinpoint.GetEventStream
     , gesrsEventStream
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Pinpoint.Types
-import           Network.AWS.Pinpoint.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Pinpoint.Types
+import Network.AWS.Pinpoint.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | GetEventStream Request
+-- | GetEventStreamRequest
 --
 -- /See:/ 'getEventStream' smart constructor.
 newtype GetEventStream = GetEventStream'
-    { _gesApplicationId :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gesApplicationId :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetEventStream' with the minimum fields required to make a request.
 --
@@ -58,9 +59,8 @@ getEventStream
     :: Text -- ^ 'gesApplicationId'
     -> GetEventStream
 getEventStream pApplicationId_ =
-    GetEventStream'
-    { _gesApplicationId = pApplicationId_
-    }
+  GetEventStream' {_gesApplicationId = pApplicationId_}
+
 
 -- | ApplicationId
 gesApplicationId :: Lens' GetEventStream Text
@@ -75,9 +75,9 @@ instance AWSRequest GetEventStream where
                  GetEventStreamResponse' <$>
                    (pure (fromEnum s)) <*> (eitherParseJSON x))
 
-instance Hashable GetEventStream
+instance Hashable GetEventStream where
 
-instance NFData GetEventStream
+instance NFData GetEventStream where
 
 instance ToHeaders GetEventStream where
         toHeaders
@@ -94,13 +94,12 @@ instance ToPath GetEventStream where
 instance ToQuery GetEventStream where
         toQuery = const mempty
 
--- | GetEventStream Response
---
--- /See:/ 'getEventStreamResponse' smart constructor.
+-- | /See:/ 'getEventStreamResponse' smart constructor.
 data GetEventStreamResponse = GetEventStreamResponse'
-    { _gesrsResponseStatus :: !Int
-    , _gesrsEventStream    :: !EventStream
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gesrsResponseStatus :: !Int
+  , _gesrsEventStream    :: !EventStream
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetEventStreamResponse' with the minimum fields required to make a request.
 --
@@ -114,10 +113,9 @@ getEventStreamResponse
     -> EventStream -- ^ 'gesrsEventStream'
     -> GetEventStreamResponse
 getEventStreamResponse pResponseStatus_ pEventStream_ =
-    GetEventStreamResponse'
-    { _gesrsResponseStatus = pResponseStatus_
-    , _gesrsEventStream = pEventStream_
-    }
+  GetEventStreamResponse'
+  {_gesrsResponseStatus = pResponseStatus_, _gesrsEventStream = pEventStream_}
+
 
 -- | -- | The response status code.
 gesrsResponseStatus :: Lens' GetEventStreamResponse Int
@@ -127,4 +125,4 @@ gesrsResponseStatus = lens _gesrsResponseStatus (\ s a -> s{_gesrsResponseStatus
 gesrsEventStream :: Lens' GetEventStreamResponse EventStream
 gesrsEventStream = lens _gesrsEventStream (\ s a -> s{_gesrsEventStream = a});
 
-instance NFData GetEventStreamResponse
+instance NFData GetEventStreamResponse where

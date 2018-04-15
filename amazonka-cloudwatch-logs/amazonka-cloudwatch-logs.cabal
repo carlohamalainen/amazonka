@@ -1,13 +1,13 @@
 name:                  amazonka-cloudwatch-logs
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon CloudWatch Logs SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,17 +29,23 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-cloudwatch-logs
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.CloudWatchLogs
+        , Network.AWS.CloudWatchLogs.AssociateKMSKey
         , Network.AWS.CloudWatchLogs.CancelExportTask
         , Network.AWS.CloudWatchLogs.CreateExportTask
         , Network.AWS.CloudWatchLogs.CreateLogGroup
@@ -48,6 +54,7 @@ library
         , Network.AWS.CloudWatchLogs.DeleteLogGroup
         , Network.AWS.CloudWatchLogs.DeleteLogStream
         , Network.AWS.CloudWatchLogs.DeleteMetricFilter
+        , Network.AWS.CloudWatchLogs.DeleteResourcePolicy
         , Network.AWS.CloudWatchLogs.DeleteRetentionPolicy
         , Network.AWS.CloudWatchLogs.DeleteSubscriptionFilter
         , Network.AWS.CloudWatchLogs.DescribeDestinations
@@ -55,7 +62,9 @@ library
         , Network.AWS.CloudWatchLogs.DescribeLogGroups
         , Network.AWS.CloudWatchLogs.DescribeLogStreams
         , Network.AWS.CloudWatchLogs.DescribeMetricFilters
+        , Network.AWS.CloudWatchLogs.DescribeResourcePolicies
         , Network.AWS.CloudWatchLogs.DescribeSubscriptionFilters
+        , Network.AWS.CloudWatchLogs.DisassociateKMSKey
         , Network.AWS.CloudWatchLogs.FilterLogEvents
         , Network.AWS.CloudWatchLogs.GetLogEvents
         , Network.AWS.CloudWatchLogs.ListTagsLogGroup
@@ -63,6 +72,7 @@ library
         , Network.AWS.CloudWatchLogs.PutDestinationPolicy
         , Network.AWS.CloudWatchLogs.PutLogEvents
         , Network.AWS.CloudWatchLogs.PutMetricFilter
+        , Network.AWS.CloudWatchLogs.PutResourcePolicy
         , Network.AWS.CloudWatchLogs.PutRetentionPolicy
         , Network.AWS.CloudWatchLogs.PutSubscriptionFilter
         , Network.AWS.CloudWatchLogs.TagLogGroup
@@ -76,7 +86,7 @@ library
         , Network.AWS.CloudWatchLogs.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-cloudwatch-logs-test
@@ -96,9 +106,9 @@ test-suite amazonka-cloudwatch-logs-test
         , Test.AWS.CloudWatchLogs.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-cloudwatch-logs == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-cloudwatch-logs
         , base
         , bytestring
         , tasty

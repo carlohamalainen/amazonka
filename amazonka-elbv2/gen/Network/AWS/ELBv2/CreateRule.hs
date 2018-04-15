@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.ELBv2.CreateRule
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a rule for the specified listener.
+-- Creates a rule for the specified listener. The listener must be associated with an Application Load Balancer.
 --
 --
--- Each rule can have one action and one condition. Rules are evaluated in priority order, from the lowest value to the highest value. When the condition for a rule is met, the specified action is taken. If no conditions are met, the default action for the default rule is taken. For more information, see <http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#listener-rules Listener Rules> in the /Application Load Balancers Guide/ .
+-- Rules are evaluated in priority order, from the lowest value to the highest value. When the condition for a rule is met, the specified action is taken. If no conditions are met, the action for the default rule is taken. For more information, see <http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#listener-rules Listener Rules> in the /Application Load Balancers Guide/ .
 --
 -- To view your current rules, use 'DescribeRules' . To update a rule, use 'ModifyRule' . To set the priorities of your rules, use 'SetRulePriorities' . To delete a rule, use 'DeleteRule' .
 --
@@ -44,20 +44,21 @@ module Network.AWS.ELBv2.CreateRule
     , crrsResponseStatus
     ) where
 
-import           Network.AWS.ELBv2.Types
-import           Network.AWS.ELBv2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ELBv2.Types
+import Network.AWS.ELBv2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createRule' smart constructor.
 data CreateRule = CreateRule'
-    { _crListenerARN :: !Text
-    , _crConditions  :: ![RuleCondition]
-    , _crPriority    :: !Nat
-    , _crActions     :: ![Action]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _crListenerARN :: !Text
+  , _crConditions  :: ![RuleCondition]
+  , _crPriority    :: !Nat
+  , _crActions     :: ![Action]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateRule' with the minimum fields required to make a request.
 --
@@ -65,7 +66,7 @@ data CreateRule = CreateRule'
 --
 -- * 'crListenerARN' - The Amazon Resource Name (ARN) of the listener.
 --
--- * 'crConditions' - A condition. Each condition specifies a field name and a single value. If the field name is @host-header@ , you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If the field name is @path-pattern@ , you can specify a single path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
+-- * 'crConditions' - The conditions. Each condition specifies a field name and a single value. If the field name is @host-header@ , you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If the field name is @path-pattern@ , you can specify a single path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
 --
 -- * 'crPriority' - The priority for the rule. A listener can't have multiple rules with the same priority.
 --
@@ -75,18 +76,19 @@ createRule
     -> Natural -- ^ 'crPriority'
     -> CreateRule
 createRule pListenerARN_ pPriority_ =
-    CreateRule'
-    { _crListenerARN = pListenerARN_
-    , _crConditions = mempty
-    , _crPriority = _Nat # pPriority_
-    , _crActions = mempty
-    }
+  CreateRule'
+  { _crListenerARN = pListenerARN_
+  , _crConditions = mempty
+  , _crPriority = _Nat # pPriority_
+  , _crActions = mempty
+  }
+
 
 -- | The Amazon Resource Name (ARN) of the listener.
 crListenerARN :: Lens' CreateRule Text
 crListenerARN = lens _crListenerARN (\ s a -> s{_crListenerARN = a});
 
--- | A condition. Each condition specifies a field name and a single value. If the field name is @host-header@ , you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If the field name is @path-pattern@ , you can specify a single path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
+-- | The conditions. Each condition specifies a field name and a single value. If the field name is @host-header@ , you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * - .     * * (matches 0 or more characters)     * ? (matches exactly 1 character) If the field name is @path-pattern@ , you can specify a single path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.     * A-Z, a-z, 0-9     * _ - . $ / ~ " ' @ : +     * & (using &amp;)     * * (matches 0 or more characters)     * ? (matches exactly 1 character)
 crConditions :: Lens' CreateRule [RuleCondition]
 crConditions = lens _crConditions (\ s a -> s{_crConditions = a}) . _Coerce;
 
@@ -109,9 +111,9 @@ instance AWSRequest CreateRule where
                       may (parseXMLList "member"))
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateRule
+instance Hashable CreateRule where
 
-instance NFData CreateRule
+instance NFData CreateRule where
 
 instance ToHeaders CreateRule where
         toHeaders = const mempty
@@ -131,9 +133,10 @@ instance ToQuery CreateRule where
 
 -- | /See:/ 'createRuleResponse' smart constructor.
 data CreateRuleResponse = CreateRuleResponse'
-    { _crrsRules          :: !(Maybe [Rule])
-    , _crrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _crrsRules          :: !(Maybe [Rule])
+  , _crrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateRuleResponse' with the minimum fields required to make a request.
 --
@@ -146,10 +149,9 @@ createRuleResponse
     :: Int -- ^ 'crrsResponseStatus'
     -> CreateRuleResponse
 createRuleResponse pResponseStatus_ =
-    CreateRuleResponse'
-    { _crrsRules = Nothing
-    , _crrsResponseStatus = pResponseStatus_
-    }
+  CreateRuleResponse'
+  {_crrsRules = Nothing, _crrsResponseStatus = pResponseStatus_}
+
 
 -- | Information about the rule.
 crrsRules :: Lens' CreateRuleResponse [Rule]
@@ -159,4 +161,4 @@ crrsRules = lens _crrsRules (\ s a -> s{_crrsRules = a}) . _Default . _Coerce;
 crrsResponseStatus :: Lens' CreateRuleResponse Int
 crrsResponseStatus = lens _crrsResponseStatus (\ s a -> s{_crrsResponseStatus = a});
 
-instance NFData CreateRuleResponse
+instance NFData CreateRuleResponse where

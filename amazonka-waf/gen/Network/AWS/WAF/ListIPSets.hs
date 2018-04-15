@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.WAF.ListIPSets
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -41,36 +41,34 @@ module Network.AWS.WAF.ListIPSets
     , lisrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.WAF.Types
-import           Network.AWS.WAF.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.WAF.Types
+import Network.AWS.WAF.Types.Product
 
 -- | /See:/ 'listIPSets' smart constructor.
 data ListIPSets = ListIPSets'
-    { _lisNextMarker :: !(Maybe Text)
-    , _lisLimit      :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lisNextMarker :: !(Maybe Text)
+  , _lisLimit      :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListIPSets' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lisNextMarker' - If you specify a value for @Limit@ and you have more @IPSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @IPSets@ . For the second and subsequent @ListIPSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ByteMatchSets@ .
+-- * 'lisNextMarker' - If you specify a value for @Limit@ and you have more @IPSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @IPSets@ . For the second and subsequent @ListIPSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @IPSets@ .
 --
 -- * 'lisLimit' - Specifies the number of @IPSet@ objects that you want AWS WAF to return for this request. If you have more @IPSet@ objects than the number you specify for @Limit@ , the response includes a @NextMarker@ value that you can use to get another batch of @IPSet@ objects.
 listIPSets
     :: ListIPSets
-listIPSets =
-    ListIPSets'
-    { _lisNextMarker = Nothing
-    , _lisLimit = Nothing
-    }
+listIPSets = ListIPSets' {_lisNextMarker = Nothing, _lisLimit = Nothing}
 
--- | If you specify a value for @Limit@ and you have more @IPSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @IPSets@ . For the second and subsequent @ListIPSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @ByteMatchSets@ .
+
+-- | If you specify a value for @Limit@ and you have more @IPSets@ than the value of @Limit@ , AWS WAF returns a @NextMarker@ value in the response that allows you to list another group of @IPSets@ . For the second and subsequent @ListIPSets@ requests, specify the value of @NextMarker@ from the previous response to get information about another batch of @IPSets@ .
 lisNextMarker :: Lens' ListIPSets (Maybe Text)
 lisNextMarker = lens _lisNextMarker (\ s a -> s{_lisNextMarker = a});
 
@@ -95,9 +93,9 @@ instance AWSRequest ListIPSets where
                    (x .?> "NextMarker") <*> (x .?> "IPSets" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListIPSets
+instance Hashable ListIPSets where
 
-instance NFData ListIPSets
+instance NFData ListIPSets where
 
 instance ToHeaders ListIPSets where
         toHeaders
@@ -123,10 +121,11 @@ instance ToQuery ListIPSets where
 
 -- | /See:/ 'listIPSetsResponse' smart constructor.
 data ListIPSetsResponse = ListIPSetsResponse'
-    { _lisrsNextMarker     :: !(Maybe Text)
-    , _lisrsIPSets         :: !(Maybe [IPSetSummary])
-    , _lisrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lisrsNextMarker     :: !(Maybe Text)
+  , _lisrsIPSets         :: !(Maybe [IPSetSummary])
+  , _lisrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListIPSetsResponse' with the minimum fields required to make a request.
 --
@@ -141,11 +140,12 @@ listIPSetsResponse
     :: Int -- ^ 'lisrsResponseStatus'
     -> ListIPSetsResponse
 listIPSetsResponse pResponseStatus_ =
-    ListIPSetsResponse'
-    { _lisrsNextMarker = Nothing
-    , _lisrsIPSets = Nothing
-    , _lisrsResponseStatus = pResponseStatus_
-    }
+  ListIPSetsResponse'
+  { _lisrsNextMarker = Nothing
+  , _lisrsIPSets = Nothing
+  , _lisrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | If you have more @IPSet@ objects than the number that you specified for @Limit@ in the request, the response includes a @NextMarker@ value. To list more @IPSet@ objects, submit another @ListIPSets@ request, and specify the @NextMarker@ value from the response in the @NextMarker@ value in the next request.
 lisrsNextMarker :: Lens' ListIPSetsResponse (Maybe Text)
@@ -159,4 +159,4 @@ lisrsIPSets = lens _lisrsIPSets (\ s a -> s{_lisrsIPSets = a}) . _Default . _Coe
 lisrsResponseStatus :: Lens' ListIPSetsResponse Int
 lisrsResponseStatus = lens _lisrsResponseStatus (\ s a -> s{_lisrsResponseStatus = a});
 
-instance NFData ListIPSetsResponse
+instance NFData ListIPSetsResponse where

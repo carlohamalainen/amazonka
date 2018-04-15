@@ -9,21 +9,22 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.Types.Sum
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.ServiceCatalog.Types.Sum where
 
-import           Network.AWS.Prelude
+import Network.AWS.Prelude
 
 data AccessLevelFilterKey
-    = Account
-    | Role
-    | User
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Account
+  | Role
+  | User
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText AccessLevelFilterKey where
     parser = takeLowerText >>= \case
@@ -48,9 +49,64 @@ instance ToHeader     AccessLevelFilterKey
 instance ToJSON AccessLevelFilterKey where
     toJSON = toJSONText
 
+data CopyOption =
+  CopyTags
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText CopyOption where
+    parser = takeLowerText >>= \case
+        "copytags" -> pure CopyTags
+        e -> fromTextError $ "Failure parsing CopyOption from value: '" <> e
+           <> "'. Accepted values: copytags"
+
+instance ToText CopyOption where
+    toText = \case
+        CopyTags -> "CopyTags"
+
+instance Hashable     CopyOption
+instance NFData       CopyOption
+instance ToByteString CopyOption
+instance ToQuery      CopyOption
+instance ToHeader     CopyOption
+
+instance ToJSON CopyOption where
+    toJSON = toJSONText
+
+data CopyProductStatus
+  = CPSFailed
+  | CPSInProgress
+  | CPSSucceeded
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText CopyProductStatus where
+    parser = takeLowerText >>= \case
+        "failed" -> pure CPSFailed
+        "in_progress" -> pure CPSInProgress
+        "succeeded" -> pure CPSSucceeded
+        e -> fromTextError $ "Failure parsing CopyProductStatus from value: '" <> e
+           <> "'. Accepted values: failed, in_progress, succeeded"
+
+instance ToText CopyProductStatus where
+    toText = \case
+        CPSFailed -> "FAILED"
+        CPSInProgress -> "IN_PROGRESS"
+        CPSSucceeded -> "SUCCEEDED"
+
+instance Hashable     CopyProductStatus
+instance NFData       CopyProductStatus
+instance ToByteString CopyProductStatus
+instance ToQuery      CopyProductStatus
+instance ToHeader     CopyProductStatus
+
+instance FromJSON CopyProductStatus where
+    parseJSON = parseJSONText "CopyProductStatus"
+
 data PrincipalType =
-    IAM
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  IAM
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText PrincipalType where
     parser = takeLowerText >>= \case
@@ -75,8 +131,9 @@ instance FromJSON PrincipalType where
     parseJSON = parseJSONText "PrincipalType"
 
 data ProductSource =
-    PSAccount
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  PSAccount
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProductSource where
     parser = takeLowerText >>= \case
@@ -98,9 +155,10 @@ instance ToJSON ProductSource where
     toJSON = toJSONText
 
 data ProductType
-    = CloudFormationTemplate
-    | Marketplace
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = CloudFormationTemplate
+  | Marketplace
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProductType where
     parser = takeLowerText >>= \case
@@ -127,11 +185,12 @@ instance FromJSON ProductType where
     parseJSON = parseJSONText "ProductType"
 
 data ProductViewFilterBy
-    = FullTextSearch
-    | Owner
-    | ProductType
-    | SourceProductId
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = FullTextSearch
+  | Owner
+  | ProductType
+  | SourceProductId
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProductViewFilterBy where
     parser = takeLowerText >>= \case
@@ -159,10 +218,11 @@ instance ToJSON ProductViewFilterBy where
     toJSON = toJSONText
 
 data ProductViewSortBy
-    = CreationDate
-    | Title
-    | VersionCount
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = CreationDate
+  | Title
+  | VersionCount
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProductViewSortBy where
     parser = takeLowerText >>= \case
@@ -188,11 +248,12 @@ instance ToJSON ProductViewSortBy where
     toJSON = toJSONText
 
 data ProvisionedProductStatus
-    = PPSAvailable
-    | PPSError'
-    | PPSTainted
-    | PPSUnderChange
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = PPSAvailable
+  | PPSError'
+  | PPSTainted
+  | PPSUnderChange
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProvisionedProductStatus where
     parser = takeLowerText >>= \case
@@ -219,11 +280,36 @@ instance ToHeader     ProvisionedProductStatus
 instance FromJSON ProvisionedProductStatus where
     parseJSON = parseJSONText "ProvisionedProductStatus"
 
+data ProvisioningArtifactPropertyName =
+  Id
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText ProvisioningArtifactPropertyName where
+    parser = takeLowerText >>= \case
+        "id" -> pure Id
+        e -> fromTextError $ "Failure parsing ProvisioningArtifactPropertyName from value: '" <> e
+           <> "'. Accepted values: id"
+
+instance ToText ProvisioningArtifactPropertyName where
+    toText = \case
+        Id -> "Id"
+
+instance Hashable     ProvisioningArtifactPropertyName
+instance NFData       ProvisioningArtifactPropertyName
+instance ToByteString ProvisioningArtifactPropertyName
+instance ToQuery      ProvisioningArtifactPropertyName
+instance ToHeader     ProvisioningArtifactPropertyName
+
+instance ToJSON ProvisioningArtifactPropertyName where
+    toJSON = toJSONText
+
 data ProvisioningArtifactType
-    = PATCloudFormationTemplate
-    | PATMarketplaceAMI
-    | PATMarketplaceCar
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = PATCloudFormationTemplate
+  | PATMarketplaceAMI
+  | PATMarketplaceCar
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ProvisioningArtifactType where
     parser = takeLowerText >>= \case
@@ -252,12 +338,13 @@ instance FromJSON ProvisioningArtifactType where
     parseJSON = parseJSONText "ProvisioningArtifactType"
 
 data RecordStatus
-    = RSCreated
-    | RSFailed
-    | RSInProgress
-    | RSInProgressInError
-    | RSSucceeded
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = RSCreated
+  | RSFailed
+  | RSInProgress
+  | RSInProgressInError
+  | RSSucceeded
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText RecordStatus where
     parser = takeLowerText >>= \case
@@ -287,10 +374,11 @@ instance FromJSON RecordStatus where
     parseJSON = parseJSONText "RecordStatus"
 
 data RequestStatus
-    = Available
-    | Creating
-    | Failed
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Available
+  | Creating
+  | Failed
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText RequestStatus where
     parser = takeLowerText >>= \case
@@ -316,9 +404,10 @@ instance FromJSON RequestStatus where
     parseJSON = parseJSONText "RequestStatus"
 
 data SortOrder
-    = Ascending
-    | Descending
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Ascending
+  | Descending
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText SortOrder where
     parser = takeLowerText >>= \case

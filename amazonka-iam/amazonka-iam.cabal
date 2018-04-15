@@ -1,13 +1,13 @@
 name:                  amazonka-iam
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Identity and Access Management SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-iam
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.IAM
@@ -77,6 +82,7 @@ library
         , Network.AWS.IAM.DeleteSAMLProvider
         , Network.AWS.IAM.DeleteSSHPublicKey
         , Network.AWS.IAM.DeleteServerCertificate
+        , Network.AWS.IAM.DeleteServiceLinkedRole
         , Network.AWS.IAM.DeleteServiceSpecificCredential
         , Network.AWS.IAM.DeleteSigningCertificate
         , Network.AWS.IAM.DeleteUser
@@ -106,6 +112,7 @@ library
         , Network.AWS.IAM.GetSAMLProvider
         , Network.AWS.IAM.GetSSHPublicKey
         , Network.AWS.IAM.GetServerCertificate
+        , Network.AWS.IAM.GetServiceLinkedRoleDeletionStatus
         , Network.AWS.IAM.GetUser
         , Network.AWS.IAM.GetUserPolicy
         , Network.AWS.IAM.ListAccessKeys
@@ -168,7 +175,7 @@ library
         , Network.AWS.IAM.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-iam-test
@@ -188,9 +195,9 @@ test-suite amazonka-iam-test
         , Test.AWS.IAM.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-iam == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-iam
         , base
         , bytestring
         , tasty

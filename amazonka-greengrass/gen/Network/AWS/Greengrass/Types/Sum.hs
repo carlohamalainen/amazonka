@@ -9,32 +9,39 @@
 
 -- |
 -- Module      : Network.AWS.Greengrass.Types.Sum
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.Greengrass.Types.Sum where
 
-import           Network.AWS.Prelude
+import Network.AWS.Prelude
 
 data DeploymentType
-    = NewDeployment
-    | Redeployment
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = ForceResetDeployment
+  | NewDeployment
+  | Redeployment
+  | ResetDeployment
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText DeploymentType where
     parser = takeLowerText >>= \case
+        "forceresetdeployment" -> pure ForceResetDeployment
         "newdeployment" -> pure NewDeployment
         "redeployment" -> pure Redeployment
+        "resetdeployment" -> pure ResetDeployment
         e -> fromTextError $ "Failure parsing DeploymentType from value: '" <> e
-           <> "'. Accepted values: newdeployment, redeployment"
+           <> "'. Accepted values: forceresetdeployment, newdeployment, redeployment, resetdeployment"
 
 instance ToText DeploymentType where
     toText = \case
+        ForceResetDeployment -> "ForceResetDeployment"
         NewDeployment -> "NewDeployment"
         Redeployment -> "Redeployment"
+        ResetDeployment -> "ResetDeployment"
 
 instance Hashable     DeploymentType
 instance NFData       DeploymentType
@@ -45,10 +52,14 @@ instance ToHeader     DeploymentType
 instance ToJSON DeploymentType where
     toJSON = toJSONText
 
+instance FromJSON DeploymentType where
+    parseJSON = parseJSONText "DeploymentType"
+
 data LoggerComponent
-    = GreengrassSystem
-    | Lambda
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = GreengrassSystem
+  | Lambda
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText LoggerComponent where
     parser = takeLowerText >>= \case
@@ -75,12 +86,13 @@ instance FromJSON LoggerComponent where
     parseJSON = parseJSONText "LoggerComponent"
 
 data LoggerLevel
-    = Debug
-    | Error'
-    | Fatal
-    | Info
-    | Warn
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Debug
+  | Error'
+  | Fatal
+  | Info
+  | Warn
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText LoggerLevel where
     parser = takeLowerText >>= \case
@@ -113,9 +125,10 @@ instance FromJSON LoggerLevel where
     parseJSON = parseJSONText "LoggerLevel"
 
 data LoggerType
-    = AWSCloudWatch
-    | FileSystem
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = AWSCloudWatch
+  | FileSystem
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText LoggerType where
     parser = takeLowerText >>= \case

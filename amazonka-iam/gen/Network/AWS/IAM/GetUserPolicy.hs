@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.IAM.GetUserPolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,18 +44,19 @@ module Network.AWS.IAM.GetUserPolicy
     , guprsPolicyDocument
     ) where
 
-import           Network.AWS.IAM.Types
-import           Network.AWS.IAM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.IAM.Types
+import Network.AWS.IAM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getUserPolicy' smart constructor.
 data GetUserPolicy = GetUserPolicy'
-    { _gupUserName   :: !Text
-    , _gupPolicyName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gupUserName   :: !Text
+  , _gupPolicyName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetUserPolicy' with the minimum fields required to make a request.
 --
@@ -63,22 +64,20 @@ data GetUserPolicy = GetUserPolicy'
 --
 -- * 'gupUserName' - The name of the user who the policy is associated with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 --
--- * 'gupPolicyName' - The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- * 'gupPolicyName' - The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 getUserPolicy
     :: Text -- ^ 'gupUserName'
     -> Text -- ^ 'gupPolicyName'
     -> GetUserPolicy
 getUserPolicy pUserName_ pPolicyName_ =
-    GetUserPolicy'
-    { _gupUserName = pUserName_
-    , _gupPolicyName = pPolicyName_
-    }
+  GetUserPolicy' {_gupUserName = pUserName_, _gupPolicyName = pPolicyName_}
+
 
 -- | The name of the user who the policy is associated with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 gupUserName :: Lens' GetUserPolicy Text
 gupUserName = lens _gupUserName (\ s a -> s{_gupUserName = a});
 
--- | The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- | The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 gupPolicyName :: Lens' GetUserPolicy Text
 gupPolicyName = lens _gupPolicyName (\ s a -> s{_gupPolicyName = a});
 
@@ -93,9 +92,9 @@ instance AWSRequest GetUserPolicy where
                      (x .@ "PolicyName")
                      <*> (x .@ "PolicyDocument"))
 
-instance Hashable GetUserPolicy
+instance Hashable GetUserPolicy where
 
-instance NFData GetUserPolicy
+instance NFData GetUserPolicy where
 
 instance ToHeaders GetUserPolicy where
         toHeaders = const mempty
@@ -117,11 +116,12 @@ instance ToQuery GetUserPolicy where
 --
 -- /See:/ 'getUserPolicyResponse' smart constructor.
 data GetUserPolicyResponse = GetUserPolicyResponse'
-    { _guprsResponseStatus :: !Int
-    , _guprsUserName       :: !Text
-    , _guprsPolicyName     :: !Text
-    , _guprsPolicyDocument :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _guprsResponseStatus :: !Int
+  , _guprsUserName       :: !Text
+  , _guprsPolicyName     :: !Text
+  , _guprsPolicyDocument :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetUserPolicyResponse' with the minimum fields required to make a request.
 --
@@ -141,12 +141,13 @@ getUserPolicyResponse
     -> Text -- ^ 'guprsPolicyDocument'
     -> GetUserPolicyResponse
 getUserPolicyResponse pResponseStatus_ pUserName_ pPolicyName_ pPolicyDocument_ =
-    GetUserPolicyResponse'
-    { _guprsResponseStatus = pResponseStatus_
-    , _guprsUserName = pUserName_
-    , _guprsPolicyName = pPolicyName_
-    , _guprsPolicyDocument = pPolicyDocument_
-    }
+  GetUserPolicyResponse'
+  { _guprsResponseStatus = pResponseStatus_
+  , _guprsUserName = pUserName_
+  , _guprsPolicyName = pPolicyName_
+  , _guprsPolicyDocument = pPolicyDocument_
+  }
+
 
 -- | -- | The response status code.
 guprsResponseStatus :: Lens' GetUserPolicyResponse Int
@@ -164,4 +165,4 @@ guprsPolicyName = lens _guprsPolicyName (\ s a -> s{_guprsPolicyName = a});
 guprsPolicyDocument :: Lens' GetUserPolicyResponse Text
 guprsPolicyDocument = lens _guprsPolicyDocument (\ s a -> s{_guprsPolicyDocument = a});
 
-instance NFData GetUserPolicyResponse
+instance NFData GetUserPolicyResponse where

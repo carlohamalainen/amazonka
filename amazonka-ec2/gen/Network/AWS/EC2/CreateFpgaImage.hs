@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.CreateFpgaImage
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -31,12 +31,12 @@ module Network.AWS.EC2.CreateFpgaImage
       createFpgaImage
     , CreateFpgaImage
     -- * Request Lenses
-    , cfiClientToken
-    , cfiLogsStorageLocation
-    , cfiName
-    , cfiDescription
-    , cfiDryRun
-    , cfiInputStorageLocation
+    , creClientToken
+    , creLogsStorageLocation
+    , creName
+    , creDescription
+    , creDryRun
+    , creInputStorageLocation
 
     -- * Destructuring the Response
     , createFpgaImageResponse
@@ -47,74 +47,76 @@ module Network.AWS.EC2.CreateFpgaImage
     , cfirsResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createFpgaImage' smart constructor.
 data CreateFpgaImage = CreateFpgaImage'
-    { _cfiClientToken          :: !(Maybe Text)
-    , _cfiLogsStorageLocation  :: !(Maybe StorageLocation)
-    , _cfiName                 :: !(Maybe Text)
-    , _cfiDescription          :: !(Maybe Text)
-    , _cfiDryRun               :: !(Maybe Bool)
-    , _cfiInputStorageLocation :: !StorageLocation
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _creClientToken          :: !(Maybe Text)
+  , _creLogsStorageLocation  :: !(Maybe StorageLocation)
+  , _creName                 :: !(Maybe Text)
+  , _creDescription          :: !(Maybe Text)
+  , _creDryRun               :: !(Maybe Bool)
+  , _creInputStorageLocation :: !StorageLocation
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateFpgaImage' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cfiClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html Ensuring Idempotency> .
+-- * 'creClientToken' - Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html Ensuring Idempotency> .
 --
--- * 'cfiLogsStorageLocation' - The location in Amazon S3 for the output logs.
+-- * 'creLogsStorageLocation' - The location in Amazon S3 for the output logs.
 --
--- * 'cfiName' - A name for the AFI.
+-- * 'creName' - A name for the AFI.
 --
--- * 'cfiDescription' - A description for the AFI.
+-- * 'creDescription' - A description for the AFI.
 --
--- * 'cfiDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
+-- * 'creDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'cfiInputStorageLocation' - The location of the encrypted design checkpoint in Amazon S3. The input must be a tarball.
+-- * 'creInputStorageLocation' - The location of the encrypted design checkpoint in Amazon S3. The input must be a tarball.
 createFpgaImage
-    :: StorageLocation -- ^ 'cfiInputStorageLocation'
+    :: StorageLocation -- ^ 'creInputStorageLocation'
     -> CreateFpgaImage
 createFpgaImage pInputStorageLocation_ =
-    CreateFpgaImage'
-    { _cfiClientToken = Nothing
-    , _cfiLogsStorageLocation = Nothing
-    , _cfiName = Nothing
-    , _cfiDescription = Nothing
-    , _cfiDryRun = Nothing
-    , _cfiInputStorageLocation = pInputStorageLocation_
-    }
+  CreateFpgaImage'
+  { _creClientToken = Nothing
+  , _creLogsStorageLocation = Nothing
+  , _creName = Nothing
+  , _creDescription = Nothing
+  , _creDryRun = Nothing
+  , _creInputStorageLocation = pInputStorageLocation_
+  }
+
 
 -- | Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html Ensuring Idempotency> .
-cfiClientToken :: Lens' CreateFpgaImage (Maybe Text)
-cfiClientToken = lens _cfiClientToken (\ s a -> s{_cfiClientToken = a});
+creClientToken :: Lens' CreateFpgaImage (Maybe Text)
+creClientToken = lens _creClientToken (\ s a -> s{_creClientToken = a});
 
 -- | The location in Amazon S3 for the output logs.
-cfiLogsStorageLocation :: Lens' CreateFpgaImage (Maybe StorageLocation)
-cfiLogsStorageLocation = lens _cfiLogsStorageLocation (\ s a -> s{_cfiLogsStorageLocation = a});
+creLogsStorageLocation :: Lens' CreateFpgaImage (Maybe StorageLocation)
+creLogsStorageLocation = lens _creLogsStorageLocation (\ s a -> s{_creLogsStorageLocation = a});
 
 -- | A name for the AFI.
-cfiName :: Lens' CreateFpgaImage (Maybe Text)
-cfiName = lens _cfiName (\ s a -> s{_cfiName = a});
+creName :: Lens' CreateFpgaImage (Maybe Text)
+creName = lens _creName (\ s a -> s{_creName = a});
 
 -- | A description for the AFI.
-cfiDescription :: Lens' CreateFpgaImage (Maybe Text)
-cfiDescription = lens _cfiDescription (\ s a -> s{_cfiDescription = a});
+creDescription :: Lens' CreateFpgaImage (Maybe Text)
+creDescription = lens _creDescription (\ s a -> s{_creDescription = a});
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
-cfiDryRun :: Lens' CreateFpgaImage (Maybe Bool)
-cfiDryRun = lens _cfiDryRun (\ s a -> s{_cfiDryRun = a});
+creDryRun :: Lens' CreateFpgaImage (Maybe Bool)
+creDryRun = lens _creDryRun (\ s a -> s{_creDryRun = a});
 
 -- | The location of the encrypted design checkpoint in Amazon S3. The input must be a tarball.
-cfiInputStorageLocation :: Lens' CreateFpgaImage StorageLocation
-cfiInputStorageLocation = lens _cfiInputStorageLocation (\ s a -> s{_cfiInputStorageLocation = a});
+creInputStorageLocation :: Lens' CreateFpgaImage StorageLocation
+creInputStorageLocation = lens _creInputStorageLocation (\ s a -> s{_creInputStorageLocation = a});
 
 instance AWSRequest CreateFpgaImage where
         type Rs CreateFpgaImage = CreateFpgaImageResponse
@@ -126,9 +128,9 @@ instance AWSRequest CreateFpgaImage where
                    (x .@? "fpgaImageId") <*> (x .@? "fpgaImageGlobalId")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateFpgaImage
+instance Hashable CreateFpgaImage where
 
-instance NFData CreateFpgaImage
+instance NFData CreateFpgaImage where
 
 instance ToHeaders CreateFpgaImage where
         toHeaders = const mempty
@@ -141,18 +143,19 @@ instance ToQuery CreateFpgaImage where
           = mconcat
               ["Action" =: ("CreateFpgaImage" :: ByteString),
                "Version" =: ("2016-11-15" :: ByteString),
-               "ClientToken" =: _cfiClientToken,
-               "LogsStorageLocation" =: _cfiLogsStorageLocation,
-               "Name" =: _cfiName, "Description" =: _cfiDescription,
-               "DryRun" =: _cfiDryRun,
-               "InputStorageLocation" =: _cfiInputStorageLocation]
+               "ClientToken" =: _creClientToken,
+               "LogsStorageLocation" =: _creLogsStorageLocation,
+               "Name" =: _creName, "Description" =: _creDescription,
+               "DryRun" =: _creDryRun,
+               "InputStorageLocation" =: _creInputStorageLocation]
 
 -- | /See:/ 'createFpgaImageResponse' smart constructor.
 data CreateFpgaImageResponse = CreateFpgaImageResponse'
-    { _cfirsFpgaImageId       :: !(Maybe Text)
-    , _cfirsFpgaImageGlobalId :: !(Maybe Text)
-    , _cfirsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cfirsFpgaImageId       :: !(Maybe Text)
+  , _cfirsFpgaImageGlobalId :: !(Maybe Text)
+  , _cfirsResponseStatus    :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateFpgaImageResponse' with the minimum fields required to make a request.
 --
@@ -167,11 +170,12 @@ createFpgaImageResponse
     :: Int -- ^ 'cfirsResponseStatus'
     -> CreateFpgaImageResponse
 createFpgaImageResponse pResponseStatus_ =
-    CreateFpgaImageResponse'
-    { _cfirsFpgaImageId = Nothing
-    , _cfirsFpgaImageGlobalId = Nothing
-    , _cfirsResponseStatus = pResponseStatus_
-    }
+  CreateFpgaImageResponse'
+  { _cfirsFpgaImageId = Nothing
+  , _cfirsFpgaImageGlobalId = Nothing
+  , _cfirsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The FPGA image identifier (AFI ID).
 cfirsFpgaImageId :: Lens' CreateFpgaImageResponse (Maybe Text)
@@ -185,4 +189,4 @@ cfirsFpgaImageGlobalId = lens _cfirsFpgaImageGlobalId (\ s a -> s{_cfirsFpgaImag
 cfirsResponseStatus :: Lens' CreateFpgaImageResponse Int
 cfirsResponseStatus = lens _cfirsResponseStatus (\ s a -> s{_cfirsResponseStatus = a});
 
-instance NFData CreateFpgaImageResponse
+instance NFData CreateFpgaImageResponse where

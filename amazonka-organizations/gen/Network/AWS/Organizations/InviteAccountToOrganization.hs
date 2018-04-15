@@ -12,18 +12,20 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.InviteAccountToOrganization
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Sends an invitation to another account to join your organization as a member account. Organizations sends email on your behalf to the email address that is associated with the other account's owner. The invitation is implemented as a 'Handshake' whose details are in the response.
 --
 --
--- /Important:/ You can invite AWS accounts only from the same reseller as the master account. For example, if your organization's master account was created by Amazon Internet Services Pvt. Ltd (AISPL), an AWS reseller in India, then you can only invite other AISPL accounts to your organization. You can't combine accounts from AISPL and AWS. For more information, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India> .
+-- /Important:/ You can invite AWS accounts only from the same seller as the master account. For example, if your organization's master account was created by Amazon Internet Services Pvt. Ltd (AISPL), an AWS seller in India, then you can only invite other AISPL accounts to your organization. You can't combine accounts from AISPL and AWS, or any other AWS seller. For more information, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India> .
 --
 -- This operation can be called only from the organization's master account.
+--
+-- /Important:/ If you get an exception that indicates that you exceeded your account limits for the organization or that you can"t add an account because your organization is still initializing, please contact <https://console.aws.amazon.com/support/home#/ AWS Customer Support> .
 --
 module Network.AWS.Organizations.InviteAccountToOrganization
     (
@@ -42,18 +44,19 @@ module Network.AWS.Organizations.InviteAccountToOrganization
     , iatorsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Organizations.Types
-import           Network.AWS.Organizations.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Organizations.Types
+import Network.AWS.Organizations.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'inviteAccountToOrganization' smart constructor.
 data InviteAccountToOrganization = InviteAccountToOrganization'
-    { _iatoNotes  :: !(Maybe (Sensitive Text))
-    , _iatoTarget :: !HandshakeParty
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _iatoNotes  :: !(Maybe (Sensitive Text))
+  , _iatoTarget :: !HandshakeParty
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InviteAccountToOrganization' with the minimum fields required to make a request.
 --
@@ -61,21 +64,19 @@ data InviteAccountToOrganization = InviteAccountToOrganization'
 --
 -- * 'iatoNotes' - Additional information that you want to include in the generated email to the recipient account owner.
 --
--- * 'iatoTarget' - The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements:  @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target id=123456789012,type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , then you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , then you must specify the email address that is associated with the account. @--target id=bill@example.com,type=EMAIL@
+-- * 'iatoTarget' - The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements:  @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target Id=123456789012,Type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , then you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , then you must specify the email address that is associated with the account. @--target Id=bill@example.com,Type=EMAIL@
 inviteAccountToOrganization
     :: HandshakeParty -- ^ 'iatoTarget'
     -> InviteAccountToOrganization
 inviteAccountToOrganization pTarget_ =
-    InviteAccountToOrganization'
-    { _iatoNotes = Nothing
-    , _iatoTarget = pTarget_
-    }
+  InviteAccountToOrganization' {_iatoNotes = Nothing, _iatoTarget = pTarget_}
+
 
 -- | Additional information that you want to include in the generated email to the recipient account owner.
 iatoNotes :: Lens' InviteAccountToOrganization (Maybe Text)
 iatoNotes = lens _iatoNotes (\ s a -> s{_iatoNotes = a}) . mapping _Sensitive;
 
--- | The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements:  @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target id=123456789012,type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , then you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , then you must specify the email address that is associated with the account. @--target id=bill@example.com,type=EMAIL@
+-- | The identifier (ID) of the AWS account that you want to invite to join your organization. This is a JSON object that contains the following elements:  @{ "Type": "ACCOUNT", "Id": "</__account id number__ / >" }@  If you use the AWS CLI, you can submit this as a single string, similar to the following example: @--target Id=123456789012,Type=ACCOUNT@  If you specify @"Type": "ACCOUNT"@ , then you must provide the AWS account ID number as the @Id@ . If you specify @"Type": "EMAIL"@ , then you must specify the email address that is associated with the account. @--target Id=bill@example.com,Type=EMAIL@
 iatoTarget :: Lens' InviteAccountToOrganization HandshakeParty
 iatoTarget = lens _iatoTarget (\ s a -> s{_iatoTarget = a});
 
@@ -89,9 +90,9 @@ instance AWSRequest InviteAccountToOrganization where
                  InviteAccountToOrganizationResponse' <$>
                    (x .?> "Handshake") <*> (pure (fromEnum s)))
 
-instance Hashable InviteAccountToOrganization
+instance Hashable InviteAccountToOrganization where
 
-instance NFData InviteAccountToOrganization
+instance NFData InviteAccountToOrganization where
 
 instance ToHeaders InviteAccountToOrganization where
         toHeaders
@@ -118,9 +119,10 @@ instance ToQuery InviteAccountToOrganization where
 
 -- | /See:/ 'inviteAccountToOrganizationResponse' smart constructor.
 data InviteAccountToOrganizationResponse = InviteAccountToOrganizationResponse'
-    { _iatorsHandshake      :: !(Maybe Handshake)
-    , _iatorsResponseStatus :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _iatorsHandshake      :: !(Maybe Handshake)
+  , _iatorsResponseStatus :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InviteAccountToOrganizationResponse' with the minimum fields required to make a request.
 --
@@ -133,10 +135,9 @@ inviteAccountToOrganizationResponse
     :: Int -- ^ 'iatorsResponseStatus'
     -> InviteAccountToOrganizationResponse
 inviteAccountToOrganizationResponse pResponseStatus_ =
-    InviteAccountToOrganizationResponse'
-    { _iatorsHandshake = Nothing
-    , _iatorsResponseStatus = pResponseStatus_
-    }
+  InviteAccountToOrganizationResponse'
+  {_iatorsHandshake = Nothing, _iatorsResponseStatus = pResponseStatus_}
+
 
 -- | A structure that contains details about the handshake that is created to support this invitation request.
 iatorsHandshake :: Lens' InviteAccountToOrganizationResponse (Maybe Handshake)
@@ -147,3 +148,4 @@ iatorsResponseStatus :: Lens' InviteAccountToOrganizationResponse Int
 iatorsResponseStatus = lens _iatorsResponseStatus (\ s a -> s{_iatorsResponseStatus = a});
 
 instance NFData InviteAccountToOrganizationResponse
+         where

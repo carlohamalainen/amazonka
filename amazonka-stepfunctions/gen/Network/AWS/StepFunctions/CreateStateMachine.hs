@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.StepFunctions.CreateStateMachine
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a state machine.
+-- Creates a state machine. A state machine consists of a collection of states that can do work (@Task@ states), determine which states to transition to next (@Choice@ states), stop an execution with an error (@Fail@ states), and so on. State machines are specified using a JSON-based, structured language.
 --
 --
 module Network.AWS.StepFunctions.CreateStateMachine
@@ -40,25 +40,26 @@ module Network.AWS.StepFunctions.CreateStateMachine
     , csmrsCreationDate
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.StepFunctions.Types
-import           Network.AWS.StepFunctions.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.Product
 
 -- | /See:/ 'createStateMachine' smart constructor.
 data CreateStateMachine = CreateStateMachine'
-    { _csmName       :: !Text
-    , _csmDefinition :: !Text
-    , _csmRoleARN    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csmName       :: !Text
+  , _csmDefinition :: !Text
+  , _csmRoleARN    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStateMachine' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csmName' - The name of the state machine. This name must be unique for your AWS account and region.
+-- * 'csmName' - The name of the state machine. This name must be unique for your AWS account and region for 90 days. For more information, see <http://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * whitespace     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ )
 --
 -- * 'csmDefinition' - The Amazon States Language definition of the state machine.
 --
@@ -69,13 +70,11 @@ createStateMachine
     -> Text -- ^ 'csmRoleARN'
     -> CreateStateMachine
 createStateMachine pName_ pDefinition_ pRoleARN_ =
-    CreateStateMachine'
-    { _csmName = pName_
-    , _csmDefinition = pDefinition_
-    , _csmRoleARN = pRoleARN_
-    }
+  CreateStateMachine'
+  {_csmName = pName_, _csmDefinition = pDefinition_, _csmRoleARN = pRoleARN_}
 
--- | The name of the state machine. This name must be unique for your AWS account and region.
+
+-- | The name of the state machine. This name must be unique for your AWS account and region for 90 days. For more information, see <http://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * whitespace     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ )
 csmName :: Lens' CreateStateMachine Text
 csmName = lens _csmName (\ s a -> s{_csmName = a});
 
@@ -98,9 +97,9 @@ instance AWSRequest CreateStateMachine where
                    (pure (fromEnum s)) <*> (x .:> "stateMachineArn") <*>
                      (x .:> "creationDate"))
 
-instance Hashable CreateStateMachine
+instance Hashable CreateStateMachine where
 
-instance NFData CreateStateMachine
+instance NFData CreateStateMachine where
 
 instance ToHeaders CreateStateMachine where
         toHeaders
@@ -128,10 +127,11 @@ instance ToQuery CreateStateMachine where
 
 -- | /See:/ 'createStateMachineResponse' smart constructor.
 data CreateStateMachineResponse = CreateStateMachineResponse'
-    { _csmrsResponseStatus  :: !Int
-    , _csmrsStateMachineARN :: !Text
-    , _csmrsCreationDate    :: !POSIX
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csmrsResponseStatus  :: !Int
+  , _csmrsStateMachineARN :: !Text
+  , _csmrsCreationDate    :: !POSIX
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStateMachineResponse' with the minimum fields required to make a request.
 --
@@ -148,11 +148,12 @@ createStateMachineResponse
     -> UTCTime -- ^ 'csmrsCreationDate'
     -> CreateStateMachineResponse
 createStateMachineResponse pResponseStatus_ pStateMachineARN_ pCreationDate_ =
-    CreateStateMachineResponse'
-    { _csmrsResponseStatus = pResponseStatus_
-    , _csmrsStateMachineARN = pStateMachineARN_
-    , _csmrsCreationDate = _Time # pCreationDate_
-    }
+  CreateStateMachineResponse'
+  { _csmrsResponseStatus = pResponseStatus_
+  , _csmrsStateMachineARN = pStateMachineARN_
+  , _csmrsCreationDate = _Time # pCreationDate_
+  }
+
 
 -- | -- | The response status code.
 csmrsResponseStatus :: Lens' CreateStateMachineResponse Int
@@ -166,4 +167,4 @@ csmrsStateMachineARN = lens _csmrsStateMachineARN (\ s a -> s{_csmrsStateMachine
 csmrsCreationDate :: Lens' CreateStateMachineResponse UTCTime
 csmrsCreationDate = lens _csmrsCreationDate (\ s a -> s{_csmrsCreationDate = a}) . _Time;
 
-instance NFData CreateStateMachineResponse
+instance NFData CreateStateMachineResponse where

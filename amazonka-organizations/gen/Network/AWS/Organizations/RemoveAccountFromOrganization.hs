@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Organizations.RemoveAccountFromOrganization
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -25,7 +25,7 @@
 --
 -- This operation can be called only from the organization's master account. Member accounts can remove themselves with 'LeaveOrganization' instead.
 --
--- /Important:/     * You can remove only accounts that were created outside your organization and invited to join. If you created the account using the AWS Organizations console, the Organizations API, or the Organizations CLI commands, then you cannot remove the account.
+-- /Important:/     * You can remove an account from your organization only if the account is configured with the information required to operate as a standalone account. When you create an account in an organization using the AWS Organizations console, API, or CLI commands, the information required of standalone accounts is /not/ automatically collected. For an account that you want to make standalone, you must accept the End User License Agreement (EULA), choose a support plan, provide and verify the required contact information, and provide a current payment method. AWS uses the payment method to charge for any billable (not free tier) AWS activity that occurs while the account is not attached to an organization. To remove an account that does not yet have this information, you must sign in as the member account and follow the steps at <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided> in the /AWS Organizations User Guide/ .
 --
 --     * You can remove a member account only after you enable IAM user access to billing in the member account. For more information, see <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate Activating Access to the Billing and Cost Management Console> in the /AWS Billing and Cost Management User Guide/ .
 --
@@ -44,17 +44,18 @@ module Network.AWS.Organizations.RemoveAccountFromOrganization
     , RemoveAccountFromOrganizationResponse
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Organizations.Types
-import           Network.AWS.Organizations.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Organizations.Types
+import Network.AWS.Organizations.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'removeAccountFromOrganization' smart constructor.
 newtype RemoveAccountFromOrganization = RemoveAccountFromOrganization'
-    { _rafoAccountId :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rafoAccountId :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RemoveAccountFromOrganization' with the minimum fields required to make a request.
 --
@@ -65,9 +66,8 @@ removeAccountFromOrganization
     :: Text -- ^ 'rafoAccountId'
     -> RemoveAccountFromOrganization
 removeAccountFromOrganization pAccountId_ =
-    RemoveAccountFromOrganization'
-    { _rafoAccountId = pAccountId_
-    }
+  RemoveAccountFromOrganization' {_rafoAccountId = pAccountId_}
+
 
 -- | The unique identifier (ID) of the member account that you want to remove from the organization. The <http://wikipedia.org/wiki/regex regex pattern> for an account ID string requires exactly 12 digits.
 rafoAccountId :: Lens' RemoveAccountFromOrganization Text
@@ -81,9 +81,9 @@ instance AWSRequest RemoveAccountFromOrganization
         response
           = receiveNull RemoveAccountFromOrganizationResponse'
 
-instance Hashable RemoveAccountFromOrganization
+instance Hashable RemoveAccountFromOrganization where
 
-instance NFData RemoveAccountFromOrganization
+instance NFData RemoveAccountFromOrganization where
 
 instance ToHeaders RemoveAccountFromOrganization
          where
@@ -109,8 +109,9 @@ instance ToQuery RemoveAccountFromOrganization where
 
 -- | /See:/ 'removeAccountFromOrganizationResponse' smart constructor.
 data RemoveAccountFromOrganizationResponse =
-    RemoveAccountFromOrganizationResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  RemoveAccountFromOrganizationResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RemoveAccountFromOrganizationResponse' with the minimum fields required to make a request.
 --
@@ -118,4 +119,6 @@ removeAccountFromOrganizationResponse
     :: RemoveAccountFromOrganizationResponse
 removeAccountFromOrganizationResponse = RemoveAccountFromOrganizationResponse'
 
+
 instance NFData RemoveAccountFromOrganizationResponse
+         where

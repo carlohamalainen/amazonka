@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Glue.CreateTrigger
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,28 +42,29 @@ module Network.AWS.Glue.CreateTrigger
     , ctrsResponseStatus
     ) where
 
-import           Network.AWS.Glue.Types
-import           Network.AWS.Glue.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Glue.Types
+import Network.AWS.Glue.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createTrigger' smart constructor.
 data CreateTrigger = CreateTrigger'
-    { _ctSchedule    :: !(Maybe Text)
-    , _ctPredicate   :: !(Maybe Predicate)
-    , _ctDescription :: !(Maybe Text)
-    , _ctName        :: !Text
-    , _ctType        :: !TriggerType
-    , _ctActions     :: ![Action]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ctSchedule    :: !(Maybe Text)
+  , _ctPredicate   :: !(Maybe Predicate)
+  , _ctDescription :: !(Maybe Text)
+  , _ctName        :: !Text
+  , _ctType        :: !TriggerType
+  , _ctActions     :: ![Action]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateTrigger' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ctSchedule' - A cron schedule expression for the new trigger.
+-- * 'ctSchedule' - A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 --
 -- * 'ctPredicate' - A predicate to specify when the new trigger should fire.
 --
@@ -79,16 +80,17 @@ createTrigger
     -> TriggerType -- ^ 'ctType'
     -> CreateTrigger
 createTrigger pName_ pType_ =
-    CreateTrigger'
-    { _ctSchedule = Nothing
-    , _ctPredicate = Nothing
-    , _ctDescription = Nothing
-    , _ctName = pName_
-    , _ctType = pType_
-    , _ctActions = mempty
-    }
+  CreateTrigger'
+  { _ctSchedule = Nothing
+  , _ctPredicate = Nothing
+  , _ctDescription = Nothing
+  , _ctName = pName_
+  , _ctType = pType_
+  , _ctActions = mempty
+  }
 
--- | A cron schedule expression for the new trigger.
+
+-- | A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 ctSchedule :: Lens' CreateTrigger (Maybe Text)
 ctSchedule = lens _ctSchedule (\ s a -> s{_ctSchedule = a});
 
@@ -121,9 +123,9 @@ instance AWSRequest CreateTrigger where
                  CreateTriggerResponse' <$>
                    (x .?> "Name") <*> (pure (fromEnum s)))
 
-instance Hashable CreateTrigger
+instance Hashable CreateTrigger where
 
-instance NFData CreateTrigger
+instance NFData CreateTrigger where
 
 instance ToHeaders CreateTrigger where
         toHeaders
@@ -152,9 +154,10 @@ instance ToQuery CreateTrigger where
 
 -- | /See:/ 'createTriggerResponse' smart constructor.
 data CreateTriggerResponse = CreateTriggerResponse'
-    { _ctrsName           :: !(Maybe Text)
-    , _ctrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ctrsName           :: !(Maybe Text)
+  , _ctrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateTriggerResponse' with the minimum fields required to make a request.
 --
@@ -167,10 +170,9 @@ createTriggerResponse
     :: Int -- ^ 'ctrsResponseStatus'
     -> CreateTriggerResponse
 createTriggerResponse pResponseStatus_ =
-    CreateTriggerResponse'
-    { _ctrsName = Nothing
-    , _ctrsResponseStatus = pResponseStatus_
-    }
+  CreateTriggerResponse'
+  {_ctrsName = Nothing, _ctrsResponseStatus = pResponseStatus_}
+
 
 -- | The name assigned to the new trigger.
 ctrsName :: Lens' CreateTriggerResponse (Maybe Text)
@@ -180,4 +182,4 @@ ctrsName = lens _ctrsName (\ s a -> s{_ctrsName = a});
 ctrsResponseStatus :: Lens' CreateTriggerResponse Int
 ctrsResponseStatus = lens _ctrsResponseStatus (\ s a -> s{_ctrsResponseStatus = a});
 
-instance NFData CreateTriggerResponse
+instance NFData CreateTriggerResponse where

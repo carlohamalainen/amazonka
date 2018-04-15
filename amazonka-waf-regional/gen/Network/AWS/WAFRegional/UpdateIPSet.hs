@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.WAFRegional.UpdateIPSet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -77,19 +77,20 @@ module Network.AWS.WAFRegional.UpdateIPSet
     , uisrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.WAFRegional.Types
-import           Network.AWS.WAFRegional.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.Product
 
 -- | /See:/ 'updateIPSet' smart constructor.
 data UpdateIPSet = UpdateIPSet'
-    { _uisIPSetId     :: !Text
-    , _uisChangeToken :: !Text
-    , _uisUpdates     :: ![IPSetUpdate]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uisIPSetId     :: !Text
+  , _uisChangeToken :: !Text
+  , _uisUpdates     :: !(List1 IPSetUpdate)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateIPSet' with the minimum fields required to make a request.
 --
@@ -103,13 +104,15 @@ data UpdateIPSet = UpdateIPSet'
 updateIPSet
     :: Text -- ^ 'uisIPSetId'
     -> Text -- ^ 'uisChangeToken'
+    -> NonEmpty IPSetUpdate -- ^ 'uisUpdates'
     -> UpdateIPSet
-updateIPSet pIPSetId_ pChangeToken_ =
-    UpdateIPSet'
-    { _uisIPSetId = pIPSetId_
-    , _uisChangeToken = pChangeToken_
-    , _uisUpdates = mempty
-    }
+updateIPSet pIPSetId_ pChangeToken_ pUpdates_ =
+  UpdateIPSet'
+  { _uisIPSetId = pIPSetId_
+  , _uisChangeToken = pChangeToken_
+  , _uisUpdates = _List1 # pUpdates_
+  }
+
 
 -- | The @IPSetId@ of the 'IPSet' that you want to update. @IPSetId@ is returned by 'CreateIPSet' and by 'ListIPSets' .
 uisIPSetId :: Lens' UpdateIPSet Text
@@ -120,8 +123,8 @@ uisChangeToken :: Lens' UpdateIPSet Text
 uisChangeToken = lens _uisChangeToken (\ s a -> s{_uisChangeToken = a});
 
 -- | An array of @IPSetUpdate@ objects that you want to insert into or delete from an 'IPSet' . For more information, see the applicable data types:     * 'IPSetUpdate' : Contains @Action@ and @IPSetDescriptor@      * 'IPSetDescriptor' : Contains @Type@ and @Value@
-uisUpdates :: Lens' UpdateIPSet [IPSetUpdate]
-uisUpdates = lens _uisUpdates (\ s a -> s{_uisUpdates = a}) . _Coerce;
+uisUpdates :: Lens' UpdateIPSet (NonEmpty IPSetUpdate)
+uisUpdates = lens _uisUpdates (\ s a -> s{_uisUpdates = a}) . _List1;
 
 instance AWSRequest UpdateIPSet where
         type Rs UpdateIPSet = UpdateIPSetResponse
@@ -132,9 +135,9 @@ instance AWSRequest UpdateIPSet where
                  UpdateIPSetResponse' <$>
                    (x .?> "ChangeToken") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateIPSet
+instance Hashable UpdateIPSet where
 
-instance NFData UpdateIPSet
+instance NFData UpdateIPSet where
 
 instance ToHeaders UpdateIPSet where
         toHeaders
@@ -162,9 +165,10 @@ instance ToQuery UpdateIPSet where
 
 -- | /See:/ 'updateIPSetResponse' smart constructor.
 data UpdateIPSetResponse = UpdateIPSetResponse'
-    { _uisrsChangeToken    :: !(Maybe Text)
-    , _uisrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uisrsChangeToken    :: !(Maybe Text)
+  , _uisrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateIPSetResponse' with the minimum fields required to make a request.
 --
@@ -177,10 +181,9 @@ updateIPSetResponse
     :: Int -- ^ 'uisrsResponseStatus'
     -> UpdateIPSetResponse
 updateIPSetResponse pResponseStatus_ =
-    UpdateIPSetResponse'
-    { _uisrsChangeToken = Nothing
-    , _uisrsResponseStatus = pResponseStatus_
-    }
+  UpdateIPSetResponse'
+  {_uisrsChangeToken = Nothing, _uisrsResponseStatus = pResponseStatus_}
+
 
 -- | The @ChangeToken@ that you used to submit the @UpdateIPSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
 uisrsChangeToken :: Lens' UpdateIPSetResponse (Maybe Text)
@@ -190,4 +193,4 @@ uisrsChangeToken = lens _uisrsChangeToken (\ s a -> s{_uisrsChangeToken = a});
 uisrsResponseStatus :: Lens' UpdateIPSetResponse Int
 uisrsResponseStatus = lens _uisrsResponseStatus (\ s a -> s{_uisrsResponseStatus = a});
 
-instance NFData UpdateIPSetResponse
+instance NFData UpdateIPSetResponse where

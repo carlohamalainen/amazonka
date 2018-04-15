@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.PutLifecycleHook
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -63,28 +63,25 @@ module Network.AWS.AutoScaling.PutLifecycleHook
     , plhrsResponseStatus
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for PutLifecycleHook.
---
---
---
--- /See:/ 'putLifecycleHook' smart constructor.
+-- | /See:/ 'putLifecycleHook' smart constructor.
 data PutLifecycleHook = PutLifecycleHook'
-    { _plhDefaultResult         :: !(Maybe Text)
-    , _plhHeartbeatTimeout      :: !(Maybe Int)
-    , _plhNotificationMetadata  :: !(Maybe Text)
-    , _plhNotificationTargetARN :: !(Maybe Text)
-    , _plhLifecycleTransition   :: !(Maybe Text)
-    , _plhRoleARN               :: !(Maybe Text)
-    , _plhLifecycleHookName     :: !Text
-    , _plhAutoScalingGroupName  :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _plhDefaultResult         :: !(Maybe Text)
+  , _plhHeartbeatTimeout      :: !(Maybe Int)
+  , _plhNotificationMetadata  :: !(Maybe Text)
+  , _plhNotificationTargetARN :: !(Maybe Text)
+  , _plhLifecycleTransition   :: !(Maybe Text)
+  , _plhRoleARN               :: !(Maybe Text)
+  , _plhLifecycleHookName     :: !Text
+  , _plhAutoScalingGroupName  :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutLifecycleHook' with the minimum fields required to make a request.
 --
@@ -92,7 +89,7 @@ data PutLifecycleHook = PutLifecycleHook'
 --
 -- * 'plhDefaultResult' - Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. This parameter can be either @CONTINUE@ or @ABANDON@ . The default value is @ABANDON@ .
 --
--- * 'plhHeartbeatTimeout' - The amount of time, in seconds, that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Auto Scaling performs the default action. You can prevent the lifecycle hook from timing out by calling 'RecordLifecycleActionHeartbeat' . The default is 3600 seconds (1 hour).
+-- * 'plhHeartbeatTimeout' - The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from 30 to 7200 seconds. The default is 3600 seconds (1 hour). If the lifecycle hook times out, Auto Scaling performs the default action. You can prevent the lifecycle hook from timing out by calling 'RecordLifecycleActionHeartbeat' .
 --
 -- * 'plhNotificationMetadata' - Contains additional information that you want to include any time Auto Scaling sends a message to the notification target.
 --
@@ -110,22 +107,23 @@ putLifecycleHook
     -> Text -- ^ 'plhAutoScalingGroupName'
     -> PutLifecycleHook
 putLifecycleHook pLifecycleHookName_ pAutoScalingGroupName_ =
-    PutLifecycleHook'
-    { _plhDefaultResult = Nothing
-    , _plhHeartbeatTimeout = Nothing
-    , _plhNotificationMetadata = Nothing
-    , _plhNotificationTargetARN = Nothing
-    , _plhLifecycleTransition = Nothing
-    , _plhRoleARN = Nothing
-    , _plhLifecycleHookName = pLifecycleHookName_
-    , _plhAutoScalingGroupName = pAutoScalingGroupName_
-    }
+  PutLifecycleHook'
+  { _plhDefaultResult = Nothing
+  , _plhHeartbeatTimeout = Nothing
+  , _plhNotificationMetadata = Nothing
+  , _plhNotificationTargetARN = Nothing
+  , _plhLifecycleTransition = Nothing
+  , _plhRoleARN = Nothing
+  , _plhLifecycleHookName = pLifecycleHookName_
+  , _plhAutoScalingGroupName = pAutoScalingGroupName_
+  }
+
 
 -- | Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. This parameter can be either @CONTINUE@ or @ABANDON@ . The default value is @ABANDON@ .
 plhDefaultResult :: Lens' PutLifecycleHook (Maybe Text)
 plhDefaultResult = lens _plhDefaultResult (\ s a -> s{_plhDefaultResult = a});
 
--- | The amount of time, in seconds, that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Auto Scaling performs the default action. You can prevent the lifecycle hook from timing out by calling 'RecordLifecycleActionHeartbeat' . The default is 3600 seconds (1 hour).
+-- | The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from 30 to 7200 seconds. The default is 3600 seconds (1 hour). If the lifecycle hook times out, Auto Scaling performs the default action. You can prevent the lifecycle hook from timing out by calling 'RecordLifecycleActionHeartbeat' .
 plhHeartbeatTimeout :: Lens' PutLifecycleHook (Maybe Int)
 plhHeartbeatTimeout = lens _plhHeartbeatTimeout (\ s a -> s{_plhHeartbeatTimeout = a});
 
@@ -161,9 +159,9 @@ instance AWSRequest PutLifecycleHook where
               (\ s h x ->
                  PutLifecycleHookResponse' <$> (pure (fromEnum s)))
 
-instance Hashable PutLifecycleHook
+instance Hashable PutLifecycleHook where
 
-instance NFData PutLifecycleHook
+instance NFData PutLifecycleHook where
 
 instance ToHeaders PutLifecycleHook where
         toHeaders = const mempty
@@ -185,14 +183,11 @@ instance ToQuery PutLifecycleHook where
                "LifecycleHookName" =: _plhLifecycleHookName,
                "AutoScalingGroupName" =: _plhAutoScalingGroupName]
 
--- | Contains the output of PutLifecycleHook.
---
---
---
--- /See:/ 'putLifecycleHookResponse' smart constructor.
+-- | /See:/ 'putLifecycleHookResponse' smart constructor.
 newtype PutLifecycleHookResponse = PutLifecycleHookResponse'
-    { _plhrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _plhrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutLifecycleHookResponse' with the minimum fields required to make a request.
 --
@@ -203,12 +198,11 @@ putLifecycleHookResponse
     :: Int -- ^ 'plhrsResponseStatus'
     -> PutLifecycleHookResponse
 putLifecycleHookResponse pResponseStatus_ =
-    PutLifecycleHookResponse'
-    { _plhrsResponseStatus = pResponseStatus_
-    }
+  PutLifecycleHookResponse' {_plhrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 plhrsResponseStatus :: Lens' PutLifecycleHookResponse Int
 plhrsResponseStatus = lens _plhrsResponseStatus (\ s a -> s{_plhrsResponseStatus = a});
 
-instance NFData PutLifecycleHookResponse
+instance NFData PutLifecycleHookResponse where

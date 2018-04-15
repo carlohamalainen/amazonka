@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ECS.ListServices
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,20 +42,21 @@ module Network.AWS.ECS.ListServices
     , lsrsResponseStatus
     ) where
 
-import           Network.AWS.ECS.Types
-import           Network.AWS.ECS.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ECS.Types
+import Network.AWS.ECS.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'listServices' smart constructor.
 data ListServices = ListServices'
-    { _lsCluster    :: !(Maybe Text)
-    , _lsNextToken  :: !(Maybe Text)
-    , _lsMaxResults :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lsCluster    :: !(Maybe Text)
+  , _lsNextToken  :: !(Maybe Text)
+  , _lsMaxResults :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListServices' with the minimum fields required to make a request.
 --
@@ -65,15 +66,13 @@ data ListServices = ListServices'
 --
 -- * 'lsNextToken' - The @nextToken@ value returned from a previous paginated @ListServices@ request where @maxResults@ was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the @nextToken@ value. This value is @null@ when there are no more results to return.
 --
--- * 'lsMaxResults' - The maximum number of container instance results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
+-- * 'lsMaxResults' - The maximum number of service results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
 listServices
     :: ListServices
 listServices =
-    ListServices'
-    { _lsCluster = Nothing
-    , _lsNextToken = Nothing
-    , _lsMaxResults = Nothing
-    }
+  ListServices'
+  {_lsCluster = Nothing, _lsNextToken = Nothing, _lsMaxResults = Nothing}
+
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that hosts the services to list. If you do not specify a cluster, the default cluster is assumed.
 lsCluster :: Lens' ListServices (Maybe Text)
@@ -83,7 +82,7 @@ lsCluster = lens _lsCluster (\ s a -> s{_lsCluster = a});
 lsNextToken :: Lens' ListServices (Maybe Text)
 lsNextToken = lens _lsNextToken (\ s a -> s{_lsNextToken = a});
 
--- | The maximum number of container instance results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
+-- | The maximum number of service results returned by @ListServices@ in paginated output. When this parameter is used, @ListServices@ only returns @maxResults@ results in a single page along with a @nextToken@ response element. The remaining results of the initial request can be seen by sending another @ListServices@ request with the returned @nextToken@ value. This value can be between 1 and 10. If this parameter is not used, then @ListServices@ returns up to 10 results and a @nextToken@ value if applicable.
 lsMaxResults :: Lens' ListServices (Maybe Int)
 lsMaxResults = lens _lsMaxResults (\ s a -> s{_lsMaxResults = a});
 
@@ -105,9 +104,9 @@ instance AWSRequest ListServices where
                      (x .?> "nextToken")
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListServices
+instance Hashable ListServices where
 
-instance NFData ListServices
+instance NFData ListServices where
 
 instance ToHeaders ListServices where
         toHeaders
@@ -135,10 +134,11 @@ instance ToQuery ListServices where
 
 -- | /See:/ 'listServicesResponse' smart constructor.
 data ListServicesResponse = ListServicesResponse'
-    { _lsrsServiceARNs    :: !(Maybe [Text])
-    , _lsrsNextToken      :: !(Maybe Text)
-    , _lsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lsrsServiceARNs    :: !(Maybe [Text])
+  , _lsrsNextToken      :: !(Maybe Text)
+  , _lsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListServicesResponse' with the minimum fields required to make a request.
 --
@@ -153,11 +153,12 @@ listServicesResponse
     :: Int -- ^ 'lsrsResponseStatus'
     -> ListServicesResponse
 listServicesResponse pResponseStatus_ =
-    ListServicesResponse'
-    { _lsrsServiceARNs = Nothing
-    , _lsrsNextToken = Nothing
-    , _lsrsResponseStatus = pResponseStatus_
-    }
+  ListServicesResponse'
+  { _lsrsServiceARNs = Nothing
+  , _lsrsNextToken = Nothing
+  , _lsrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The list of full Amazon Resource Name (ARN) entries for each service associated with the specified cluster.
 lsrsServiceARNs :: Lens' ListServicesResponse [Text]
@@ -171,4 +172,4 @@ lsrsNextToken = lens _lsrsNextToken (\ s a -> s{_lsrsNextToken = a});
 lsrsResponseStatus :: Lens' ListServicesResponse Int
 lsrsResponseStatus = lens _lsrsResponseStatus (\ s a -> s{_lsrsResponseStatus = a});
 
-instance NFData ListServicesResponse
+instance NFData ListServicesResponse where

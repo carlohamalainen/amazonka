@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.ExpireSession
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation immediately stops a streaming session.
+-- Stops the specified streaming session.
 --
 --
 module Network.AWS.AppStream.ExpireSession
@@ -36,32 +36,31 @@ module Network.AWS.AppStream.ExpireSession
     , esrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'expireSession' smart constructor.
 newtype ExpireSession = ExpireSession'
-    { _esSessionId :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _esSessionId :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ExpireSession' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'esSessionId' - The unique identifier of the streaming session to be stopped.
+-- * 'esSessionId' - The ID of the streaming session.
 expireSession
     :: Text -- ^ 'esSessionId'
     -> ExpireSession
-expireSession pSessionId_ =
-    ExpireSession'
-    { _esSessionId = pSessionId_
-    }
+expireSession pSessionId_ = ExpireSession' {_esSessionId = pSessionId_}
 
--- | The unique identifier of the streaming session to be stopped.
+
+-- | The ID of the streaming session.
 esSessionId :: Lens' ExpireSession Text
 esSessionId = lens _esSessionId (\ s a -> s{_esSessionId = a});
 
@@ -73,9 +72,9 @@ instance AWSRequest ExpireSession where
               (\ s h x ->
                  ExpireSessionResponse' <$> (pure (fromEnum s)))
 
-instance Hashable ExpireSession
+instance Hashable ExpireSession where
 
-instance NFData ExpireSession
+instance NFData ExpireSession where
 
 instance ToHeaders ExpireSession where
         toHeaders
@@ -100,8 +99,9 @@ instance ToQuery ExpireSession where
 
 -- | /See:/ 'expireSessionResponse' smart constructor.
 newtype ExpireSessionResponse = ExpireSessionResponse'
-    { _esrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _esrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ExpireSessionResponse' with the minimum fields required to make a request.
 --
@@ -112,12 +112,11 @@ expireSessionResponse
     :: Int -- ^ 'esrsResponseStatus'
     -> ExpireSessionResponse
 expireSessionResponse pResponseStatus_ =
-    ExpireSessionResponse'
-    { _esrsResponseStatus = pResponseStatus_
-    }
+  ExpireSessionResponse' {_esrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 esrsResponseStatus :: Lens' ExpireSessionResponse Int
 esrsResponseStatus = lens _esrsResponseStatus (\ s a -> s{_esrsResponseStatus = a});
 
-instance NFData ExpireSessionResponse
+instance NFData ExpireSessionResponse where

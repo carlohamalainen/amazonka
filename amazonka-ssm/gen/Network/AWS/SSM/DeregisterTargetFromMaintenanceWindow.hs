@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.SSM.DeregisterTargetFromMaintenanceWindow
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,25 +40,26 @@ module Network.AWS.SSM.DeregisterTargetFromMaintenanceWindow
     , dtfmwrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'deregisterTargetFromMaintenanceWindow' smart constructor.
 data DeregisterTargetFromMaintenanceWindow = DeregisterTargetFromMaintenanceWindow'
-    { _dtfmwSafe           :: !(Maybe Bool)
-    , _dtfmwWindowId       :: !Text
-    , _dtfmwWindowTargetId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dtfmwSafe           :: !(Maybe Bool)
+  , _dtfmwWindowId       :: !Text
+  , _dtfmwWindowTargetId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeregisterTargetFromMaintenanceWindow' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dtfmwSafe' - The system checks if the target is being referenced by a task. If the target is being referenced, the system returns and error and does not deregister the target from the Maintenance Window.
+-- * 'dtfmwSafe' - The system checks if the target is being referenced by a task. If the target is being referenced, the system returns an error and does not deregister the target from the Maintenance Window.
 --
 -- * 'dtfmwWindowId' - The ID of the Maintenance Window the target should be removed from.
 --
@@ -68,13 +69,14 @@ deregisterTargetFromMaintenanceWindow
     -> Text -- ^ 'dtfmwWindowTargetId'
     -> DeregisterTargetFromMaintenanceWindow
 deregisterTargetFromMaintenanceWindow pWindowId_ pWindowTargetId_ =
-    DeregisterTargetFromMaintenanceWindow'
-    { _dtfmwSafe = Nothing
-    , _dtfmwWindowId = pWindowId_
-    , _dtfmwWindowTargetId = pWindowTargetId_
-    }
+  DeregisterTargetFromMaintenanceWindow'
+  { _dtfmwSafe = Nothing
+  , _dtfmwWindowId = pWindowId_
+  , _dtfmwWindowTargetId = pWindowTargetId_
+  }
 
--- | The system checks if the target is being referenced by a task. If the target is being referenced, the system returns and error and does not deregister the target from the Maintenance Window.
+
+-- | The system checks if the target is being referenced by a task. If the target is being referenced, the system returns an error and does not deregister the target from the Maintenance Window.
 dtfmwSafe :: Lens' DeregisterTargetFromMaintenanceWindow (Maybe Bool)
 dtfmwSafe = lens _dtfmwSafe (\ s a -> s{_dtfmwSafe = a});
 
@@ -87,7 +89,8 @@ dtfmwWindowTargetId :: Lens' DeregisterTargetFromMaintenanceWindow Text
 dtfmwWindowTargetId = lens _dtfmwWindowTargetId (\ s a -> s{_dtfmwWindowTargetId = a});
 
 instance AWSRequest
-         DeregisterTargetFromMaintenanceWindow where
+           DeregisterTargetFromMaintenanceWindow
+         where
         type Rs DeregisterTargetFromMaintenanceWindow =
              DeregisterTargetFromMaintenanceWindowResponse
         request = postJSON ssm
@@ -99,12 +102,15 @@ instance AWSRequest
                      (pure (fromEnum s)))
 
 instance Hashable
-         DeregisterTargetFromMaintenanceWindow
+           DeregisterTargetFromMaintenanceWindow
+         where
 
 instance NFData DeregisterTargetFromMaintenanceWindow
+         where
 
 instance ToHeaders
-         DeregisterTargetFromMaintenanceWindow where
+           DeregisterTargetFromMaintenanceWindow
+         where
         toHeaders
           = const
               (mconcat
@@ -128,15 +134,17 @@ instance ToPath DeregisterTargetFromMaintenanceWindow
         toPath = const "/"
 
 instance ToQuery
-         DeregisterTargetFromMaintenanceWindow where
+           DeregisterTargetFromMaintenanceWindow
+         where
         toQuery = const mempty
 
 -- | /See:/ 'deregisterTargetFromMaintenanceWindowResponse' smart constructor.
 data DeregisterTargetFromMaintenanceWindowResponse = DeregisterTargetFromMaintenanceWindowResponse'
-    { _dtfmwrsWindowTargetId :: !(Maybe Text)
-    , _dtfmwrsWindowId       :: !(Maybe Text)
-    , _dtfmwrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dtfmwrsWindowTargetId :: !(Maybe Text)
+  , _dtfmwrsWindowId       :: !(Maybe Text)
+  , _dtfmwrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeregisterTargetFromMaintenanceWindowResponse' with the minimum fields required to make a request.
 --
@@ -151,11 +159,12 @@ deregisterTargetFromMaintenanceWindowResponse
     :: Int -- ^ 'dtfmwrsResponseStatus'
     -> DeregisterTargetFromMaintenanceWindowResponse
 deregisterTargetFromMaintenanceWindowResponse pResponseStatus_ =
-    DeregisterTargetFromMaintenanceWindowResponse'
-    { _dtfmwrsWindowTargetId = Nothing
-    , _dtfmwrsWindowId = Nothing
-    , _dtfmwrsResponseStatus = pResponseStatus_
-    }
+  DeregisterTargetFromMaintenanceWindowResponse'
+  { _dtfmwrsWindowTargetId = Nothing
+  , _dtfmwrsWindowId = Nothing
+  , _dtfmwrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The ID of the removed target definition.
 dtfmwrsWindowTargetId :: Lens' DeregisterTargetFromMaintenanceWindowResponse (Maybe Text)
@@ -170,4 +179,5 @@ dtfmwrsResponseStatus :: Lens' DeregisterTargetFromMaintenanceWindowResponse Int
 dtfmwrsResponseStatus = lens _dtfmwrsResponseStatus (\ s a -> s{_dtfmwrsResponseStatus = a});
 
 instance NFData
-         DeregisterTargetFromMaintenanceWindowResponse
+           DeregisterTargetFromMaintenanceWindowResponse
+         where

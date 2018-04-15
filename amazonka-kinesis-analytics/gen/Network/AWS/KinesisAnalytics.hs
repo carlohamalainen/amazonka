@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.KinesisAnalytics
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -83,6 +83,9 @@ module Network.AWS.KinesisAnalytics
     -- ** DeleteApplicationCloudWatchLoggingOption
     , module Network.AWS.KinesisAnalytics.DeleteApplicationCloudWatchLoggingOption
 
+    -- ** AddApplicationInputProcessingConfiguration
+    , module Network.AWS.KinesisAnalytics.AddApplicationInputProcessingConfiguration
+
     -- ** CreateApplication
     , module Network.AWS.KinesisAnalytics.CreateApplication
 
@@ -103,6 +106,9 @@ module Network.AWS.KinesisAnalytics
 
     -- ** ListApplications
     , module Network.AWS.KinesisAnalytics.ListApplications
+
+    -- ** DeleteApplicationInputProcessingConfiguration
+    , module Network.AWS.KinesisAnalytics.DeleteApplicationInputProcessingConfiguration
 
     -- * Types
 
@@ -182,6 +188,7 @@ module Network.AWS.KinesisAnalytics
     , Input
     , input
     , iInputParallelism
+    , iInputProcessingConfiguration
     , iKinesisStreamsInput
     , iKinesisFirehoseInput
     , iNamePrefix
@@ -204,6 +211,25 @@ module Network.AWS.KinesisAnalytics
     , idInputSchema
     , idKinesisStreamsInputDescription
     , idNamePrefix
+    , idInputProcessingConfigurationDescription
+
+    -- ** InputLambdaProcessor
+    , InputLambdaProcessor
+    , inputLambdaProcessor
+    , ilpResourceARN
+    , ilpRoleARN
+
+    -- ** InputLambdaProcessorDescription
+    , InputLambdaProcessorDescription
+    , inputLambdaProcessorDescription
+    , ilpdResourceARN
+    , ilpdRoleARN
+
+    -- ** InputLambdaProcessorUpdate
+    , InputLambdaProcessorUpdate
+    , inputLambdaProcessorUpdate
+    , ilpuRoleARNUpdate
+    , ilpuResourceARNUpdate
 
     -- ** InputParallelism
     , InputParallelism
@@ -214,6 +240,21 @@ module Network.AWS.KinesisAnalytics
     , InputParallelismUpdate
     , inputParallelismUpdate
     , ipuCountUpdate
+
+    -- ** InputProcessingConfiguration
+    , InputProcessingConfiguration
+    , inputProcessingConfiguration
+    , ipcInputLambdaProcessor
+
+    -- ** InputProcessingConfigurationDescription
+    , InputProcessingConfigurationDescription
+    , inputProcessingConfigurationDescription
+    , ipcdInputLambdaProcessorDescription
+
+    -- ** InputProcessingConfigurationUpdate
+    , InputProcessingConfigurationUpdate
+    , inputProcessingConfigurationUpdate
+    , ipcuInputLambdaProcessorUpdate
 
     -- ** InputSchemaUpdate
     , InputSchemaUpdate
@@ -230,6 +271,7 @@ module Network.AWS.KinesisAnalytics
     -- ** InputUpdate
     , InputUpdate
     , inputUpdate
+    , iuInputProcessingConfigurationUpdate
     , iuKinesisStreamsInputUpdate
     , iuInputParallelismUpdate
     , iuNamePrefixUpdate
@@ -382,6 +424,13 @@ module Network.AWS.KinesisAnalytics
     , rdsuReferenceSchemaUpdate
     , rdsuReferenceId
 
+    -- ** S3Configuration
+    , S3Configuration
+    , s3Configuration
+    , scRoleARN
+    , scBucketARN
+    , scFileKey
+
     -- ** S3ReferenceDataSource
     , S3ReferenceDataSource
     , s3ReferenceDataSource
@@ -411,23 +460,25 @@ module Network.AWS.KinesisAnalytics
     , ssRecordColumns
     ) where
 
-import           Network.AWS.KinesisAnalytics.AddApplicationCloudWatchLoggingOption
-import           Network.AWS.KinesisAnalytics.AddApplicationInput
-import           Network.AWS.KinesisAnalytics.AddApplicationOutput
-import           Network.AWS.KinesisAnalytics.AddApplicationReferenceDataSource
-import           Network.AWS.KinesisAnalytics.CreateApplication
-import           Network.AWS.KinesisAnalytics.DeleteApplication
-import           Network.AWS.KinesisAnalytics.DeleteApplicationCloudWatchLoggingOption
-import           Network.AWS.KinesisAnalytics.DeleteApplicationOutput
-import           Network.AWS.KinesisAnalytics.DeleteApplicationReferenceDataSource
-import           Network.AWS.KinesisAnalytics.DescribeApplication
-import           Network.AWS.KinesisAnalytics.DiscoverInputSchema
-import           Network.AWS.KinesisAnalytics.ListApplications
-import           Network.AWS.KinesisAnalytics.StartApplication
-import           Network.AWS.KinesisAnalytics.StopApplication
-import           Network.AWS.KinesisAnalytics.Types
-import           Network.AWS.KinesisAnalytics.UpdateApplication
-import           Network.AWS.KinesisAnalytics.Waiters
+import Network.AWS.KinesisAnalytics.AddApplicationCloudWatchLoggingOption
+import Network.AWS.KinesisAnalytics.AddApplicationInput
+import Network.AWS.KinesisAnalytics.AddApplicationInputProcessingConfiguration
+import Network.AWS.KinesisAnalytics.AddApplicationOutput
+import Network.AWS.KinesisAnalytics.AddApplicationReferenceDataSource
+import Network.AWS.KinesisAnalytics.CreateApplication
+import Network.AWS.KinesisAnalytics.DeleteApplication
+import Network.AWS.KinesisAnalytics.DeleteApplicationCloudWatchLoggingOption
+import Network.AWS.KinesisAnalytics.DeleteApplicationInputProcessingConfiguration
+import Network.AWS.KinesisAnalytics.DeleteApplicationOutput
+import Network.AWS.KinesisAnalytics.DeleteApplicationReferenceDataSource
+import Network.AWS.KinesisAnalytics.DescribeApplication
+import Network.AWS.KinesisAnalytics.DiscoverInputSchema
+import Network.AWS.KinesisAnalytics.ListApplications
+import Network.AWS.KinesisAnalytics.StartApplication
+import Network.AWS.KinesisAnalytics.StopApplication
+import Network.AWS.KinesisAnalytics.Types
+import Network.AWS.KinesisAnalytics.UpdateApplication
+import Network.AWS.KinesisAnalytics.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

@@ -9,44 +9,46 @@
 
 -- |
 -- Module      : Network.AWS.Glue.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.Glue.Types.Product where
 
-import           Network.AWS.Glue.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.Glue.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
--- | /See:/ 'action' smart constructor.
+-- | Defines an action to be initiated by a trigger.
+--
+--
+--
+-- /See:/ 'action' smart constructor.
 data Action = Action'
-    { _aArguments :: !(Maybe (Map Text Text))
-    , _aJobName   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _aArguments :: !(Maybe (Map Text Text))
+  , _aJobName   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Action' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'aArguments' - Undocumented member.
+-- * 'aArguments' - Arguments to be passed to the job.
 --
--- * 'aJobName' - Undocumented member.
+-- * 'aJobName' - The name of a job to be executed.
 action
     :: Action
-action =
-    Action'
-    { _aArguments = Nothing
-    , _aJobName = Nothing
-    }
+action = Action' {_aArguments = Nothing, _aJobName = Nothing}
 
--- | Undocumented member.
+
+-- | Arguments to be passed to the job.
 aArguments :: Lens' Action (HashMap Text Text)
 aArguments = lens _aArguments (\ s a -> s{_aArguments = a}) . _Default . _Map;
 
--- | Undocumented member.
+-- | The name of a job to be executed.
 aJobName :: Lens' Action (Maybe Text)
 aJobName = lens _aJobName (\ s a -> s{_aJobName = a});
 
@@ -57,9 +59,9 @@ instance FromJSON Action where
                  Action' <$>
                    (x .:? "Arguments" .!= mempty) <*> (x .:? "JobName"))
 
-instance Hashable Action
+instance Hashable Action where
 
-instance NFData Action
+instance NFData Action where
 
 instance ToJSON Action where
         toJSON Action'{..}
@@ -68,15 +70,118 @@ instance ToJSON Action where
                  [("Arguments" .=) <$> _aArguments,
                   ("JobName" .=) <$> _aJobName])
 
+-- | Details about the job run and the error that occurred while trying to submit it for stopping.
+--
+--
+--
+-- /See:/ 'batchStopJobRunError' smart constructor.
+data BatchStopJobRunError = BatchStopJobRunError'
+  { _bsjreJobName     :: !(Maybe Text)
+  , _bsjreJobRunId    :: !(Maybe Text)
+  , _bsjreErrorDetail :: !(Maybe ErrorDetail)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'BatchStopJobRunError' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'bsjreJobName' - The name of the job.
+--
+-- * 'bsjreJobRunId' - The job run Id.
+--
+-- * 'bsjreErrorDetail' - The details of the error that occurred.
+batchStopJobRunError
+    :: BatchStopJobRunError
+batchStopJobRunError =
+  BatchStopJobRunError'
+  { _bsjreJobName = Nothing
+  , _bsjreJobRunId = Nothing
+  , _bsjreErrorDetail = Nothing
+  }
+
+
+-- | The name of the job.
+bsjreJobName :: Lens' BatchStopJobRunError (Maybe Text)
+bsjreJobName = lens _bsjreJobName (\ s a -> s{_bsjreJobName = a});
+
+-- | The job run Id.
+bsjreJobRunId :: Lens' BatchStopJobRunError (Maybe Text)
+bsjreJobRunId = lens _bsjreJobRunId (\ s a -> s{_bsjreJobRunId = a});
+
+-- | The details of the error that occurred.
+bsjreErrorDetail :: Lens' BatchStopJobRunError (Maybe ErrorDetail)
+bsjreErrorDetail = lens _bsjreErrorDetail (\ s a -> s{_bsjreErrorDetail = a});
+
+instance FromJSON BatchStopJobRunError where
+        parseJSON
+          = withObject "BatchStopJobRunError"
+              (\ x ->
+                 BatchStopJobRunError' <$>
+                   (x .:? "JobName") <*> (x .:? "JobRunId") <*>
+                     (x .:? "ErrorDetail"))
+
+instance Hashable BatchStopJobRunError where
+
+instance NFData BatchStopJobRunError where
+
+-- | Details about the job run which is submitted successfully for stopping.
+--
+--
+--
+-- /See:/ 'batchStopJobRunSuccessfulSubmission' smart constructor.
+data BatchStopJobRunSuccessfulSubmission = BatchStopJobRunSuccessfulSubmission'
+  { _bsjrssJobName  :: !(Maybe Text)
+  , _bsjrssJobRunId :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'BatchStopJobRunSuccessfulSubmission' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'bsjrssJobName' - The name of the job.
+--
+-- * 'bsjrssJobRunId' - The job run Id.
+batchStopJobRunSuccessfulSubmission
+    :: BatchStopJobRunSuccessfulSubmission
+batchStopJobRunSuccessfulSubmission =
+  BatchStopJobRunSuccessfulSubmission'
+  {_bsjrssJobName = Nothing, _bsjrssJobRunId = Nothing}
+
+
+-- | The name of the job.
+bsjrssJobName :: Lens' BatchStopJobRunSuccessfulSubmission (Maybe Text)
+bsjrssJobName = lens _bsjrssJobName (\ s a -> s{_bsjrssJobName = a});
+
+-- | The job run Id.
+bsjrssJobRunId :: Lens' BatchStopJobRunSuccessfulSubmission (Maybe Text)
+bsjrssJobRunId = lens _bsjrssJobRunId (\ s a -> s{_bsjrssJobRunId = a});
+
+instance FromJSON BatchStopJobRunSuccessfulSubmission
+         where
+        parseJSON
+          = withObject "BatchStopJobRunSuccessfulSubmission"
+              (\ x ->
+                 BatchStopJobRunSuccessfulSubmission' <$>
+                   (x .:? "JobName") <*> (x .:? "JobRunId"))
+
+instance Hashable BatchStopJobRunSuccessfulSubmission
+         where
+
+instance NFData BatchStopJobRunSuccessfulSubmission
+         where
+
 -- | Specifies a table definition in the Data Catalog.
 --
 --
 --
 -- /See:/ 'catalogEntry' smart constructor.
 data CatalogEntry = CatalogEntry'
-    { _ceDatabaseName :: !Text
-    , _ceTableName    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ceDatabaseName :: !Text
+  , _ceTableName    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CatalogEntry' with the minimum fields required to make a request.
 --
@@ -90,10 +195,8 @@ catalogEntry
     -> Text -- ^ 'ceTableName'
     -> CatalogEntry
 catalogEntry pDatabaseName_ pTableName_ =
-    CatalogEntry'
-    { _ceDatabaseName = pDatabaseName_
-    , _ceTableName = pTableName_
-    }
+  CatalogEntry' {_ceDatabaseName = pDatabaseName_, _ceTableName = pTableName_}
+
 
 -- | The database in which the table metadata resides.
 ceDatabaseName :: Lens' CatalogEntry Text
@@ -103,9 +206,9 @@ ceDatabaseName = lens _ceDatabaseName (\ s a -> s{_ceDatabaseName = a});
 ceTableName :: Lens' CatalogEntry Text
 ceTableName = lens _ceTableName (\ s a -> s{_ceTableName = a});
 
-instance Hashable CatalogEntry
+instance Hashable CatalogEntry where
 
-instance NFData CatalogEntry
+instance NFData CatalogEntry where
 
 instance ToJSON CatalogEntry where
         toJSON CatalogEntry'{..}
@@ -120,10 +223,11 @@ instance ToJSON CatalogEntry where
 --
 -- /See:/ 'catalogImportStatus' smart constructor.
 data CatalogImportStatus = CatalogImportStatus'
-    { _cisImportedBy      :: !(Maybe Text)
-    , _cisImportTime      :: !(Maybe POSIX)
-    , _cisImportCompleted :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cisImportedBy      :: !(Maybe Text)
+  , _cisImportTime      :: !(Maybe POSIX)
+  , _cisImportCompleted :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CatalogImportStatus' with the minimum fields required to make a request.
 --
@@ -137,11 +241,12 @@ data CatalogImportStatus = CatalogImportStatus'
 catalogImportStatus
     :: CatalogImportStatus
 catalogImportStatus =
-    CatalogImportStatus'
-    { _cisImportedBy = Nothing
-    , _cisImportTime = Nothing
-    , _cisImportCompleted = Nothing
-    }
+  CatalogImportStatus'
+  { _cisImportedBy = Nothing
+  , _cisImportTime = Nothing
+  , _cisImportCompleted = Nothing
+  }
+
 
 -- | The name of the person who initiated the migration.
 cisImportedBy :: Lens' CatalogImportStatus (Maybe Text)
@@ -163,9 +268,9 @@ instance FromJSON CatalogImportStatus where
                    (x .:? "ImportedBy") <*> (x .:? "ImportTime") <*>
                      (x .:? "ImportCompleted"))
 
-instance Hashable CatalogImportStatus
+instance Hashable CatalogImportStatus where
 
-instance NFData CatalogImportStatus
+instance NFData CatalogImportStatus where
 
 -- | Classifiers are written in Python and triggered during a Crawl Task. You can write your own Classifiers to best categorize your data sources and specify the appropriate schemas to use for them. A Classifier first checks whether a given file is in a format it can handle, and then, if so, creates a schema in the form of a @StructType@ object that matches that data format.
 --
@@ -173,8 +278,9 @@ instance NFData CatalogImportStatus
 --
 -- /See:/ 'classifier' smart constructor.
 newtype Classifier = Classifier'
-    { _cGrokClassifier :: Maybe GrokClassifier
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cGrokClassifier :: Maybe GrokClassifier
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Classifier' with the minimum fields required to make a request.
 --
@@ -183,10 +289,8 @@ newtype Classifier = Classifier'
 -- * 'cGrokClassifier' - A GrokClassifier object.
 classifier
     :: Classifier
-classifier =
-    Classifier'
-    { _cGrokClassifier = Nothing
-    }
+classifier = Classifier' {_cGrokClassifier = Nothing}
+
 
 -- | A GrokClassifier object.
 cGrokClassifier :: Lens' Classifier (Maybe GrokClassifier)
@@ -197,9 +301,9 @@ instance FromJSON Classifier where
           = withObject "Classifier"
               (\ x -> Classifier' <$> (x .:? "GrokClassifier"))
 
-instance Hashable Classifier
+instance Hashable Classifier where
 
-instance NFData Classifier
+instance NFData Classifier where
 
 -- | Represents a directional edge in a directed acyclic graph (DAG).
 --
@@ -207,10 +311,11 @@ instance NFData Classifier
 --
 -- /See:/ 'codeGenEdge' smart constructor.
 data CodeGenEdge = CodeGenEdge'
-    { _cgeTargetParameter :: !(Maybe Text)
-    , _cgeSource          :: !Text
-    , _cgeTarget          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cgeTargetParameter :: !(Maybe Text)
+  , _cgeSource          :: !Text
+  , _cgeTarget          :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CodeGenEdge' with the minimum fields required to make a request.
 --
@@ -226,11 +331,9 @@ codeGenEdge
     -> Text -- ^ 'cgeTarget'
     -> CodeGenEdge
 codeGenEdge pSource_ pTarget_ =
-    CodeGenEdge'
-    { _cgeTargetParameter = Nothing
-    , _cgeSource = pSource_
-    , _cgeTarget = pTarget_
-    }
+  CodeGenEdge'
+  {_cgeTargetParameter = Nothing, _cgeSource = pSource_, _cgeTarget = pTarget_}
+
 
 -- | The target of the edge.
 cgeTargetParameter :: Lens' CodeGenEdge (Maybe Text)
@@ -252,9 +355,9 @@ instance FromJSON CodeGenEdge where
                    (x .:? "TargetParameter") <*> (x .: "Source") <*>
                      (x .: "Target"))
 
-instance Hashable CodeGenEdge
+instance Hashable CodeGenEdge where
 
-instance NFData CodeGenEdge
+instance NFData CodeGenEdge where
 
 instance ToJSON CodeGenEdge where
         toJSON CodeGenEdge'{..}
@@ -270,11 +373,12 @@ instance ToJSON CodeGenEdge where
 --
 -- /See:/ 'codeGenNode' smart constructor.
 data CodeGenNode = CodeGenNode'
-    { _cgnLineNumber :: !(Maybe Int)
-    , _cgnId         :: !Text
-    , _cgnNodeType   :: !Text
-    , _cgnArgs       :: ![CodeGenNodeArg]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cgnLineNumber :: !(Maybe Int)
+  , _cgnId         :: !Text
+  , _cgnNodeType   :: !Text
+  , _cgnArgs       :: ![CodeGenNodeArg]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CodeGenNode' with the minimum fields required to make a request.
 --
@@ -292,12 +396,13 @@ codeGenNode
     -> Text -- ^ 'cgnNodeType'
     -> CodeGenNode
 codeGenNode pId_ pNodeType_ =
-    CodeGenNode'
-    { _cgnLineNumber = Nothing
-    , _cgnId = pId_
-    , _cgnNodeType = pNodeType_
-    , _cgnArgs = mempty
-    }
+  CodeGenNode'
+  { _cgnLineNumber = Nothing
+  , _cgnId = pId_
+  , _cgnNodeType = pNodeType_
+  , _cgnArgs = mempty
+  }
+
 
 -- | The line number of the node.
 cgnLineNumber :: Lens' CodeGenNode (Maybe Int)
@@ -324,9 +429,9 @@ instance FromJSON CodeGenNode where
                      (x .: "NodeType")
                      <*> (x .:? "Args" .!= mempty))
 
-instance Hashable CodeGenNode
+instance Hashable CodeGenNode where
 
-instance NFData CodeGenNode
+instance NFData CodeGenNode where
 
 instance ToJSON CodeGenNode where
         toJSON CodeGenNode'{..}
@@ -343,10 +448,11 @@ instance ToJSON CodeGenNode where
 --
 -- /See:/ 'codeGenNodeArg' smart constructor.
 data CodeGenNodeArg = CodeGenNodeArg'
-    { _cgnaParam :: !(Maybe Bool)
-    , _cgnaName  :: !Text
-    , _cgnaValue :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cgnaParam :: !(Maybe Bool)
+  , _cgnaName  :: !Text
+  , _cgnaValue :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CodeGenNodeArg' with the minimum fields required to make a request.
 --
@@ -362,11 +468,9 @@ codeGenNodeArg
     -> Text -- ^ 'cgnaValue'
     -> CodeGenNodeArg
 codeGenNodeArg pName_ pValue_ =
-    CodeGenNodeArg'
-    { _cgnaParam = Nothing
-    , _cgnaName = pName_
-    , _cgnaValue = pValue_
-    }
+  CodeGenNodeArg'
+  {_cgnaParam = Nothing, _cgnaName = pName_, _cgnaValue = pValue_}
+
 
 -- | True if the value is used as a parameter.
 cgnaParam :: Lens' CodeGenNodeArg (Maybe Bool)
@@ -387,9 +491,9 @@ instance FromJSON CodeGenNodeArg where
                  CodeGenNodeArg' <$>
                    (x .:? "Param") <*> (x .: "Name") <*> (x .: "Value"))
 
-instance Hashable CodeGenNodeArg
+instance Hashable CodeGenNodeArg where
 
-instance NFData CodeGenNodeArg
+instance NFData CodeGenNodeArg where
 
 instance ToJSON CodeGenNodeArg where
         toJSON CodeGenNodeArg'{..}
@@ -405,10 +509,11 @@ instance ToJSON CodeGenNodeArg where
 --
 -- /See:/ 'column' smart constructor.
 data Column = Column'
-    { _cType    :: !(Maybe Text)
-    , _cComment :: !(Maybe Text)
-    , _cName    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cType    :: !(Maybe Text)
+  , _cComment :: !(Maybe Text)
+  , _cName    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Column' with the minimum fields required to make a request.
 --
@@ -422,12 +527,8 @@ data Column = Column'
 column
     :: Text -- ^ 'cName'
     -> Column
-column pName_ =
-    Column'
-    { _cType = Nothing
-    , _cComment = Nothing
-    , _cName = pName_
-    }
+column pName_ = Column' {_cType = Nothing, _cComment = Nothing, _cName = pName_}
+
 
 -- | The datatype of data in the @Column@ .
 cType :: Lens' Column (Maybe Text)
@@ -449,9 +550,9 @@ instance FromJSON Column where
                    (x .:? "Type") <*> (x .:? "Comment") <*>
                      (x .: "Name"))
 
-instance Hashable Column
+instance Hashable Column where
 
-instance NFData Column
+instance NFData Column where
 
 instance ToJSON Column where
         toJSON Column'{..}
@@ -461,40 +562,43 @@ instance ToJSON Column where
                   ("Comment" .=) <$> _cComment,
                   Just ("Name" .= _cName)])
 
--- | /See:/ 'condition' smart constructor.
+-- | Defines a condition under which a trigger fires.
+--
+--
+--
+-- /See:/ 'condition' smart constructor.
 data Condition = Condition'
-    { _cState           :: !(Maybe JobRunState)
-    , _cJobName         :: !(Maybe Text)
-    , _cLogicalOperator :: !(Maybe LogicalOperator)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cState           :: !(Maybe JobRunState)
+  , _cJobName         :: !(Maybe Text)
+  , _cLogicalOperator :: !(Maybe LogicalOperator)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Condition' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cState' - Undocumented member.
+-- * 'cState' - The condition state.
 --
--- * 'cJobName' - Undocumented member.
+-- * 'cJobName' - The name of the job in question.
 --
--- * 'cLogicalOperator' - Undocumented member.
+-- * 'cLogicalOperator' - A logical operator.
 condition
     :: Condition
 condition =
-    Condition'
-    { _cState = Nothing
-    , _cJobName = Nothing
-    , _cLogicalOperator = Nothing
-    }
+  Condition'
+  {_cState = Nothing, _cJobName = Nothing, _cLogicalOperator = Nothing}
 
--- | Undocumented member.
+
+-- | The condition state.
 cState :: Lens' Condition (Maybe JobRunState)
 cState = lens _cState (\ s a -> s{_cState = a});
 
--- | Undocumented member.
+-- | The name of the job in question.
 cJobName :: Lens' Condition (Maybe Text)
 cJobName = lens _cJobName (\ s a -> s{_cJobName = a});
 
--- | Undocumented member.
+-- | A logical operator.
 cLogicalOperator :: Lens' Condition (Maybe LogicalOperator)
 cLogicalOperator = lens _cLogicalOperator (\ s a -> s{_cLogicalOperator = a});
 
@@ -506,9 +610,9 @@ instance FromJSON Condition where
                    (x .:? "State") <*> (x .:? "JobName") <*>
                      (x .:? "LogicalOperator"))
 
-instance Hashable Condition
+instance Hashable Condition where
 
-instance NFData Condition
+instance NFData Condition where
 
 instance ToJSON Condition where
         toJSON Condition'{..}
@@ -524,16 +628,17 @@ instance ToJSON Condition where
 --
 -- /See:/ 'connection' smart constructor.
 data Connection = Connection'
-    { _conCreationTime                   :: !(Maybe POSIX)
-    , _conLastUpdatedBy                  :: !(Maybe Text)
-    , _conConnectionProperties           :: !(Maybe (Map ConnectionPropertyKey Text))
-    , _conLastUpdatedTime                :: !(Maybe POSIX)
-    , _conMatchCriteria                  :: !(Maybe [Text])
-    , _conPhysicalConnectionRequirements :: !(Maybe PhysicalConnectionRequirements)
-    , _conName                           :: !(Maybe Text)
-    , _conDescription                    :: !(Maybe Text)
-    , _conConnectionType                 :: !(Maybe ConnectionType)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _conCreationTime :: !(Maybe POSIX)
+  , _conLastUpdatedBy :: !(Maybe Text)
+  , _conConnectionProperties :: !(Maybe (Map ConnectionPropertyKey Text))
+  , _conLastUpdatedTime :: !(Maybe POSIX)
+  , _conMatchCriteria :: !(Maybe [Text])
+  , _conPhysicalConnectionRequirements :: !(Maybe PhysicalConnectionRequirements)
+  , _conName :: !(Maybe Text)
+  , _conDescription :: !(Maybe Text)
+  , _conConnectionType :: !(Maybe ConnectionType)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Connection' with the minimum fields required to make a request.
 --
@@ -555,21 +660,22 @@ data Connection = Connection'
 --
 -- * 'conDescription' - Description of the connection.
 --
--- * 'conConnectionType' - The type of the connection.
+-- * 'conConnectionType' - The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
 connection
     :: Connection
 connection =
-    Connection'
-    { _conCreationTime = Nothing
-    , _conLastUpdatedBy = Nothing
-    , _conConnectionProperties = Nothing
-    , _conLastUpdatedTime = Nothing
-    , _conMatchCriteria = Nothing
-    , _conPhysicalConnectionRequirements = Nothing
-    , _conName = Nothing
-    , _conDescription = Nothing
-    , _conConnectionType = Nothing
-    }
+  Connection'
+  { _conCreationTime = Nothing
+  , _conLastUpdatedBy = Nothing
+  , _conConnectionProperties = Nothing
+  , _conLastUpdatedTime = Nothing
+  , _conMatchCriteria = Nothing
+  , _conPhysicalConnectionRequirements = Nothing
+  , _conName = Nothing
+  , _conDescription = Nothing
+  , _conConnectionType = Nothing
+  }
+
 
 -- | The time this connection definition was created.
 conCreationTime :: Lens' Connection (Maybe UTCTime)
@@ -603,7 +709,7 @@ conName = lens _conName (\ s a -> s{_conName = a});
 conDescription :: Lens' Connection (Maybe Text)
 conDescription = lens _conDescription (\ s a -> s{_conDescription = a});
 
--- | The type of the connection.
+-- | The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
 conConnectionType :: Lens' Connection (Maybe ConnectionType)
 conConnectionType = lens _conConnectionType (\ s a -> s{_conConnectionType = a});
 
@@ -621,9 +727,9 @@ instance FromJSON Connection where
                      <*> (x .:? "Description")
                      <*> (x .:? "ConnectionType"))
 
-instance Hashable Connection
+instance Hashable Connection where
 
-instance NFData Connection
+instance NFData Connection where
 
 -- | A structure used to specify a connection to create or update.
 --
@@ -631,13 +737,14 @@ instance NFData Connection
 --
 -- /See:/ 'connectionInput' smart constructor.
 data ConnectionInput = ConnectionInput'
-    { _ciConnectionProperties           :: !(Maybe (Map ConnectionPropertyKey Text))
-    , _ciMatchCriteria                  :: !(Maybe [Text])
-    , _ciPhysicalConnectionRequirements :: !(Maybe PhysicalConnectionRequirements)
-    , _ciName                           :: !(Maybe Text)
-    , _ciDescription                    :: !(Maybe Text)
-    , _ciConnectionType                 :: !(Maybe ConnectionType)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ciConnectionProperties :: !(Maybe (Map ConnectionPropertyKey Text))
+  , _ciMatchCriteria :: !(Maybe [Text])
+  , _ciPhysicalConnectionRequirements :: !(Maybe PhysicalConnectionRequirements)
+  , _ciName :: !(Maybe Text)
+  , _ciDescription :: !(Maybe Text)
+  , _ciConnectionType :: !(Maybe ConnectionType)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ConnectionInput' with the minimum fields required to make a request.
 --
@@ -653,18 +760,19 @@ data ConnectionInput = ConnectionInput'
 --
 -- * 'ciDescription' - Description of the connection.
 --
--- * 'ciConnectionType' - The type of the connection.
+-- * 'ciConnectionType' - The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
 connectionInput
     :: ConnectionInput
 connectionInput =
-    ConnectionInput'
-    { _ciConnectionProperties = Nothing
-    , _ciMatchCriteria = Nothing
-    , _ciPhysicalConnectionRequirements = Nothing
-    , _ciName = Nothing
-    , _ciDescription = Nothing
-    , _ciConnectionType = Nothing
-    }
+  ConnectionInput'
+  { _ciConnectionProperties = Nothing
+  , _ciMatchCriteria = Nothing
+  , _ciPhysicalConnectionRequirements = Nothing
+  , _ciName = Nothing
+  , _ciDescription = Nothing
+  , _ciConnectionType = Nothing
+  }
+
 
 -- | A list of key-value pairs used as parameters for this connection.
 ciConnectionProperties :: Lens' ConnectionInput (HashMap ConnectionPropertyKey Text)
@@ -686,13 +794,13 @@ ciName = lens _ciName (\ s a -> s{_ciName = a});
 ciDescription :: Lens' ConnectionInput (Maybe Text)
 ciDescription = lens _ciDescription (\ s a -> s{_ciDescription = a});
 
--- | The type of the connection.
+-- | The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
 ciConnectionType :: Lens' ConnectionInput (Maybe ConnectionType)
 ciConnectionType = lens _ciConnectionType (\ s a -> s{_ciConnectionType = a});
 
-instance Hashable ConnectionInput
+instance Hashable ConnectionInput where
 
-instance NFData ConnectionInput
+instance NFData ConnectionInput where
 
 instance ToJSON ConnectionInput where
         toJSON ConnectionInput'{..}
@@ -713,8 +821,9 @@ instance ToJSON ConnectionInput where
 --
 -- /See:/ 'connectionsList' smart constructor.
 newtype ConnectionsList = ConnectionsList'
-    { _clConnections :: Maybe [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _clConnections :: Maybe [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ConnectionsList' with the minimum fields required to make a request.
 --
@@ -723,10 +832,8 @@ newtype ConnectionsList = ConnectionsList'
 -- * 'clConnections' - A list of connections used by the job.
 connectionsList
     :: ConnectionsList
-connectionsList =
-    ConnectionsList'
-    { _clConnections = Nothing
-    }
+connectionsList = ConnectionsList' {_clConnections = Nothing}
+
 
 -- | A list of connections used by the job.
 clConnections :: Lens' ConnectionsList [Text]
@@ -739,37 +846,38 @@ instance FromJSON ConnectionsList where
                  ConnectionsList' <$>
                    (x .:? "Connections" .!= mempty))
 
-instance Hashable ConnectionsList
+instance Hashable ConnectionsList where
 
-instance NFData ConnectionsList
+instance NFData ConnectionsList where
 
 instance ToJSON ConnectionsList where
         toJSON ConnectionsList'{..}
           = object
               (catMaybes [("Connections" .=) <$> _clConnections])
 
--- | Specifies a crawler program that examines a data source and uses classifiers to try to its schema. If successful, the crawler records metatdata concerning the data source in the Data Catalog.
+-- | Specifies a crawler program that examines a data source and uses classifiers to try to determine its schema. If successful, the crawler records metatdata concerning the data source in the Data Catalog.
 --
 --
 --
 -- /See:/ 'crawler' smart constructor.
 data Crawler = Crawler'
-    { _craCreationTime       :: !(Maybe POSIX)
-    , _craState              :: !(Maybe CrawlerState)
-    , _craSchemaChangePolicy :: !(Maybe SchemaChangePolicy)
-    , _craLastUpdated        :: !(Maybe POSIX)
-    , _craSchedule           :: !(Maybe Schedule)
-    , _craLastCrawl          :: !(Maybe LastCrawlInfo)
-    , _craCrawlElapsedTime   :: !(Maybe Integer)
-    , _craClassifiers        :: !(Maybe [Text])
-    , _craRole               :: !(Maybe Text)
-    , _craName               :: !(Maybe Text)
-    , _craTargets            :: !(Maybe CrawlerTargets)
-    , _craVersion            :: !(Maybe Integer)
-    , _craDatabaseName       :: !(Maybe Text)
-    , _craTablePrefix        :: !(Maybe Text)
-    , _craDescription        :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _craCreationTime       :: !(Maybe POSIX)
+  , _craState              :: !(Maybe CrawlerState)
+  , _craSchemaChangePolicy :: !(Maybe SchemaChangePolicy)
+  , _craLastUpdated        :: !(Maybe POSIX)
+  , _craSchedule           :: !(Maybe Schedule)
+  , _craLastCrawl          :: !(Maybe LastCrawlInfo)
+  , _craCrawlElapsedTime   :: !(Maybe Integer)
+  , _craClassifiers        :: !(Maybe [Text])
+  , _craRole               :: !(Maybe Text)
+  , _craName               :: !(Maybe Text)
+  , _craTargets            :: !(Maybe CrawlerTargets)
+  , _craVersion            :: !(Maybe Integer)
+  , _craDatabaseName       :: !(Maybe Text)
+  , _craTablePrefix        :: !(Maybe Text)
+  , _craDescription        :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Crawler' with the minimum fields required to make a request.
 --
@@ -791,7 +899,7 @@ data Crawler = Crawler'
 --
 -- * 'craClassifiers' - A list of custom @Classifier@ s associated with this Crawler.
 --
--- * 'craRole' - The ARN of an IAM role used to access customer resources such as data in S3.
+-- * 'craRole' - The IAM role (or ARN of an IAM role) used to access customer resources such as data in S3.
 --
 -- * 'craName' - The @Crawler@ name.
 --
@@ -807,23 +915,24 @@ data Crawler = Crawler'
 crawler
     :: Crawler
 crawler =
-    Crawler'
-    { _craCreationTime = Nothing
-    , _craState = Nothing
-    , _craSchemaChangePolicy = Nothing
-    , _craLastUpdated = Nothing
-    , _craSchedule = Nothing
-    , _craLastCrawl = Nothing
-    , _craCrawlElapsedTime = Nothing
-    , _craClassifiers = Nothing
-    , _craRole = Nothing
-    , _craName = Nothing
-    , _craTargets = Nothing
-    , _craVersion = Nothing
-    , _craDatabaseName = Nothing
-    , _craTablePrefix = Nothing
-    , _craDescription = Nothing
-    }
+  Crawler'
+  { _craCreationTime = Nothing
+  , _craState = Nothing
+  , _craSchemaChangePolicy = Nothing
+  , _craLastUpdated = Nothing
+  , _craSchedule = Nothing
+  , _craLastCrawl = Nothing
+  , _craCrawlElapsedTime = Nothing
+  , _craClassifiers = Nothing
+  , _craRole = Nothing
+  , _craName = Nothing
+  , _craTargets = Nothing
+  , _craVersion = Nothing
+  , _craDatabaseName = Nothing
+  , _craTablePrefix = Nothing
+  , _craDescription = Nothing
+  }
+
 
 -- | The time when the Crawler was created.
 craCreationTime :: Lens' Crawler (Maybe UTCTime)
@@ -857,7 +966,7 @@ craCrawlElapsedTime = lens _craCrawlElapsedTime (\ s a -> s{_craCrawlElapsedTime
 craClassifiers :: Lens' Crawler [Text]
 craClassifiers = lens _craClassifiers (\ s a -> s{_craClassifiers = a}) . _Default . _Coerce;
 
--- | The ARN of an IAM role used to access customer resources such as data in S3.
+-- | The IAM role (or ARN of an IAM role) used to access customer resources such as data in S3.
 craRole :: Lens' Crawler (Maybe Text)
 craRole = lens _craRole (\ s a -> s{_craRole = a});
 
@@ -905,9 +1014,9 @@ instance FromJSON Crawler where
                      <*> (x .:? "TablePrefix")
                      <*> (x .:? "Description"))
 
-instance Hashable Crawler
+instance Hashable Crawler where
 
-instance NFData Crawler
+instance NFData Crawler where
 
 -- | Metrics for a specified crawler.
 --
@@ -915,15 +1024,16 @@ instance NFData Crawler
 --
 -- /See:/ 'crawlerMetrics' smart constructor.
 data CrawlerMetrics = CrawlerMetrics'
-    { _cmLastRuntimeSeconds   :: !(Maybe Double)
-    , _cmTablesCreated        :: !(Maybe Nat)
-    , _cmStillEstimating      :: !(Maybe Bool)
-    , _cmMedianRuntimeSeconds :: !(Maybe Double)
-    , _cmTimeLeftSeconds      :: !(Maybe Double)
-    , _cmTablesDeleted        :: !(Maybe Nat)
-    , _cmTablesUpdated        :: !(Maybe Nat)
-    , _cmCrawlerName          :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cmLastRuntimeSeconds   :: !(Maybe Double)
+  , _cmTablesCreated        :: !(Maybe Nat)
+  , _cmStillEstimating      :: !(Maybe Bool)
+  , _cmMedianRuntimeSeconds :: !(Maybe Double)
+  , _cmTimeLeftSeconds      :: !(Maybe Double)
+  , _cmTablesDeleted        :: !(Maybe Nat)
+  , _cmTablesUpdated        :: !(Maybe Nat)
+  , _cmCrawlerName          :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CrawlerMetrics' with the minimum fields required to make a request.
 --
@@ -947,16 +1057,17 @@ data CrawlerMetrics = CrawlerMetrics'
 crawlerMetrics
     :: CrawlerMetrics
 crawlerMetrics =
-    CrawlerMetrics'
-    { _cmLastRuntimeSeconds = Nothing
-    , _cmTablesCreated = Nothing
-    , _cmStillEstimating = Nothing
-    , _cmMedianRuntimeSeconds = Nothing
-    , _cmTimeLeftSeconds = Nothing
-    , _cmTablesDeleted = Nothing
-    , _cmTablesUpdated = Nothing
-    , _cmCrawlerName = Nothing
-    }
+  CrawlerMetrics'
+  { _cmLastRuntimeSeconds = Nothing
+  , _cmTablesCreated = Nothing
+  , _cmStillEstimating = Nothing
+  , _cmMedianRuntimeSeconds = Nothing
+  , _cmTimeLeftSeconds = Nothing
+  , _cmTablesDeleted = Nothing
+  , _cmTablesUpdated = Nothing
+  , _cmCrawlerName = Nothing
+  }
+
 
 -- | The duration of the crawler's most recent run, in seconds.
 cmLastRuntimeSeconds :: Lens' CrawlerMetrics (Maybe Double)
@@ -1004,9 +1115,9 @@ instance FromJSON CrawlerMetrics where
                      <*> (x .:? "TablesUpdated")
                      <*> (x .:? "CrawlerName"))
 
-instance Hashable CrawlerMetrics
+instance Hashable CrawlerMetrics where
 
-instance NFData CrawlerMetrics
+instance NFData CrawlerMetrics where
 
 -- | Specifies crawler targets.
 --
@@ -1014,9 +1125,10 @@ instance NFData CrawlerMetrics
 --
 -- /See:/ 'crawlerTargets' smart constructor.
 data CrawlerTargets = CrawlerTargets'
-    { _ctS3Targets   :: !(Maybe [S3Target])
-    , _ctJdbcTargets :: !(Maybe [JdbcTarget])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ctS3Targets   :: !(Maybe [S3Target])
+  , _ctJdbcTargets :: !(Maybe [JdbcTarget])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CrawlerTargets' with the minimum fields required to make a request.
 --
@@ -1028,10 +1140,8 @@ data CrawlerTargets = CrawlerTargets'
 crawlerTargets
     :: CrawlerTargets
 crawlerTargets =
-    CrawlerTargets'
-    { _ctS3Targets = Nothing
-    , _ctJdbcTargets = Nothing
-    }
+  CrawlerTargets' {_ctS3Targets = Nothing, _ctJdbcTargets = Nothing}
+
 
 -- | Specifies targets in AWS S3.
 ctS3Targets :: Lens' CrawlerTargets [S3Target]
@@ -1049,9 +1159,9 @@ instance FromJSON CrawlerTargets where
                    (x .:? "S3Targets" .!= mempty) <*>
                      (x .:? "JdbcTargets" .!= mempty))
 
-instance Hashable CrawlerTargets
+instance Hashable CrawlerTargets where
 
-instance NFData CrawlerTargets
+instance NFData CrawlerTargets where
 
 instance ToJSON CrawlerTargets where
         toJSON CrawlerTargets'{..}
@@ -1066,11 +1176,12 @@ instance ToJSON CrawlerTargets where
 --
 -- /See:/ 'createGrokClassifierRequest' smart constructor.
 data CreateGrokClassifierRequest = CreateGrokClassifierRequest'
-    { _cgcrCustomPatterns :: !(Maybe Text)
-    , _cgcrClassification :: !Text
-    , _cgcrName           :: !Text
-    , _cgcrGrokPattern    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cgcrCustomPatterns :: !(Maybe Text)
+  , _cgcrClassification :: !Text
+  , _cgcrName           :: !Text
+  , _cgcrGrokPattern    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateGrokClassifierRequest' with the minimum fields required to make a request.
 --
@@ -1089,12 +1200,13 @@ createGrokClassifierRequest
     -> Text -- ^ 'cgcrGrokPattern'
     -> CreateGrokClassifierRequest
 createGrokClassifierRequest pClassification_ pName_ pGrokPattern_ =
-    CreateGrokClassifierRequest'
-    { _cgcrCustomPatterns = Nothing
-    , _cgcrClassification = pClassification_
-    , _cgcrName = pName_
-    , _cgcrGrokPattern = pGrokPattern_
-    }
+  CreateGrokClassifierRequest'
+  { _cgcrCustomPatterns = Nothing
+  , _cgcrClassification = pClassification_
+  , _cgcrName = pName_
+  , _cgcrGrokPattern = pGrokPattern_
+  }
+
 
 -- | Custom grok patterns used by this classifier.
 cgcrCustomPatterns :: Lens' CreateGrokClassifierRequest (Maybe Text)
@@ -1112,9 +1224,9 @@ cgcrName = lens _cgcrName (\ s a -> s{_cgcrName = a});
 cgcrGrokPattern :: Lens' CreateGrokClassifierRequest Text
 cgcrGrokPattern = lens _cgcrGrokPattern (\ s a -> s{_cgcrGrokPattern = a});
 
-instance Hashable CreateGrokClassifierRequest
+instance Hashable CreateGrokClassifierRequest where
 
-instance NFData CreateGrokClassifierRequest
+instance NFData CreateGrokClassifierRequest where
 
 instance ToJSON CreateGrokClassifierRequest where
         toJSON CreateGrokClassifierRequest'{..}
@@ -1131,12 +1243,13 @@ instance ToJSON CreateGrokClassifierRequest where
 --
 -- /See:/ 'database' smart constructor.
 data Database = Database'
-    { _dLocationURI :: !(Maybe Text)
-    , _dParameters  :: !(Maybe (Map Text Text))
-    , _dDescription :: !(Maybe Text)
-    , _dCreateTime  :: !(Maybe POSIX)
-    , _dName        :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dLocationURI :: !(Maybe Text)
+  , _dParameters  :: !(Maybe (Map Text Text))
+  , _dDescription :: !(Maybe Text)
+  , _dCreateTime  :: !(Maybe POSIX)
+  , _dName        :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Database' with the minimum fields required to make a request.
 --
@@ -1155,13 +1268,14 @@ database
     :: Text -- ^ 'dName'
     -> Database
 database pName_ =
-    Database'
-    { _dLocationURI = Nothing
-    , _dParameters = Nothing
-    , _dDescription = Nothing
-    , _dCreateTime = Nothing
-    , _dName = pName_
-    }
+  Database'
+  { _dLocationURI = Nothing
+  , _dParameters = Nothing
+  , _dDescription = Nothing
+  , _dCreateTime = Nothing
+  , _dName = pName_
+  }
+
 
 -- | The location of the database (for example, an HDFS path).
 dLocationURI :: Lens' Database (Maybe Text)
@@ -1194,9 +1308,9 @@ instance FromJSON Database where
                      <*> (x .:? "CreateTime")
                      <*> (x .: "Name"))
 
-instance Hashable Database
+instance Hashable Database where
 
-instance NFData Database
+instance NFData Database where
 
 -- | The structure used to create or updata a database.
 --
@@ -1204,11 +1318,12 @@ instance NFData Database
 --
 -- /See:/ 'databaseInput' smart constructor.
 data DatabaseInput = DatabaseInput'
-    { _diLocationURI :: !(Maybe Text)
-    , _diParameters  :: !(Maybe (Map Text Text))
-    , _diDescription :: !(Maybe Text)
-    , _diName        :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _diLocationURI :: !(Maybe Text)
+  , _diParameters  :: !(Maybe (Map Text Text))
+  , _diDescription :: !(Maybe Text)
+  , _diName        :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DatabaseInput' with the minimum fields required to make a request.
 --
@@ -1225,12 +1340,13 @@ databaseInput
     :: Text -- ^ 'diName'
     -> DatabaseInput
 databaseInput pName_ =
-    DatabaseInput'
-    { _diLocationURI = Nothing
-    , _diParameters = Nothing
-    , _diDescription = Nothing
-    , _diName = pName_
-    }
+  DatabaseInput'
+  { _diLocationURI = Nothing
+  , _diParameters = Nothing
+  , _diDescription = Nothing
+  , _diName = pName_
+  }
+
 
 -- | The location of the database (for example, an HDFS path).
 diLocationURI :: Lens' DatabaseInput (Maybe Text)
@@ -1248,9 +1364,9 @@ diDescription = lens _diDescription (\ s a -> s{_diDescription = a});
 diName :: Lens' DatabaseInput Text
 diName = lens _diName (\ s a -> s{_diName = a});
 
-instance Hashable DatabaseInput
+instance Hashable DatabaseInput where
 
-instance NFData DatabaseInput
+instance NFData DatabaseInput where
 
 instance ToJSON DatabaseInput where
         toJSON DatabaseInput'{..}
@@ -1267,24 +1383,26 @@ instance ToJSON DatabaseInput where
 --
 -- /See:/ 'devEndpoint' smart constructor.
 data DevEndpoint = DevEndpoint'
-    { _deStatus                :: !(Maybe Text)
-    , _deFailureReason         :: !(Maybe Text)
-    , _deEndpointName          :: !(Maybe Text)
-    , _deExtraPythonLibsS3Path :: !(Maybe Text)
-    , _deLastUpdateStatus      :: !(Maybe Text)
-    , _deSecurityGroupIds      :: !(Maybe [Text])
-    , _deLastModifiedTimestamp :: !(Maybe POSIX)
-    , _deVPCId                 :: !(Maybe Text)
-    , _dePublicKey             :: !(Maybe Text)
-    , _deSubnetId              :: !(Maybe Text)
-    , _deNumberOfNodes         :: !(Maybe Int)
-    , _dePublicAddress         :: !(Maybe Text)
-    , _deAvailabilityZone      :: !(Maybe Text)
-    , _deExtraJARsS3Path       :: !(Maybe Text)
-    , _deCreatedTimestamp      :: !(Maybe POSIX)
-    , _deYarnEndpointAddress   :: !(Maybe Text)
-    , _deRoleARN               :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _deStatus                             :: !(Maybe Text)
+  , _deFailureReason                      :: !(Maybe Text)
+  , _deEndpointName                       :: !(Maybe Text)
+  , _deExtraPythonLibsS3Path              :: !(Maybe Text)
+  , _deLastUpdateStatus                   :: !(Maybe Text)
+  , _deSecurityGroupIds                   :: !(Maybe [Text])
+  , _deLastModifiedTimestamp              :: !(Maybe POSIX)
+  , _deVPCId                              :: !(Maybe Text)
+  , _dePublicKey                          :: !(Maybe Text)
+  , _deSubnetId                           :: !(Maybe Text)
+  , _deNumberOfNodes                      :: !(Maybe Int)
+  , _dePublicAddress                      :: !(Maybe Text)
+  , _deAvailabilityZone                   :: !(Maybe Text)
+  , _deZeppelinRemoteSparkInterpreterPort :: !(Maybe Int)
+  , _deExtraJARsS3Path                    :: !(Maybe Text)
+  , _deCreatedTimestamp                   :: !(Maybe POSIX)
+  , _deYarnEndpointAddress                :: !(Maybe Text)
+  , _deRoleARN                            :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DevEndpoint' with the minimum fields required to make a request.
 --
@@ -1296,7 +1414,7 @@ data DevEndpoint = DevEndpoint'
 --
 -- * 'deEndpointName' - The name of the DevEndpoint.
 --
--- * 'deExtraPythonLibsS3Path' - Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+-- * 'deExtraPythonLibsS3Path' - Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 --
 -- * 'deLastUpdateStatus' - The status of the last update.
 --
@@ -1310,13 +1428,15 @@ data DevEndpoint = DevEndpoint'
 --
 -- * 'deSubnetId' - The subnet ID for this DevEndpoint.
 --
--- * 'deNumberOfNodes' - The number of nodes used by this DevEndpoint.
+-- * 'deNumberOfNodes' - The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
 --
 -- * 'dePublicAddress' - The public address used by this DevEndpoint.
 --
 -- * 'deAvailabilityZone' - The AWS availability zone where this DevEndpoint is located.
 --
--- * 'deExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.
+-- * 'deZeppelinRemoteSparkInterpreterPort' - The Apache Zeppelin port for the remote Apache Spark interpreter.
+--
+-- * 'deExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint. Please note that only pure Java/Scala libraries can currently be used on a DevEndpoint.
 --
 -- * 'deCreatedTimestamp' - The point in time at which this DevEndpoint was created.
 --
@@ -1326,25 +1446,27 @@ data DevEndpoint = DevEndpoint'
 devEndpoint
     :: DevEndpoint
 devEndpoint =
-    DevEndpoint'
-    { _deStatus = Nothing
-    , _deFailureReason = Nothing
-    , _deEndpointName = Nothing
-    , _deExtraPythonLibsS3Path = Nothing
-    , _deLastUpdateStatus = Nothing
-    , _deSecurityGroupIds = Nothing
-    , _deLastModifiedTimestamp = Nothing
-    , _deVPCId = Nothing
-    , _dePublicKey = Nothing
-    , _deSubnetId = Nothing
-    , _deNumberOfNodes = Nothing
-    , _dePublicAddress = Nothing
-    , _deAvailabilityZone = Nothing
-    , _deExtraJARsS3Path = Nothing
-    , _deCreatedTimestamp = Nothing
-    , _deYarnEndpointAddress = Nothing
-    , _deRoleARN = Nothing
-    }
+  DevEndpoint'
+  { _deStatus = Nothing
+  , _deFailureReason = Nothing
+  , _deEndpointName = Nothing
+  , _deExtraPythonLibsS3Path = Nothing
+  , _deLastUpdateStatus = Nothing
+  , _deSecurityGroupIds = Nothing
+  , _deLastModifiedTimestamp = Nothing
+  , _deVPCId = Nothing
+  , _dePublicKey = Nothing
+  , _deSubnetId = Nothing
+  , _deNumberOfNodes = Nothing
+  , _dePublicAddress = Nothing
+  , _deAvailabilityZone = Nothing
+  , _deZeppelinRemoteSparkInterpreterPort = Nothing
+  , _deExtraJARsS3Path = Nothing
+  , _deCreatedTimestamp = Nothing
+  , _deYarnEndpointAddress = Nothing
+  , _deRoleARN = Nothing
+  }
+
 
 -- | The current status of this DevEndpoint.
 deStatus :: Lens' DevEndpoint (Maybe Text)
@@ -1358,7 +1480,7 @@ deFailureReason = lens _deFailureReason (\ s a -> s{_deFailureReason = a});
 deEndpointName :: Lens' DevEndpoint (Maybe Text)
 deEndpointName = lens _deEndpointName (\ s a -> s{_deEndpointName = a});
 
--- | Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+-- | Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 deExtraPythonLibsS3Path :: Lens' DevEndpoint (Maybe Text)
 deExtraPythonLibsS3Path = lens _deExtraPythonLibsS3Path (\ s a -> s{_deExtraPythonLibsS3Path = a});
 
@@ -1386,7 +1508,7 @@ dePublicKey = lens _dePublicKey (\ s a -> s{_dePublicKey = a});
 deSubnetId :: Lens' DevEndpoint (Maybe Text)
 deSubnetId = lens _deSubnetId (\ s a -> s{_deSubnetId = a});
 
--- | The number of nodes used by this DevEndpoint.
+-- | The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.
 deNumberOfNodes :: Lens' DevEndpoint (Maybe Int)
 deNumberOfNodes = lens _deNumberOfNodes (\ s a -> s{_deNumberOfNodes = a});
 
@@ -1398,7 +1520,11 @@ dePublicAddress = lens _dePublicAddress (\ s a -> s{_dePublicAddress = a});
 deAvailabilityZone :: Lens' DevEndpoint (Maybe Text)
 deAvailabilityZone = lens _deAvailabilityZone (\ s a -> s{_deAvailabilityZone = a});
 
--- | Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.
+-- | The Apache Zeppelin port for the remote Apache Spark interpreter.
+deZeppelinRemoteSparkInterpreterPort :: Lens' DevEndpoint (Maybe Int)
+deZeppelinRemoteSparkInterpreterPort = lens _deZeppelinRemoteSparkInterpreterPort (\ s a -> s{_deZeppelinRemoteSparkInterpreterPort = a});
+
+-- | Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint. Please note that only pure Java/Scala libraries can currently be used on a DevEndpoint.
 deExtraJARsS3Path :: Lens' DevEndpoint (Maybe Text)
 deExtraJARsS3Path = lens _deExtraJARsS3Path (\ s a -> s{_deExtraJARsS3Path = a});
 
@@ -1431,14 +1557,15 @@ instance FromJSON DevEndpoint where
                      <*> (x .:? "NumberOfNodes")
                      <*> (x .:? "PublicAddress")
                      <*> (x .:? "AvailabilityZone")
+                     <*> (x .:? "ZeppelinRemoteSparkInterpreterPort")
                      <*> (x .:? "ExtraJarsS3Path")
                      <*> (x .:? "CreatedTimestamp")
                      <*> (x .:? "YarnEndpointAddress")
                      <*> (x .:? "RoleArn"))
 
-instance Hashable DevEndpoint
+instance Hashable DevEndpoint where
 
-instance NFData DevEndpoint
+instance NFData DevEndpoint where
 
 -- | Custom libraries to be loaded into a DevEndpoint.
 --
@@ -1446,36 +1573,36 @@ instance NFData DevEndpoint
 --
 -- /See:/ 'devEndpointCustomLibraries' smart constructor.
 data DevEndpointCustomLibraries = DevEndpointCustomLibraries'
-    { _declExtraPythonLibsS3Path :: !(Maybe Text)
-    , _declExtraJARsS3Path       :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _declExtraPythonLibsS3Path :: !(Maybe Text)
+  , _declExtraJARsS3Path       :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DevEndpointCustomLibraries' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'declExtraPythonLibsS3Path' - Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+-- * 'declExtraPythonLibsS3Path' - Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 --
--- * 'declExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.
+-- * 'declExtraJARsS3Path' - Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint. Please note that only pure Java/Scala libraries can currently be used on a DevEndpoint.
 devEndpointCustomLibraries
     :: DevEndpointCustomLibraries
 devEndpointCustomLibraries =
-    DevEndpointCustomLibraries'
-    { _declExtraPythonLibsS3Path = Nothing
-    , _declExtraJARsS3Path = Nothing
-    }
+  DevEndpointCustomLibraries'
+  {_declExtraPythonLibsS3Path = Nothing, _declExtraJARsS3Path = Nothing}
 
--- | Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.
+
+-- | Path(s) to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint. Multiple values must be complete paths separated by a comma. Please note that only pure Python libraries can currently be used on a DevEndpoint. Libraries that rely on C extensions, such as the <http://pandas.pydata.org/ pandas> Python data analysis library, are not yet supported.
 declExtraPythonLibsS3Path :: Lens' DevEndpointCustomLibraries (Maybe Text)
 declExtraPythonLibsS3Path = lens _declExtraPythonLibsS3Path (\ s a -> s{_declExtraPythonLibsS3Path = a});
 
--- | Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.
+-- | Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint. Please note that only pure Java/Scala libraries can currently be used on a DevEndpoint.
 declExtraJARsS3Path :: Lens' DevEndpointCustomLibraries (Maybe Text)
 declExtraJARsS3Path = lens _declExtraJARsS3Path (\ s a -> s{_declExtraJARsS3Path = a});
 
-instance Hashable DevEndpointCustomLibraries
+instance Hashable DevEndpointCustomLibraries where
 
-instance NFData DevEndpointCustomLibraries
+instance NFData DevEndpointCustomLibraries where
 
 instance ToJSON DevEndpointCustomLibraries where
         toJSON DevEndpointCustomLibraries'{..}
@@ -1491,9 +1618,10 @@ instance ToJSON DevEndpointCustomLibraries where
 --
 -- /See:/ 'errorDetail' smart constructor.
 data ErrorDetail = ErrorDetail'
-    { _edErrorCode    :: !(Maybe Text)
-    , _edErrorMessage :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _edErrorCode    :: !(Maybe Text)
+  , _edErrorMessage :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ErrorDetail' with the minimum fields required to make a request.
 --
@@ -1504,11 +1632,8 @@ data ErrorDetail = ErrorDetail'
 -- * 'edErrorMessage' - A message describing the error.
 errorDetail
     :: ErrorDetail
-errorDetail =
-    ErrorDetail'
-    { _edErrorCode = Nothing
-    , _edErrorMessage = Nothing
-    }
+errorDetail = ErrorDetail' {_edErrorCode = Nothing, _edErrorMessage = Nothing}
+
 
 -- | The code associated with this error.
 edErrorCode :: Lens' ErrorDetail (Maybe Text)
@@ -1525,9 +1650,9 @@ instance FromJSON ErrorDetail where
                  ErrorDetail' <$>
                    (x .:? "ErrorCode") <*> (x .:? "ErrorMessage"))
 
-instance Hashable ErrorDetail
+instance Hashable ErrorDetail where
 
-instance NFData ErrorDetail
+instance NFData ErrorDetail where
 
 -- | An execution property of a job.
 --
@@ -1535,8 +1660,9 @@ instance NFData ErrorDetail
 --
 -- /See:/ 'executionProperty' smart constructor.
 newtype ExecutionProperty = ExecutionProperty'
-    { _epMaxConcurrentRuns :: Maybe Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _epMaxConcurrentRuns :: Maybe Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ExecutionProperty' with the minimum fields required to make a request.
 --
@@ -1545,10 +1671,8 @@ newtype ExecutionProperty = ExecutionProperty'
 -- * 'epMaxConcurrentRuns' - The maximum number of concurrent runs allowed for a job.
 executionProperty
     :: ExecutionProperty
-executionProperty =
-    ExecutionProperty'
-    { _epMaxConcurrentRuns = Nothing
-    }
+executionProperty = ExecutionProperty' {_epMaxConcurrentRuns = Nothing}
+
 
 -- | The maximum number of concurrent runs allowed for a job.
 epMaxConcurrentRuns :: Lens' ExecutionProperty (Maybe Int)
@@ -1560,9 +1684,9 @@ instance FromJSON ExecutionProperty where
               (\ x ->
                  ExecutionProperty' <$> (x .:? "MaxConcurrentRuns"))
 
-instance Hashable ExecutionProperty
+instance Hashable ExecutionProperty where
 
-instance NFData ExecutionProperty
+instance NFData ExecutionProperty where
 
 instance ToJSON ExecutionProperty where
         toJSON ExecutionProperty'{..}
@@ -1576,9 +1700,10 @@ instance ToJSON ExecutionProperty where
 --
 -- /See:/ 'getConnectionsFilter' smart constructor.
 data GetConnectionsFilter = GetConnectionsFilter'
-    { _gcfMatchCriteria  :: !(Maybe [Text])
-    , _gcfConnectionType :: !(Maybe ConnectionType)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcfMatchCriteria  :: !(Maybe [Text])
+  , _gcfConnectionType :: !(Maybe ConnectionType)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetConnectionsFilter' with the minimum fields required to make a request.
 --
@@ -1586,26 +1711,25 @@ data GetConnectionsFilter = GetConnectionsFilter'
 --
 -- * 'gcfMatchCriteria' - A criteria string that must match the criteria recorded in the connection definition for that connection definition to be returned.
 --
--- * 'gcfConnectionType' - The type of connections to return.
+-- * 'gcfConnectionType' - The type of connections to return. Currently, only JDBC is supported; SFTP is not supported.
 getConnectionsFilter
     :: GetConnectionsFilter
 getConnectionsFilter =
-    GetConnectionsFilter'
-    { _gcfMatchCriteria = Nothing
-    , _gcfConnectionType = Nothing
-    }
+  GetConnectionsFilter'
+  {_gcfMatchCriteria = Nothing, _gcfConnectionType = Nothing}
+
 
 -- | A criteria string that must match the criteria recorded in the connection definition for that connection definition to be returned.
 gcfMatchCriteria :: Lens' GetConnectionsFilter [Text]
 gcfMatchCriteria = lens _gcfMatchCriteria (\ s a -> s{_gcfMatchCriteria = a}) . _Default . _Coerce;
 
--- | The type of connections to return.
+-- | The type of connections to return. Currently, only JDBC is supported; SFTP is not supported.
 gcfConnectionType :: Lens' GetConnectionsFilter (Maybe ConnectionType)
 gcfConnectionType = lens _gcfConnectionType (\ s a -> s{_gcfConnectionType = a});
 
-instance Hashable GetConnectionsFilter
+instance Hashable GetConnectionsFilter where
 
-instance NFData GetConnectionsFilter
+instance NFData GetConnectionsFilter where
 
 instance ToJSON GetConnectionsFilter where
         toJSON GetConnectionsFilter'{..}
@@ -1620,14 +1744,15 @@ instance ToJSON GetConnectionsFilter where
 --
 -- /See:/ 'grokClassifier' smart constructor.
 data GrokClassifier = GrokClassifier'
-    { _gcCreationTime   :: !(Maybe POSIX)
-    , _gcLastUpdated    :: !(Maybe POSIX)
-    , _gcVersion        :: !(Maybe Integer)
-    , _gcCustomPatterns :: !(Maybe Text)
-    , _gcName           :: !Text
-    , _gcClassification :: !Text
-    , _gcGrokPattern    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcCreationTime   :: !(Maybe POSIX)
+  , _gcLastUpdated    :: !(Maybe POSIX)
+  , _gcVersion        :: !(Maybe Integer)
+  , _gcCustomPatterns :: !(Maybe Text)
+  , _gcName           :: !Text
+  , _gcClassification :: !Text
+  , _gcGrokPattern    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GrokClassifier' with the minimum fields required to make a request.
 --
@@ -1652,15 +1777,16 @@ grokClassifier
     -> Text -- ^ 'gcGrokPattern'
     -> GrokClassifier
 grokClassifier pName_ pClassification_ pGrokPattern_ =
-    GrokClassifier'
-    { _gcCreationTime = Nothing
-    , _gcLastUpdated = Nothing
-    , _gcVersion = Nothing
-    , _gcCustomPatterns = Nothing
-    , _gcName = pName_
-    , _gcClassification = pClassification_
-    , _gcGrokPattern = pGrokPattern_
-    }
+  GrokClassifier'
+  { _gcCreationTime = Nothing
+  , _gcLastUpdated = Nothing
+  , _gcVersion = Nothing
+  , _gcCustomPatterns = Nothing
+  , _gcName = pName_
+  , _gcClassification = pClassification_
+  , _gcGrokPattern = pGrokPattern_
+  }
+
 
 -- | The time this classifier was registered.
 gcCreationTime :: Lens' GrokClassifier (Maybe UTCTime)
@@ -1702,9 +1828,9 @@ instance FromJSON GrokClassifier where
                      <*> (x .: "Classification")
                      <*> (x .: "GrokPattern"))
 
-instance Hashable GrokClassifier
+instance Hashable GrokClassifier where
 
-instance NFData GrokClassifier
+instance NFData GrokClassifier where
 
 -- | Specifies a JDBC target for a crawl.
 --
@@ -1712,10 +1838,11 @@ instance NFData GrokClassifier
 --
 -- /See:/ 'jdbcTarget' smart constructor.
 data JdbcTarget = JdbcTarget'
-    { _jtPath           :: !(Maybe Text)
-    , _jtConnectionName :: !(Maybe Text)
-    , _jtExclusions     :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jtPath           :: !(Maybe Text)
+  , _jtConnectionName :: !(Maybe Text)
+  , _jtExclusions     :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JdbcTarget' with the minimum fields required to make a request.
 --
@@ -1729,11 +1856,9 @@ data JdbcTarget = JdbcTarget'
 jdbcTarget
     :: JdbcTarget
 jdbcTarget =
-    JdbcTarget'
-    { _jtPath = Nothing
-    , _jtConnectionName = Nothing
-    , _jtExclusions = Nothing
-    }
+  JdbcTarget'
+  {_jtPath = Nothing, _jtConnectionName = Nothing, _jtExclusions = Nothing}
+
 
 -- | The path of the JDBC target.
 jtPath :: Lens' JdbcTarget (Maybe Text)
@@ -1755,9 +1880,9 @@ instance FromJSON JdbcTarget where
                    (x .:? "Path") <*> (x .:? "ConnectionName") <*>
                      (x .:? "Exclusions" .!= mempty))
 
-instance Hashable JdbcTarget
+instance Hashable JdbcTarget where
 
-instance NFData JdbcTarget
+instance NFData JdbcTarget where
 
 instance ToJSON JdbcTarget where
         toJSON JdbcTarget'{..}
@@ -1773,19 +1898,20 @@ instance ToJSON JdbcTarget where
 --
 -- /See:/ 'job' smart constructor.
 data Job = Job'
-    { _jCommand           :: !(Maybe JobCommand)
-    , _jLastModifiedOn    :: !(Maybe POSIX)
-    , _jConnections       :: !(Maybe ConnectionsList)
-    , _jRole              :: !(Maybe Text)
-    , _jName              :: !(Maybe Text)
-    , _jLogURI            :: !(Maybe Text)
-    , _jMaxRetries        :: !(Maybe Int)
-    , _jExecutionProperty :: !(Maybe ExecutionProperty)
-    , _jAllocatedCapacity :: !(Maybe Int)
-    , _jDefaultArguments  :: !(Maybe (Map Text Text))
-    , _jDescription       :: !(Maybe Text)
-    , _jCreatedOn         :: !(Maybe POSIX)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jCommand           :: !(Maybe JobCommand)
+  , _jLastModifiedOn    :: !(Maybe POSIX)
+  , _jConnections       :: !(Maybe ConnectionsList)
+  , _jRole              :: !(Maybe Text)
+  , _jName              :: !(Maybe Text)
+  , _jLogURI            :: !(Maybe Text)
+  , _jMaxRetries        :: !(Maybe Int)
+  , _jExecutionProperty :: !(Maybe ExecutionProperty)
+  , _jAllocatedCapacity :: !(Maybe Int)
+  , _jDefaultArguments  :: !(Maybe (Map Text Text))
+  , _jDescription       :: !(Maybe Text)
+  , _jCreatedOn         :: !(Maybe POSIX)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Job' with the minimum fields required to make a request.
 --
@@ -1801,7 +1927,7 @@ data Job = Job'
 --
 -- * 'jName' - The name you assign to this job.
 --
--- * 'jLogURI' - Location of the logs for this job.
+-- * 'jLogURI' - This field is reserved for future use.
 --
 -- * 'jMaxRetries' - The maximum number of times to retry this job if it fails.
 --
@@ -1817,20 +1943,21 @@ data Job = Job'
 job
     :: Job
 job =
-    Job'
-    { _jCommand = Nothing
-    , _jLastModifiedOn = Nothing
-    , _jConnections = Nothing
-    , _jRole = Nothing
-    , _jName = Nothing
-    , _jLogURI = Nothing
-    , _jMaxRetries = Nothing
-    , _jExecutionProperty = Nothing
-    , _jAllocatedCapacity = Nothing
-    , _jDefaultArguments = Nothing
-    , _jDescription = Nothing
-    , _jCreatedOn = Nothing
-    }
+  Job'
+  { _jCommand = Nothing
+  , _jLastModifiedOn = Nothing
+  , _jConnections = Nothing
+  , _jRole = Nothing
+  , _jName = Nothing
+  , _jLogURI = Nothing
+  , _jMaxRetries = Nothing
+  , _jExecutionProperty = Nothing
+  , _jAllocatedCapacity = Nothing
+  , _jDefaultArguments = Nothing
+  , _jDescription = Nothing
+  , _jCreatedOn = Nothing
+  }
+
 
 -- | The JobCommand that executes this job.
 jCommand :: Lens' Job (Maybe JobCommand)
@@ -1852,7 +1979,7 @@ jRole = lens _jRole (\ s a -> s{_jRole = a});
 jName :: Lens' Job (Maybe Text)
 jName = lens _jName (\ s a -> s{_jName = a});
 
--- | Location of the logs for this job.
+-- | This field is reserved for future use.
 jLogURI :: Lens' Job (Maybe Text)
 jLogURI = lens _jLogURI (\ s a -> s{_jLogURI = a});
 
@@ -1897,9 +2024,9 @@ instance FromJSON Job where
                      <*> (x .:? "Description")
                      <*> (x .:? "CreatedOn"))
 
-instance Hashable Job
+instance Hashable Job where
 
-instance NFData Job
+instance NFData Job where
 
 -- | Defines a point which a job can resume processing.
 --
@@ -1907,12 +2034,13 @@ instance NFData Job
 --
 -- /See:/ 'jobBookmarkEntry' smart constructor.
 data JobBookmarkEntry = JobBookmarkEntry'
-    { _jbeJobName     :: !(Maybe Text)
-    , _jbeRun         :: !(Maybe Int)
-    , _jbeVersion     :: !(Maybe Int)
-    , _jbeAttempt     :: !(Maybe Int)
-    , _jbeJobBookmark :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jbeJobName     :: !(Maybe Text)
+  , _jbeRun         :: !(Maybe Int)
+  , _jbeVersion     :: !(Maybe Int)
+  , _jbeAttempt     :: !(Maybe Int)
+  , _jbeJobBookmark :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JobBookmarkEntry' with the minimum fields required to make a request.
 --
@@ -1930,13 +2058,14 @@ data JobBookmarkEntry = JobBookmarkEntry'
 jobBookmarkEntry
     :: JobBookmarkEntry
 jobBookmarkEntry =
-    JobBookmarkEntry'
-    { _jbeJobName = Nothing
-    , _jbeRun = Nothing
-    , _jbeVersion = Nothing
-    , _jbeAttempt = Nothing
-    , _jbeJobBookmark = Nothing
-    }
+  JobBookmarkEntry'
+  { _jbeJobName = Nothing
+  , _jbeRun = Nothing
+  , _jbeVersion = Nothing
+  , _jbeAttempt = Nothing
+  , _jbeJobBookmark = Nothing
+  }
+
 
 -- | Name of the job in question.
 jbeJobName :: Lens' JobBookmarkEntry (Maybe Text)
@@ -1968,9 +2097,9 @@ instance FromJSON JobBookmarkEntry where
                      <*> (x .:? "Attempt")
                      <*> (x .:? "JobBookmark"))
 
-instance Hashable JobBookmarkEntry
+instance Hashable JobBookmarkEntry where
 
-instance NFData JobBookmarkEntry
+instance NFData JobBookmarkEntry where
 
 -- | Specifies code that executes a job.
 --
@@ -1978,9 +2107,10 @@ instance NFData JobBookmarkEntry
 --
 -- /See:/ 'jobCommand' smart constructor.
 data JobCommand = JobCommand'
-    { _jcScriptLocation :: !(Maybe Text)
-    , _jcName           :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jcScriptLocation :: !(Maybe Text)
+  , _jcName           :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JobCommand' with the minimum fields required to make a request.
 --
@@ -1991,11 +2121,8 @@ data JobCommand = JobCommand'
 -- * 'jcName' - The name of this job command.
 jobCommand
     :: JobCommand
-jobCommand =
-    JobCommand'
-    { _jcScriptLocation = Nothing
-    , _jcName = Nothing
-    }
+jobCommand = JobCommand' {_jcScriptLocation = Nothing, _jcName = Nothing}
+
 
 -- | Specifies the location of a script that executes a job.
 jcScriptLocation :: Lens' JobCommand (Maybe Text)
@@ -2012,9 +2139,9 @@ instance FromJSON JobCommand where
                  JobCommand' <$>
                    (x .:? "ScriptLocation") <*> (x .:? "Name"))
 
-instance Hashable JobCommand
+instance Hashable JobCommand where
 
-instance NFData JobCommand
+instance NFData JobCommand where
 
 instance ToJSON JobCommand where
         toJSON JobCommand'{..}
@@ -2029,20 +2156,21 @@ instance ToJSON JobCommand where
 --
 -- /See:/ 'jobRun' smart constructor.
 data JobRun = JobRun'
-    { _jrCompletedOn       :: !(Maybe POSIX)
-    , _jrTriggerName       :: !(Maybe Text)
-    , _jrLastModifiedOn    :: !(Maybe POSIX)
-    , _jrArguments         :: !(Maybe (Map Text Text))
-    , _jrJobName           :: !(Maybe Text)
-    , _jrStartedOn         :: !(Maybe POSIX)
-    , _jrJobRunState       :: !(Maybe JobRunState)
-    , _jrPredecessorRuns   :: !(Maybe [Predecessor])
-    , _jrPreviousRunId     :: !(Maybe Text)
-    , _jrId                :: !(Maybe Text)
-    , _jrAttempt           :: !(Maybe Int)
-    , _jrAllocatedCapacity :: !(Maybe Int)
-    , _jrErrorMessage      :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _jrCompletedOn       :: !(Maybe POSIX)
+  , _jrTriggerName       :: !(Maybe Text)
+  , _jrLastModifiedOn    :: !(Maybe POSIX)
+  , _jrArguments         :: !(Maybe (Map Text Text))
+  , _jrJobName           :: !(Maybe Text)
+  , _jrStartedOn         :: !(Maybe POSIX)
+  , _jrJobRunState       :: !(Maybe JobRunState)
+  , _jrPredecessorRuns   :: !(Maybe [Predecessor])
+  , _jrPreviousRunId     :: !(Maybe Text)
+  , _jrId                :: !(Maybe Text)
+  , _jrAttempt           :: !(Maybe Int)
+  , _jrAllocatedCapacity :: !(Maybe Int)
+  , _jrErrorMessage      :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JobRun' with the minimum fields required to make a request.
 --
@@ -2076,21 +2204,22 @@ data JobRun = JobRun'
 jobRun
     :: JobRun
 jobRun =
-    JobRun'
-    { _jrCompletedOn = Nothing
-    , _jrTriggerName = Nothing
-    , _jrLastModifiedOn = Nothing
-    , _jrArguments = Nothing
-    , _jrJobName = Nothing
-    , _jrStartedOn = Nothing
-    , _jrJobRunState = Nothing
-    , _jrPredecessorRuns = Nothing
-    , _jrPreviousRunId = Nothing
-    , _jrId = Nothing
-    , _jrAttempt = Nothing
-    , _jrAllocatedCapacity = Nothing
-    , _jrErrorMessage = Nothing
-    }
+  JobRun'
+  { _jrCompletedOn = Nothing
+  , _jrTriggerName = Nothing
+  , _jrLastModifiedOn = Nothing
+  , _jrArguments = Nothing
+  , _jrJobName = Nothing
+  , _jrStartedOn = Nothing
+  , _jrJobRunState = Nothing
+  , _jrPredecessorRuns = Nothing
+  , _jrPreviousRunId = Nothing
+  , _jrId = Nothing
+  , _jrAttempt = Nothing
+  , _jrAllocatedCapacity = Nothing
+  , _jrErrorMessage = Nothing
+  }
+
 
 -- | The date and time this job run completed.
 jrCompletedOn :: Lens' JobRun (Maybe UTCTime)
@@ -2162,9 +2291,9 @@ instance FromJSON JobRun where
                      <*> (x .:? "AllocatedCapacity")
                      <*> (x .:? "ErrorMessage"))
 
-instance Hashable JobRun
+instance Hashable JobRun where
 
-instance NFData JobRun
+instance NFData JobRun where
 
 -- | Specifies information used to update an existing job.
 --
@@ -2172,16 +2301,17 @@ instance NFData JobRun
 --
 -- /See:/ 'jobUpdate' smart constructor.
 data JobUpdate = JobUpdate'
-    { _juCommand           :: !(Maybe JobCommand)
-    , _juConnections       :: !(Maybe ConnectionsList)
-    , _juRole              :: !(Maybe Text)
-    , _juLogURI            :: !(Maybe Text)
-    , _juMaxRetries        :: !(Maybe Int)
-    , _juExecutionProperty :: !(Maybe ExecutionProperty)
-    , _juAllocatedCapacity :: !(Maybe Int)
-    , _juDefaultArguments  :: !(Maybe (Map Text Text))
-    , _juDescription       :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _juCommand           :: !(Maybe JobCommand)
+  , _juConnections       :: !(Maybe ConnectionsList)
+  , _juRole              :: !(Maybe Text)
+  , _juLogURI            :: !(Maybe Text)
+  , _juMaxRetries        :: !(Maybe Int)
+  , _juExecutionProperty :: !(Maybe ExecutionProperty)
+  , _juAllocatedCapacity :: !(Maybe Int)
+  , _juDefaultArguments  :: !(Maybe (Map Text Text))
+  , _juDescription       :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'JobUpdate' with the minimum fields required to make a request.
 --
@@ -2193,7 +2323,7 @@ data JobUpdate = JobUpdate'
 --
 -- * 'juRole' - The role associated with this job.
 --
--- * 'juLogURI' - Location of the logs for this job.
+-- * 'juLogURI' - This field is reserved for future use.
 --
 -- * 'juMaxRetries' - The maximum number of times to retry this job if it fails.
 --
@@ -2207,17 +2337,18 @@ data JobUpdate = JobUpdate'
 jobUpdate
     :: JobUpdate
 jobUpdate =
-    JobUpdate'
-    { _juCommand = Nothing
-    , _juConnections = Nothing
-    , _juRole = Nothing
-    , _juLogURI = Nothing
-    , _juMaxRetries = Nothing
-    , _juExecutionProperty = Nothing
-    , _juAllocatedCapacity = Nothing
-    , _juDefaultArguments = Nothing
-    , _juDescription = Nothing
-    }
+  JobUpdate'
+  { _juCommand = Nothing
+  , _juConnections = Nothing
+  , _juRole = Nothing
+  , _juLogURI = Nothing
+  , _juMaxRetries = Nothing
+  , _juExecutionProperty = Nothing
+  , _juAllocatedCapacity = Nothing
+  , _juDefaultArguments = Nothing
+  , _juDescription = Nothing
+  }
+
 
 -- | The JobCommand that executes this job.
 juCommand :: Lens' JobUpdate (Maybe JobCommand)
@@ -2231,7 +2362,7 @@ juConnections = lens _juConnections (\ s a -> s{_juConnections = a});
 juRole :: Lens' JobUpdate (Maybe Text)
 juRole = lens _juRole (\ s a -> s{_juRole = a});
 
--- | Location of the logs for this job.
+-- | This field is reserved for future use.
 juLogURI :: Lens' JobUpdate (Maybe Text)
 juLogURI = lens _juLogURI (\ s a -> s{_juLogURI = a});
 
@@ -2255,9 +2386,9 @@ juDefaultArguments = lens _juDefaultArguments (\ s a -> s{_juDefaultArguments = 
 juDescription :: Lens' JobUpdate (Maybe Text)
 juDescription = lens _juDescription (\ s a -> s{_juDescription = a});
 
-instance Hashable JobUpdate
+instance Hashable JobUpdate where
 
-instance NFData JobUpdate
+instance NFData JobUpdate where
 
 instance ToJSON JobUpdate where
         toJSON JobUpdate'{..}
@@ -2278,13 +2409,14 @@ instance ToJSON JobUpdate where
 --
 -- /See:/ 'lastCrawlInfo' smart constructor.
 data LastCrawlInfo = LastCrawlInfo'
-    { _lciStatus        :: !(Maybe LastCrawlStatus)
-    , _lciStartTime     :: !(Maybe POSIX)
-    , _lciLogStream     :: !(Maybe Text)
-    , _lciLogGroup      :: !(Maybe Text)
-    , _lciMessagePrefix :: !(Maybe Text)
-    , _lciErrorMessage  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lciStatus        :: !(Maybe LastCrawlStatus)
+  , _lciStartTime     :: !(Maybe POSIX)
+  , _lciLogStream     :: !(Maybe Text)
+  , _lciLogGroup      :: !(Maybe Text)
+  , _lciMessagePrefix :: !(Maybe Text)
+  , _lciErrorMessage  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LastCrawlInfo' with the minimum fields required to make a request.
 --
@@ -2304,14 +2436,15 @@ data LastCrawlInfo = LastCrawlInfo'
 lastCrawlInfo
     :: LastCrawlInfo
 lastCrawlInfo =
-    LastCrawlInfo'
-    { _lciStatus = Nothing
-    , _lciStartTime = Nothing
-    , _lciLogStream = Nothing
-    , _lciLogGroup = Nothing
-    , _lciMessagePrefix = Nothing
-    , _lciErrorMessage = Nothing
-    }
+  LastCrawlInfo'
+  { _lciStatus = Nothing
+  , _lciStartTime = Nothing
+  , _lciLogStream = Nothing
+  , _lciLogGroup = Nothing
+  , _lciMessagePrefix = Nothing
+  , _lciErrorMessage = Nothing
+  }
+
 
 -- | Status of the last crawl.
 lciStatus :: Lens' LastCrawlInfo (Maybe LastCrawlStatus)
@@ -2348,9 +2481,9 @@ instance FromJSON LastCrawlInfo where
                      <*> (x .:? "MessagePrefix")
                      <*> (x .:? "ErrorMessage"))
 
-instance Hashable LastCrawlInfo
+instance Hashable LastCrawlInfo where
 
-instance NFData LastCrawlInfo
+instance NFData LastCrawlInfo where
 
 -- | The location of resources.
 --
@@ -2358,9 +2491,10 @@ instance NFData LastCrawlInfo
 --
 -- /See:/ 'location' smart constructor.
 data Location = Location'
-    { _lJdbc :: !(Maybe [CodeGenNodeArg])
-    , _lS3   :: !(Maybe [CodeGenNodeArg])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lJdbc :: !(Maybe [CodeGenNodeArg])
+  , _lS3   :: !(Maybe [CodeGenNodeArg])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Location' with the minimum fields required to make a request.
 --
@@ -2371,11 +2505,8 @@ data Location = Location'
 -- * 'lS3' - An AWS S3 location.
 location
     :: Location
-location =
-    Location'
-    { _lJdbc = Nothing
-    , _lS3 = Nothing
-    }
+location = Location' {_lJdbc = Nothing, _lS3 = Nothing}
+
 
 -- | A JDBC location.
 lJdbc :: Lens' Location [CodeGenNodeArg]
@@ -2385,9 +2516,9 @@ lJdbc = lens _lJdbc (\ s a -> s{_lJdbc = a}) . _Default . _Coerce;
 lS3 :: Lens' Location [CodeGenNodeArg]
 lS3 = lens _lS3 (\ s a -> s{_lS3 = a}) . _Default . _Coerce;
 
-instance Hashable Location
+instance Hashable Location where
 
-instance NFData Location
+instance NFData Location where
 
 instance ToJSON Location where
         toJSON Location'{..}
@@ -2401,13 +2532,14 @@ instance ToJSON Location where
 --
 -- /See:/ 'mappingEntry' smart constructor.
 data MappingEntry = MappingEntry'
-    { _meTargetTable :: !(Maybe Text)
-    , _meSourceType  :: !(Maybe Text)
-    , _meSourceTable :: !(Maybe Text)
-    , _meTargetType  :: !(Maybe Text)
-    , _meTargetPath  :: !(Maybe Text)
-    , _meSourcePath  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _meTargetTable :: !(Maybe Text)
+  , _meSourceType  :: !(Maybe Text)
+  , _meSourceTable :: !(Maybe Text)
+  , _meTargetType  :: !(Maybe Text)
+  , _meTargetPath  :: !(Maybe Text)
+  , _meSourcePath  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MappingEntry' with the minimum fields required to make a request.
 --
@@ -2427,14 +2559,15 @@ data MappingEntry = MappingEntry'
 mappingEntry
     :: MappingEntry
 mappingEntry =
-    MappingEntry'
-    { _meTargetTable = Nothing
-    , _meSourceType = Nothing
-    , _meSourceTable = Nothing
-    , _meTargetType = Nothing
-    , _meTargetPath = Nothing
-    , _meSourcePath = Nothing
-    }
+  MappingEntry'
+  { _meTargetTable = Nothing
+  , _meSourceType = Nothing
+  , _meSourceTable = Nothing
+  , _meTargetType = Nothing
+  , _meTargetPath = Nothing
+  , _meSourcePath = Nothing
+  }
+
 
 -- | The target table.
 meTargetTable :: Lens' MappingEntry (Maybe Text)
@@ -2471,9 +2604,9 @@ instance FromJSON MappingEntry where
                      <*> (x .:? "TargetPath")
                      <*> (x .:? "SourcePath"))
 
-instance Hashable MappingEntry
+instance Hashable MappingEntry where
 
-instance NFData MappingEntry
+instance NFData MappingEntry where
 
 instance ToJSON MappingEntry where
         toJSON MappingEntry'{..}
@@ -2492,9 +2625,10 @@ instance ToJSON MappingEntry where
 --
 -- /See:/ 'order' smart constructor.
 data Order = Order'
-    { _oColumn    :: !Text
-    , _oSortOrder :: !Nat
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _oColumn    :: !Text
+  , _oSortOrder :: !Nat
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Order' with the minimum fields required to make a request.
 --
@@ -2508,10 +2642,8 @@ order
     -> Natural -- ^ 'oSortOrder'
     -> Order
 order pColumn_ pSortOrder_ =
-    Order'
-    { _oColumn = pColumn_
-    , _oSortOrder = _Nat # pSortOrder_
-    }
+  Order' {_oColumn = pColumn_, _oSortOrder = _Nat # pSortOrder_}
+
 
 -- | The name of the column.
 oColumn :: Lens' Order Text
@@ -2527,9 +2659,9 @@ instance FromJSON Order where
               (\ x ->
                  Order' <$> (x .: "Column") <*> (x .: "SortOrder"))
 
-instance Hashable Order
+instance Hashable Order where
 
-instance NFData Order
+instance NFData Order where
 
 instance ToJSON Order where
         toJSON Order'{..}
@@ -2544,15 +2676,16 @@ instance ToJSON Order where
 --
 -- /See:/ 'partition' smart constructor.
 data Partition = Partition'
-    { _pCreationTime      :: !(Maybe POSIX)
-    , _pValues            :: !(Maybe [Text])
-    , _pLastAnalyzedTime  :: !(Maybe POSIX)
-    , _pStorageDescriptor :: !(Maybe StorageDescriptor)
-    , _pDatabaseName      :: !(Maybe Text)
-    , _pParameters        :: !(Maybe (Map Text Text))
-    , _pLastAccessTime    :: !(Maybe POSIX)
-    , _pTableName         :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pCreationTime      :: !(Maybe POSIX)
+  , _pValues            :: !(Maybe [Text])
+  , _pLastAnalyzedTime  :: !(Maybe POSIX)
+  , _pStorageDescriptor :: !(Maybe StorageDescriptor)
+  , _pDatabaseName      :: !(Maybe Text)
+  , _pParameters        :: !(Maybe (Map Text Text))
+  , _pLastAccessTime    :: !(Maybe POSIX)
+  , _pTableName         :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Partition' with the minimum fields required to make a request.
 --
@@ -2576,16 +2709,17 @@ data Partition = Partition'
 partition
     :: Partition
 partition =
-    Partition'
-    { _pCreationTime = Nothing
-    , _pValues = Nothing
-    , _pLastAnalyzedTime = Nothing
-    , _pStorageDescriptor = Nothing
-    , _pDatabaseName = Nothing
-    , _pParameters = Nothing
-    , _pLastAccessTime = Nothing
-    , _pTableName = Nothing
-    }
+  Partition'
+  { _pCreationTime = Nothing
+  , _pValues = Nothing
+  , _pLastAnalyzedTime = Nothing
+  , _pStorageDescriptor = Nothing
+  , _pDatabaseName = Nothing
+  , _pParameters = Nothing
+  , _pLastAccessTime = Nothing
+  , _pTableName = Nothing
+  }
+
 
 -- | The time at which the partition was created.
 pCreationTime :: Lens' Partition (Maybe UTCTime)
@@ -2633,9 +2767,9 @@ instance FromJSON Partition where
                      <*> (x .:? "LastAccessTime")
                      <*> (x .:? "TableName"))
 
-instance Hashable Partition
+instance Hashable Partition where
 
-instance NFData Partition
+instance NFData Partition where
 
 -- | Contains information about a partition error.
 --
@@ -2643,9 +2777,10 @@ instance NFData Partition
 --
 -- /See:/ 'partitionError' smart constructor.
 data PartitionError = PartitionError'
-    { _pePartitionValues :: !(Maybe [Text])
-    , _peErrorDetail     :: !(Maybe ErrorDetail)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pePartitionValues :: !(Maybe [Text])
+  , _peErrorDetail     :: !(Maybe ErrorDetail)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PartitionError' with the minimum fields required to make a request.
 --
@@ -2657,10 +2792,8 @@ data PartitionError = PartitionError'
 partitionError
     :: PartitionError
 partitionError =
-    PartitionError'
-    { _pePartitionValues = Nothing
-    , _peErrorDetail = Nothing
-    }
+  PartitionError' {_pePartitionValues = Nothing, _peErrorDetail = Nothing}
+
 
 -- | The values that define the partition.
 pePartitionValues :: Lens' PartitionError [Text]
@@ -2678,9 +2811,9 @@ instance FromJSON PartitionError where
                    (x .:? "PartitionValues" .!= mempty) <*>
                      (x .:? "ErrorDetail"))
 
-instance Hashable PartitionError
+instance Hashable PartitionError where
 
-instance NFData PartitionError
+instance NFData PartitionError where
 
 -- | The structure used to create and update a partion.
 --
@@ -2688,12 +2821,13 @@ instance NFData PartitionError
 --
 -- /See:/ 'partitionInput' smart constructor.
 data PartitionInput = PartitionInput'
-    { _piValues            :: !(Maybe [Text])
-    , _piLastAnalyzedTime  :: !(Maybe POSIX)
-    , _piStorageDescriptor :: !(Maybe StorageDescriptor)
-    , _piParameters        :: !(Maybe (Map Text Text))
-    , _piLastAccessTime    :: !(Maybe POSIX)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _piValues            :: !(Maybe [Text])
+  , _piLastAnalyzedTime  :: !(Maybe POSIX)
+  , _piStorageDescriptor :: !(Maybe StorageDescriptor)
+  , _piParameters        :: !(Maybe (Map Text Text))
+  , _piLastAccessTime    :: !(Maybe POSIX)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PartitionInput' with the minimum fields required to make a request.
 --
@@ -2711,13 +2845,14 @@ data PartitionInput = PartitionInput'
 partitionInput
     :: PartitionInput
 partitionInput =
-    PartitionInput'
-    { _piValues = Nothing
-    , _piLastAnalyzedTime = Nothing
-    , _piStorageDescriptor = Nothing
-    , _piParameters = Nothing
-    , _piLastAccessTime = Nothing
-    }
+  PartitionInput'
+  { _piValues = Nothing
+  , _piLastAnalyzedTime = Nothing
+  , _piStorageDescriptor = Nothing
+  , _piParameters = Nothing
+  , _piLastAccessTime = Nothing
+  }
+
 
 -- | The values of the partition.
 piValues :: Lens' PartitionInput [Text]
@@ -2739,9 +2874,9 @@ piParameters = lens _piParameters (\ s a -> s{_piParameters = a}) . _Default . _
 piLastAccessTime :: Lens' PartitionInput (Maybe UTCTime)
 piLastAccessTime = lens _piLastAccessTime (\ s a -> s{_piLastAccessTime = a}) . mapping _Time;
 
-instance Hashable PartitionInput
+instance Hashable PartitionInput where
 
-instance NFData PartitionInput
+instance NFData PartitionInput where
 
 instance ToJSON PartitionInput where
         toJSON PartitionInput'{..}
@@ -2753,24 +2888,27 @@ instance ToJSON PartitionInput where
                   ("Parameters" .=) <$> _piParameters,
                   ("LastAccessTime" .=) <$> _piLastAccessTime])
 
--- | /See:/ 'partitionValueList' smart constructor.
+-- | Contains a list of values defining partitions.
+--
+--
+--
+-- /See:/ 'partitionValueList' smart constructor.
 newtype PartitionValueList = PartitionValueList'
-    { _pvlValues :: [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pvlValues :: [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PartitionValueList' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pvlValues' - Undocumented member.
+-- * 'pvlValues' - The list of values.
 partitionValueList
     :: PartitionValueList
-partitionValueList =
-    PartitionValueList'
-    { _pvlValues = mempty
-    }
+partitionValueList = PartitionValueList' {_pvlValues = mempty}
 
--- | Undocumented member.
+
+-- | The list of values.
 pvlValues :: Lens' PartitionValueList [Text]
 pvlValues = lens _pvlValues (\ s a -> s{_pvlValues = a}) . _Coerce;
 
@@ -2780,9 +2918,9 @@ instance FromJSON PartitionValueList where
               (\ x ->
                  PartitionValueList' <$> (x .:? "Values" .!= mempty))
 
-instance Hashable PartitionValueList
+instance Hashable PartitionValueList where
 
-instance NFData PartitionValueList
+instance NFData PartitionValueList where
 
 instance ToJSON PartitionValueList where
         toJSON PartitionValueList'{..}
@@ -2794,10 +2932,11 @@ instance ToJSON PartitionValueList where
 --
 -- /See:/ 'physicalConnectionRequirements' smart constructor.
 data PhysicalConnectionRequirements = PhysicalConnectionRequirements'
-    { _pcrSecurityGroupIdList :: !(Maybe [Text])
-    , _pcrSubnetId            :: !(Maybe Text)
-    , _pcrAvailabilityZone    :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pcrSecurityGroupIdList :: !(Maybe [Text])
+  , _pcrSubnetId            :: !(Maybe Text)
+  , _pcrAvailabilityZone    :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PhysicalConnectionRequirements' with the minimum fields required to make a request.
 --
@@ -2811,11 +2950,12 @@ data PhysicalConnectionRequirements = PhysicalConnectionRequirements'
 physicalConnectionRequirements
     :: PhysicalConnectionRequirements
 physicalConnectionRequirements =
-    PhysicalConnectionRequirements'
-    { _pcrSecurityGroupIdList = Nothing
-    , _pcrSubnetId = Nothing
-    , _pcrAvailabilityZone = Nothing
-    }
+  PhysicalConnectionRequirements'
+  { _pcrSecurityGroupIdList = Nothing
+  , _pcrSubnetId = Nothing
+  , _pcrAvailabilityZone = Nothing
+  }
+
 
 -- | The security group ID list used by the connection.
 pcrSecurityGroupIdList :: Lens' PhysicalConnectionRequirements [Text]
@@ -2840,8 +2980,9 @@ instance FromJSON PhysicalConnectionRequirements
                      <*> (x .:? "AvailabilityZone"))
 
 instance Hashable PhysicalConnectionRequirements
+         where
 
-instance NFData PhysicalConnectionRequirements
+instance NFData PhysicalConnectionRequirements where
 
 instance ToJSON PhysicalConnectionRequirements where
         toJSON PhysicalConnectionRequirements'{..}
@@ -2858,9 +2999,10 @@ instance ToJSON PhysicalConnectionRequirements where
 --
 -- /See:/ 'predecessor' smart constructor.
 data Predecessor = Predecessor'
-    { _pJobName :: !(Maybe Text)
-    , _pRunId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pJobName :: !(Maybe Text)
+  , _pRunId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Predecessor' with the minimum fields required to make a request.
 --
@@ -2871,11 +3013,8 @@ data Predecessor = Predecessor'
 -- * 'pRunId' - The job-run ID of the precessor job run.
 predecessor
     :: Predecessor
-predecessor =
-    Predecessor'
-    { _pJobName = Nothing
-    , _pRunId = Nothing
-    }
+predecessor = Predecessor' {_pJobName = Nothing, _pRunId = Nothing}
+
 
 -- | The name of the predecessor job.
 pJobName :: Lens' Predecessor (Maybe Text)
@@ -2892,9 +3031,9 @@ instance FromJSON Predecessor where
                  Predecessor' <$>
                    (x .:? "JobName") <*> (x .:? "RunId"))
 
-instance Hashable Predecessor
+instance Hashable Predecessor where
 
-instance NFData Predecessor
+instance NFData Predecessor where
 
 -- | Defines the predicate of the trigger, which determines when it fires.
 --
@@ -2902,9 +3041,10 @@ instance NFData Predecessor
 --
 -- /See:/ 'predicate' smart constructor.
 data Predicate = Predicate'
-    { _pLogical    :: !(Maybe Logical)
-    , _pConditions :: !(Maybe [Condition])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pLogical    :: !(Maybe Logical)
+  , _pConditions :: !(Maybe [Condition])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Predicate' with the minimum fields required to make a request.
 --
@@ -2915,11 +3055,8 @@ data Predicate = Predicate'
 -- * 'pConditions' - A list of the conditions that determine when the trigger will fire.
 predicate
     :: Predicate
-predicate =
-    Predicate'
-    { _pLogical = Nothing
-    , _pConditions = Nothing
-    }
+predicate = Predicate' {_pLogical = Nothing, _pConditions = Nothing}
+
 
 -- | Currently "OR" is not supported.
 pLogical :: Lens' Predicate (Maybe Logical)
@@ -2937,9 +3074,9 @@ instance FromJSON Predicate where
                    (x .:? "Logical") <*>
                      (x .:? "Conditions" .!= mempty))
 
-instance Hashable Predicate
+instance Hashable Predicate where
 
-instance NFData Predicate
+instance NFData Predicate where
 
 instance ToJSON Predicate where
         toJSON Predicate'{..}
@@ -2954,9 +3091,10 @@ instance ToJSON Predicate where
 --
 -- /See:/ 'resourceURI' smart constructor.
 data ResourceURI = ResourceURI'
-    { _ruResourceType :: !(Maybe ResourceType)
-    , _ruURI          :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ruResourceType :: !(Maybe ResourceType)
+  , _ruURI          :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ResourceURI' with the minimum fields required to make a request.
 --
@@ -2967,11 +3105,8 @@ data ResourceURI = ResourceURI'
 -- * 'ruURI' - The URI for accessing the resource.
 resourceURI
     :: ResourceURI
-resourceURI =
-    ResourceURI'
-    { _ruResourceType = Nothing
-    , _ruURI = Nothing
-    }
+resourceURI = ResourceURI' {_ruResourceType = Nothing, _ruURI = Nothing}
+
 
 -- | The type of the resource.
 ruResourceType :: Lens' ResourceURI (Maybe ResourceType)
@@ -2988,9 +3123,9 @@ instance FromJSON ResourceURI where
                  ResourceURI' <$>
                    (x .:? "ResourceType") <*> (x .:? "Uri"))
 
-instance Hashable ResourceURI
+instance Hashable ResourceURI where
 
-instance NFData ResourceURI
+instance NFData ResourceURI where
 
 instance ToJSON ResourceURI where
         toJSON ResourceURI'{..}
@@ -3005,9 +3140,10 @@ instance ToJSON ResourceURI where
 --
 -- /See:/ 's3Target' smart constructor.
 data S3Target = S3Target'
-    { _stPath       :: !(Maybe Text)
-    , _stExclusions :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _stPath       :: !(Maybe Text)
+  , _stExclusions :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'S3Target' with the minimum fields required to make a request.
 --
@@ -3018,11 +3154,8 @@ data S3Target = S3Target'
 -- * 'stExclusions' - A list of S3 objects to exclude from the crawl.
 s3Target
     :: S3Target
-s3Target =
-    S3Target'
-    { _stPath = Nothing
-    , _stExclusions = Nothing
-    }
+s3Target = S3Target' {_stPath = Nothing, _stExclusions = Nothing}
+
 
 -- | The path to the S3 target.
 stPath :: Lens' S3Target (Maybe Text)
@@ -3039,9 +3172,9 @@ instance FromJSON S3Target where
                  S3Target' <$>
                    (x .:? "Path") <*> (x .:? "Exclusions" .!= mempty))
 
-instance Hashable S3Target
+instance Hashable S3Target where
 
-instance NFData S3Target
+instance NFData S3Target where
 
 instance ToJSON S3Target where
         toJSON S3Target'{..}
@@ -3056,9 +3189,10 @@ instance ToJSON S3Target where
 --
 -- /See:/ 'schedule' smart constructor.
 data Schedule = Schedule'
-    { _sState              :: !(Maybe ScheduleState)
-    , _sScheduleExpression :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sState              :: !(Maybe ScheduleState)
+  , _sScheduleExpression :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Schedule' with the minimum fields required to make a request.
 --
@@ -3066,20 +3200,17 @@ data Schedule = Schedule'
 --
 -- * 'sState' - The state of the schedule.
 --
--- * 'sScheduleExpression' - A @cron@ expression that can be used as a Cloudwatch event to schedule something (see <http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html CloudWatch Schedule Expression Syntax> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
+-- * 'sScheduleExpression' - A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 schedule
     :: Schedule
-schedule =
-    Schedule'
-    { _sState = Nothing
-    , _sScheduleExpression = Nothing
-    }
+schedule = Schedule' {_sState = Nothing, _sScheduleExpression = Nothing}
+
 
 -- | The state of the schedule.
 sState :: Lens' Schedule (Maybe ScheduleState)
 sState = lens _sState (\ s a -> s{_sState = a});
 
--- | A @cron@ expression that can be used as a Cloudwatch event to schedule something (see <http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html CloudWatch Schedule Expression Syntax> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
+-- | A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 sScheduleExpression :: Lens' Schedule (Maybe Text)
 sScheduleExpression = lens _sScheduleExpression (\ s a -> s{_sScheduleExpression = a});
 
@@ -3090,9 +3221,9 @@ instance FromJSON Schedule where
                  Schedule' <$>
                    (x .:? "State") <*> (x .:? "ScheduleExpression"))
 
-instance Hashable Schedule
+instance Hashable Schedule where
 
-instance NFData Schedule
+instance NFData Schedule where
 
 -- | Crawler policy for update and deletion behavior.
 --
@@ -3100,9 +3231,10 @@ instance NFData Schedule
 --
 -- /See:/ 'schemaChangePolicy' smart constructor.
 data SchemaChangePolicy = SchemaChangePolicy'
-    { _scpDeleteBehavior :: !(Maybe DeleteBehavior)
-    , _scpUpdateBehavior :: !(Maybe UpdateBehavior)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _scpDeleteBehavior :: !(Maybe DeleteBehavior)
+  , _scpUpdateBehavior :: !(Maybe UpdateBehavior)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SchemaChangePolicy' with the minimum fields required to make a request.
 --
@@ -3114,10 +3246,9 @@ data SchemaChangePolicy = SchemaChangePolicy'
 schemaChangePolicy
     :: SchemaChangePolicy
 schemaChangePolicy =
-    SchemaChangePolicy'
-    { _scpDeleteBehavior = Nothing
-    , _scpUpdateBehavior = Nothing
-    }
+  SchemaChangePolicy'
+  {_scpDeleteBehavior = Nothing, _scpUpdateBehavior = Nothing}
+
 
 -- | The deletion behavior.
 scpDeleteBehavior :: Lens' SchemaChangePolicy (Maybe DeleteBehavior)
@@ -3135,9 +3266,9 @@ instance FromJSON SchemaChangePolicy where
                    (x .:? "DeleteBehavior") <*>
                      (x .:? "UpdateBehavior"))
 
-instance Hashable SchemaChangePolicy
+instance Hashable SchemaChangePolicy where
 
-instance NFData SchemaChangePolicy
+instance NFData SchemaChangePolicy where
 
 instance ToJSON SchemaChangePolicy where
         toJSON SchemaChangePolicy'{..}
@@ -3152,9 +3283,10 @@ instance ToJSON SchemaChangePolicy where
 --
 -- /See:/ 'segment' smart constructor.
 data Segment = Segment'
-    { _sSegmentNumber :: !Nat
-    , _sTotalSegments :: !Nat
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sSegmentNumber :: !Nat
+  , _sTotalSegments :: !Nat
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Segment' with the minimum fields required to make a request.
 --
@@ -3168,10 +3300,11 @@ segment
     -> Natural -- ^ 'sTotalSegments'
     -> Segment
 segment pSegmentNumber_ pTotalSegments_ =
-    Segment'
-    { _sSegmentNumber = _Nat # pSegmentNumber_
-    , _sTotalSegments = _Nat # pTotalSegments_
-    }
+  Segment'
+  { _sSegmentNumber = _Nat # pSegmentNumber_
+  , _sTotalSegments = _Nat # pTotalSegments_
+  }
+
 
 -- | The zero-based index number of the this segment. For example, if the total number of segments is 4, SegmentNumber values will range from zero through three.
 sSegmentNumber :: Lens' Segment Natural
@@ -3181,9 +3314,9 @@ sSegmentNumber = lens _sSegmentNumber (\ s a -> s{_sSegmentNumber = a}) . _Nat;
 sTotalSegments :: Lens' Segment Natural
 sTotalSegments = lens _sTotalSegments (\ s a -> s{_sTotalSegments = a}) . _Nat;
 
-instance Hashable Segment
+instance Hashable Segment where
 
-instance NFData Segment
+instance NFData Segment where
 
 instance ToJSON Segment where
         toJSON Segment'{..}
@@ -3198,10 +3331,11 @@ instance ToJSON Segment where
 --
 -- /See:/ 'serDeInfo' smart constructor.
 data SerDeInfo = SerDeInfo'
-    { _sdiSerializationLibrary :: !(Maybe Text)
-    , _sdiName                 :: !(Maybe Text)
-    , _sdiParameters           :: !(Maybe (Map Text Text))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sdiSerializationLibrary :: !(Maybe Text)
+  , _sdiName                 :: !(Maybe Text)
+  , _sdiParameters           :: !(Maybe (Map Text Text))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SerDeInfo' with the minimum fields required to make a request.
 --
@@ -3215,11 +3349,12 @@ data SerDeInfo = SerDeInfo'
 serDeInfo
     :: SerDeInfo
 serDeInfo =
-    SerDeInfo'
-    { _sdiSerializationLibrary = Nothing
-    , _sdiName = Nothing
-    , _sdiParameters = Nothing
-    }
+  SerDeInfo'
+  { _sdiSerializationLibrary = Nothing
+  , _sdiName = Nothing
+  , _sdiParameters = Nothing
+  }
+
 
 -- | Usually the class that implements the SerDe. An example is: @org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe@ .
 sdiSerializationLibrary :: Lens' SerDeInfo (Maybe Text)
@@ -3241,9 +3376,9 @@ instance FromJSON SerDeInfo where
                    (x .:? "SerializationLibrary") <*> (x .:? "Name") <*>
                      (x .:? "Parameters" .!= mempty))
 
-instance Hashable SerDeInfo
+instance Hashable SerDeInfo where
 
-instance NFData SerDeInfo
+instance NFData SerDeInfo where
 
 instance ToJSON SerDeInfo where
         toJSON SerDeInfo'{..}
@@ -3260,10 +3395,11 @@ instance ToJSON SerDeInfo where
 --
 -- /See:/ 'skewedInfo' smart constructor.
 data SkewedInfo = SkewedInfo'
-    { _siSkewedColumnValueLocationMaps :: !(Maybe (Map Text Text))
-    , _siSkewedColumnValues            :: !(Maybe [Text])
-    , _siSkewedColumnNames             :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _siSkewedColumnValueLocationMaps :: !(Maybe (Map Text Text))
+  , _siSkewedColumnValues            :: !(Maybe [Text])
+  , _siSkewedColumnNames             :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SkewedInfo' with the minimum fields required to make a request.
 --
@@ -3277,11 +3413,12 @@ data SkewedInfo = SkewedInfo'
 skewedInfo
     :: SkewedInfo
 skewedInfo =
-    SkewedInfo'
-    { _siSkewedColumnValueLocationMaps = Nothing
-    , _siSkewedColumnValues = Nothing
-    , _siSkewedColumnNames = Nothing
-    }
+  SkewedInfo'
+  { _siSkewedColumnValueLocationMaps = Nothing
+  , _siSkewedColumnValues = Nothing
+  , _siSkewedColumnNames = Nothing
+  }
+
 
 -- | A mapping of skewed values to the columns that contain them.
 siSkewedColumnValueLocationMaps :: Lens' SkewedInfo (HashMap Text Text)
@@ -3304,9 +3441,9 @@ instance FromJSON SkewedInfo where
                      <*> (x .:? "SkewedColumnValues" .!= mempty)
                      <*> (x .:? "SkewedColumnNames" .!= mempty))
 
-instance Hashable SkewedInfo
+instance Hashable SkewedInfo where
 
-instance NFData SkewedInfo
+instance NFData SkewedInfo where
 
 instance ToJSON SkewedInfo where
         toJSON SkewedInfo'{..}
@@ -3323,19 +3460,20 @@ instance ToJSON SkewedInfo where
 --
 -- /See:/ 'storageDescriptor' smart constructor.
 data StorageDescriptor = StorageDescriptor'
-    { _sdSortColumns            :: !(Maybe [Order])
-    , _sdCompressed             :: !(Maybe Bool)
-    , _sdLocation               :: !(Maybe Text)
-    , _sdBucketColumns          :: !(Maybe [Text])
-    , _sdSerdeInfo              :: !(Maybe SerDeInfo)
-    , _sdOutputFormat           :: !(Maybe Text)
-    , _sdNumberOfBuckets        :: !(Maybe Int)
-    , _sdStoredAsSubDirectories :: !(Maybe Bool)
-    , _sdParameters             :: !(Maybe (Map Text Text))
-    , _sdInputFormat            :: !(Maybe Text)
-    , _sdSkewedInfo             :: !(Maybe SkewedInfo)
-    , _sdColumns                :: !(Maybe [Column])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sdSortColumns            :: !(Maybe [Order])
+  , _sdCompressed             :: !(Maybe Bool)
+  , _sdLocation               :: !(Maybe Text)
+  , _sdBucketColumns          :: !(Maybe [Text])
+  , _sdSerdeInfo              :: !(Maybe SerDeInfo)
+  , _sdOutputFormat           :: !(Maybe Text)
+  , _sdNumberOfBuckets        :: !(Maybe Int)
+  , _sdStoredAsSubDirectories :: !(Maybe Bool)
+  , _sdParameters             :: !(Maybe (Map Text Text))
+  , _sdInputFormat            :: !(Maybe Text)
+  , _sdSkewedInfo             :: !(Maybe SkewedInfo)
+  , _sdColumns                :: !(Maybe [Column])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StorageDescriptor' with the minimum fields required to make a request.
 --
@@ -3367,20 +3505,21 @@ data StorageDescriptor = StorageDescriptor'
 storageDescriptor
     :: StorageDescriptor
 storageDescriptor =
-    StorageDescriptor'
-    { _sdSortColumns = Nothing
-    , _sdCompressed = Nothing
-    , _sdLocation = Nothing
-    , _sdBucketColumns = Nothing
-    , _sdSerdeInfo = Nothing
-    , _sdOutputFormat = Nothing
-    , _sdNumberOfBuckets = Nothing
-    , _sdStoredAsSubDirectories = Nothing
-    , _sdParameters = Nothing
-    , _sdInputFormat = Nothing
-    , _sdSkewedInfo = Nothing
-    , _sdColumns = Nothing
-    }
+  StorageDescriptor'
+  { _sdSortColumns = Nothing
+  , _sdCompressed = Nothing
+  , _sdLocation = Nothing
+  , _sdBucketColumns = Nothing
+  , _sdSerdeInfo = Nothing
+  , _sdOutputFormat = Nothing
+  , _sdNumberOfBuckets = Nothing
+  , _sdStoredAsSubDirectories = Nothing
+  , _sdParameters = Nothing
+  , _sdInputFormat = Nothing
+  , _sdSkewedInfo = Nothing
+  , _sdColumns = Nothing
+  }
+
 
 -- | A list specifying the sort order of each bucket in the table.
 sdSortColumns :: Lens' StorageDescriptor [Order]
@@ -3448,9 +3587,9 @@ instance FromJSON StorageDescriptor where
                      <*> (x .:? "SkewedInfo")
                      <*> (x .:? "Columns" .!= mempty))
 
-instance Hashable StorageDescriptor
+instance Hashable StorageDescriptor where
 
-instance NFData StorageDescriptor
+instance NFData StorageDescriptor where
 
 instance ToJSON StorageDescriptor where
         toJSON StorageDescriptor'{..}
@@ -3476,23 +3615,24 @@ instance ToJSON StorageDescriptor where
 --
 -- /See:/ 'table' smart constructor.
 data Table = Table'
-    { _tRetention         :: !(Maybe Nat)
-    , _tCreatedBy         :: !(Maybe Text)
-    , _tTableType         :: !(Maybe Text)
-    , _tOwner             :: !(Maybe Text)
-    , _tViewOriginalText  :: !(Maybe Text)
-    , _tUpdateTime        :: !(Maybe POSIX)
-    , _tViewExpandedText  :: !(Maybe Text)
-    , _tLastAnalyzedTime  :: !(Maybe POSIX)
-    , _tStorageDescriptor :: !(Maybe StorageDescriptor)
-    , _tDatabaseName      :: !(Maybe Text)
-    , _tParameters        :: !(Maybe (Map Text Text))
-    , _tLastAccessTime    :: !(Maybe POSIX)
-    , _tDescription       :: !(Maybe Text)
-    , _tPartitionKeys     :: !(Maybe [Column])
-    , _tCreateTime        :: !(Maybe POSIX)
-    , _tName              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tRetention         :: !(Maybe Nat)
+  , _tCreatedBy         :: !(Maybe Text)
+  , _tTableType         :: !(Maybe Text)
+  , _tOwner             :: !(Maybe Text)
+  , _tViewOriginalText  :: !(Maybe Text)
+  , _tUpdateTime        :: !(Maybe POSIX)
+  , _tViewExpandedText  :: !(Maybe Text)
+  , _tLastAnalyzedTime  :: !(Maybe POSIX)
+  , _tStorageDescriptor :: !(Maybe StorageDescriptor)
+  , _tDatabaseName      :: !(Maybe Text)
+  , _tParameters        :: !(Maybe (Map Text Text))
+  , _tLastAccessTime    :: !(Maybe POSIX)
+  , _tDescription       :: !(Maybe Text)
+  , _tPartitionKeys     :: !(Maybe [Column])
+  , _tCreateTime        :: !(Maybe POSIX)
+  , _tName              :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Table' with the minimum fields required to make a request.
 --
@@ -3533,24 +3673,25 @@ table
     :: Text -- ^ 'tName'
     -> Table
 table pName_ =
-    Table'
-    { _tRetention = Nothing
-    , _tCreatedBy = Nothing
-    , _tTableType = Nothing
-    , _tOwner = Nothing
-    , _tViewOriginalText = Nothing
-    , _tUpdateTime = Nothing
-    , _tViewExpandedText = Nothing
-    , _tLastAnalyzedTime = Nothing
-    , _tStorageDescriptor = Nothing
-    , _tDatabaseName = Nothing
-    , _tParameters = Nothing
-    , _tLastAccessTime = Nothing
-    , _tDescription = Nothing
-    , _tPartitionKeys = Nothing
-    , _tCreateTime = Nothing
-    , _tName = pName_
-    }
+  Table'
+  { _tRetention = Nothing
+  , _tCreatedBy = Nothing
+  , _tTableType = Nothing
+  , _tOwner = Nothing
+  , _tViewOriginalText = Nothing
+  , _tUpdateTime = Nothing
+  , _tViewExpandedText = Nothing
+  , _tLastAnalyzedTime = Nothing
+  , _tStorageDescriptor = Nothing
+  , _tDatabaseName = Nothing
+  , _tParameters = Nothing
+  , _tLastAccessTime = Nothing
+  , _tDescription = Nothing
+  , _tPartitionKeys = Nothing
+  , _tCreateTime = Nothing
+  , _tName = pName_
+  }
+
 
 -- | Retention time for this table.
 tRetention :: Lens' Table (Maybe Natural)
@@ -3637,9 +3778,9 @@ instance FromJSON Table where
                      <*> (x .:? "CreateTime")
                      <*> (x .: "Name"))
 
-instance Hashable Table
+instance Hashable Table where
 
-instance NFData Table
+instance NFData Table where
 
 -- | An error record for table operations.
 --
@@ -3647,9 +3788,10 @@ instance NFData Table
 --
 -- /See:/ 'tableError' smart constructor.
 data TableError = TableError'
-    { _teTableName   :: !(Maybe Text)
-    , _teErrorDetail :: !(Maybe ErrorDetail)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _teTableName   :: !(Maybe Text)
+  , _teErrorDetail :: !(Maybe ErrorDetail)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TableError' with the minimum fields required to make a request.
 --
@@ -3660,11 +3802,8 @@ data TableError = TableError'
 -- * 'teErrorDetail' - Detail about the error.
 tableError
     :: TableError
-tableError =
-    TableError'
-    { _teTableName = Nothing
-    , _teErrorDetail = Nothing
-    }
+tableError = TableError' {_teTableName = Nothing, _teErrorDetail = Nothing}
+
 
 -- | Name of the table.
 teTableName :: Lens' TableError (Maybe Text)
@@ -3681,9 +3820,9 @@ instance FromJSON TableError where
                  TableError' <$>
                    (x .:? "TableName") <*> (x .:? "ErrorDetail"))
 
-instance Hashable TableError
+instance Hashable TableError where
 
-instance NFData TableError
+instance NFData TableError where
 
 -- | Structure used to create or update the table.
 --
@@ -3691,19 +3830,20 @@ instance NFData TableError
 --
 -- /See:/ 'tableInput' smart constructor.
 data TableInput = TableInput'
-    { _tiRetention         :: !(Maybe Nat)
-    , _tiTableType         :: !(Maybe Text)
-    , _tiOwner             :: !(Maybe Text)
-    , _tiViewOriginalText  :: !(Maybe Text)
-    , _tiViewExpandedText  :: !(Maybe Text)
-    , _tiLastAnalyzedTime  :: !(Maybe POSIX)
-    , _tiStorageDescriptor :: !(Maybe StorageDescriptor)
-    , _tiParameters        :: !(Maybe (Map Text Text))
-    , _tiLastAccessTime    :: !(Maybe POSIX)
-    , _tiDescription       :: !(Maybe Text)
-    , _tiPartitionKeys     :: !(Maybe [Column])
-    , _tiName              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tiRetention         :: !(Maybe Nat)
+  , _tiTableType         :: !(Maybe Text)
+  , _tiOwner             :: !(Maybe Text)
+  , _tiViewOriginalText  :: !(Maybe Text)
+  , _tiViewExpandedText  :: !(Maybe Text)
+  , _tiLastAnalyzedTime  :: !(Maybe POSIX)
+  , _tiStorageDescriptor :: !(Maybe StorageDescriptor)
+  , _tiParameters        :: !(Maybe (Map Text Text))
+  , _tiLastAccessTime    :: !(Maybe POSIX)
+  , _tiDescription       :: !(Maybe Text)
+  , _tiPartitionKeys     :: !(Maybe [Column])
+  , _tiName              :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TableInput' with the minimum fields required to make a request.
 --
@@ -3736,20 +3876,21 @@ tableInput
     :: Text -- ^ 'tiName'
     -> TableInput
 tableInput pName_ =
-    TableInput'
-    { _tiRetention = Nothing
-    , _tiTableType = Nothing
-    , _tiOwner = Nothing
-    , _tiViewOriginalText = Nothing
-    , _tiViewExpandedText = Nothing
-    , _tiLastAnalyzedTime = Nothing
-    , _tiStorageDescriptor = Nothing
-    , _tiParameters = Nothing
-    , _tiLastAccessTime = Nothing
-    , _tiDescription = Nothing
-    , _tiPartitionKeys = Nothing
-    , _tiName = pName_
-    }
+  TableInput'
+  { _tiRetention = Nothing
+  , _tiTableType = Nothing
+  , _tiOwner = Nothing
+  , _tiViewOriginalText = Nothing
+  , _tiViewExpandedText = Nothing
+  , _tiLastAnalyzedTime = Nothing
+  , _tiStorageDescriptor = Nothing
+  , _tiParameters = Nothing
+  , _tiLastAccessTime = Nothing
+  , _tiDescription = Nothing
+  , _tiPartitionKeys = Nothing
+  , _tiName = pName_
+  }
+
 
 -- | Retention time for this table.
 tiRetention :: Lens' TableInput (Maybe Natural)
@@ -3799,9 +3940,9 @@ tiPartitionKeys = lens _tiPartitionKeys (\ s a -> s{_tiPartitionKeys = a}) . _De
 tiName :: Lens' TableInput Text
 tiName = lens _tiName (\ s a -> s{_tiName = a});
 
-instance Hashable TableInput
+instance Hashable TableInput where
 
-instance NFData TableInput
+instance NFData TableInput where
 
 instance ToJSON TableInput where
         toJSON TableInput'{..}
@@ -3820,32 +3961,34 @@ instance ToJSON TableInput where
                   ("PartitionKeys" .=) <$> _tiPartitionKeys,
                   Just ("Name" .= _tiName)])
 
--- | /See:/ 'tableVersion' smart constructor.
+-- | Specifies a version of a table.
+--
+--
+--
+-- /See:/ 'tableVersion' smart constructor.
 data TableVersion = TableVersion'
-    { _tvVersionId :: !(Maybe Text)
-    , _tvTable     :: !(Maybe Table)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tvVersionId :: !(Maybe Text)
+  , _tvTable     :: !(Maybe Table)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TableVersion' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'tvVersionId' - Undocumented member.
+-- * 'tvVersionId' - The ID value that identifies this table version.
 --
--- * 'tvTable' - Undocumented member.
+-- * 'tvTable' - The table in question
 tableVersion
     :: TableVersion
-tableVersion =
-    TableVersion'
-    { _tvVersionId = Nothing
-    , _tvTable = Nothing
-    }
+tableVersion = TableVersion' {_tvVersionId = Nothing, _tvTable = Nothing}
 
--- | Undocumented member.
+
+-- | The ID value that identifies this table version.
 tvVersionId :: Lens' TableVersion (Maybe Text)
 tvVersionId = lens _tvVersionId (\ s a -> s{_tvVersionId = a});
 
--- | Undocumented member.
+-- | The table in question
 tvTable :: Lens' TableVersion (Maybe Table)
 tvTable = lens _tvTable (\ s a -> s{_tvTable = a});
 
@@ -3856,9 +3999,9 @@ instance FromJSON TableVersion where
                  TableVersion' <$>
                    (x .:? "VersionId") <*> (x .:? "Table"))
 
-instance Hashable TableVersion
+instance Hashable TableVersion where
 
-instance NFData TableVersion
+instance NFData TableVersion where
 
 -- | Information about a specific trigger.
 --
@@ -3866,15 +4009,16 @@ instance NFData TableVersion
 --
 -- /See:/ 'trigger' smart constructor.
 data Trigger = Trigger'
-    { _triState       :: !(Maybe TriggerState)
-    , _triActions     :: !(Maybe [Action])
-    , _triSchedule    :: !(Maybe Text)
-    , _triPredicate   :: !(Maybe Predicate)
-    , _triName        :: !(Maybe Text)
-    , _triId          :: !(Maybe Text)
-    , _triType        :: !(Maybe TriggerType)
-    , _triDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _triState       :: !(Maybe TriggerState)
+  , _triActions     :: !(Maybe [Action])
+  , _triSchedule    :: !(Maybe Text)
+  , _triPredicate   :: !(Maybe Predicate)
+  , _triName        :: !(Maybe Text)
+  , _triId          :: !(Maybe Text)
+  , _triType        :: !(Maybe TriggerType)
+  , _triDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Trigger' with the minimum fields required to make a request.
 --
@@ -3884,7 +4028,7 @@ data Trigger = Trigger'
 --
 -- * 'triActions' - The actions initiated by this trigger.
 --
--- * 'triSchedule' - A cron schedule expression.
+-- * 'triSchedule' - A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 --
 -- * 'triPredicate' - The predicate of this trigger.
 --
@@ -3898,16 +4042,17 @@ data Trigger = Trigger'
 trigger
     :: Trigger
 trigger =
-    Trigger'
-    { _triState = Nothing
-    , _triActions = Nothing
-    , _triSchedule = Nothing
-    , _triPredicate = Nothing
-    , _triName = Nothing
-    , _triId = Nothing
-    , _triType = Nothing
-    , _triDescription = Nothing
-    }
+  Trigger'
+  { _triState = Nothing
+  , _triActions = Nothing
+  , _triSchedule = Nothing
+  , _triPredicate = Nothing
+  , _triName = Nothing
+  , _triId = Nothing
+  , _triType = Nothing
+  , _triDescription = Nothing
+  }
+
 
 -- | The current state of the trigger.
 triState :: Lens' Trigger (Maybe TriggerState)
@@ -3917,7 +4062,7 @@ triState = lens _triState (\ s a -> s{_triState = a});
 triActions :: Lens' Trigger [Action]
 triActions = lens _triActions (\ s a -> s{_triActions = a}) . _Default . _Coerce;
 
--- | A cron schedule expression.
+-- | A @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 triSchedule :: Lens' Trigger (Maybe Text)
 triSchedule = lens _triSchedule (\ s a -> s{_triSchedule = a});
 
@@ -3954,9 +4099,9 @@ instance FromJSON Trigger where
                      <*> (x .:? "Type")
                      <*> (x .:? "Description"))
 
-instance Hashable Trigger
+instance Hashable Trigger where
 
-instance NFData Trigger
+instance NFData Trigger where
 
 -- | A structure used to provide information used to updata a trigger.
 --
@@ -3964,12 +4109,13 @@ instance NFData Trigger
 --
 -- /See:/ 'triggerUpdate' smart constructor.
 data TriggerUpdate = TriggerUpdate'
-    { _tuActions     :: !(Maybe [Action])
-    , _tuSchedule    :: !(Maybe Text)
-    , _tuPredicate   :: !(Maybe Predicate)
-    , _tuName        :: !(Maybe Text)
-    , _tuDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tuActions     :: !(Maybe [Action])
+  , _tuSchedule    :: !(Maybe Text)
+  , _tuPredicate   :: !(Maybe Predicate)
+  , _tuName        :: !(Maybe Text)
+  , _tuDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TriggerUpdate' with the minimum fields required to make a request.
 --
@@ -3977,7 +4123,7 @@ data TriggerUpdate = TriggerUpdate'
 --
 -- * 'tuActions' - The actions initiated by this trigger.
 --
--- * 'tuSchedule' - A cron expression specifying the schedule.
+-- * 'tuSchedule' - An updated @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 --
 -- * 'tuPredicate' - The predicate of this trigger, which defines when it will fire.
 --
@@ -3987,19 +4133,20 @@ data TriggerUpdate = TriggerUpdate'
 triggerUpdate
     :: TriggerUpdate
 triggerUpdate =
-    TriggerUpdate'
-    { _tuActions = Nothing
-    , _tuSchedule = Nothing
-    , _tuPredicate = Nothing
-    , _tuName = Nothing
-    , _tuDescription = Nothing
-    }
+  TriggerUpdate'
+  { _tuActions = Nothing
+  , _tuSchedule = Nothing
+  , _tuPredicate = Nothing
+  , _tuName = Nothing
+  , _tuDescription = Nothing
+  }
+
 
 -- | The actions initiated by this trigger.
 tuActions :: Lens' TriggerUpdate [Action]
 tuActions = lens _tuActions (\ s a -> s{_tuActions = a}) . _Default . _Coerce;
 
--- | A cron expression specifying the schedule.
+-- | An updated @cron@ expression used to specify the schedule (see <http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html Time-Based Schedules for Jobs and Crawlers> . For example, to run something every day at 12:15 UTC, you would specify: @cron(15 12 * * ? *)@ .
 tuSchedule :: Lens' TriggerUpdate (Maybe Text)
 tuSchedule = lens _tuSchedule (\ s a -> s{_tuSchedule = a});
 
@@ -4015,9 +4162,9 @@ tuName = lens _tuName (\ s a -> s{_tuName = a});
 tuDescription :: Lens' TriggerUpdate (Maybe Text)
 tuDescription = lens _tuDescription (\ s a -> s{_tuDescription = a});
 
-instance Hashable TriggerUpdate
+instance Hashable TriggerUpdate where
 
-instance NFData TriggerUpdate
+instance NFData TriggerUpdate where
 
 instance ToJSON TriggerUpdate where
         toJSON TriggerUpdate'{..}
@@ -4035,11 +4182,12 @@ instance ToJSON TriggerUpdate where
 --
 -- /See:/ 'updateGrokClassifierRequest' smart constructor.
 data UpdateGrokClassifierRequest = UpdateGrokClassifierRequest'
-    { _ugcrClassification :: !(Maybe Text)
-    , _ugcrCustomPatterns :: !(Maybe Text)
-    , _ugcrGrokPattern    :: !(Maybe Text)
-    , _ugcrName           :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ugcrClassification :: !(Maybe Text)
+  , _ugcrCustomPatterns :: !(Maybe Text)
+  , _ugcrGrokPattern    :: !(Maybe Text)
+  , _ugcrName           :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateGrokClassifierRequest' with the minimum fields required to make a request.
 --
@@ -4056,12 +4204,13 @@ updateGrokClassifierRequest
     :: Text -- ^ 'ugcrName'
     -> UpdateGrokClassifierRequest
 updateGrokClassifierRequest pName_ =
-    UpdateGrokClassifierRequest'
-    { _ugcrClassification = Nothing
-    , _ugcrCustomPatterns = Nothing
-    , _ugcrGrokPattern = Nothing
-    , _ugcrName = pName_
-    }
+  UpdateGrokClassifierRequest'
+  { _ugcrClassification = Nothing
+  , _ugcrCustomPatterns = Nothing
+  , _ugcrGrokPattern = Nothing
+  , _ugcrName = pName_
+  }
+
 
 -- | The type of result that the classifier matches, such as Twitter Json, Omniture logs, Cloudwatch logs, and so forth.
 ugcrClassification :: Lens' UpdateGrokClassifierRequest (Maybe Text)
@@ -4079,9 +4228,9 @@ ugcrGrokPattern = lens _ugcrGrokPattern (\ s a -> s{_ugcrGrokPattern = a});
 ugcrName :: Lens' UpdateGrokClassifierRequest Text
 ugcrName = lens _ugcrName (\ s a -> s{_ugcrName = a});
 
-instance Hashable UpdateGrokClassifierRequest
+instance Hashable UpdateGrokClassifierRequest where
 
-instance NFData UpdateGrokClassifierRequest
+instance NFData UpdateGrokClassifierRequest where
 
 instance ToJSON UpdateGrokClassifierRequest where
         toJSON UpdateGrokClassifierRequest'{..}
@@ -4098,13 +4247,14 @@ instance ToJSON UpdateGrokClassifierRequest where
 --
 -- /See:/ 'userDefinedFunction' smart constructor.
 data UserDefinedFunction = UserDefinedFunction'
-    { _udfOwnerName    :: !(Maybe Text)
-    , _udfResourceURIs :: !(Maybe [ResourceURI])
-    , _udfFunctionName :: !(Maybe Text)
-    , _udfOwnerType    :: !(Maybe PrincipalType)
-    , _udfCreateTime   :: !(Maybe POSIX)
-    , _udfClassName    :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _udfOwnerName    :: !(Maybe Text)
+  , _udfResourceURIs :: !(Maybe [ResourceURI])
+  , _udfFunctionName :: !(Maybe Text)
+  , _udfOwnerType    :: !(Maybe PrincipalType)
+  , _udfCreateTime   :: !(Maybe POSIX)
+  , _udfClassName    :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UserDefinedFunction' with the minimum fields required to make a request.
 --
@@ -4124,14 +4274,15 @@ data UserDefinedFunction = UserDefinedFunction'
 userDefinedFunction
     :: UserDefinedFunction
 userDefinedFunction =
-    UserDefinedFunction'
-    { _udfOwnerName = Nothing
-    , _udfResourceURIs = Nothing
-    , _udfFunctionName = Nothing
-    , _udfOwnerType = Nothing
-    , _udfCreateTime = Nothing
-    , _udfClassName = Nothing
-    }
+  UserDefinedFunction'
+  { _udfOwnerName = Nothing
+  , _udfResourceURIs = Nothing
+  , _udfFunctionName = Nothing
+  , _udfOwnerType = Nothing
+  , _udfCreateTime = Nothing
+  , _udfClassName = Nothing
+  }
+
 
 -- | The owner of the function.
 udfOwnerName :: Lens' UserDefinedFunction (Maybe Text)
@@ -4169,9 +4320,9 @@ instance FromJSON UserDefinedFunction where
                      <*> (x .:? "CreateTime")
                      <*> (x .:? "ClassName"))
 
-instance Hashable UserDefinedFunction
+instance Hashable UserDefinedFunction where
 
-instance NFData UserDefinedFunction
+instance NFData UserDefinedFunction where
 
 -- | A structure used to create or updata a user-defined function.
 --
@@ -4179,12 +4330,13 @@ instance NFData UserDefinedFunction
 --
 -- /See:/ 'userDefinedFunctionInput' smart constructor.
 data UserDefinedFunctionInput = UserDefinedFunctionInput'
-    { _udfiOwnerName    :: !(Maybe Text)
-    , _udfiResourceURIs :: !(Maybe [ResourceURI])
-    , _udfiFunctionName :: !(Maybe Text)
-    , _udfiOwnerType    :: !(Maybe PrincipalType)
-    , _udfiClassName    :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _udfiOwnerName    :: !(Maybe Text)
+  , _udfiResourceURIs :: !(Maybe [ResourceURI])
+  , _udfiFunctionName :: !(Maybe Text)
+  , _udfiOwnerType    :: !(Maybe PrincipalType)
+  , _udfiClassName    :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UserDefinedFunctionInput' with the minimum fields required to make a request.
 --
@@ -4202,13 +4354,14 @@ data UserDefinedFunctionInput = UserDefinedFunctionInput'
 userDefinedFunctionInput
     :: UserDefinedFunctionInput
 userDefinedFunctionInput =
-    UserDefinedFunctionInput'
-    { _udfiOwnerName = Nothing
-    , _udfiResourceURIs = Nothing
-    , _udfiFunctionName = Nothing
-    , _udfiOwnerType = Nothing
-    , _udfiClassName = Nothing
-    }
+  UserDefinedFunctionInput'
+  { _udfiOwnerName = Nothing
+  , _udfiResourceURIs = Nothing
+  , _udfiFunctionName = Nothing
+  , _udfiOwnerType = Nothing
+  , _udfiClassName = Nothing
+  }
+
 
 -- | The owner of the function.
 udfiOwnerName :: Lens' UserDefinedFunctionInput (Maybe Text)
@@ -4230,9 +4383,9 @@ udfiOwnerType = lens _udfiOwnerType (\ s a -> s{_udfiOwnerType = a});
 udfiClassName :: Lens' UserDefinedFunctionInput (Maybe Text)
 udfiClassName = lens _udfiClassName (\ s a -> s{_udfiClassName = a});
 
-instance Hashable UserDefinedFunctionInput
+instance Hashable UserDefinedFunctionInput where
 
-instance NFData UserDefinedFunctionInput
+instance NFData UserDefinedFunctionInput where
 
 instance ToJSON UserDefinedFunctionInput where
         toJSON UserDefinedFunctionInput'{..}

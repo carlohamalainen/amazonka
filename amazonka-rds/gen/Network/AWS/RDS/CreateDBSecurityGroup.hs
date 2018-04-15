@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.CreateDBSecurityGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,12 +39,12 @@ module Network.AWS.RDS.CreateDBSecurityGroup
     , cdbsgrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -52,10 +52,11 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createDBSecurityGroup' smart constructor.
 data CreateDBSecurityGroup = CreateDBSecurityGroup'
-    { _cdsgTags                       :: !(Maybe [Tag])
-    , _cdsgDBSecurityGroupName        :: !Text
-    , _cdsgDBSecurityGroupDescription :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdsgTags                       :: !(Maybe [Tag])
+  , _cdsgDBSecurityGroupName        :: !Text
+  , _cdsgDBSecurityGroupDescription :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBSecurityGroup' with the minimum fields required to make a request.
 --
@@ -63,7 +64,7 @@ data CreateDBSecurityGroup = CreateDBSecurityGroup'
 --
 -- * 'cdsgTags' - Undocumented member.
 --
--- * 'cdsgDBSecurityGroupName' - The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
+-- * 'cdsgDBSecurityGroupName' - The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
 --
 -- * 'cdsgDBSecurityGroupDescription' - The description for the DB security group.
 createDBSecurityGroup
@@ -71,17 +72,18 @@ createDBSecurityGroup
     -> Text -- ^ 'cdsgDBSecurityGroupDescription'
     -> CreateDBSecurityGroup
 createDBSecurityGroup pDBSecurityGroupName_ pDBSecurityGroupDescription_ =
-    CreateDBSecurityGroup'
-    { _cdsgTags = Nothing
-    , _cdsgDBSecurityGroupName = pDBSecurityGroupName_
-    , _cdsgDBSecurityGroupDescription = pDBSecurityGroupDescription_
-    }
+  CreateDBSecurityGroup'
+  { _cdsgTags = Nothing
+  , _cdsgDBSecurityGroupName = pDBSecurityGroupName_
+  , _cdsgDBSecurityGroupDescription = pDBSecurityGroupDescription_
+  }
+
 
 -- | Undocumented member.
 cdsgTags :: Lens' CreateDBSecurityGroup [Tag]
 cdsgTags = lens _cdsgTags (\ s a -> s{_cdsgTags = a}) . _Default . _Coerce;
 
--- | The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
+-- | The name for the DB security group. This value is stored as a lowercase string. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens.     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens     * Must not be "Default" Example: @mysecuritygroup@
 cdsgDBSecurityGroupName :: Lens' CreateDBSecurityGroup Text
 cdsgDBSecurityGroupName = lens _cdsgDBSecurityGroupName (\ s a -> s{_cdsgDBSecurityGroupName = a});
 
@@ -99,9 +101,9 @@ instance AWSRequest CreateDBSecurityGroup where
                  CreateDBSecurityGroupResponse' <$>
                    (x .@? "DBSecurityGroup") <*> (pure (fromEnum s)))
 
-instance Hashable CreateDBSecurityGroup
+instance Hashable CreateDBSecurityGroup where
 
-instance NFData CreateDBSecurityGroup
+instance NFData CreateDBSecurityGroup where
 
 instance ToHeaders CreateDBSecurityGroup where
         toHeaders = const mempty
@@ -121,9 +123,10 @@ instance ToQuery CreateDBSecurityGroup where
 
 -- | /See:/ 'createDBSecurityGroupResponse' smart constructor.
 data CreateDBSecurityGroupResponse = CreateDBSecurityGroupResponse'
-    { _cdbsgrsDBSecurityGroup :: !(Maybe DBSecurityGroup)
-    , _cdbsgrsResponseStatus  :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdbsgrsDBSecurityGroup :: !(Maybe DBSecurityGroup)
+  , _cdbsgrsResponseStatus  :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDBSecurityGroupResponse' with the minimum fields required to make a request.
 --
@@ -136,10 +139,9 @@ createDBSecurityGroupResponse
     :: Int -- ^ 'cdbsgrsResponseStatus'
     -> CreateDBSecurityGroupResponse
 createDBSecurityGroupResponse pResponseStatus_ =
-    CreateDBSecurityGroupResponse'
-    { _cdbsgrsDBSecurityGroup = Nothing
-    , _cdbsgrsResponseStatus = pResponseStatus_
-    }
+  CreateDBSecurityGroupResponse'
+  {_cdbsgrsDBSecurityGroup = Nothing, _cdbsgrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 cdbsgrsDBSecurityGroup :: Lens' CreateDBSecurityGroupResponse (Maybe DBSecurityGroup)
@@ -149,4 +151,4 @@ cdbsgrsDBSecurityGroup = lens _cdbsgrsDBSecurityGroup (\ s a -> s{_cdbsgrsDBSecu
 cdbsgrsResponseStatus :: Lens' CreateDBSecurityGroupResponse Int
 cdbsgrsResponseStatus = lens _cdbsgrsResponseStatus (\ s a -> s{_cdbsgrsResponseStatus = a});
 
-instance NFData CreateDBSecurityGroupResponse
+instance NFData CreateDBSecurityGroupResponse where

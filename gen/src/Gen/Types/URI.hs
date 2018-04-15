@@ -8,28 +8,28 @@
 {-# LANGUAGE TemplateHaskell        #-}
 
 -- Module      : Gen.Types.URI
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.Types.URI where
 
-import           Control.Applicative
-import           Control.Lens
+import Control.Applicative
+import Control.Lens
 
-import           Data.Aeson
-import           Data.Attoparsec.Text (Parser)
-import           Data.Text            (Text)
+import Data.Aeson
+import Data.Attoparsec.Text (Parser)
+import Data.Text            (Text)
 
-import           Gen.TH
-import           Gen.Types.Id
+import Gen.TH
+import Gen.Types.Id
 
-import           GHC.Generics         (Generic)
+import GHC.Generics (Generic)
 
 import qualified Data.Attoparsec.Text as Parse
 import qualified Data.Text            as Text
@@ -70,9 +70,9 @@ uriParser = URI'
     var = mkId . Text.filter rep <$>
         (Parse.char '{' *> Parse.takeWhile1 (end '}') <* Parse.char '}')
 
-    end x y | x == y = False
-    end _ '?'        = False
-    end _  _         = True
+    end x y   | x == y = False
+    end _ '?' = False
+    end _  _  = True
 
     rep '+' = False
     rep  _  = True

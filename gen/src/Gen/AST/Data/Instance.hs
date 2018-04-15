@@ -5,28 +5,30 @@
 {-# LANGUAGE ViewPatterns      #-}
 
 -- Module      : Gen.AST.Data.Instance
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.AST.Data.Instance where
 
-import           Control.Applicative
-import           Control.Error
-import           Control.Lens
-import           Control.Monad.Except
-import           Data.Aeson
-import           Data.List            (find, partition)
-import           Data.Monoid
-import           Data.Text            (Text)
-import           Gen.AST.Data.Field
-import           Gen.Formatting
-import           Gen.Types
+import Control.Applicative
+import Control.Error
+import Control.Lens
+import Control.Monad.Except
+
+import Data.Aeson
+import Data.List   (find, partition)
+import Data.Monoid
+import Data.Text   (Text)
+
+import Gen.AST.Data.Field
+import Gen.Formatting
+import Gen.Types
 
 data Inst
     = FromXML   [Field]
@@ -204,9 +206,9 @@ requestInsts m oname h r fs = do
 
     protocolQuery :: [(Text, Maybe Text)]
     protocolQuery = case p of
-        Query    -> [a, v]
-        EC2      -> [a, v]
-        _        -> []
+        Query -> [a, v]
+        EC2   -> [a, v]
+        _     -> []
       where
         a = ("Action",  Just action)
         v = ("Version", Just version)

@@ -5,32 +5,32 @@
 {-# LANGUAGE TemplateHaskell   #-}
 
 -- Module      : Gen.Types.Data
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla xtPublic License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
 module Gen.Types.Data where
 
-import           Control.Lens     hiding ((.=))
+import Control.Lens hiding ((.=))
 
-import           Data.Aeson
-import           Data.Aeson.Types
-import           Data.Function    (on)
-import           Data.Text        (Text)
+import Data.Aeson
+import Data.Aeson.Types
+import Data.Function    (on)
+import Data.Text        (Text)
 
-import           Gen.Types.Ann
-import           Gen.Types.Help
-import           Gen.Types.Id
-import           Gen.Types.Map
-import           Gen.Types.TypeOf
+import Gen.Types.Ann
+import Gen.Types.Help
+import Gen.Types.Id
+import Gen.Types.Map
+import Gen.Types.TypeOf
 
-import qualified Data.Text        as Text
-import qualified Data.Text.Lazy   as LText
+import qualified Data.Text      as Text
+import qualified Data.Text.Lazy as LText
 
 type Rendered = LText.Text
 

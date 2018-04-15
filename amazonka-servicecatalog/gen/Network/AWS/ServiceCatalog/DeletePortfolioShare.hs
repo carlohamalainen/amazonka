@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.DeletePortfolioShare
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -38,25 +38,26 @@ module Network.AWS.ServiceCatalog.DeletePortfolioShare
     , dpsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'deletePortfolioShare' smart constructor.
 data DeletePortfolioShare = DeletePortfolioShare'
-    { _dpsAcceptLanguage :: !(Maybe Text)
-    , _dpsPortfolioId    :: !Text
-    , _dpsAccountId      :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpsAcceptLanguage :: !(Maybe Text)
+  , _dpsPortfolioId    :: !Text
+  , _dpsAccountId      :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeletePortfolioShare' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dpsAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'dpsAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'dpsPortfolioId' - The portfolio identifier.
 --
@@ -66,13 +67,14 @@ deletePortfolioShare
     -> Text -- ^ 'dpsAccountId'
     -> DeletePortfolioShare
 deletePortfolioShare pPortfolioId_ pAccountId_ =
-    DeletePortfolioShare'
-    { _dpsAcceptLanguage = Nothing
-    , _dpsPortfolioId = pPortfolioId_
-    , _dpsAccountId = pAccountId_
-    }
+  DeletePortfolioShare'
+  { _dpsAcceptLanguage = Nothing
+  , _dpsPortfolioId = pPortfolioId_
+  , _dpsAccountId = pAccountId_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 dpsAcceptLanguage :: Lens' DeletePortfolioShare (Maybe Text)
 dpsAcceptLanguage = lens _dpsAcceptLanguage (\ s a -> s{_dpsAcceptLanguage = a});
 
@@ -94,9 +96,9 @@ instance AWSRequest DeletePortfolioShare where
                  DeletePortfolioShareResponse' <$>
                    (pure (fromEnum s)))
 
-instance Hashable DeletePortfolioShare
+instance Hashable DeletePortfolioShare where
 
-instance NFData DeletePortfolioShare
+instance NFData DeletePortfolioShare where
 
 instance ToHeaders DeletePortfolioShare where
         toHeaders
@@ -124,8 +126,9 @@ instance ToQuery DeletePortfolioShare where
 
 -- | /See:/ 'deletePortfolioShareResponse' smart constructor.
 newtype DeletePortfolioShareResponse = DeletePortfolioShareResponse'
-    { _dpsrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpsrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeletePortfolioShareResponse' with the minimum fields required to make a request.
 --
@@ -136,12 +139,11 @@ deletePortfolioShareResponse
     :: Int -- ^ 'dpsrsResponseStatus'
     -> DeletePortfolioShareResponse
 deletePortfolioShareResponse pResponseStatus_ =
-    DeletePortfolioShareResponse'
-    { _dpsrsResponseStatus = pResponseStatus_
-    }
+  DeletePortfolioShareResponse' {_dpsrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 dpsrsResponseStatus :: Lens' DeletePortfolioShareResponse Int
 dpsrsResponseStatus = lens _dpsrsResponseStatus (\ s a -> s{_dpsrsResponseStatus = a});
 
-instance NFData DeletePortfolioShareResponse
+instance NFData DeletePortfolioShareResponse where

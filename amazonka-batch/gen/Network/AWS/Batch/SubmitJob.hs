@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Batch.SubmitJob
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,23 +44,24 @@ module Network.AWS.Batch.SubmitJob
     , sjrsJobId
     ) where
 
-import           Network.AWS.Batch.Types
-import           Network.AWS.Batch.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Batch.Types
+import Network.AWS.Batch.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'submitJob' smart constructor.
 data SubmitJob = SubmitJob'
-    { _sjContainerOverrides :: !(Maybe ContainerOverrides)
-    , _sjRetryStrategy      :: !(Maybe RetryStrategy)
-    , _sjDependsOn          :: !(Maybe [JobDependency])
-    , _sjParameters         :: !(Maybe (Map Text Text))
-    , _sjJobName            :: !Text
-    , _sjJobQueue           :: !Text
-    , _sjJobDefinition      :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sjContainerOverrides :: !(Maybe ContainerOverrides)
+  , _sjRetryStrategy      :: !(Maybe RetryStrategy)
+  , _sjDependsOn          :: !(Maybe [JobDependency])
+  , _sjParameters         :: !(Maybe (Map Text Text))
+  , _sjJobName            :: !Text
+  , _sjJobQueue           :: !Text
+  , _sjJobDefinition      :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SubmitJob' with the minimum fields required to make a request.
 --
@@ -70,11 +71,11 @@ data SubmitJob = SubmitJob'
 --
 -- * 'sjRetryStrategy' - The retry strategy to use for failed jobs from this 'SubmitJob' operation. When a retry strategy is specified here, it overrides the retry strategy defined in the job definition.
 --
--- * 'sjDependsOn' - A list of job IDs on which this job depends. A job can depend upon a maximum of 100 jobs.
+-- * 'sjDependsOn' - A list of job IDs on which this job depends. A job can depend upon a maximum of 20 jobs.
 --
 -- * 'sjParameters' - Additional parameters passed to the job that replace parameter substitution placeholders that are set in the job definition. Parameters are specified as a key and value pair mapping. Parameters in a @SubmitJob@ request override any corresponding parameter defaults from the job definition.
 --
--- * 'sjJobName' - The name of the job. A name must be 1 to 128 characters in length. Pattern: ^[a-zA-Z0-9_]+$
+-- * 'sjJobName' - The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
 --
 -- * 'sjJobQueue' - The job queue into which the job will be submitted. You can specify either the name or the Amazon Resource Name (ARN) of the queue.
 --
@@ -85,15 +86,16 @@ submitJob
     -> Text -- ^ 'sjJobDefinition'
     -> SubmitJob
 submitJob pJobName_ pJobQueue_ pJobDefinition_ =
-    SubmitJob'
-    { _sjContainerOverrides = Nothing
-    , _sjRetryStrategy = Nothing
-    , _sjDependsOn = Nothing
-    , _sjParameters = Nothing
-    , _sjJobName = pJobName_
-    , _sjJobQueue = pJobQueue_
-    , _sjJobDefinition = pJobDefinition_
-    }
+  SubmitJob'
+  { _sjContainerOverrides = Nothing
+  , _sjRetryStrategy = Nothing
+  , _sjDependsOn = Nothing
+  , _sjParameters = Nothing
+  , _sjJobName = pJobName_
+  , _sjJobQueue = pJobQueue_
+  , _sjJobDefinition = pJobDefinition_
+  }
+
 
 -- | A list of container overrides in JSON format that specify the name of a container in the specified job definition and the overrides it should receive. You can override the default command for a container (that is specified in the job definition or the Docker image) with a @command@ override. You can also override existing environment variables (that are specified in the job definition or Docker image) on a container or add new environment variables to it with an @environment@ override.
 sjContainerOverrides :: Lens' SubmitJob (Maybe ContainerOverrides)
@@ -103,7 +105,7 @@ sjContainerOverrides = lens _sjContainerOverrides (\ s a -> s{_sjContainerOverri
 sjRetryStrategy :: Lens' SubmitJob (Maybe RetryStrategy)
 sjRetryStrategy = lens _sjRetryStrategy (\ s a -> s{_sjRetryStrategy = a});
 
--- | A list of job IDs on which this job depends. A job can depend upon a maximum of 100 jobs.
+-- | A list of job IDs on which this job depends. A job can depend upon a maximum of 20 jobs.
 sjDependsOn :: Lens' SubmitJob [JobDependency]
 sjDependsOn = lens _sjDependsOn (\ s a -> s{_sjDependsOn = a}) . _Default . _Coerce;
 
@@ -111,7 +113,7 @@ sjDependsOn = lens _sjDependsOn (\ s a -> s{_sjDependsOn = a}) . _Default . _Coe
 sjParameters :: Lens' SubmitJob (HashMap Text Text)
 sjParameters = lens _sjParameters (\ s a -> s{_sjParameters = a}) . _Default . _Map;
 
--- | The name of the job. A name must be 1 to 128 characters in length. Pattern: ^[a-zA-Z0-9_]+$
+-- | The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.
 sjJobName :: Lens' SubmitJob Text
 sjJobName = lens _sjJobName (\ s a -> s{_sjJobName = a});
 
@@ -133,9 +135,9 @@ instance AWSRequest SubmitJob where
                    (pure (fromEnum s)) <*> (x .:> "jobName") <*>
                      (x .:> "jobId"))
 
-instance Hashable SubmitJob
+instance Hashable SubmitJob where
 
-instance NFData SubmitJob
+instance NFData SubmitJob where
 
 instance ToHeaders SubmitJob where
         toHeaders
@@ -164,10 +166,11 @@ instance ToQuery SubmitJob where
 
 -- | /See:/ 'submitJobResponse' smart constructor.
 data SubmitJobResponse = SubmitJobResponse'
-    { _sjrsResponseStatus :: !Int
-    , _sjrsJobName        :: !Text
-    , _sjrsJobId          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sjrsResponseStatus :: !Int
+  , _sjrsJobName        :: !Text
+  , _sjrsJobId          :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SubmitJobResponse' with the minimum fields required to make a request.
 --
@@ -184,11 +187,12 @@ submitJobResponse
     -> Text -- ^ 'sjrsJobId'
     -> SubmitJobResponse
 submitJobResponse pResponseStatus_ pJobName_ pJobId_ =
-    SubmitJobResponse'
-    { _sjrsResponseStatus = pResponseStatus_
-    , _sjrsJobName = pJobName_
-    , _sjrsJobId = pJobId_
-    }
+  SubmitJobResponse'
+  { _sjrsResponseStatus = pResponseStatus_
+  , _sjrsJobName = pJobName_
+  , _sjrsJobId = pJobId_
+  }
+
 
 -- | -- | The response status code.
 sjrsResponseStatus :: Lens' SubmitJobResponse Int
@@ -202,4 +206,4 @@ sjrsJobName = lens _sjrsJobName (\ s a -> s{_sjrsJobName = a});
 sjrsJobId :: Lens' SubmitJobResponse Text
 sjrsJobId = lens _sjrsJobId (\ s a -> s{_sjrsJobId = a});
 
-instance NFData SubmitJobResponse
+instance NFData SubmitJobResponse where

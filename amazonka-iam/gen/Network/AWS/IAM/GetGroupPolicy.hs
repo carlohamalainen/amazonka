@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.IAM.GetGroupPolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,18 +44,19 @@ module Network.AWS.IAM.GetGroupPolicy
     , ggprsPolicyDocument
     ) where
 
-import           Network.AWS.IAM.Types
-import           Network.AWS.IAM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.IAM.Types
+import Network.AWS.IAM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getGroupPolicy' smart constructor.
 data GetGroupPolicy = GetGroupPolicy'
-    { _ggpGroupName  :: !Text
-    , _ggpPolicyName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ggpGroupName  :: !Text
+  , _ggpPolicyName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetGroupPolicy' with the minimum fields required to make a request.
 --
@@ -63,22 +64,20 @@ data GetGroupPolicy = GetGroupPolicy'
 --
 -- * 'ggpGroupName' - The name of the group the policy is associated with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 --
--- * 'ggpPolicyName' - The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- * 'ggpPolicyName' - The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 getGroupPolicy
     :: Text -- ^ 'ggpGroupName'
     -> Text -- ^ 'ggpPolicyName'
     -> GetGroupPolicy
 getGroupPolicy pGroupName_ pPolicyName_ =
-    GetGroupPolicy'
-    { _ggpGroupName = pGroupName_
-    , _ggpPolicyName = pPolicyName_
-    }
+  GetGroupPolicy' {_ggpGroupName = pGroupName_, _ggpPolicyName = pPolicyName_}
+
 
 -- | The name of the group the policy is associated with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 ggpGroupName :: Lens' GetGroupPolicy Text
 ggpGroupName = lens _ggpGroupName (\ s a -> s{_ggpGroupName = a});
 
--- | The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- | The name of the policy document to get. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 ggpPolicyName :: Lens' GetGroupPolicy Text
 ggpPolicyName = lens _ggpPolicyName (\ s a -> s{_ggpPolicyName = a});
 
@@ -93,9 +92,9 @@ instance AWSRequest GetGroupPolicy where
                      (x .@ "PolicyName")
                      <*> (x .@ "PolicyDocument"))
 
-instance Hashable GetGroupPolicy
+instance Hashable GetGroupPolicy where
 
-instance NFData GetGroupPolicy
+instance NFData GetGroupPolicy where
 
 instance ToHeaders GetGroupPolicy where
         toHeaders = const mempty
@@ -117,11 +116,12 @@ instance ToQuery GetGroupPolicy where
 --
 -- /See:/ 'getGroupPolicyResponse' smart constructor.
 data GetGroupPolicyResponse = GetGroupPolicyResponse'
-    { _ggprsResponseStatus :: !Int
-    , _ggprsGroupName      :: !Text
-    , _ggprsPolicyName     :: !Text
-    , _ggprsPolicyDocument :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ggprsResponseStatus :: !Int
+  , _ggprsGroupName      :: !Text
+  , _ggprsPolicyName     :: !Text
+  , _ggprsPolicyDocument :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetGroupPolicyResponse' with the minimum fields required to make a request.
 --
@@ -141,12 +141,13 @@ getGroupPolicyResponse
     -> Text -- ^ 'ggprsPolicyDocument'
     -> GetGroupPolicyResponse
 getGroupPolicyResponse pResponseStatus_ pGroupName_ pPolicyName_ pPolicyDocument_ =
-    GetGroupPolicyResponse'
-    { _ggprsResponseStatus = pResponseStatus_
-    , _ggprsGroupName = pGroupName_
-    , _ggprsPolicyName = pPolicyName_
-    , _ggprsPolicyDocument = pPolicyDocument_
-    }
+  GetGroupPolicyResponse'
+  { _ggprsResponseStatus = pResponseStatus_
+  , _ggprsGroupName = pGroupName_
+  , _ggprsPolicyName = pPolicyName_
+  , _ggprsPolicyDocument = pPolicyDocument_
+  }
+
 
 -- | -- | The response status code.
 ggprsResponseStatus :: Lens' GetGroupPolicyResponse Int
@@ -164,4 +165,4 @@ ggprsPolicyName = lens _ggprsPolicyName (\ s a -> s{_ggprsPolicyName = a});
 ggprsPolicyDocument :: Lens' GetGroupPolicyResponse Text
 ggprsPolicyDocument = lens _ggprsPolicyDocument (\ s a -> s{_ggprsPolicyDocument = a});
 
-instance NFData GetGroupPolicyResponse
+instance NFData GetGroupPolicyResponse where

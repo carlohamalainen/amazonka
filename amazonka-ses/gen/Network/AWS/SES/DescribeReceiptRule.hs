@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.SES.DescribeReceiptRule
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -23,7 +23,7 @@
 --
 -- For information about setting up receipt rules, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rules.html Amazon SES Developer Guide> .
 --
--- This action is throttled at one request per second.
+-- You can execute this operation no more than once per second.
 --
 module Network.AWS.SES.DescribeReceiptRule
     (
@@ -42,12 +42,12 @@ module Network.AWS.SES.DescribeReceiptRule
     , drrrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SES.Types
-import           Network.AWS.SES.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SES.Types
+import Network.AWS.SES.Types.Product
 
 -- | Represents a request to return the details of a receipt rule. You use receipt rules to receive email with Amazon SES. For more information, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
 --
@@ -55,15 +55,16 @@ import           Network.AWS.SES.Types.Product
 --
 -- /See:/ 'describeReceiptRule' smart constructor.
 data DescribeReceiptRule = DescribeReceiptRule'
-    { _drrRuleSetName :: !Text
-    , _drrRuleName    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _drrRuleSetName :: !Text
+  , _drrRuleName    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeReceiptRule' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'drrRuleSetName' - The name of the receipt rule set to which the receipt rule belongs.
+-- * 'drrRuleSetName' - The name of the receipt rule set that the receipt rule belongs to.
 --
 -- * 'drrRuleName' - The name of the receipt rule.
 describeReceiptRule
@@ -71,12 +72,11 @@ describeReceiptRule
     -> Text -- ^ 'drrRuleName'
     -> DescribeReceiptRule
 describeReceiptRule pRuleSetName_ pRuleName_ =
-    DescribeReceiptRule'
-    { _drrRuleSetName = pRuleSetName_
-    , _drrRuleName = pRuleName_
-    }
+  DescribeReceiptRule'
+  {_drrRuleSetName = pRuleSetName_, _drrRuleName = pRuleName_}
 
--- | The name of the receipt rule set to which the receipt rule belongs.
+
+-- | The name of the receipt rule set that the receipt rule belongs to.
 drrRuleSetName :: Lens' DescribeReceiptRule Text
 drrRuleSetName = lens _drrRuleSetName (\ s a -> s{_drrRuleSetName = a});
 
@@ -94,9 +94,9 @@ instance AWSRequest DescribeReceiptRule where
                  DescribeReceiptRuleResponse' <$>
                    (x .@? "Rule") <*> (pure (fromEnum s)))
 
-instance Hashable DescribeReceiptRule
+instance Hashable DescribeReceiptRule where
 
-instance NFData DescribeReceiptRule
+instance NFData DescribeReceiptRule where
 
 instance ToHeaders DescribeReceiptRule where
         toHeaders = const mempty
@@ -118,9 +118,10 @@ instance ToQuery DescribeReceiptRule where
 --
 -- /See:/ 'describeReceiptRuleResponse' smart constructor.
 data DescribeReceiptRuleResponse = DescribeReceiptRuleResponse'
-    { _drrrsRule           :: !(Maybe ReceiptRule)
-    , _drrrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _drrrsRule           :: !(Maybe ReceiptRule)
+  , _drrrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeReceiptRuleResponse' with the minimum fields required to make a request.
 --
@@ -133,10 +134,9 @@ describeReceiptRuleResponse
     :: Int -- ^ 'drrrsResponseStatus'
     -> DescribeReceiptRuleResponse
 describeReceiptRuleResponse pResponseStatus_ =
-    DescribeReceiptRuleResponse'
-    { _drrrsRule = Nothing
-    , _drrrsResponseStatus = pResponseStatus_
-    }
+  DescribeReceiptRuleResponse'
+  {_drrrsRule = Nothing, _drrrsResponseStatus = pResponseStatus_}
+
 
 -- | A data structure that contains the specified receipt rule's name, actions, recipients, domains, enabled status, scan status, and Transport Layer Security (TLS) policy.
 drrrsRule :: Lens' DescribeReceiptRuleResponse (Maybe ReceiptRule)
@@ -146,4 +146,4 @@ drrrsRule = lens _drrrsRule (\ s a -> s{_drrrsRule = a});
 drrrsResponseStatus :: Lens' DescribeReceiptRuleResponse Int
 drrrsResponseStatus = lens _drrrsResponseStatus (\ s a -> s{_drrrsResponseStatus = a});
 
-instance NFData DescribeReceiptRuleResponse
+instance NFData DescribeReceiptRuleResponse where

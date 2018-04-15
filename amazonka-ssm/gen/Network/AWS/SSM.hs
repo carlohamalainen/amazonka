@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.SSM
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -18,6 +18,8 @@
 -- This reference is intended to be used with the <http://docs.aws.amazon.com/systems-manager/latest/userguide/ Amazon EC2 Systems Manager User Guide> .
 --
 -- To get started, verify prerequisites and configure managed instances. For more information, see <http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html Systems Manager Prerequisites> .
+--
+-- For information about other API actions you can perform on Amazon EC2 instances, see the <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ Amazon EC2 API Reference> . For information about how to use a Query API, see <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html Making API Requests> .
 --
 module Network.AWS.SSM
     (
@@ -135,6 +137,9 @@ module Network.AWS.SSM
     -- ** ResourceDataSyncNotFoundException
     , _ResourceDataSyncNotFoundException
 
+    -- ** ParameterMaxVersionLimitExceeded
+    , _ParameterMaxVersionLimitExceeded
+
     -- ** ItemSizeLimitExceededException
     , _ItemSizeLimitExceededException
 
@@ -174,6 +179,9 @@ module Network.AWS.SSM
     -- ** AssociationLimitExceeded
     , _AssociationLimitExceeded
 
+    -- ** InvalidAssociationVersion
+    , _InvalidAssociationVersion
+
     -- ** AssociationDoesNotExist
     , _AssociationDoesNotExist
 
@@ -189,6 +197,9 @@ module Network.AWS.SSM
     -- ** UnsupportedInventoryItemContextException
     , _UnsupportedInventoryItemContextException
 
+    -- ** AssociationVersionLimitExceeded
+    , _AssociationVersionLimitExceeded
+
     -- ** InvalidRole
     , _InvalidRole
 
@@ -203,6 +214,9 @@ module Network.AWS.SSM
 
     -- ** MaxDocumentSizeExceeded
     , _MaxDocumentSizeExceeded
+
+    -- ** ParameterVersionNotFound
+    , _ParameterVersionNotFound
 
     -- ** InvalidUpdate
     , _InvalidUpdate
@@ -465,6 +479,9 @@ module Network.AWS.SSM
     -- ** ListResourceComplianceSummaries
     , module Network.AWS.SSM.ListResourceComplianceSummaries
 
+    -- ** ListAssociationVersions
+    , module Network.AWS.SSM.ListAssociationVersions
+
     -- ** DescribeMaintenanceWindowTasks
     , module Network.AWS.SSM.DescribeMaintenanceWindowTasks
 
@@ -722,6 +739,8 @@ module Network.AWS.SSM
     , aName
     , aTargets
     , aDocumentVersion
+    , aAssociationVersion
+    , aAssociationName
 
     -- ** AssociationDescription
     , AssociationDescription
@@ -740,6 +759,8 @@ module Network.AWS.SSM
     , adTargets
     , adParameters
     , adDocumentVersion
+    , adAssociationVersion
+    , adAssociationName
 
     -- ** AssociationFilter
     , AssociationFilter
@@ -761,6 +782,20 @@ module Network.AWS.SSM
     , asDate
     , asName
     , asMessage
+
+    -- ** AssociationVersionInfo
+    , AssociationVersionInfo
+    , associationVersionInfo
+    , aviAssociationId
+    , aviCreatedDate
+    , aviScheduleExpression
+    , aviName
+    , aviOutputLocation
+    , aviTargets
+    , aviParameters
+    , aviDocumentVersion
+    , aviAssociationVersion
+    , aviAssociationName
 
     -- ** AutomationExecution
     , AutomationExecution
@@ -917,6 +952,7 @@ module Network.AWS.SSM
     , cabreTargets
     , cabreParameters
     , cabreDocumentVersion
+    , cabreAssociationName
     , cabreName
 
     -- ** DescribeActivationsFilter
@@ -948,6 +984,7 @@ module Network.AWS.SSM
     , dParameters
     , dDocumentVersion
     , dDescription
+    , dTags
     , dLatestVersion
 
     -- ** DocumentFilter
@@ -965,6 +1002,13 @@ module Network.AWS.SSM
     , diPlatformTypes
     , diName
     , diDocumentVersion
+    , diTags
+
+    -- ** DocumentKeyValuesFilter
+    , DocumentKeyValuesFilter
+    , documentKeyValuesFilter
+    , dkvfValues
+    , dkvfKey
 
     -- ** DocumentParameter
     , DocumentParameter
@@ -1014,6 +1058,7 @@ module Network.AWS.SSM
     , iaAssociationId
     , iaInstanceId
     , iaContent
+    , iaAssociationVersion
 
     -- ** InstanceAssociationOutputLocation
     , InstanceAssociationOutputLocation
@@ -1037,7 +1082,9 @@ module Network.AWS.SSM
     , iasiName
     , iasiErrorCode
     , iasiDocumentVersion
+    , iasiAssociationVersion
     , iasiExecutionDate
+    , iasiAssociationName
 
     -- ** InstanceInformation
     , InstanceInformation
@@ -1295,6 +1342,7 @@ module Network.AWS.SSM
     , parameter
     , pValue
     , pName
+    , pVersion
     , pType
 
     -- ** ParameterHistory
@@ -1304,6 +1352,7 @@ module Network.AWS.SSM
     , phKeyId
     , phValue
     , phName
+    , phVersion
     , phLastModifiedUser
     , phAllowedPattern
     , phType
@@ -1315,6 +1364,7 @@ module Network.AWS.SSM
     , pmLastModifiedDate
     , pmKeyId
     , pmName
+    , pmVersion
     , pmLastModifiedUser
     , pmAllowedPattern
     , pmType
@@ -1437,6 +1487,7 @@ module Network.AWS.SSM
     , ResourceDataSyncS3Destination
     , resourceDataSyncS3Destination
     , rdssdPrefix
+    , rdssdAWSKMSKeyARN
     , rdssdBucketName
     , rdssdSyncFormat
     , rdssdRegion
@@ -1496,103 +1547,104 @@ module Network.AWS.SSM
     , tKey
     ) where
 
-import           Network.AWS.SSM.AddTagsToResource
-import           Network.AWS.SSM.CancelCommand
-import           Network.AWS.SSM.CreateActivation
-import           Network.AWS.SSM.CreateAssociation
-import           Network.AWS.SSM.CreateAssociationBatch
-import           Network.AWS.SSM.CreateDocument
-import           Network.AWS.SSM.CreateMaintenanceWindow
-import           Network.AWS.SSM.CreatePatchBaseline
-import           Network.AWS.SSM.CreateResourceDataSync
-import           Network.AWS.SSM.DeleteActivation
-import           Network.AWS.SSM.DeleteAssociation
-import           Network.AWS.SSM.DeleteDocument
-import           Network.AWS.SSM.DeleteMaintenanceWindow
-import           Network.AWS.SSM.DeleteParameter
-import           Network.AWS.SSM.DeleteParameters
-import           Network.AWS.SSM.DeletePatchBaseline
-import           Network.AWS.SSM.DeleteResourceDataSync
-import           Network.AWS.SSM.DeregisterManagedInstance
-import           Network.AWS.SSM.DeregisterPatchBaselineForPatchGroup
-import           Network.AWS.SSM.DeregisterTargetFromMaintenanceWindow
-import           Network.AWS.SSM.DeregisterTaskFromMaintenanceWindow
-import           Network.AWS.SSM.DescribeActivations
-import           Network.AWS.SSM.DescribeAssociation
-import           Network.AWS.SSM.DescribeAutomationExecutions
-import           Network.AWS.SSM.DescribeAvailablePatches
-import           Network.AWS.SSM.DescribeDocument
-import           Network.AWS.SSM.DescribeDocumentPermission
-import           Network.AWS.SSM.DescribeEffectiveInstanceAssociations
-import           Network.AWS.SSM.DescribeEffectivePatchesForPatchBaseline
-import           Network.AWS.SSM.DescribeInstanceAssociationsStatus
-import           Network.AWS.SSM.DescribeInstanceInformation
-import           Network.AWS.SSM.DescribeInstancePatches
-import           Network.AWS.SSM.DescribeInstancePatchStates
-import           Network.AWS.SSM.DescribeInstancePatchStatesForPatchGroup
-import           Network.AWS.SSM.DescribeMaintenanceWindowExecutions
-import           Network.AWS.SSM.DescribeMaintenanceWindowExecutionTaskInvocations
-import           Network.AWS.SSM.DescribeMaintenanceWindowExecutionTasks
-import           Network.AWS.SSM.DescribeMaintenanceWindows
-import           Network.AWS.SSM.DescribeMaintenanceWindowTargets
-import           Network.AWS.SSM.DescribeMaintenanceWindowTasks
-import           Network.AWS.SSM.DescribeParameters
-import           Network.AWS.SSM.DescribePatchBaselines
-import           Network.AWS.SSM.DescribePatchGroups
-import           Network.AWS.SSM.DescribePatchGroupState
-import           Network.AWS.SSM.GetAutomationExecution
-import           Network.AWS.SSM.GetCommandInvocation
-import           Network.AWS.SSM.GetDefaultPatchBaseline
-import           Network.AWS.SSM.GetDeployablePatchSnapshotForInstance
-import           Network.AWS.SSM.GetDocument
-import           Network.AWS.SSM.GetInventory
-import           Network.AWS.SSM.GetInventorySchema
-import           Network.AWS.SSM.GetMaintenanceWindow
-import           Network.AWS.SSM.GetMaintenanceWindowExecution
-import           Network.AWS.SSM.GetMaintenanceWindowExecutionTask
-import           Network.AWS.SSM.GetMaintenanceWindowExecutionTaskInvocation
-import           Network.AWS.SSM.GetMaintenanceWindowTask
-import           Network.AWS.SSM.GetParameter
-import           Network.AWS.SSM.GetParameterHistory
-import           Network.AWS.SSM.GetParameters
-import           Network.AWS.SSM.GetParametersByPath
-import           Network.AWS.SSM.GetPatchBaseline
-import           Network.AWS.SSM.GetPatchBaselineForPatchGroup
-import           Network.AWS.SSM.ListAssociations
-import           Network.AWS.SSM.ListCommandInvocations
-import           Network.AWS.SSM.ListCommands
-import           Network.AWS.SSM.ListComplianceItems
-import           Network.AWS.SSM.ListComplianceSummaries
-import           Network.AWS.SSM.ListDocuments
-import           Network.AWS.SSM.ListDocumentVersions
-import           Network.AWS.SSM.ListInventoryEntries
-import           Network.AWS.SSM.ListResourceComplianceSummaries
-import           Network.AWS.SSM.ListResourceDataSync
-import           Network.AWS.SSM.ListTagsForResource
-import           Network.AWS.SSM.ModifyDocumentPermission
-import           Network.AWS.SSM.PutComplianceItems
-import           Network.AWS.SSM.PutInventory
-import           Network.AWS.SSM.PutParameter
-import           Network.AWS.SSM.RegisterDefaultPatchBaseline
-import           Network.AWS.SSM.RegisterPatchBaselineForPatchGroup
-import           Network.AWS.SSM.RegisterTargetWithMaintenanceWindow
-import           Network.AWS.SSM.RegisterTaskWithMaintenanceWindow
-import           Network.AWS.SSM.RemoveTagsFromResource
-import           Network.AWS.SSM.SendAutomationSignal
-import           Network.AWS.SSM.SendCommand
-import           Network.AWS.SSM.StartAutomationExecution
-import           Network.AWS.SSM.StopAutomationExecution
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.UpdateAssociation
-import           Network.AWS.SSM.UpdateAssociationStatus
-import           Network.AWS.SSM.UpdateDocument
-import           Network.AWS.SSM.UpdateDocumentDefaultVersion
-import           Network.AWS.SSM.UpdateMaintenanceWindow
-import           Network.AWS.SSM.UpdateMaintenanceWindowTarget
-import           Network.AWS.SSM.UpdateMaintenanceWindowTask
-import           Network.AWS.SSM.UpdateManagedInstanceRole
-import           Network.AWS.SSM.UpdatePatchBaseline
-import           Network.AWS.SSM.Waiters
+import Network.AWS.SSM.AddTagsToResource
+import Network.AWS.SSM.CancelCommand
+import Network.AWS.SSM.CreateActivation
+import Network.AWS.SSM.CreateAssociation
+import Network.AWS.SSM.CreateAssociationBatch
+import Network.AWS.SSM.CreateDocument
+import Network.AWS.SSM.CreateMaintenanceWindow
+import Network.AWS.SSM.CreatePatchBaseline
+import Network.AWS.SSM.CreateResourceDataSync
+import Network.AWS.SSM.DeleteActivation
+import Network.AWS.SSM.DeleteAssociation
+import Network.AWS.SSM.DeleteDocument
+import Network.AWS.SSM.DeleteMaintenanceWindow
+import Network.AWS.SSM.DeleteParameter
+import Network.AWS.SSM.DeleteParameters
+import Network.AWS.SSM.DeletePatchBaseline
+import Network.AWS.SSM.DeleteResourceDataSync
+import Network.AWS.SSM.DeregisterManagedInstance
+import Network.AWS.SSM.DeregisterPatchBaselineForPatchGroup
+import Network.AWS.SSM.DeregisterTargetFromMaintenanceWindow
+import Network.AWS.SSM.DeregisterTaskFromMaintenanceWindow
+import Network.AWS.SSM.DescribeActivations
+import Network.AWS.SSM.DescribeAssociation
+import Network.AWS.SSM.DescribeAutomationExecutions
+import Network.AWS.SSM.DescribeAvailablePatches
+import Network.AWS.SSM.DescribeDocument
+import Network.AWS.SSM.DescribeDocumentPermission
+import Network.AWS.SSM.DescribeEffectiveInstanceAssociations
+import Network.AWS.SSM.DescribeEffectivePatchesForPatchBaseline
+import Network.AWS.SSM.DescribeInstanceAssociationsStatus
+import Network.AWS.SSM.DescribeInstanceInformation
+import Network.AWS.SSM.DescribeInstancePatches
+import Network.AWS.SSM.DescribeInstancePatchStates
+import Network.AWS.SSM.DescribeInstancePatchStatesForPatchGroup
+import Network.AWS.SSM.DescribeMaintenanceWindowExecutions
+import Network.AWS.SSM.DescribeMaintenanceWindowExecutionTaskInvocations
+import Network.AWS.SSM.DescribeMaintenanceWindowExecutionTasks
+import Network.AWS.SSM.DescribeMaintenanceWindows
+import Network.AWS.SSM.DescribeMaintenanceWindowTargets
+import Network.AWS.SSM.DescribeMaintenanceWindowTasks
+import Network.AWS.SSM.DescribeParameters
+import Network.AWS.SSM.DescribePatchBaselines
+import Network.AWS.SSM.DescribePatchGroups
+import Network.AWS.SSM.DescribePatchGroupState
+import Network.AWS.SSM.GetAutomationExecution
+import Network.AWS.SSM.GetCommandInvocation
+import Network.AWS.SSM.GetDefaultPatchBaseline
+import Network.AWS.SSM.GetDeployablePatchSnapshotForInstance
+import Network.AWS.SSM.GetDocument
+import Network.AWS.SSM.GetInventory
+import Network.AWS.SSM.GetInventorySchema
+import Network.AWS.SSM.GetMaintenanceWindow
+import Network.AWS.SSM.GetMaintenanceWindowExecution
+import Network.AWS.SSM.GetMaintenanceWindowExecutionTask
+import Network.AWS.SSM.GetMaintenanceWindowExecutionTaskInvocation
+import Network.AWS.SSM.GetMaintenanceWindowTask
+import Network.AWS.SSM.GetParameter
+import Network.AWS.SSM.GetParameterHistory
+import Network.AWS.SSM.GetParameters
+import Network.AWS.SSM.GetParametersByPath
+import Network.AWS.SSM.GetPatchBaseline
+import Network.AWS.SSM.GetPatchBaselineForPatchGroup
+import Network.AWS.SSM.ListAssociations
+import Network.AWS.SSM.ListAssociationVersions
+import Network.AWS.SSM.ListCommandInvocations
+import Network.AWS.SSM.ListCommands
+import Network.AWS.SSM.ListComplianceItems
+import Network.AWS.SSM.ListComplianceSummaries
+import Network.AWS.SSM.ListDocuments
+import Network.AWS.SSM.ListDocumentVersions
+import Network.AWS.SSM.ListInventoryEntries
+import Network.AWS.SSM.ListResourceComplianceSummaries
+import Network.AWS.SSM.ListResourceDataSync
+import Network.AWS.SSM.ListTagsForResource
+import Network.AWS.SSM.ModifyDocumentPermission
+import Network.AWS.SSM.PutComplianceItems
+import Network.AWS.SSM.PutInventory
+import Network.AWS.SSM.PutParameter
+import Network.AWS.SSM.RegisterDefaultPatchBaseline
+import Network.AWS.SSM.RegisterPatchBaselineForPatchGroup
+import Network.AWS.SSM.RegisterTargetWithMaintenanceWindow
+import Network.AWS.SSM.RegisterTaskWithMaintenanceWindow
+import Network.AWS.SSM.RemoveTagsFromResource
+import Network.AWS.SSM.SendAutomationSignal
+import Network.AWS.SSM.SendCommand
+import Network.AWS.SSM.StartAutomationExecution
+import Network.AWS.SSM.StopAutomationExecution
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.UpdateAssociation
+import Network.AWS.SSM.UpdateAssociationStatus
+import Network.AWS.SSM.UpdateDocument
+import Network.AWS.SSM.UpdateDocumentDefaultVersion
+import Network.AWS.SSM.UpdateMaintenanceWindow
+import Network.AWS.SSM.UpdateMaintenanceWindowTarget
+import Network.AWS.SSM.UpdateMaintenanceWindowTask
+import Network.AWS.SSM.UpdateManagedInstanceRole
+import Network.AWS.SSM.UpdatePatchBaseline
+import Network.AWS.SSM.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

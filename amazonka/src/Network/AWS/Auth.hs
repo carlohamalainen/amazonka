@@ -4,12 +4,13 @@
 {-# LANGUAGE LambdaCase         #-}
 {-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE TupleSections      #-}
+{-# LANGUAGE CPP      #-}
 
 -- |
 -- Module      : Network.AWS.Auth
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 --
@@ -566,7 +567,11 @@ fromContainer m = do
         p  <- maybe (throwM . MissingEnvError $ "Unable to read ENV variable: " <> envContainerCredentialsURI)
                     return
                     mp
+#if MIN_VERSION_http_client(0,4,30)
         parseUrlThrow $ "http://169.254.170.2" <> p
+#else
+        parseUrl $ "http://169.254.170.2" <> p
+#endif
 
     renew :: HTTP.Request -> IO AuthEnv
     renew req = do

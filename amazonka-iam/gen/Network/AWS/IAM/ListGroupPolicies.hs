@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.IAM.ListGroupPolicies
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -47,20 +47,21 @@ module Network.AWS.IAM.ListGroupPolicies
     , lgprsPolicyNames
     ) where
 
-import           Network.AWS.IAM.Types
-import           Network.AWS.IAM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.IAM.Types
+import Network.AWS.IAM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'listGroupPolicies' smart constructor.
 data ListGroupPolicies = ListGroupPolicies'
-    { _lgpMarker    :: !(Maybe Text)
-    , _lgpMaxItems  :: !(Maybe Nat)
-    , _lgpGroupName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lgpMarker    :: !(Maybe Text)
+  , _lgpMaxItems  :: !(Maybe Nat)
+  , _lgpGroupName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListGroupPolicies' with the minimum fields required to make a request.
 --
@@ -75,11 +76,9 @@ listGroupPolicies
     :: Text -- ^ 'lgpGroupName'
     -> ListGroupPolicies
 listGroupPolicies pGroupName_ =
-    ListGroupPolicies'
-    { _lgpMarker = Nothing
-    , _lgpMaxItems = Nothing
-    , _lgpGroupName = pGroupName_
-    }
+  ListGroupPolicies'
+  {_lgpMarker = Nothing, _lgpMaxItems = Nothing, _lgpGroupName = pGroupName_}
+
 
 -- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
 lgpMarker :: Lens' ListGroupPolicies (Maybe Text)
@@ -113,9 +112,9 @@ instance AWSRequest ListGroupPolicies where
                      (x .@? "PolicyNames" .!@ mempty >>=
                         parseXMLList "member"))
 
-instance Hashable ListGroupPolicies
+instance Hashable ListGroupPolicies where
 
-instance NFData ListGroupPolicies
+instance NFData ListGroupPolicies where
 
 instance ToHeaders ListGroupPolicies where
         toHeaders = const mempty
@@ -137,11 +136,12 @@ instance ToQuery ListGroupPolicies where
 --
 -- /See:/ 'listGroupPoliciesResponse' smart constructor.
 data ListGroupPoliciesResponse = ListGroupPoliciesResponse'
-    { _lgprsMarker         :: !(Maybe Text)
-    , _lgprsIsTruncated    :: !(Maybe Bool)
-    , _lgprsResponseStatus :: !Int
-    , _lgprsPolicyNames    :: ![Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lgprsMarker         :: !(Maybe Text)
+  , _lgprsIsTruncated    :: !(Maybe Bool)
+  , _lgprsResponseStatus :: !Int
+  , _lgprsPolicyNames    :: ![Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListGroupPoliciesResponse' with the minimum fields required to make a request.
 --
@@ -153,17 +153,18 @@ data ListGroupPoliciesResponse = ListGroupPoliciesResponse'
 --
 -- * 'lgprsResponseStatus' - -- | The response status code.
 --
--- * 'lgprsPolicyNames' - A list of policy names.
+-- * 'lgprsPolicyNames' - A list of policy names. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 listGroupPoliciesResponse
     :: Int -- ^ 'lgprsResponseStatus'
     -> ListGroupPoliciesResponse
 listGroupPoliciesResponse pResponseStatus_ =
-    ListGroupPoliciesResponse'
-    { _lgprsMarker = Nothing
-    , _lgprsIsTruncated = Nothing
-    , _lgprsResponseStatus = pResponseStatus_
-    , _lgprsPolicyNames = mempty
-    }
+  ListGroupPoliciesResponse'
+  { _lgprsMarker = Nothing
+  , _lgprsIsTruncated = Nothing
+  , _lgprsResponseStatus = pResponseStatus_
+  , _lgprsPolicyNames = mempty
+  }
+
 
 -- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
 lgprsMarker :: Lens' ListGroupPoliciesResponse (Maybe Text)
@@ -177,8 +178,8 @@ lgprsIsTruncated = lens _lgprsIsTruncated (\ s a -> s{_lgprsIsTruncated = a});
 lgprsResponseStatus :: Lens' ListGroupPoliciesResponse Int
 lgprsResponseStatus = lens _lgprsResponseStatus (\ s a -> s{_lgprsResponseStatus = a});
 
--- | A list of policy names.
+-- | A list of policy names. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 lgprsPolicyNames :: Lens' ListGroupPoliciesResponse [Text]
 lgprsPolicyNames = lens _lgprsPolicyNames (\ s a -> s{_lgprsPolicyNames = a}) . _Coerce;
 
-instance NFData ListGroupPoliciesResponse
+instance NFData ListGroupPoliciesResponse where

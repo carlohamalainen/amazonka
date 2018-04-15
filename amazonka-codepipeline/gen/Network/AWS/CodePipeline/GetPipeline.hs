@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodePipeline.GetPipeline
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -35,25 +35,27 @@ module Network.AWS.CodePipeline.GetPipeline
     , GetPipelineResponse
     -- * Response Lenses
     , gprsPipeline
+    , gprsMetadata
     , gprsResponseStatus
     ) where
 
-import           Network.AWS.CodePipeline.Types
-import           Network.AWS.CodePipeline.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodePipeline.Types
+import Network.AWS.CodePipeline.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Represents the input of a get pipeline action.
+-- | Represents the input of a GetPipeline action.
 --
 --
 --
 -- /See:/ 'getPipeline' smart constructor.
 data GetPipeline = GetPipeline'
-    { _gpVersion :: !(Maybe Nat)
-    , _gpName    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gpVersion :: !(Maybe Nat)
+  , _gpName    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetPipeline' with the minimum fields required to make a request.
 --
@@ -65,11 +67,8 @@ data GetPipeline = GetPipeline'
 getPipeline
     :: Text -- ^ 'gpName'
     -> GetPipeline
-getPipeline pName_ =
-    GetPipeline'
-    { _gpVersion = Nothing
-    , _gpName = pName_
-    }
+getPipeline pName_ = GetPipeline' {_gpVersion = Nothing, _gpName = pName_}
+
 
 -- | The version number of the pipeline. If you do not specify a version, defaults to the most current version.
 gpVersion :: Lens' GetPipeline (Maybe Natural)
@@ -86,11 +85,12 @@ instance AWSRequest GetPipeline where
           = receiveJSON
               (\ s h x ->
                  GetPipelineResponse' <$>
-                   (x .?> "pipeline") <*> (pure (fromEnum s)))
+                   (x .?> "pipeline") <*> (x .?> "metadata") <*>
+                     (pure (fromEnum s)))
 
-instance Hashable GetPipeline
+instance Hashable GetPipeline where
 
-instance NFData GetPipeline
+instance NFData GetPipeline where
 
 instance ToHeaders GetPipeline where
         toHeaders
@@ -114,15 +114,17 @@ instance ToPath GetPipeline where
 instance ToQuery GetPipeline where
         toQuery = const mempty
 
--- | Represents the output of a get pipeline action.
+-- | Represents the output of a GetPipeline action.
 --
 --
 --
 -- /See:/ 'getPipelineResponse' smart constructor.
 data GetPipelineResponse = GetPipelineResponse'
-    { _gprsPipeline       :: !(Maybe PipelineDeclaration)
-    , _gprsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gprsPipeline       :: !(Maybe PipelineDeclaration)
+  , _gprsMetadata       :: !(Maybe PipelineMetadata)
+  , _gprsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetPipelineResponse' with the minimum fields required to make a request.
 --
@@ -130,22 +132,30 @@ data GetPipelineResponse = GetPipelineResponse'
 --
 -- * 'gprsPipeline' - Represents the structure of actions and stages to be performed in the pipeline.
 --
+-- * 'gprsMetadata' - Represents the pipeline metadata information returned as part of the output of a GetPipeline action.
+--
 -- * 'gprsResponseStatus' - -- | The response status code.
 getPipelineResponse
     :: Int -- ^ 'gprsResponseStatus'
     -> GetPipelineResponse
 getPipelineResponse pResponseStatus_ =
-    GetPipelineResponse'
-    { _gprsPipeline = Nothing
-    , _gprsResponseStatus = pResponseStatus_
-    }
+  GetPipelineResponse'
+  { _gprsPipeline = Nothing
+  , _gprsMetadata = Nothing
+  , _gprsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Represents the structure of actions and stages to be performed in the pipeline.
 gprsPipeline :: Lens' GetPipelineResponse (Maybe PipelineDeclaration)
 gprsPipeline = lens _gprsPipeline (\ s a -> s{_gprsPipeline = a});
 
+-- | Represents the pipeline metadata information returned as part of the output of a GetPipeline action.
+gprsMetadata :: Lens' GetPipelineResponse (Maybe PipelineMetadata)
+gprsMetadata = lens _gprsMetadata (\ s a -> s{_gprsMetadata = a});
+
 -- | -- | The response status code.
 gprsResponseStatus :: Lens' GetPipelineResponse Int
 gprsResponseStatus = lens _gprsResponseStatus (\ s a -> s{_gprsResponseStatus = a});
 
-instance NFData GetPipelineResponse
+instance NFData GetPipelineResponse where

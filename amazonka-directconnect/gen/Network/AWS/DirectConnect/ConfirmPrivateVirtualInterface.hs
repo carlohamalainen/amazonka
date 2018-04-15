@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.DirectConnect.ConfirmPrivateVirtualInterface
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Accept ownership of a private virtual interface created by another customer.
 --
 --
--- After the virtual interface owner calls this function, the virtual interface will be created and attached to the given virtual private gateway, and will be available for handling traffic.
+-- After the virtual interface owner calls this function, the virtual interface will be created and attached to the given virtual private gateway or direct connect gateway, and will be available for handling traffic.
 --
 module Network.AWS.DirectConnect.ConfirmPrivateVirtualInterface
     (
@@ -29,8 +29,9 @@ module Network.AWS.DirectConnect.ConfirmPrivateVirtualInterface
       confirmPrivateVirtualInterface
     , ConfirmPrivateVirtualInterface
     -- * Request Lenses
-    , cpviVirtualInterfaceId
     , cpviVirtualGatewayId
+    , cpviDirectConnectGatewayId
+    , cpviVirtualInterfaceId
 
     -- * Destructuring the Response
     , confirmPrivateVirtualInterfaceResponse
@@ -40,12 +41,12 @@ module Network.AWS.DirectConnect.ConfirmPrivateVirtualInterface
     , cpvirsResponseStatus
     ) where
 
-import           Network.AWS.DirectConnect.Types
-import           Network.AWS.DirectConnect.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.DirectConnect.Types
+import Network.AWS.DirectConnect.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Container for the parameters to the ConfirmPrivateVirtualInterface operation.
 --
@@ -53,34 +54,43 @@ import           Network.AWS.Response
 --
 -- /See:/ 'confirmPrivateVirtualInterface' smart constructor.
 data ConfirmPrivateVirtualInterface = ConfirmPrivateVirtualInterface'
-    { _cpviVirtualInterfaceId :: !Text
-    , _cpviVirtualGatewayId   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cpviVirtualGatewayId       :: !(Maybe Text)
+  , _cpviDirectConnectGatewayId :: !(Maybe Text)
+  , _cpviVirtualInterfaceId     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ConfirmPrivateVirtualInterface' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cpviVirtualInterfaceId' - Undocumented member.
---
 -- * 'cpviVirtualGatewayId' - ID of the virtual private gateway that will be attached to the virtual interface. A virtual private gateway can be managed via the Amazon Virtual Private Cloud (VPC) console or the <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html EC2 CreateVpnGateway> action. Default: None
+--
+-- * 'cpviDirectConnectGatewayId' - ID of the direct connect gateway that will be attached to the virtual interface. A direct connect gateway can be managed via the AWS Direct Connect console or the 'CreateDirectConnectGateway' action. Default: None
+--
+-- * 'cpviVirtualInterfaceId' - Undocumented member.
 confirmPrivateVirtualInterface
     :: Text -- ^ 'cpviVirtualInterfaceId'
-    -> Text -- ^ 'cpviVirtualGatewayId'
     -> ConfirmPrivateVirtualInterface
-confirmPrivateVirtualInterface pVirtualInterfaceId_ pVirtualGatewayId_ =
-    ConfirmPrivateVirtualInterface'
-    { _cpviVirtualInterfaceId = pVirtualInterfaceId_
-    , _cpviVirtualGatewayId = pVirtualGatewayId_
-    }
+confirmPrivateVirtualInterface pVirtualInterfaceId_ =
+  ConfirmPrivateVirtualInterface'
+  { _cpviVirtualGatewayId = Nothing
+  , _cpviDirectConnectGatewayId = Nothing
+  , _cpviVirtualInterfaceId = pVirtualInterfaceId_
+  }
+
+
+-- | ID of the virtual private gateway that will be attached to the virtual interface. A virtual private gateway can be managed via the Amazon Virtual Private Cloud (VPC) console or the <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html EC2 CreateVpnGateway> action. Default: None
+cpviVirtualGatewayId :: Lens' ConfirmPrivateVirtualInterface (Maybe Text)
+cpviVirtualGatewayId = lens _cpviVirtualGatewayId (\ s a -> s{_cpviVirtualGatewayId = a});
+
+-- | ID of the direct connect gateway that will be attached to the virtual interface. A direct connect gateway can be managed via the AWS Direct Connect console or the 'CreateDirectConnectGateway' action. Default: None
+cpviDirectConnectGatewayId :: Lens' ConfirmPrivateVirtualInterface (Maybe Text)
+cpviDirectConnectGatewayId = lens _cpviDirectConnectGatewayId (\ s a -> s{_cpviDirectConnectGatewayId = a});
 
 -- | Undocumented member.
 cpviVirtualInterfaceId :: Lens' ConfirmPrivateVirtualInterface Text
 cpviVirtualInterfaceId = lens _cpviVirtualInterfaceId (\ s a -> s{_cpviVirtualInterfaceId = a});
-
--- | ID of the virtual private gateway that will be attached to the virtual interface. A virtual private gateway can be managed via the Amazon Virtual Private Cloud (VPC) console or the <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/ApiReference-query-CreateVpnGateway.html EC2 CreateVpnGateway> action. Default: None
-cpviVirtualGatewayId :: Lens' ConfirmPrivateVirtualInterface Text
-cpviVirtualGatewayId = lens _cpviVirtualGatewayId (\ s a -> s{_cpviVirtualGatewayId = a});
 
 instance AWSRequest ConfirmPrivateVirtualInterface
          where
@@ -95,8 +105,9 @@ instance AWSRequest ConfirmPrivateVirtualInterface
                      (pure (fromEnum s)))
 
 instance Hashable ConfirmPrivateVirtualInterface
+         where
 
-instance NFData ConfirmPrivateVirtualInterface
+instance NFData ConfirmPrivateVirtualInterface where
 
 instance ToHeaders ConfirmPrivateVirtualInterface
          where
@@ -113,9 +124,11 @@ instance ToJSON ConfirmPrivateVirtualInterface where
         toJSON ConfirmPrivateVirtualInterface'{..}
           = object
               (catMaybes
-                 [Just
-                    ("virtualInterfaceId" .= _cpviVirtualInterfaceId),
-                  Just ("virtualGatewayId" .= _cpviVirtualGatewayId)])
+                 [("virtualGatewayId" .=) <$> _cpviVirtualGatewayId,
+                  ("directConnectGatewayId" .=) <$>
+                    _cpviDirectConnectGatewayId,
+                  Just
+                    ("virtualInterfaceId" .= _cpviVirtualInterfaceId)])
 
 instance ToPath ConfirmPrivateVirtualInterface where
         toPath = const "/"
@@ -129,9 +142,10 @@ instance ToQuery ConfirmPrivateVirtualInterface where
 --
 -- /See:/ 'confirmPrivateVirtualInterfaceResponse' smart constructor.
 data ConfirmPrivateVirtualInterfaceResponse = ConfirmPrivateVirtualInterfaceResponse'
-    { _cpvirsVirtualInterfaceState :: !(Maybe VirtualInterfaceState)
-    , _cpvirsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cpvirsVirtualInterfaceState :: !(Maybe VirtualInterfaceState)
+  , _cpvirsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ConfirmPrivateVirtualInterfaceResponse' with the minimum fields required to make a request.
 --
@@ -144,10 +158,11 @@ confirmPrivateVirtualInterfaceResponse
     :: Int -- ^ 'cpvirsResponseStatus'
     -> ConfirmPrivateVirtualInterfaceResponse
 confirmPrivateVirtualInterfaceResponse pResponseStatus_ =
-    ConfirmPrivateVirtualInterfaceResponse'
-    { _cpvirsVirtualInterfaceState = Nothing
-    , _cpvirsResponseStatus = pResponseStatus_
-    }
+  ConfirmPrivateVirtualInterfaceResponse'
+  { _cpvirsVirtualInterfaceState = Nothing
+  , _cpvirsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 cpvirsVirtualInterfaceState :: Lens' ConfirmPrivateVirtualInterfaceResponse (Maybe VirtualInterfaceState)
@@ -158,4 +173,5 @@ cpvirsResponseStatus :: Lens' ConfirmPrivateVirtualInterfaceResponse Int
 cpvirsResponseStatus = lens _cpvirsResponseStatus (\ s a -> s{_cpvirsResponseStatus = a});
 
 instance NFData
-         ConfirmPrivateVirtualInterfaceResponse
+           ConfirmPrivateVirtualInterfaceResponse
+         where

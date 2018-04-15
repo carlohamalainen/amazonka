@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.SSM.CreateMaintenanceWindow
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -43,23 +43,24 @@ module Network.AWS.SSM.CreateMaintenanceWindow
     , cmwrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'createMaintenanceWindow' smart constructor.
 data CreateMaintenanceWindow = CreateMaintenanceWindow'
-    { _cmwClientToken              :: !(Maybe Text)
-    , _cmwDescription              :: !(Maybe (Sensitive Text))
-    , _cmwName                     :: !Text
-    , _cmwSchedule                 :: !Text
-    , _cmwDuration                 :: !Nat
-    , _cmwCutoff                   :: !Nat
-    , _cmwAllowUnassociatedTargets :: !Bool
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _cmwClientToken              :: !(Maybe Text)
+  , _cmwDescription              :: !(Maybe (Sensitive Text))
+  , _cmwName                     :: !Text
+  , _cmwSchedule                 :: !Text
+  , _cmwDuration                 :: !Nat
+  , _cmwCutoff                   :: !Nat
+  , _cmwAllowUnassociatedTargets :: !Bool
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateMaintenanceWindow' with the minimum fields required to make a request.
 --
@@ -67,7 +68,7 @@ data CreateMaintenanceWindow = CreateMaintenanceWindow'
 --
 -- * 'cmwClientToken' - User-provided idempotency token.
 --
--- * 'cmwDescription' - An optional description for the Maintenance Window. We recommend specifying a description to help your organize your Maintenance Windows.
+-- * 'cmwDescription' - An optional description for the Maintenance Window. We recommend specifying a description to help you organize your Maintenance Windows.
 --
 -- * 'cmwName' - The name of the Maintenance Window.
 --
@@ -77,7 +78,7 @@ data CreateMaintenanceWindow = CreateMaintenanceWindow'
 --
 -- * 'cmwCutoff' - The number of hours before the end of the Maintenance Window that Systems Manager stops scheduling new tasks for execution.
 --
--- * 'cmwAllowUnassociatedTargets' - Whether targets must be registered with the Maintenance Window before tasks can be defined for those targets.
+-- * 'cmwAllowUnassociatedTargets' - Enables a Maintenance Window task to execute on managed instances, even if you have not registered those instances as targets. If enabled, then you must specify the unregistered instances (by instance ID) when you register a task with the Maintenance Window  If you don't enable this option, then you must specify previously-registered targets when you register a task with the Maintenance Window.
 createMaintenanceWindow
     :: Text -- ^ 'cmwName'
     -> Text -- ^ 'cmwSchedule'
@@ -86,21 +87,22 @@ createMaintenanceWindow
     -> Bool -- ^ 'cmwAllowUnassociatedTargets'
     -> CreateMaintenanceWindow
 createMaintenanceWindow pName_ pSchedule_ pDuration_ pCutoff_ pAllowUnassociatedTargets_ =
-    CreateMaintenanceWindow'
-    { _cmwClientToken = Nothing
-    , _cmwDescription = Nothing
-    , _cmwName = pName_
-    , _cmwSchedule = pSchedule_
-    , _cmwDuration = _Nat # pDuration_
-    , _cmwCutoff = _Nat # pCutoff_
-    , _cmwAllowUnassociatedTargets = pAllowUnassociatedTargets_
-    }
+  CreateMaintenanceWindow'
+  { _cmwClientToken = Nothing
+  , _cmwDescription = Nothing
+  , _cmwName = pName_
+  , _cmwSchedule = pSchedule_
+  , _cmwDuration = _Nat # pDuration_
+  , _cmwCutoff = _Nat # pCutoff_
+  , _cmwAllowUnassociatedTargets = pAllowUnassociatedTargets_
+  }
+
 
 -- | User-provided idempotency token.
 cmwClientToken :: Lens' CreateMaintenanceWindow (Maybe Text)
 cmwClientToken = lens _cmwClientToken (\ s a -> s{_cmwClientToken = a});
 
--- | An optional description for the Maintenance Window. We recommend specifying a description to help your organize your Maintenance Windows.
+-- | An optional description for the Maintenance Window. We recommend specifying a description to help you organize your Maintenance Windows.
 cmwDescription :: Lens' CreateMaintenanceWindow (Maybe Text)
 cmwDescription = lens _cmwDescription (\ s a -> s{_cmwDescription = a}) . mapping _Sensitive;
 
@@ -120,7 +122,7 @@ cmwDuration = lens _cmwDuration (\ s a -> s{_cmwDuration = a}) . _Nat;
 cmwCutoff :: Lens' CreateMaintenanceWindow Natural
 cmwCutoff = lens _cmwCutoff (\ s a -> s{_cmwCutoff = a}) . _Nat;
 
--- | Whether targets must be registered with the Maintenance Window before tasks can be defined for those targets.
+-- | Enables a Maintenance Window task to execute on managed instances, even if you have not registered those instances as targets. If enabled, then you must specify the unregistered instances (by instance ID) when you register a task with the Maintenance Window  If you don't enable this option, then you must specify previously-registered targets when you register a task with the Maintenance Window.
 cmwAllowUnassociatedTargets :: Lens' CreateMaintenanceWindow Bool
 cmwAllowUnassociatedTargets = lens _cmwAllowUnassociatedTargets (\ s a -> s{_cmwAllowUnassociatedTargets = a});
 
@@ -134,9 +136,9 @@ instance AWSRequest CreateMaintenanceWindow where
                  CreateMaintenanceWindowResponse' <$>
                    (x .?> "WindowId") <*> (pure (fromEnum s)))
 
-instance Hashable CreateMaintenanceWindow
+instance Hashable CreateMaintenanceWindow where
 
-instance NFData CreateMaintenanceWindow
+instance NFData CreateMaintenanceWindow where
 
 instance ToHeaders CreateMaintenanceWindow where
         toHeaders
@@ -169,9 +171,10 @@ instance ToQuery CreateMaintenanceWindow where
 
 -- | /See:/ 'createMaintenanceWindowResponse' smart constructor.
 data CreateMaintenanceWindowResponse = CreateMaintenanceWindowResponse'
-    { _cmwrsWindowId       :: !(Maybe Text)
-    , _cmwrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cmwrsWindowId       :: !(Maybe Text)
+  , _cmwrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateMaintenanceWindowResponse' with the minimum fields required to make a request.
 --
@@ -184,10 +187,9 @@ createMaintenanceWindowResponse
     :: Int -- ^ 'cmwrsResponseStatus'
     -> CreateMaintenanceWindowResponse
 createMaintenanceWindowResponse pResponseStatus_ =
-    CreateMaintenanceWindowResponse'
-    { _cmwrsWindowId = Nothing
-    , _cmwrsResponseStatus = pResponseStatus_
-    }
+  CreateMaintenanceWindowResponse'
+  {_cmwrsWindowId = Nothing, _cmwrsResponseStatus = pResponseStatus_}
+
 
 -- | The ID of the created Maintenance Window.
 cmwrsWindowId :: Lens' CreateMaintenanceWindowResponse (Maybe Text)
@@ -197,4 +199,4 @@ cmwrsWindowId = lens _cmwrsWindowId (\ s a -> s{_cmwrsWindowId = a});
 cmwrsResponseStatus :: Lens' CreateMaintenanceWindowResponse Int
 cmwrsResponseStatus = lens _cmwrsResponseStatus (\ s a -> s{_cmwrsResponseStatus = a});
 
-instance NFData CreateMaintenanceWindowResponse
+instance NFData CreateMaintenanceWindowResponse where

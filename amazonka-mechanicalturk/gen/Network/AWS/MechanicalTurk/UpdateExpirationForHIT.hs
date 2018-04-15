@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.MechanicalTurk.UpdateExpirationForHIT
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -27,8 +27,8 @@ module Network.AWS.MechanicalTurk.UpdateExpirationForHIT
       updateExpirationForHIT
     , UpdateExpirationForHIT
     -- * Request Lenses
-    , uefhitExpireAt
     , uefhitHITId
+    , uefhitExpireAt
 
     -- * Destructuring the Response
     , updateExpirationForHITResponse
@@ -37,42 +37,43 @@ module Network.AWS.MechanicalTurk.UpdateExpirationForHIT
     , uefhitrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.MechanicalTurk.Types
-import           Network.AWS.MechanicalTurk.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.MechanicalTurk.Types
+import Network.AWS.MechanicalTurk.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'updateExpirationForHIT' smart constructor.
 data UpdateExpirationForHIT = UpdateExpirationForHIT'
-    { _uefhitExpireAt :: !(Maybe POSIX)
-    , _uefhitHITId    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uefhitHITId    :: !Text
+  , _uefhitExpireAt :: !POSIX
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateExpirationForHIT' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'uefhitExpireAt' - The date and time at which you want the HIT to expire
---
 -- * 'uefhitHITId' - The HIT to update.
+--
+-- * 'uefhitExpireAt' - The date and time at which you want the HIT to expire
 updateExpirationForHIT
     :: Text -- ^ 'uefhitHITId'
+    -> UTCTime -- ^ 'uefhitExpireAt'
     -> UpdateExpirationForHIT
-updateExpirationForHIT pHITId_ =
-    UpdateExpirationForHIT'
-    { _uefhitExpireAt = Nothing
-    , _uefhitHITId = pHITId_
-    }
+updateExpirationForHIT pHITId_ pExpireAt_ =
+  UpdateExpirationForHIT'
+  {_uefhitHITId = pHITId_, _uefhitExpireAt = _Time # pExpireAt_}
 
--- | The date and time at which you want the HIT to expire
-uefhitExpireAt :: Lens' UpdateExpirationForHIT (Maybe UTCTime)
-uefhitExpireAt = lens _uefhitExpireAt (\ s a -> s{_uefhitExpireAt = a}) . mapping _Time;
 
 -- | The HIT to update.
 uefhitHITId :: Lens' UpdateExpirationForHIT Text
 uefhitHITId = lens _uefhitHITId (\ s a -> s{_uefhitHITId = a});
+
+-- | The date and time at which you want the HIT to expire
+uefhitExpireAt :: Lens' UpdateExpirationForHIT UTCTime
+uefhitExpireAt = lens _uefhitExpireAt (\ s a -> s{_uefhitExpireAt = a}) . _Time;
 
 instance AWSRequest UpdateExpirationForHIT where
         type Rs UpdateExpirationForHIT =
@@ -84,9 +85,9 @@ instance AWSRequest UpdateExpirationForHIT where
                  UpdateExpirationForHITResponse' <$>
                    (pure (fromEnum s)))
 
-instance Hashable UpdateExpirationForHIT
+instance Hashable UpdateExpirationForHIT where
 
-instance NFData UpdateExpirationForHIT
+instance NFData UpdateExpirationForHIT where
 
 instance ToHeaders UpdateExpirationForHIT where
         toHeaders
@@ -102,8 +103,8 @@ instance ToJSON UpdateExpirationForHIT where
         toJSON UpdateExpirationForHIT'{..}
           = object
               (catMaybes
-                 [("ExpireAt" .=) <$> _uefhitExpireAt,
-                  Just ("HITId" .= _uefhitHITId)])
+                 [Just ("HITId" .= _uefhitHITId),
+                  Just ("ExpireAt" .= _uefhitExpireAt)])
 
 instance ToPath UpdateExpirationForHIT where
         toPath = const "/"
@@ -113,8 +114,9 @@ instance ToQuery UpdateExpirationForHIT where
 
 -- | /See:/ 'updateExpirationForHITResponse' smart constructor.
 newtype UpdateExpirationForHITResponse = UpdateExpirationForHITResponse'
-    { _uefhitrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uefhitrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateExpirationForHITResponse' with the minimum fields required to make a request.
 --
@@ -125,12 +127,11 @@ updateExpirationForHITResponse
     :: Int -- ^ 'uefhitrsResponseStatus'
     -> UpdateExpirationForHITResponse
 updateExpirationForHITResponse pResponseStatus_ =
-    UpdateExpirationForHITResponse'
-    { _uefhitrsResponseStatus = pResponseStatus_
-    }
+  UpdateExpirationForHITResponse' {_uefhitrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 uefhitrsResponseStatus :: Lens' UpdateExpirationForHITResponse Int
 uefhitrsResponseStatus = lens _uefhitrsResponseStatus (\ s a -> s{_uefhitrsResponseStatus = a});
 
-instance NFData UpdateExpirationForHITResponse
+instance NFData UpdateExpirationForHITResponse where

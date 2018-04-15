@@ -12,24 +12,24 @@
 
 -- |
 -- Module      : Network.AWS.Firehose.PutRecordBatch
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Writes multiple data records into a delivery stream in a single call, which can achieve higher throughput per producer than when writing single records. To write single data records into a delivery stream, use 'PutRecord' . Applications using these operations are referred to as producers.
 --
 --
--- By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB per second. Note that if you use 'PutRecord' and 'PutRecordBatch' , the limits are an aggregate across these two operations for each delivery stream. For more information about limits, see <http://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Firehose Limits> .
+-- By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB per second. If you use 'PutRecord' and 'PutRecordBatch' , the limits are an aggregate across these two operations for each delivery stream. For more information about limits, see <http://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Firehose Limits> .
 --
 -- Each 'PutRecordBatch' request supports up to 500 records. Each record in the request can be as large as 1,000 KB (before 64-bit encoding), up to a limit of 4 MB for the entire request. These limits cannot be changed.
 --
--- You must specify the name of the delivery stream and the data record when using 'PutRecord' . The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data, for example, a segment from a log file, geographic location data, web site clickstream data, and so on.
+-- You must specify the name of the delivery stream and the data record when using 'PutRecord' . The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data. For example, it could be a segment from a log file, geographic location data, web site clickstream data, and so on.
 --
--- Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (@\n@ ) or some other character unique within the data. This allows the consumer application(s) to parse individual data items when reading the data from the destination.
+-- Kinesis Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (@\n@ ) or some other character unique within the data. This allows the consumer application to parse individual data items when reading the data from the destination.
 --
--- The 'PutRecordBatch' response includes a count of failed records, __FailedPutCount__ , and an array of responses, __RequestResponses__ . Each entry in the __RequestResponses__ array provides additional information about the processed record, and directly correlates with a record in the request array using the same ordering, from the top to the bottom. The response array always includes the same number of records as the request array. __RequestResponses__ includes both successfully and unsuccessfully processed records. Firehose attempts to process all records in each 'PutRecordBatch' request. A single record failure does not stop the processing of subsequent records.
+-- The 'PutRecordBatch' response includes a count of failed records, __FailedPutCount__ , and an array of responses, __RequestResponses__ . Each entry in the __RequestResponses__ array provides additional information about the processed record. It directly correlates with a record in the request array using the same ordering, from the top to the bottom. The response array always includes the same number of records as the request array. __RequestResponses__ includes both successfully and unsuccessfully processed records. Kinesis Firehose attempts to process all records in each 'PutRecordBatch' request. A single record failure does not stop the processing of subsequent records.
 --
 -- A successfully processed record includes a __RecordId__ value, which is unique for the record. An unsuccessfully processed record includes __ErrorCode__ and __ErrorMessage__ values. __ErrorCode__ reflects the type of error, and is one of the following values: @ServiceUnavailable@ or @InternalFailure@ . __ErrorMessage__ provides more detailed information about the error.
 --
@@ -37,7 +37,7 @@
 --
 -- If 'PutRecordBatch' throws __ServiceUnavailableException__ , back off and retry. If the exception persists, it is possible that the throughput limits have been exceeded for the delivery stream.
 --
--- Data records sent to Firehose are stored for 24 hours from the time they are added to a delivery stream as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.
+-- Data records sent to Kinesis Firehose are stored for 24 hours from the time they are added to a delivery stream as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.
 --
 module Network.AWS.Firehose.PutRecordBatch
     (
@@ -57,18 +57,19 @@ module Network.AWS.Firehose.PutRecordBatch
     , prbrsRequestResponses
     ) where
 
-import           Network.AWS.Firehose.Types
-import           Network.AWS.Firehose.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Firehose.Types
+import Network.AWS.Firehose.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putRecordBatch' smart constructor.
 data PutRecordBatch = PutRecordBatch'
-    { _prbDeliveryStreamName :: !Text
-    , _prbRecords            :: !(List1 Record)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _prbDeliveryStreamName :: !Text
+  , _prbRecords            :: !(List1 Record)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutRecordBatch' with the minimum fields required to make a request.
 --
@@ -82,10 +83,11 @@ putRecordBatch
     -> NonEmpty Record -- ^ 'prbRecords'
     -> PutRecordBatch
 putRecordBatch pDeliveryStreamName_ pRecords_ =
-    PutRecordBatch'
-    { _prbDeliveryStreamName = pDeliveryStreamName_
-    , _prbRecords = _List1 # pRecords_
-    }
+  PutRecordBatch'
+  { _prbDeliveryStreamName = pDeliveryStreamName_
+  , _prbRecords = _List1 # pRecords_
+  }
+
 
 -- | The name of the delivery stream.
 prbDeliveryStreamName :: Lens' PutRecordBatch Text
@@ -105,9 +107,9 @@ instance AWSRequest PutRecordBatch where
                    (pure (fromEnum s)) <*> (x .:> "FailedPutCount") <*>
                      (x .:> "RequestResponses"))
 
-instance Hashable PutRecordBatch
+instance Hashable PutRecordBatch where
 
-instance NFData PutRecordBatch
+instance NFData PutRecordBatch where
 
 instance ToHeaders PutRecordBatch where
         toHeaders
@@ -134,10 +136,11 @@ instance ToQuery PutRecordBatch where
 
 -- | /See:/ 'putRecordBatchResponse' smart constructor.
 data PutRecordBatchResponse = PutRecordBatchResponse'
-    { _prbrsResponseStatus   :: !Int
-    , _prbrsFailedPutCount   :: !Nat
-    , _prbrsRequestResponses :: !(List1 PutRecordBatchResponseEntry)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _prbrsResponseStatus   :: !Int
+  , _prbrsFailedPutCount   :: !Nat
+  , _prbrsRequestResponses :: !(List1 PutRecordBatchResponseEntry)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutRecordBatchResponse' with the minimum fields required to make a request.
 --
@@ -154,11 +157,12 @@ putRecordBatchResponse
     -> NonEmpty PutRecordBatchResponseEntry -- ^ 'prbrsRequestResponses'
     -> PutRecordBatchResponse
 putRecordBatchResponse pResponseStatus_ pFailedPutCount_ pRequestResponses_ =
-    PutRecordBatchResponse'
-    { _prbrsResponseStatus = pResponseStatus_
-    , _prbrsFailedPutCount = _Nat # pFailedPutCount_
-    , _prbrsRequestResponses = _List1 # pRequestResponses_
-    }
+  PutRecordBatchResponse'
+  { _prbrsResponseStatus = pResponseStatus_
+  , _prbrsFailedPutCount = _Nat # pFailedPutCount_
+  , _prbrsRequestResponses = _List1 # pRequestResponses_
+  }
+
 
 -- | -- | The response status code.
 prbrsResponseStatus :: Lens' PutRecordBatchResponse Int
@@ -172,4 +176,4 @@ prbrsFailedPutCount = lens _prbrsFailedPutCount (\ s a -> s{_prbrsFailedPutCount
 prbrsRequestResponses :: Lens' PutRecordBatchResponse (NonEmpty PutRecordBatchResponseEntry)
 prbrsRequestResponses = lens _prbrsRequestResponses (\ s a -> s{_prbrsRequestResponses = a}) . _List1;
 
-instance NFData PutRecordBatchResponse
+instance NFData PutRecordBatchResponse where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.DeleteStackInstances
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,22 +42,23 @@ module Network.AWS.CloudFormation.DeleteStackInstances
     , dsirsResponseStatus
     ) where
 
-import           Network.AWS.CloudFormation.Types
-import           Network.AWS.CloudFormation.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudFormation.Types
+import Network.AWS.CloudFormation.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'deleteStackInstances' smart constructor.
 data DeleteStackInstances = DeleteStackInstances'
-    { _dsiOperationPreferences :: !(Maybe StackSetOperationPreferences)
-    , _dsiOperationId          :: !(Maybe Text)
-    , _dsiStackSetName         :: !Text
-    , _dsiAccounts             :: ![Text]
-    , _dsiRegions              :: ![Text]
-    , _dsiRetainStacks         :: !Bool
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsiOperationPreferences :: !(Maybe StackSetOperationPreferences)
+  , _dsiOperationId          :: !(Maybe Text)
+  , _dsiStackSetName         :: !Text
+  , _dsiAccounts             :: ![Text]
+  , _dsiRegions              :: ![Text]
+  , _dsiRetainStacks         :: !Bool
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStackInstances' with the minimum fields required to make a request.
 --
@@ -73,20 +74,21 @@ data DeleteStackInstances = DeleteStackInstances'
 --
 -- * 'dsiRegions' - The regions where you want to delete stack set instances.
 --
--- * 'dsiRetainStacks' - Removes the stack instances from the specified stack set, but doesn't delete the stacks. You can't reassociate a retained stack or add an existing, saved stack to a new stack set.
+-- * 'dsiRetainStacks' - Removes the stack instances from the specified stack set, but doesn't delete the stacks. You can't reassociate a retained stack or add an existing, saved stack to a new stack set. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options Stack set operation options> .
 deleteStackInstances
     :: Text -- ^ 'dsiStackSetName'
     -> Bool -- ^ 'dsiRetainStacks'
     -> DeleteStackInstances
 deleteStackInstances pStackSetName_ pRetainStacks_ =
-    DeleteStackInstances'
-    { _dsiOperationPreferences = Nothing
-    , _dsiOperationId = Nothing
-    , _dsiStackSetName = pStackSetName_
-    , _dsiAccounts = mempty
-    , _dsiRegions = mempty
-    , _dsiRetainStacks = pRetainStacks_
-    }
+  DeleteStackInstances'
+  { _dsiOperationPreferences = Nothing
+  , _dsiOperationId = Nothing
+  , _dsiStackSetName = pStackSetName_
+  , _dsiAccounts = mempty
+  , _dsiRegions = mempty
+  , _dsiRetainStacks = pRetainStacks_
+  }
+
 
 -- | Preferences for how AWS CloudFormation performs this stack set operation.
 dsiOperationPreferences :: Lens' DeleteStackInstances (Maybe StackSetOperationPreferences)
@@ -108,7 +110,7 @@ dsiAccounts = lens _dsiAccounts (\ s a -> s{_dsiAccounts = a}) . _Coerce;
 dsiRegions :: Lens' DeleteStackInstances [Text]
 dsiRegions = lens _dsiRegions (\ s a -> s{_dsiRegions = a}) . _Coerce;
 
--- | Removes the stack instances from the specified stack set, but doesn't delete the stacks. You can't reassociate a retained stack or add an existing, saved stack to a new stack set.
+-- | Removes the stack instances from the specified stack set, but doesn't delete the stacks. You can't reassociate a retained stack or add an existing, saved stack to a new stack set. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options Stack set operation options> .
 dsiRetainStacks :: Lens' DeleteStackInstances Bool
 dsiRetainStacks = lens _dsiRetainStacks (\ s a -> s{_dsiRetainStacks = a});
 
@@ -122,9 +124,9 @@ instance AWSRequest DeleteStackInstances where
                  DeleteStackInstancesResponse' <$>
                    (x .@? "OperationId") <*> (pure (fromEnum s)))
 
-instance Hashable DeleteStackInstances
+instance Hashable DeleteStackInstances where
 
-instance NFData DeleteStackInstances
+instance NFData DeleteStackInstances where
 
 instance ToHeaders DeleteStackInstances where
         toHeaders = const mempty
@@ -146,9 +148,10 @@ instance ToQuery DeleteStackInstances where
 
 -- | /See:/ 'deleteStackInstancesResponse' smart constructor.
 data DeleteStackInstancesResponse = DeleteStackInstancesResponse'
-    { _dsirsOperationId    :: !(Maybe Text)
-    , _dsirsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dsirsOperationId    :: !(Maybe Text)
+  , _dsirsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteStackInstancesResponse' with the minimum fields required to make a request.
 --
@@ -161,10 +164,9 @@ deleteStackInstancesResponse
     :: Int -- ^ 'dsirsResponseStatus'
     -> DeleteStackInstancesResponse
 deleteStackInstancesResponse pResponseStatus_ =
-    DeleteStackInstancesResponse'
-    { _dsirsOperationId = Nothing
-    , _dsirsResponseStatus = pResponseStatus_
-    }
+  DeleteStackInstancesResponse'
+  {_dsirsOperationId = Nothing, _dsirsResponseStatus = pResponseStatus_}
+
 
 -- | The unique identifier for this stack set operation.
 dsirsOperationId :: Lens' DeleteStackInstancesResponse (Maybe Text)
@@ -174,4 +176,4 @@ dsirsOperationId = lens _dsirsOperationId (\ s a -> s{_dsirsOperationId = a});
 dsirsResponseStatus :: Lens' DeleteStackInstancesResponse Int
 dsirsResponseStatus = lens _dsirsResponseStatus (\ s a -> s{_dsirsResponseStatus = a});
 
-instance NFData DeleteStackInstancesResponse
+instance NFData DeleteStackInstancesResponse where

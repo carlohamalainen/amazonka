@@ -12,18 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.SES.UpdateConfigurationSetEventDestination
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the event destination of a configuration set.
+-- Updates the event destination of a configuration set. Event destinations are associated with configuration sets, which enable you to publish email sending events to Amazon CloudWatch, Amazon Kinesis Firehose, or Amazon Simple Notification Service (Amazon SNS). For information about using configuration sets, see <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Monitoring Your Amazon SES Sending Activity> in the /Amazon SES Developer Guide./
 --
 --
--- Event destinations are associated with configuration sets, which enable you to publish email sending events to Amazon CloudWatch, Amazon Kinesis Firehose, or Amazon Simple Notification Service (Amazon SNS). For information about using configuration sets, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
---
--- This action is throttled at one request per second.
+-- You can execute this operation no more than once per second.
 --
 module Network.AWS.SES.UpdateConfigurationSetEventDestination
     (
@@ -41,12 +39,12 @@ module Network.AWS.SES.UpdateConfigurationSetEventDestination
     , ucsedrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SES.Types
-import           Network.AWS.SES.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SES.Types
+import Network.AWS.SES.Types.Product
 
 -- | Represents a request to update the event destination of a configuration set. Configuration sets enable you to publish email sending events. For information about using configuration sets, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
 --
@@ -54,15 +52,16 @@ import           Network.AWS.SES.Types.Product
 --
 -- /See:/ 'updateConfigurationSetEventDestination' smart constructor.
 data UpdateConfigurationSetEventDestination = UpdateConfigurationSetEventDestination'
-    { _ucsedConfigurationSetName :: !Text
-    , _ucsedEventDestination     :: !EventDestination
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ucsedConfigurationSetName :: !Text
+  , _ucsedEventDestination     :: !EventDestination
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateConfigurationSetEventDestination' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ucsedConfigurationSetName' - The name of the configuration set that you want to update.
+-- * 'ucsedConfigurationSetName' - The name of the configuration set that contains the event destination that you want to update.
 --
 -- * 'ucsedEventDestination' - The event destination object that you want to apply to the specified configuration set.
 updateConfigurationSetEventDestination
@@ -70,12 +69,13 @@ updateConfigurationSetEventDestination
     -> EventDestination -- ^ 'ucsedEventDestination'
     -> UpdateConfigurationSetEventDestination
 updateConfigurationSetEventDestination pConfigurationSetName_ pEventDestination_ =
-    UpdateConfigurationSetEventDestination'
-    { _ucsedConfigurationSetName = pConfigurationSetName_
-    , _ucsedEventDestination = pEventDestination_
-    }
+  UpdateConfigurationSetEventDestination'
+  { _ucsedConfigurationSetName = pConfigurationSetName_
+  , _ucsedEventDestination = pEventDestination_
+  }
 
--- | The name of the configuration set that you want to update.
+
+-- | The name of the configuration set that contains the event destination that you want to update.
 ucsedConfigurationSetName :: Lens' UpdateConfigurationSetEventDestination Text
 ucsedConfigurationSetName = lens _ucsedConfigurationSetName (\ s a -> s{_ucsedConfigurationSetName = a});
 
@@ -84,7 +84,8 @@ ucsedEventDestination :: Lens' UpdateConfigurationSetEventDestination EventDesti
 ucsedEventDestination = lens _ucsedEventDestination (\ s a -> s{_ucsedEventDestination = a});
 
 instance AWSRequest
-         UpdateConfigurationSetEventDestination where
+           UpdateConfigurationSetEventDestination
+         where
         type Rs UpdateConfigurationSetEventDestination =
              UpdateConfigurationSetEventDestinationResponse
         request = postQuery ses
@@ -96,21 +97,26 @@ instance AWSRequest
                    (pure (fromEnum s)))
 
 instance Hashable
-         UpdateConfigurationSetEventDestination
+           UpdateConfigurationSetEventDestination
+         where
 
 instance NFData
-         UpdateConfigurationSetEventDestination
+           UpdateConfigurationSetEventDestination
+         where
 
 instance ToHeaders
-         UpdateConfigurationSetEventDestination where
+           UpdateConfigurationSetEventDestination
+         where
         toHeaders = const mempty
 
 instance ToPath
-         UpdateConfigurationSetEventDestination where
+           UpdateConfigurationSetEventDestination
+         where
         toPath = const "/"
 
 instance ToQuery
-         UpdateConfigurationSetEventDestination where
+           UpdateConfigurationSetEventDestination
+         where
         toQuery UpdateConfigurationSetEventDestination'{..}
           = mconcat
               ["Action" =:
@@ -126,8 +132,9 @@ instance ToQuery
 --
 -- /See:/ 'updateConfigurationSetEventDestinationResponse' smart constructor.
 newtype UpdateConfigurationSetEventDestinationResponse = UpdateConfigurationSetEventDestinationResponse'
-    { _ucsedrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ucsedrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateConfigurationSetEventDestinationResponse' with the minimum fields required to make a request.
 --
@@ -138,13 +145,14 @@ updateConfigurationSetEventDestinationResponse
     :: Int -- ^ 'ucsedrsResponseStatus'
     -> UpdateConfigurationSetEventDestinationResponse
 updateConfigurationSetEventDestinationResponse pResponseStatus_ =
-    UpdateConfigurationSetEventDestinationResponse'
-    { _ucsedrsResponseStatus = pResponseStatus_
-    }
+  UpdateConfigurationSetEventDestinationResponse'
+  {_ucsedrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 ucsedrsResponseStatus :: Lens' UpdateConfigurationSetEventDestinationResponse Int
 ucsedrsResponseStatus = lens _ucsedrsResponseStatus (\ s a -> s{_ucsedrsResponseStatus = a});
 
 instance NFData
-         UpdateConfigurationSetEventDestinationResponse
+           UpdateConfigurationSetEventDestinationResponse
+         where

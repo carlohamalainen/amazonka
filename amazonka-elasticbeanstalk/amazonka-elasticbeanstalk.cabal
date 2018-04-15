@@ -1,13 +1,13 @@
 name:                  amazonka-elasticbeanstalk
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Elastic Beanstalk SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-elasticbeanstalk
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.ElasticBeanstalk
@@ -69,6 +74,7 @@ library
         , Network.AWS.ElasticBeanstalk.DescribePlatformVersion
         , Network.AWS.ElasticBeanstalk.ListAvailableSolutionStacks
         , Network.AWS.ElasticBeanstalk.ListPlatformVersions
+        , Network.AWS.ElasticBeanstalk.ListTagsForResource
         , Network.AWS.ElasticBeanstalk.RebuildEnvironment
         , Network.AWS.ElasticBeanstalk.RequestEnvironmentInfo
         , Network.AWS.ElasticBeanstalk.RestartAppServer
@@ -81,6 +87,7 @@ library
         , Network.AWS.ElasticBeanstalk.UpdateApplicationVersion
         , Network.AWS.ElasticBeanstalk.UpdateConfigurationTemplate
         , Network.AWS.ElasticBeanstalk.UpdateEnvironment
+        , Network.AWS.ElasticBeanstalk.UpdateTagsForResource
         , Network.AWS.ElasticBeanstalk.ValidateConfigurationSettings
         , Network.AWS.ElasticBeanstalk.Waiters
 
@@ -89,7 +96,7 @@ library
         , Network.AWS.ElasticBeanstalk.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-elasticbeanstalk-test
@@ -109,9 +116,9 @@ test-suite amazonka-elasticbeanstalk-test
         , Test.AWS.ElasticBeanstalk.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-elasticbeanstalk == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-elasticbeanstalk
         , base
         , bytestring
         , tasty

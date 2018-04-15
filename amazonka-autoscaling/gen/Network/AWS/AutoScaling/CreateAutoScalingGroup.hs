@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.CreateAutoScalingGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -41,6 +41,7 @@ module Network.AWS.AutoScaling.CreateAutoScalingGroup
     , casgAvailabilityZones
     , casgDesiredCapacity
     , casgLaunchConfigurationName
+    , casgLifecycleHookSpecificationList
     , casgHealthCheckType
     , casgPlacementGroup
     , casgLoadBalancerNames
@@ -54,37 +55,35 @@ module Network.AWS.AutoScaling.CreateAutoScalingGroup
     , CreateAutoScalingGroupResponse
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for CreateAutoScalingGroup.
---
---
---
--- /See:/ 'createAutoScalingGroup' smart constructor.
+-- | /See:/ 'createAutoScalingGroup' smart constructor.
 data CreateAutoScalingGroup = CreateAutoScalingGroup'
-    { _casgInstanceId                       :: !(Maybe Text)
-    , _casgTerminationPolicies              :: !(Maybe [Text])
-    , _casgHealthCheckGracePeriod           :: !(Maybe Int)
-    , _casgNewInstancesProtectedFromScaleIn :: !(Maybe Bool)
-    , _casgVPCZoneIdentifier                :: !(Maybe Text)
-    , _casgTargetGroupARNs                  :: !(Maybe [Text])
-    , _casgDefaultCooldown                  :: !(Maybe Int)
-    , _casgAvailabilityZones                :: !(Maybe (List1 Text))
-    , _casgDesiredCapacity                  :: !(Maybe Int)
-    , _casgLaunchConfigurationName          :: !(Maybe Text)
-    , _casgHealthCheckType                  :: !(Maybe Text)
-    , _casgPlacementGroup                   :: !(Maybe Text)
-    , _casgLoadBalancerNames                :: !(Maybe [Text])
-    , _casgTags                             :: !(Maybe [Tag])
-    , _casgAutoScalingGroupName             :: !Text
-    , _casgMinSize                          :: !Int
-    , _casgMaxSize                          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _casgInstanceId :: !(Maybe Text)
+  , _casgTerminationPolicies :: !(Maybe [Text])
+  , _casgHealthCheckGracePeriod :: !(Maybe Int)
+  , _casgNewInstancesProtectedFromScaleIn :: !(Maybe Bool)
+  , _casgVPCZoneIdentifier :: !(Maybe Text)
+  , _casgTargetGroupARNs :: !(Maybe [Text])
+  , _casgDefaultCooldown :: !(Maybe Int)
+  , _casgAvailabilityZones :: !(Maybe (List1 Text))
+  , _casgDesiredCapacity :: !(Maybe Int)
+  , _casgLaunchConfigurationName :: !(Maybe Text)
+  , _casgLifecycleHookSpecificationList :: !(Maybe [LifecycleHookSpecification])
+  , _casgHealthCheckType :: !(Maybe Text)
+  , _casgPlacementGroup :: !(Maybe Text)
+  , _casgLoadBalancerNames :: !(Maybe [Text])
+  , _casgTags :: !(Maybe [Tag])
+  , _casgAutoScalingGroupName :: !Text
+  , _casgMinSize :: !Int
+  , _casgMaxSize :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateAutoScalingGroup' with the minimum fields required to make a request.
 --
@@ -106,9 +105,11 @@ data CreateAutoScalingGroup = CreateAutoScalingGroup'
 --
 -- * 'casgAvailabilityZones' - One or more Availability Zones for the group. This parameter is optional if you specify one or more subnets.
 --
--- * 'casgDesiredCapacity' - The number of EC2 instances that should be running in the group. This number must be greater than or equal to the minimum size of the group and less than or equal to the maximum size of the group.
+-- * 'casgDesiredCapacity' - The number of EC2 instances that should be running in the group. This number must be greater than or equal to the minimum size of the group and less than or equal to the maximum size of the group. If you do not specify a desired capacity, the default is the minimum size of the group.
 --
 -- * 'casgLaunchConfigurationName' - The name of the launch configuration. Alternatively, specify an EC2 instance instead of a launch configuration.
+--
+-- * 'casgLifecycleHookSpecificationList' - One or more lifecycle hooks.
 --
 -- * 'casgHealthCheckType' - The service to use for the health checks. The valid values are @EC2@ and @ELB@ . By default, health checks use Amazon EC2 instance status checks to determine the health of an instance. For more information, see <http://docs.aws.amazon.com/autoscaling/latest/userguide/healthcheck.html Health Checks> in the /Auto Scaling User Guide/ .
 --
@@ -129,25 +130,27 @@ createAutoScalingGroup
     -> Int -- ^ 'casgMaxSize'
     -> CreateAutoScalingGroup
 createAutoScalingGroup pAutoScalingGroupName_ pMinSize_ pMaxSize_ =
-    CreateAutoScalingGroup'
-    { _casgInstanceId = Nothing
-    , _casgTerminationPolicies = Nothing
-    , _casgHealthCheckGracePeriod = Nothing
-    , _casgNewInstancesProtectedFromScaleIn = Nothing
-    , _casgVPCZoneIdentifier = Nothing
-    , _casgTargetGroupARNs = Nothing
-    , _casgDefaultCooldown = Nothing
-    , _casgAvailabilityZones = Nothing
-    , _casgDesiredCapacity = Nothing
-    , _casgLaunchConfigurationName = Nothing
-    , _casgHealthCheckType = Nothing
-    , _casgPlacementGroup = Nothing
-    , _casgLoadBalancerNames = Nothing
-    , _casgTags = Nothing
-    , _casgAutoScalingGroupName = pAutoScalingGroupName_
-    , _casgMinSize = pMinSize_
-    , _casgMaxSize = pMaxSize_
-    }
+  CreateAutoScalingGroup'
+  { _casgInstanceId = Nothing
+  , _casgTerminationPolicies = Nothing
+  , _casgHealthCheckGracePeriod = Nothing
+  , _casgNewInstancesProtectedFromScaleIn = Nothing
+  , _casgVPCZoneIdentifier = Nothing
+  , _casgTargetGroupARNs = Nothing
+  , _casgDefaultCooldown = Nothing
+  , _casgAvailabilityZones = Nothing
+  , _casgDesiredCapacity = Nothing
+  , _casgLaunchConfigurationName = Nothing
+  , _casgLifecycleHookSpecificationList = Nothing
+  , _casgHealthCheckType = Nothing
+  , _casgPlacementGroup = Nothing
+  , _casgLoadBalancerNames = Nothing
+  , _casgTags = Nothing
+  , _casgAutoScalingGroupName = pAutoScalingGroupName_
+  , _casgMinSize = pMinSize_
+  , _casgMaxSize = pMaxSize_
+  }
+
 
 -- | The ID of the instance used to create a launch configuration for the group. Alternatively, specify a launch configuration instead of an EC2 instance. When you specify an ID of an instance, Auto Scaling creates a new launch configuration and associates it with the group. This launch configuration derives its attributes from the specified instance, with the exception of the block device mapping. For more information, see <http://docs.aws.amazon.com/autoscaling/latest/userguide/create-asg-from-instance.html Create an Auto Scaling Group Using an EC2 Instance> in the /Auto Scaling User Guide/ .
 casgInstanceId :: Lens' CreateAutoScalingGroup (Maybe Text)
@@ -181,13 +184,17 @@ casgDefaultCooldown = lens _casgDefaultCooldown (\ s a -> s{_casgDefaultCooldown
 casgAvailabilityZones :: Lens' CreateAutoScalingGroup (Maybe (NonEmpty Text))
 casgAvailabilityZones = lens _casgAvailabilityZones (\ s a -> s{_casgAvailabilityZones = a}) . mapping _List1;
 
--- | The number of EC2 instances that should be running in the group. This number must be greater than or equal to the minimum size of the group and less than or equal to the maximum size of the group.
+-- | The number of EC2 instances that should be running in the group. This number must be greater than or equal to the minimum size of the group and less than or equal to the maximum size of the group. If you do not specify a desired capacity, the default is the minimum size of the group.
 casgDesiredCapacity :: Lens' CreateAutoScalingGroup (Maybe Int)
 casgDesiredCapacity = lens _casgDesiredCapacity (\ s a -> s{_casgDesiredCapacity = a});
 
 -- | The name of the launch configuration. Alternatively, specify an EC2 instance instead of a launch configuration.
 casgLaunchConfigurationName :: Lens' CreateAutoScalingGroup (Maybe Text)
 casgLaunchConfigurationName = lens _casgLaunchConfigurationName (\ s a -> s{_casgLaunchConfigurationName = a});
+
+-- | One or more lifecycle hooks.
+casgLifecycleHookSpecificationList :: Lens' CreateAutoScalingGroup [LifecycleHookSpecification]
+casgLifecycleHookSpecificationList = lens _casgLifecycleHookSpecificationList (\ s a -> s{_casgLifecycleHookSpecificationList = a}) . _Default . _Coerce;
 
 -- | The service to use for the health checks. The valid values are @EC2@ and @ELB@ . By default, health checks use Amazon EC2 instance status checks to determine the health of an instance. For more information, see <http://docs.aws.amazon.com/autoscaling/latest/userguide/healthcheck.html Health Checks> in the /Auto Scaling User Guide/ .
 casgHealthCheckType :: Lens' CreateAutoScalingGroup (Maybe Text)
@@ -224,9 +231,9 @@ instance AWSRequest CreateAutoScalingGroup where
         response
           = receiveNull CreateAutoScalingGroupResponse'
 
-instance Hashable CreateAutoScalingGroup
+instance Hashable CreateAutoScalingGroup where
 
-instance NFData CreateAutoScalingGroup
+instance NFData CreateAutoScalingGroup where
 
 instance ToHeaders CreateAutoScalingGroup where
         toHeaders = const mempty
@@ -259,6 +266,10 @@ instance ToQuery CreateAutoScalingGroup where
                "DesiredCapacity" =: _casgDesiredCapacity,
                "LaunchConfigurationName" =:
                  _casgLaunchConfigurationName,
+               "LifecycleHookSpecificationList" =:
+                 toQuery
+                   (toQueryList "member" <$>
+                      _casgLifecycleHookSpecificationList),
                "HealthCheckType" =: _casgHealthCheckType,
                "PlacementGroup" =: _casgPlacementGroup,
                "LoadBalancerNames" =:
@@ -271,8 +282,9 @@ instance ToQuery CreateAutoScalingGroup where
 
 -- | /See:/ 'createAutoScalingGroupResponse' smart constructor.
 data CreateAutoScalingGroupResponse =
-    CreateAutoScalingGroupResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  CreateAutoScalingGroupResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateAutoScalingGroupResponse' with the minimum fields required to make a request.
 --
@@ -280,4 +292,5 @@ createAutoScalingGroupResponse
     :: CreateAutoScalingGroupResponse
 createAutoScalingGroupResponse = CreateAutoScalingGroupResponse'
 
-instance NFData CreateAutoScalingGroupResponse
+
+instance NFData CreateAutoScalingGroupResponse where

@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.CreateFleet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new fleet.
+-- Creates a fleet.
 --
 --
 module Network.AWS.AppStream.CreateFleet
@@ -30,6 +30,7 @@ module Network.AWS.AppStream.CreateFleet
     , cfDomainJoinInfo
     , cfDisconnectTimeoutInSeconds
     , cfMaxUserDurationInSeconds
+    , cfFleetType
     , cfVPCConfig
     , cfDisplayName
     , cfEnableDefaultInternetAccess
@@ -47,57 +48,57 @@ module Network.AWS.AppStream.CreateFleet
     , cfrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for the new fleet to create.
---
---
---
--- /See:/ 'createFleet' smart constructor.
+-- | /See:/ 'createFleet' smart constructor.
 data CreateFleet = CreateFleet'
-    { _cfDomainJoinInfo              :: !(Maybe DomainJoinInfo)
-    , _cfDisconnectTimeoutInSeconds  :: !(Maybe Int)
-    , _cfMaxUserDurationInSeconds    :: !(Maybe Int)
-    , _cfVPCConfig                   :: !(Maybe VPCConfig)
-    , _cfDisplayName                 :: !(Maybe Text)
-    , _cfEnableDefaultInternetAccess :: !(Maybe Bool)
-    , _cfDescription                 :: !(Maybe Text)
-    , _cfName                        :: !Text
-    , _cfImageName                   :: !Text
-    , _cfInstanceType                :: !Text
-    , _cfComputeCapacity             :: !ComputeCapacity
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cfDomainJoinInfo              :: !(Maybe DomainJoinInfo)
+  , _cfDisconnectTimeoutInSeconds  :: !(Maybe Int)
+  , _cfMaxUserDurationInSeconds    :: !(Maybe Int)
+  , _cfFleetType                   :: !(Maybe FleetType)
+  , _cfVPCConfig                   :: !(Maybe VPCConfig)
+  , _cfDisplayName                 :: !(Maybe Text)
+  , _cfEnableDefaultInternetAccess :: !(Maybe Bool)
+  , _cfDescription                 :: !(Maybe Text)
+  , _cfName                        :: !Text
+  , _cfImageName                   :: !Text
+  , _cfInstanceType                :: !Text
+  , _cfComputeCapacity             :: !ComputeCapacity
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateFleet' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cfDomainJoinInfo' - The /DirectoryName/ and /OrganizationalUnitDistinguishedName/ values, which are used to join domains for the AppStream 2.0 streaming instances.
+-- * 'cfDomainJoinInfo' - The information needed for streaming instances to join a domain.
 --
--- * 'cfDisconnectTimeoutInSeconds' - The time after disconnection when a session is considered to have ended. If a user who got disconnected reconnects within this timeout interval, the user is connected back to their previous session. The input can be any numeric value in seconds between 60 and 57600.
+-- * 'cfDisconnectTimeoutInSeconds' - The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.
 --
--- * 'cfMaxUserDurationInSeconds' - The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600 and 57600.
+-- * 'cfMaxUserDurationInSeconds' - The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.
+--
+-- * 'cfFleetType' - Undocumented member.
 --
 -- * 'cfVPCConfig' - The VPC configuration for the fleet.
 --
--- * 'cfDisplayName' - The display name of the fleet.
+-- * 'cfDisplayName' - The fleet name displayed to end users.
 --
 -- * 'cfEnableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
 --
--- * 'cfDescription' - The description of the fleet.
+-- * 'cfDescription' - The description displayed to end users.
 --
--- * 'cfName' - A unique identifier for the fleet.
+-- * 'cfName' - A unique name for the fleet.
 --
--- * 'cfImageName' - Unique name of the image used by the fleet.
+-- * 'cfImageName' - The name of the image used by the fleet.
 --
--- * 'cfInstanceType' - The instance type of compute resources for the fleet. Fleet instances are launched from this instance type. Available instance types are:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge
+-- * 'cfInstanceType' - The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
 --
--- * 'cfComputeCapacity' - The parameters for the capacity allocated to the fleet.
+-- * 'cfComputeCapacity' - The desired capacity for the fleet.
 createFleet
     :: Text -- ^ 'cfName'
     -> Text -- ^ 'cfImageName'
@@ -105,37 +106,43 @@ createFleet
     -> ComputeCapacity -- ^ 'cfComputeCapacity'
     -> CreateFleet
 createFleet pName_ pImageName_ pInstanceType_ pComputeCapacity_ =
-    CreateFleet'
-    { _cfDomainJoinInfo = Nothing
-    , _cfDisconnectTimeoutInSeconds = Nothing
-    , _cfMaxUserDurationInSeconds = Nothing
-    , _cfVPCConfig = Nothing
-    , _cfDisplayName = Nothing
-    , _cfEnableDefaultInternetAccess = Nothing
-    , _cfDescription = Nothing
-    , _cfName = pName_
-    , _cfImageName = pImageName_
-    , _cfInstanceType = pInstanceType_
-    , _cfComputeCapacity = pComputeCapacity_
-    }
+  CreateFleet'
+  { _cfDomainJoinInfo = Nothing
+  , _cfDisconnectTimeoutInSeconds = Nothing
+  , _cfMaxUserDurationInSeconds = Nothing
+  , _cfFleetType = Nothing
+  , _cfVPCConfig = Nothing
+  , _cfDisplayName = Nothing
+  , _cfEnableDefaultInternetAccess = Nothing
+  , _cfDescription = Nothing
+  , _cfName = pName_
+  , _cfImageName = pImageName_
+  , _cfInstanceType = pInstanceType_
+  , _cfComputeCapacity = pComputeCapacity_
+  }
 
--- | The /DirectoryName/ and /OrganizationalUnitDistinguishedName/ values, which are used to join domains for the AppStream 2.0 streaming instances.
+
+-- | The information needed for streaming instances to join a domain.
 cfDomainJoinInfo :: Lens' CreateFleet (Maybe DomainJoinInfo)
 cfDomainJoinInfo = lens _cfDomainJoinInfo (\ s a -> s{_cfDomainJoinInfo = a});
 
--- | The time after disconnection when a session is considered to have ended. If a user who got disconnected reconnects within this timeout interval, the user is connected back to their previous session. The input can be any numeric value in seconds between 60 and 57600.
+-- | The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.
 cfDisconnectTimeoutInSeconds :: Lens' CreateFleet (Maybe Int)
 cfDisconnectTimeoutInSeconds = lens _cfDisconnectTimeoutInSeconds (\ s a -> s{_cfDisconnectTimeoutInSeconds = a});
 
--- | The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600 and 57600.
+-- | The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.
 cfMaxUserDurationInSeconds :: Lens' CreateFleet (Maybe Int)
 cfMaxUserDurationInSeconds = lens _cfMaxUserDurationInSeconds (\ s a -> s{_cfMaxUserDurationInSeconds = a});
+
+-- | Undocumented member.
+cfFleetType :: Lens' CreateFleet (Maybe FleetType)
+cfFleetType = lens _cfFleetType (\ s a -> s{_cfFleetType = a});
 
 -- | The VPC configuration for the fleet.
 cfVPCConfig :: Lens' CreateFleet (Maybe VPCConfig)
 cfVPCConfig = lens _cfVPCConfig (\ s a -> s{_cfVPCConfig = a});
 
--- | The display name of the fleet.
+-- | The fleet name displayed to end users.
 cfDisplayName :: Lens' CreateFleet (Maybe Text)
 cfDisplayName = lens _cfDisplayName (\ s a -> s{_cfDisplayName = a});
 
@@ -143,23 +150,23 @@ cfDisplayName = lens _cfDisplayName (\ s a -> s{_cfDisplayName = a});
 cfEnableDefaultInternetAccess :: Lens' CreateFleet (Maybe Bool)
 cfEnableDefaultInternetAccess = lens _cfEnableDefaultInternetAccess (\ s a -> s{_cfEnableDefaultInternetAccess = a});
 
--- | The description of the fleet.
+-- | The description displayed to end users.
 cfDescription :: Lens' CreateFleet (Maybe Text)
 cfDescription = lens _cfDescription (\ s a -> s{_cfDescription = a});
 
--- | A unique identifier for the fleet.
+-- | A unique name for the fleet.
 cfName :: Lens' CreateFleet Text
 cfName = lens _cfName (\ s a -> s{_cfName = a});
 
--- | Unique name of the image used by the fleet.
+-- | The name of the image used by the fleet.
 cfImageName :: Lens' CreateFleet Text
 cfImageName = lens _cfImageName (\ s a -> s{_cfImageName = a});
 
--- | The instance type of compute resources for the fleet. Fleet instances are launched from this instance type. Available instance types are:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge
+-- | The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
 cfInstanceType :: Lens' CreateFleet Text
 cfInstanceType = lens _cfInstanceType (\ s a -> s{_cfInstanceType = a});
 
--- | The parameters for the capacity allocated to the fleet.
+-- | The desired capacity for the fleet.
 cfComputeCapacity :: Lens' CreateFleet ComputeCapacity
 cfComputeCapacity = lens _cfComputeCapacity (\ s a -> s{_cfComputeCapacity = a});
 
@@ -172,9 +179,9 @@ instance AWSRequest CreateFleet where
                  CreateFleetResponse' <$>
                    (x .?> "Fleet") <*> (pure (fromEnum s)))
 
-instance Hashable CreateFleet
+instance Hashable CreateFleet where
 
-instance NFData CreateFleet
+instance NFData CreateFleet where
 
 instance ToHeaders CreateFleet where
         toHeaders
@@ -195,6 +202,7 @@ instance ToJSON CreateFleet where
                     _cfDisconnectTimeoutInSeconds,
                   ("MaxUserDurationInSeconds" .=) <$>
                     _cfMaxUserDurationInSeconds,
+                  ("FleetType" .=) <$> _cfFleetType,
                   ("VpcConfig" .=) <$> _cfVPCConfig,
                   ("DisplayName" .=) <$> _cfDisplayName,
                   ("EnableDefaultInternetAccess" .=) <$>
@@ -213,27 +221,27 @@ instance ToQuery CreateFleet where
 
 -- | /See:/ 'createFleetResponse' smart constructor.
 data CreateFleetResponse = CreateFleetResponse'
-    { _cfrsFleet          :: !(Maybe Fleet)
-    , _cfrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cfrsFleet          :: !(Maybe Fleet)
+  , _cfrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateFleetResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cfrsFleet' - The details for the created fleet.
+-- * 'cfrsFleet' - Information about the fleet.
 --
 -- * 'cfrsResponseStatus' - -- | The response status code.
 createFleetResponse
     :: Int -- ^ 'cfrsResponseStatus'
     -> CreateFleetResponse
 createFleetResponse pResponseStatus_ =
-    CreateFleetResponse'
-    { _cfrsFleet = Nothing
-    , _cfrsResponseStatus = pResponseStatus_
-    }
+  CreateFleetResponse'
+  {_cfrsFleet = Nothing, _cfrsResponseStatus = pResponseStatus_}
 
--- | The details for the created fleet.
+
+-- | Information about the fleet.
 cfrsFleet :: Lens' CreateFleetResponse (Maybe Fleet)
 cfrsFleet = lens _cfrsFleet (\ s a -> s{_cfrsFleet = a});
 
@@ -241,4 +249,4 @@ cfrsFleet = lens _cfrsFleet (\ s a -> s{_cfrsFleet = a});
 cfrsResponseStatus :: Lens' CreateFleetResponse Int
 cfrsResponseStatus = lens _cfrsResponseStatus (\ s a -> s{_cfrsResponseStatus = a});
 
-instance NFData CreateFleetResponse
+instance NFData CreateFleetResponse where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.ListPrincipalsForPortfolio
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -41,26 +41,27 @@ module Network.AWS.ServiceCatalog.ListPrincipalsForPortfolio
     , lisrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'listPrincipalsForPortfolio' smart constructor.
 data ListPrincipalsForPortfolio = ListPrincipalsForPortfolio'
-    { _lpfpAcceptLanguage :: !(Maybe Text)
-    , _lpfpPageToken      :: !(Maybe Text)
-    , _lpfpPageSize       :: !(Maybe Nat)
-    , _lpfpPortfolioId    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lpfpAcceptLanguage :: !(Maybe Text)
+  , _lpfpPageToken      :: !(Maybe Text)
+  , _lpfpPageSize       :: !(Maybe Nat)
+  , _lpfpPortfolioId    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListPrincipalsForPortfolio' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lpfpAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'lpfpAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'lpfpPageToken' - The page token of the first page retrieved. If null, this retrieves the first page of size @PageSize@ .
 --
@@ -71,14 +72,15 @@ listPrincipalsForPortfolio
     :: Text -- ^ 'lpfpPortfolioId'
     -> ListPrincipalsForPortfolio
 listPrincipalsForPortfolio pPortfolioId_ =
-    ListPrincipalsForPortfolio'
-    { _lpfpAcceptLanguage = Nothing
-    , _lpfpPageToken = Nothing
-    , _lpfpPageSize = Nothing
-    , _lpfpPortfolioId = pPortfolioId_
-    }
+  ListPrincipalsForPortfolio'
+  { _lpfpAcceptLanguage = Nothing
+  , _lpfpPageToken = Nothing
+  , _lpfpPageSize = Nothing
+  , _lpfpPortfolioId = pPortfolioId_
+  }
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 lpfpAcceptLanguage :: Lens' ListPrincipalsForPortfolio (Maybe Text)
 lpfpAcceptLanguage = lens _lpfpAcceptLanguage (\ s a -> s{_lpfpAcceptLanguage = a});
 
@@ -106,9 +108,9 @@ instance AWSRequest ListPrincipalsForPortfolio where
                      (x .?> "Principals" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListPrincipalsForPortfolio
+instance Hashable ListPrincipalsForPortfolio where
 
-instance NFData ListPrincipalsForPortfolio
+instance NFData ListPrincipalsForPortfolio where
 
 instance ToHeaders ListPrincipalsForPortfolio where
         toHeaders
@@ -137,10 +139,11 @@ instance ToQuery ListPrincipalsForPortfolio where
 
 -- | /See:/ 'listPrincipalsForPortfolioResponse' smart constructor.
 data ListPrincipalsForPortfolioResponse = ListPrincipalsForPortfolioResponse'
-    { _lisrsNextPageToken  :: !(Maybe Text)
-    , _lisrsPrincipals     :: !(Maybe [Principal])
-    , _lisrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lisrsNextPageToken  :: !(Maybe Text)
+  , _lisrsPrincipals     :: !(Maybe [Principal])
+  , _lisrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListPrincipalsForPortfolioResponse' with the minimum fields required to make a request.
 --
@@ -155,11 +158,12 @@ listPrincipalsForPortfolioResponse
     :: Int -- ^ 'lisrsResponseStatus'
     -> ListPrincipalsForPortfolioResponse
 listPrincipalsForPortfolioResponse pResponseStatus_ =
-    ListPrincipalsForPortfolioResponse'
-    { _lisrsNextPageToken = Nothing
-    , _lisrsPrincipals = Nothing
-    , _lisrsResponseStatus = pResponseStatus_
-    }
+  ListPrincipalsForPortfolioResponse'
+  { _lisrsNextPageToken = Nothing
+  , _lisrsPrincipals = Nothing
+  , _lisrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The page token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
 lisrsNextPageToken :: Lens' ListPrincipalsForPortfolioResponse (Maybe Text)
@@ -174,3 +178,4 @@ lisrsResponseStatus :: Lens' ListPrincipalsForPortfolioResponse Int
 lisrsResponseStatus = lens _lisrsResponseStatus (\ s a -> s{_lisrsResponseStatus = a});
 
 instance NFData ListPrincipalsForPortfolioResponse
+         where

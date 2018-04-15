@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.GameLift.PutScalingPolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -106,12 +106,12 @@ module Network.AWS.GameLift.PutScalingPolicy
     , psprsResponseStatus
     ) where
 
-import           Network.AWS.GameLift.Types
-import           Network.AWS.GameLift.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.GameLift.Types
+import Network.AWS.GameLift.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Represents the input for a request action.
 --
@@ -119,15 +119,16 @@ import           Network.AWS.Response
 --
 -- /See:/ 'putScalingPolicy' smart constructor.
 data PutScalingPolicy = PutScalingPolicy'
-    { _pspName                  :: !Text
-    , _pspFleetId               :: !Text
-    , _pspScalingAdjustment     :: !Int
-    , _pspScalingAdjustmentType :: !ScalingAdjustmentType
-    , _pspThreshold             :: !Double
-    , _pspComparisonOperator    :: !ComparisonOperatorType
-    , _pspEvaluationPeriods     :: !Nat
-    , _pspMetricName            :: !MetricName
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pspName                  :: !Text
+  , _pspFleetId               :: !Text
+  , _pspScalingAdjustment     :: !Int
+  , _pspScalingAdjustmentType :: !ScalingAdjustmentType
+  , _pspThreshold             :: !Double
+  , _pspComparisonOperator    :: !ComparisonOperatorType
+  , _pspEvaluationPeriods     :: !Nat
+  , _pspMetricName            :: !MetricName
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutScalingPolicy' with the minimum fields required to make a request.
 --
@@ -139,7 +140,7 @@ data PutScalingPolicy = PutScalingPolicy'
 --
 -- * 'pspScalingAdjustment' - Amount of adjustment to make, based on the scaling adjustment type.
 --
--- * 'pspScalingAdjustmentType' - Type of adjustment to make to a fleet's instance count (see 'FleetCapacity' ):     * __ChangeInCapacity__ – add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.     * __ExactCapacity__ – set the instance count to the scaling adjustment value.     * __PercentChangeInCapacity__ – increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down; for example, a value of "-10" scales the fleet down by 10%.
+-- * 'pspScalingAdjustmentType' - Type of adjustment to make to a fleet's instance count (see 'FleetCapacity' ):     * __ChangeInCapacity__ -- add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.     * __ExactCapacity__ -- set the instance count to the scaling adjustment value.     * __PercentChangeInCapacity__ -- increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down; for example, a value of "-10" scales the fleet down by 10%.
 --
 -- * 'pspThreshold' - Metric value used to trigger a scaling event.
 --
@@ -147,7 +148,7 @@ data PutScalingPolicy = PutScalingPolicy'
 --
 -- * 'pspEvaluationPeriods' - Length of time (in minutes) the metric must be at or beyond the threshold before a scaling event is triggered.
 --
--- * 'pspMetricName' - Name of the Amazon GameLift-defined metric that is used to trigger an adjustment.     * __ActivatingGameSessions__ – number of game sessions in the process of being created (game session status = @ACTIVATING@ ).     * __ActiveGameSessions__ – number of game sessions currently running (game session status = @ACTIVE@ ).     * __CurrentPlayerSessions__ – number of active or reserved player sessions (player session status = @ACTIVE@ or @RESERVED@ ).      * __AvailablePlayerSessions__ – number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number includes game sessions that are not currently accepting players (game session @PlayerSessionCreationPolicy@ = @DENY_ALL@ ).     * __ActiveInstances__ – number of instances currently running a game session.     * __IdleInstances__ – number of instances not currently running a game session.
+-- * 'pspMetricName' - Name of the Amazon GameLift-defined metric that is used to trigger an adjustment.     * __ActivatingGameSessions__ -- number of game sessions in the process of being created (game session status = @ACTIVATING@ ).     * __ActiveGameSessions__ -- number of game sessions currently running (game session status = @ACTIVE@ ).     * __CurrentPlayerSessions__ -- number of active or reserved player sessions (player session status = @ACTIVE@ or @RESERVED@ ).      * __AvailablePlayerSessions__ -- number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number includes game sessions that are not currently accepting players (game session @PlayerSessionCreationPolicy@ = @DENY_ALL@ ).     * __ActiveInstances__ -- number of instances currently running a game session.     * __IdleInstances__ -- number of instances not currently running a game session.
 putScalingPolicy
     :: Text -- ^ 'pspName'
     -> Text -- ^ 'pspFleetId'
@@ -159,16 +160,17 @@ putScalingPolicy
     -> MetricName -- ^ 'pspMetricName'
     -> PutScalingPolicy
 putScalingPolicy pName_ pFleetId_ pScalingAdjustment_ pScalingAdjustmentType_ pThreshold_ pComparisonOperator_ pEvaluationPeriods_ pMetricName_ =
-    PutScalingPolicy'
-    { _pspName = pName_
-    , _pspFleetId = pFleetId_
-    , _pspScalingAdjustment = pScalingAdjustment_
-    , _pspScalingAdjustmentType = pScalingAdjustmentType_
-    , _pspThreshold = pThreshold_
-    , _pspComparisonOperator = pComparisonOperator_
-    , _pspEvaluationPeriods = _Nat # pEvaluationPeriods_
-    , _pspMetricName = pMetricName_
-    }
+  PutScalingPolicy'
+  { _pspName = pName_
+  , _pspFleetId = pFleetId_
+  , _pspScalingAdjustment = pScalingAdjustment_
+  , _pspScalingAdjustmentType = pScalingAdjustmentType_
+  , _pspThreshold = pThreshold_
+  , _pspComparisonOperator = pComparisonOperator_
+  , _pspEvaluationPeriods = _Nat # pEvaluationPeriods_
+  , _pspMetricName = pMetricName_
+  }
+
 
 -- | Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet can have only one scaling policy with the same name.
 pspName :: Lens' PutScalingPolicy Text
@@ -182,7 +184,7 @@ pspFleetId = lens _pspFleetId (\ s a -> s{_pspFleetId = a});
 pspScalingAdjustment :: Lens' PutScalingPolicy Int
 pspScalingAdjustment = lens _pspScalingAdjustment (\ s a -> s{_pspScalingAdjustment = a});
 
--- | Type of adjustment to make to a fleet's instance count (see 'FleetCapacity' ):     * __ChangeInCapacity__ – add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.     * __ExactCapacity__ – set the instance count to the scaling adjustment value.     * __PercentChangeInCapacity__ – increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down; for example, a value of "-10" scales the fleet down by 10%.
+-- | Type of adjustment to make to a fleet's instance count (see 'FleetCapacity' ):     * __ChangeInCapacity__ -- add (or subtract) the scaling adjustment value from the current instance count. Positive values scale up while negative values scale down.     * __ExactCapacity__ -- set the instance count to the scaling adjustment value.     * __PercentChangeInCapacity__ -- increase or reduce the current instance count by the scaling adjustment, read as a percentage. Positive values scale up while negative values scale down; for example, a value of "-10" scales the fleet down by 10%.
 pspScalingAdjustmentType :: Lens' PutScalingPolicy ScalingAdjustmentType
 pspScalingAdjustmentType = lens _pspScalingAdjustmentType (\ s a -> s{_pspScalingAdjustmentType = a});
 
@@ -198,7 +200,7 @@ pspComparisonOperator = lens _pspComparisonOperator (\ s a -> s{_pspComparisonOp
 pspEvaluationPeriods :: Lens' PutScalingPolicy Natural
 pspEvaluationPeriods = lens _pspEvaluationPeriods (\ s a -> s{_pspEvaluationPeriods = a}) . _Nat;
 
--- | Name of the Amazon GameLift-defined metric that is used to trigger an adjustment.     * __ActivatingGameSessions__ – number of game sessions in the process of being created (game session status = @ACTIVATING@ ).     * __ActiveGameSessions__ – number of game sessions currently running (game session status = @ACTIVE@ ).     * __CurrentPlayerSessions__ – number of active or reserved player sessions (player session status = @ACTIVE@ or @RESERVED@ ).      * __AvailablePlayerSessions__ – number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number includes game sessions that are not currently accepting players (game session @PlayerSessionCreationPolicy@ = @DENY_ALL@ ).     * __ActiveInstances__ – number of instances currently running a game session.     * __IdleInstances__ – number of instances not currently running a game session.
+-- | Name of the Amazon GameLift-defined metric that is used to trigger an adjustment.     * __ActivatingGameSessions__ -- number of game sessions in the process of being created (game session status = @ACTIVATING@ ).     * __ActiveGameSessions__ -- number of game sessions currently running (game session status = @ACTIVE@ ).     * __CurrentPlayerSessions__ -- number of active or reserved player sessions (player session status = @ACTIVE@ or @RESERVED@ ).      * __AvailablePlayerSessions__ -- number of player session slots currently available in active game sessions across the fleet, calculated by subtracting a game session's current player session count from its maximum player session count. This number includes game sessions that are not currently accepting players (game session @PlayerSessionCreationPolicy@ = @DENY_ALL@ ).     * __ActiveInstances__ -- number of instances currently running a game session.     * __IdleInstances__ -- number of instances not currently running a game session.
 pspMetricName :: Lens' PutScalingPolicy MetricName
 pspMetricName = lens _pspMetricName (\ s a -> s{_pspMetricName = a});
 
@@ -211,9 +213,9 @@ instance AWSRequest PutScalingPolicy where
                  PutScalingPolicyResponse' <$>
                    (x .?> "Name") <*> (pure (fromEnum s)))
 
-instance Hashable PutScalingPolicy
+instance Hashable PutScalingPolicy where
 
-instance NFData PutScalingPolicy
+instance NFData PutScalingPolicy where
 
 instance ToHeaders PutScalingPolicy where
         toHeaders
@@ -252,9 +254,10 @@ instance ToQuery PutScalingPolicy where
 --
 -- /See:/ 'putScalingPolicyResponse' smart constructor.
 data PutScalingPolicyResponse = PutScalingPolicyResponse'
-    { _psprsName           :: !(Maybe Text)
-    , _psprsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _psprsName           :: !(Maybe Text)
+  , _psprsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutScalingPolicyResponse' with the minimum fields required to make a request.
 --
@@ -267,10 +270,9 @@ putScalingPolicyResponse
     :: Int -- ^ 'psprsResponseStatus'
     -> PutScalingPolicyResponse
 putScalingPolicyResponse pResponseStatus_ =
-    PutScalingPolicyResponse'
-    { _psprsName = Nothing
-    , _psprsResponseStatus = pResponseStatus_
-    }
+  PutScalingPolicyResponse'
+  {_psprsName = Nothing, _psprsResponseStatus = pResponseStatus_}
+
 
 -- | Descriptive label that is associated with a scaling policy. Policy names do not need to be unique.
 psprsName :: Lens' PutScalingPolicyResponse (Maybe Text)
@@ -280,4 +282,4 @@ psprsName = lens _psprsName (\ s a -> s{_psprsName = a});
 psprsResponseStatus :: Lens' PutScalingPolicyResponse Int
 psprsResponseStatus = lens _psprsResponseStatus (\ s a -> s{_psprsResponseStatus = a});
 
-instance NFData PutScalingPolicyResponse
+instance NFData PutScalingPolicyResponse where

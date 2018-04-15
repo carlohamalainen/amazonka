@@ -5,15 +5,15 @@
 
 -- |
 -- Module      : Network.AWS.Firehose
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- __Amazon Kinesis Firehose API Reference__
 --
--- Amazon Kinesis Firehose is a fully-managed service that delivers real-time streaming data to destinations such as Amazon Simple Storage Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), and Amazon Redshift.
+-- Amazon Kinesis Firehose is a fully managed service that delivers real-time streaming data to destinations such as Amazon Simple Storage Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), and Amazon Redshift.
 --
 module Network.AWS.Firehose
     (
@@ -22,6 +22,9 @@ module Network.AWS.Firehose
 
     -- * Errors
     -- $errors
+
+    -- ** InvalidStreamTypeException
+    , _InvalidStreamTypeException
 
     -- ** InvalidArgumentException
     , _InvalidArgumentException
@@ -50,6 +53,9 @@ module Network.AWS.Firehose
     -- ** PutRecord
     , module Network.AWS.Firehose.PutRecord
 
+    -- ** GetKinesisStream
+    , module Network.AWS.Firehose.GetKinesisStream
+
     -- ** UpdateDestination
     , module Network.AWS.Firehose.UpdateDestination
 
@@ -75,6 +81,9 @@ module Network.AWS.Firehose
 
     -- ** DeliveryStreamStatus
     , DeliveryStreamStatus (..)
+
+    -- ** DeliveryStreamType
+    , DeliveryStreamType (..)
 
     -- ** ElasticsearchIndexRotationPeriod
     , ElasticsearchIndexRotationPeriod (..)
@@ -121,10 +130,12 @@ module Network.AWS.Firehose
     , DeliveryStreamDescription
     , deliveryStreamDescription
     , dsdCreateTimestamp
+    , dsdSource
     , dsdLastUpdateTimestamp
     , dsdDeliveryStreamName
     , dsdDeliveryStreamARN
     , dsdDeliveryStreamStatus
+    , dsdDeliveryStreamType
     , dsdVersionId
     , dsdDestinations
     , dsdHasMoreDestinations
@@ -246,6 +257,19 @@ module Network.AWS.Firehose
     , kmsEncryptionConfig
     , kecAWSKMSKeyARN
 
+    -- ** KinesisStreamSourceConfiguration
+    , KinesisStreamSourceConfiguration
+    , kinesisStreamSourceConfiguration
+    , ksscKinesisStreamARN
+    , ksscRoleARN
+
+    -- ** KinesisStreamSourceDescription
+    , KinesisStreamSourceDescription
+    , kinesisStreamSourceDescription
+    , kssdDeliveryStartTimestamp
+    , kssdKinesisStreamARN
+    , kssdRoleARN
+
     -- ** ProcessingConfiguration
     , ProcessingConfiguration
     , processingConfiguration
@@ -357,17 +381,31 @@ module Network.AWS.Firehose
     , sduBufferingHints
     , sduBucketARN
     , sduRoleARN
+
+    -- ** SessionCredentials
+    , SessionCredentials
+    , sessionCredentials
+    , scAccessKeyId
+    , scSecretAccessKey
+    , scSessionToken
+    , scExpiration
+
+    -- ** SourceDescription
+    , SourceDescription
+    , sourceDescription
+    , sdKinesisStreamSourceDescription
     ) where
 
-import           Network.AWS.Firehose.CreateDeliveryStream
-import           Network.AWS.Firehose.DeleteDeliveryStream
-import           Network.AWS.Firehose.DescribeDeliveryStream
-import           Network.AWS.Firehose.ListDeliveryStreams
-import           Network.AWS.Firehose.PutRecord
-import           Network.AWS.Firehose.PutRecordBatch
-import           Network.AWS.Firehose.Types
-import           Network.AWS.Firehose.UpdateDestination
-import           Network.AWS.Firehose.Waiters
+import Network.AWS.Firehose.CreateDeliveryStream
+import Network.AWS.Firehose.DeleteDeliveryStream
+import Network.AWS.Firehose.DescribeDeliveryStream
+import Network.AWS.Firehose.GetKinesisStream
+import Network.AWS.Firehose.ListDeliveryStreams
+import Network.AWS.Firehose.PutRecord
+import Network.AWS.Firehose.PutRecordBatch
+import Network.AWS.Firehose.Types
+import Network.AWS.Firehose.UpdateDestination
+import Network.AWS.Firehose.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

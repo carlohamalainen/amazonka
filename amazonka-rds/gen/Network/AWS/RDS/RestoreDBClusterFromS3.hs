@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.RestoreDBClusterFromS3
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -61,41 +61,42 @@ module Network.AWS.RDS.RestoreDBClusterFromS3
     , rdcfsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'restoreDBClusterFromS3' smart constructor.
 data RestoreDBClusterFromS3 = RestoreDBClusterFromS3'
-    { _rdcfsEngineVersion                   :: !(Maybe Text)
-    , _rdcfsStorageEncrypted                :: !(Maybe Bool)
-    , _rdcfsDBSubnetGroupName               :: !(Maybe Text)
-    , _rdcfsPreferredMaintenanceWindow      :: !(Maybe Text)
-    , _rdcfsAvailabilityZones               :: !(Maybe [Text])
-    , _rdcfsCharacterSetName                :: !(Maybe Text)
-    , _rdcfsKMSKeyId                        :: !(Maybe Text)
-    , _rdcfsPreferredBackupWindow           :: !(Maybe Text)
-    , _rdcfsBackupRetentionPeriod           :: !(Maybe Int)
-    , _rdcfsVPCSecurityGroupIds             :: !(Maybe [Text])
-    , _rdcfsDatabaseName                    :: !(Maybe Text)
-    , _rdcfsDBClusterParameterGroupName     :: !(Maybe Text)
-    , _rdcfsS3Prefix                        :: !(Maybe Text)
-    , _rdcfsOptionGroupName                 :: !(Maybe Text)
-    , _rdcfsTags                            :: !(Maybe [Tag])
-    , _rdcfsPort                            :: !(Maybe Int)
-    , _rdcfsEnableIAMDatabaseAuthentication :: !(Maybe Bool)
-    , _rdcfsDBClusterIdentifier             :: !Text
-    , _rdcfsEngine                          :: !Text
-    , _rdcfsMasterUsername                  :: !Text
-    , _rdcfsMasterUserPassword              :: !Text
-    , _rdcfsSourceEngine                    :: !Text
-    , _rdcfsSourceEngineVersion             :: !Text
-    , _rdcfsS3BucketName                    :: !Text
-    , _rdcfsS3IngestionRoleARN              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdcfsEngineVersion                   :: !(Maybe Text)
+  , _rdcfsStorageEncrypted                :: !(Maybe Bool)
+  , _rdcfsDBSubnetGroupName               :: !(Maybe Text)
+  , _rdcfsPreferredMaintenanceWindow      :: !(Maybe Text)
+  , _rdcfsAvailabilityZones               :: !(Maybe [Text])
+  , _rdcfsCharacterSetName                :: !(Maybe Text)
+  , _rdcfsKMSKeyId                        :: !(Maybe Text)
+  , _rdcfsPreferredBackupWindow           :: !(Maybe Text)
+  , _rdcfsBackupRetentionPeriod           :: !(Maybe Int)
+  , _rdcfsVPCSecurityGroupIds             :: !(Maybe [Text])
+  , _rdcfsDatabaseName                    :: !(Maybe Text)
+  , _rdcfsDBClusterParameterGroupName     :: !(Maybe Text)
+  , _rdcfsS3Prefix                        :: !(Maybe Text)
+  , _rdcfsOptionGroupName                 :: !(Maybe Text)
+  , _rdcfsTags                            :: !(Maybe [Tag])
+  , _rdcfsPort                            :: !(Maybe Int)
+  , _rdcfsEnableIAMDatabaseAuthentication :: !(Maybe Bool)
+  , _rdcfsDBClusterIdentifier             :: !Text
+  , _rdcfsEngine                          :: !Text
+  , _rdcfsMasterUsername                  :: !Text
+  , _rdcfsMasterUserPassword              :: !Text
+  , _rdcfsSourceEngine                    :: !Text
+  , _rdcfsSourceEngineVersion             :: !Text
+  , _rdcfsS3BucketName                    :: !Text
+  , _rdcfsS3IngestionRoleARN              :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterFromS3' with the minimum fields required to make a request.
 --
@@ -105,7 +106,7 @@ data RestoreDBClusterFromS3 = RestoreDBClusterFromS3'
 --
 -- * 'rdcfsStorageEncrypted' - Specifies whether the restored DB cluster is encrypted.
 --
--- * 'rdcfsDBSubnetGroupName' - A DB subnet group to associate with the restored DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- * 'rdcfsDBSubnetGroupName' - A DB subnet group to associate with the restored DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup.  Example: @mySubnetgroup@
 --
 -- * 'rdcfsPreferredMaintenanceWindow' - The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Format: @ddd:hh24:mi-ddd:hh24:mi@  Default: A 30-minute window selected at random from an 8-hour block of time per AWS Region, occurring on a random day of the week. To see the time blocks available, see <http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html Adjusting the Preferred Maintenance Window> in the /Amazon RDS User Guide./  Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun Constraints: Minimum 30-minute window.
 --
@@ -123,7 +124,7 @@ data RestoreDBClusterFromS3 = RestoreDBClusterFromS3'
 --
 -- * 'rdcfsDatabaseName' - The database name for the restored DB cluster.
 --
--- * 'rdcfsDBClusterParameterGroupName' - The name of the DB cluster parameter group to associate with the restored DB cluster. If this argument is omitted, @default.aurora5.6@ will be used.  Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'rdcfsDBClusterParameterGroupName' - The name of the DB cluster parameter group to associate with the restored DB cluster. If this argument is omitted, @default.aurora5.6@ is used.  Constraints:     * If supplied, must match the name of an existing DBClusterParameterGroup.
 --
 -- * 'rdcfsS3Prefix' - The prefix for all of the file names that contain the data used to create the Amazon Aurora DB cluster. If you do not specify a __SourceS3Prefix__ value, then the Amazon Aurora DB cluster is created by using all of the files in the Amazon S3 bucket.
 --
@@ -135,11 +136,11 @@ data RestoreDBClusterFromS3 = RestoreDBClusterFromS3'
 --
 -- * 'rdcfsEnableIAMDatabaseAuthentication' - A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise false. Default: @false@
 --
--- * 'rdcfsDBClusterIdentifier' - The name of the DB cluster to create from the source data in the S3 bucket. This parameter is isn't case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
+-- * 'rdcfsDBClusterIdentifier' - The name of the DB cluster to create from the source data in the S3 bucket. This parameter is isn't case-sensitive. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
 --
 -- * 'rdcfsEngine' - The name of the database engine to be used for the restored DB cluster. Valid Values: @aurora@
 --
--- * 'rdcfsMasterUsername' - The name of the master user for the restored DB cluster. Constraints:     * Must be 1 to 16 alphanumeric characters.     * First character must be a letter.     * Cannot be a reserved word for the chosen database engine.
+-- * 'rdcfsMasterUsername' - The name of the master user for the restored DB cluster. Constraints:     * Must be 1 to 16 letters or numbers.     * First character must be a letter.     * Cannot be a reserved word for the chosen database engine.
 --
 -- * 'rdcfsMasterUserPassword' - The password for the master database user. This password can contain any printable ASCII character except "/", """, or "@". Constraints: Must contain from 8 to 41 characters.
 --
@@ -161,33 +162,34 @@ restoreDBClusterFromS3
     -> Text -- ^ 'rdcfsS3IngestionRoleARN'
     -> RestoreDBClusterFromS3
 restoreDBClusterFromS3 pDBClusterIdentifier_ pEngine_ pMasterUsername_ pMasterUserPassword_ pSourceEngine_ pSourceEngineVersion_ pS3BucketName_ pS3IngestionRoleARN_ =
-    RestoreDBClusterFromS3'
-    { _rdcfsEngineVersion = Nothing
-    , _rdcfsStorageEncrypted = Nothing
-    , _rdcfsDBSubnetGroupName = Nothing
-    , _rdcfsPreferredMaintenanceWindow = Nothing
-    , _rdcfsAvailabilityZones = Nothing
-    , _rdcfsCharacterSetName = Nothing
-    , _rdcfsKMSKeyId = Nothing
-    , _rdcfsPreferredBackupWindow = Nothing
-    , _rdcfsBackupRetentionPeriod = Nothing
-    , _rdcfsVPCSecurityGroupIds = Nothing
-    , _rdcfsDatabaseName = Nothing
-    , _rdcfsDBClusterParameterGroupName = Nothing
-    , _rdcfsS3Prefix = Nothing
-    , _rdcfsOptionGroupName = Nothing
-    , _rdcfsTags = Nothing
-    , _rdcfsPort = Nothing
-    , _rdcfsEnableIAMDatabaseAuthentication = Nothing
-    , _rdcfsDBClusterIdentifier = pDBClusterIdentifier_
-    , _rdcfsEngine = pEngine_
-    , _rdcfsMasterUsername = pMasterUsername_
-    , _rdcfsMasterUserPassword = pMasterUserPassword_
-    , _rdcfsSourceEngine = pSourceEngine_
-    , _rdcfsSourceEngineVersion = pSourceEngineVersion_
-    , _rdcfsS3BucketName = pS3BucketName_
-    , _rdcfsS3IngestionRoleARN = pS3IngestionRoleARN_
-    }
+  RestoreDBClusterFromS3'
+  { _rdcfsEngineVersion = Nothing
+  , _rdcfsStorageEncrypted = Nothing
+  , _rdcfsDBSubnetGroupName = Nothing
+  , _rdcfsPreferredMaintenanceWindow = Nothing
+  , _rdcfsAvailabilityZones = Nothing
+  , _rdcfsCharacterSetName = Nothing
+  , _rdcfsKMSKeyId = Nothing
+  , _rdcfsPreferredBackupWindow = Nothing
+  , _rdcfsBackupRetentionPeriod = Nothing
+  , _rdcfsVPCSecurityGroupIds = Nothing
+  , _rdcfsDatabaseName = Nothing
+  , _rdcfsDBClusterParameterGroupName = Nothing
+  , _rdcfsS3Prefix = Nothing
+  , _rdcfsOptionGroupName = Nothing
+  , _rdcfsTags = Nothing
+  , _rdcfsPort = Nothing
+  , _rdcfsEnableIAMDatabaseAuthentication = Nothing
+  , _rdcfsDBClusterIdentifier = pDBClusterIdentifier_
+  , _rdcfsEngine = pEngine_
+  , _rdcfsMasterUsername = pMasterUsername_
+  , _rdcfsMasterUserPassword = pMasterUserPassword_
+  , _rdcfsSourceEngine = pSourceEngine_
+  , _rdcfsSourceEngineVersion = pSourceEngineVersion_
+  , _rdcfsS3BucketName = pS3BucketName_
+  , _rdcfsS3IngestionRoleARN = pS3IngestionRoleARN_
+  }
+
 
 -- | The version number of the database engine to use. __Aurora__  Example: @5.6.10a@
 rdcfsEngineVersion :: Lens' RestoreDBClusterFromS3 (Maybe Text)
@@ -197,7 +199,7 @@ rdcfsEngineVersion = lens _rdcfsEngineVersion (\ s a -> s{_rdcfsEngineVersion = 
 rdcfsStorageEncrypted :: Lens' RestoreDBClusterFromS3 (Maybe Bool)
 rdcfsStorageEncrypted = lens _rdcfsStorageEncrypted (\ s a -> s{_rdcfsStorageEncrypted = a});
 
--- | A DB subnet group to associate with the restored DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- | A DB subnet group to associate with the restored DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup.  Example: @mySubnetgroup@
 rdcfsDBSubnetGroupName :: Lens' RestoreDBClusterFromS3 (Maybe Text)
 rdcfsDBSubnetGroupName = lens _rdcfsDBSubnetGroupName (\ s a -> s{_rdcfsDBSubnetGroupName = a});
 
@@ -233,7 +235,7 @@ rdcfsVPCSecurityGroupIds = lens _rdcfsVPCSecurityGroupIds (\ s a -> s{_rdcfsVPCS
 rdcfsDatabaseName :: Lens' RestoreDBClusterFromS3 (Maybe Text)
 rdcfsDatabaseName = lens _rdcfsDatabaseName (\ s a -> s{_rdcfsDatabaseName = a});
 
--- | The name of the DB cluster parameter group to associate with the restored DB cluster. If this argument is omitted, @default.aurora5.6@ will be used.  Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The name of the DB cluster parameter group to associate with the restored DB cluster. If this argument is omitted, @default.aurora5.6@ is used.  Constraints:     * If supplied, must match the name of an existing DBClusterParameterGroup.
 rdcfsDBClusterParameterGroupName :: Lens' RestoreDBClusterFromS3 (Maybe Text)
 rdcfsDBClusterParameterGroupName = lens _rdcfsDBClusterParameterGroupName (\ s a -> s{_rdcfsDBClusterParameterGroupName = a});
 
@@ -257,7 +259,7 @@ rdcfsPort = lens _rdcfsPort (\ s a -> s{_rdcfsPort = a});
 rdcfsEnableIAMDatabaseAuthentication :: Lens' RestoreDBClusterFromS3 (Maybe Bool)
 rdcfsEnableIAMDatabaseAuthentication = lens _rdcfsEnableIAMDatabaseAuthentication (\ s a -> s{_rdcfsEnableIAMDatabaseAuthentication = a});
 
--- | The name of the DB cluster to create from the source data in the S3 bucket. This parameter is isn't case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
+-- | The name of the DB cluster to create from the source data in the S3 bucket. This parameter is isn't case-sensitive. Constraints:     * Must contain from 1 to 63 letters, numbers, or hyphens.     * First character must be a letter.     * Cannot end with a hyphen or contain two consecutive hyphens. Example: @my-cluster1@
 rdcfsDBClusterIdentifier :: Lens' RestoreDBClusterFromS3 Text
 rdcfsDBClusterIdentifier = lens _rdcfsDBClusterIdentifier (\ s a -> s{_rdcfsDBClusterIdentifier = a});
 
@@ -265,7 +267,7 @@ rdcfsDBClusterIdentifier = lens _rdcfsDBClusterIdentifier (\ s a -> s{_rdcfsDBCl
 rdcfsEngine :: Lens' RestoreDBClusterFromS3 Text
 rdcfsEngine = lens _rdcfsEngine (\ s a -> s{_rdcfsEngine = a});
 
--- | The name of the master user for the restored DB cluster. Constraints:     * Must be 1 to 16 alphanumeric characters.     * First character must be a letter.     * Cannot be a reserved word for the chosen database engine.
+-- | The name of the master user for the restored DB cluster. Constraints:     * Must be 1 to 16 letters or numbers.     * First character must be a letter.     * Cannot be a reserved word for the chosen database engine.
 rdcfsMasterUsername :: Lens' RestoreDBClusterFromS3 Text
 rdcfsMasterUsername = lens _rdcfsMasterUsername (\ s a -> s{_rdcfsMasterUsername = a});
 
@@ -299,9 +301,9 @@ instance AWSRequest RestoreDBClusterFromS3 where
                  RestoreDBClusterFromS3Response' <$>
                    (x .@? "DBCluster") <*> (pure (fromEnum s)))
 
-instance Hashable RestoreDBClusterFromS3
+instance Hashable RestoreDBClusterFromS3 where
 
-instance NFData RestoreDBClusterFromS3
+instance NFData RestoreDBClusterFromS3 where
 
 instance ToHeaders RestoreDBClusterFromS3 where
         toHeaders = const mempty
@@ -354,9 +356,10 @@ instance ToQuery RestoreDBClusterFromS3 where
 
 -- | /See:/ 'restoreDBClusterFromS3Response' smart constructor.
 data RestoreDBClusterFromS3Response = RestoreDBClusterFromS3Response'
-    { _rdcfsrsDBCluster      :: !(Maybe DBCluster)
-    , _rdcfsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdcfsrsDBCluster      :: !(Maybe DBCluster)
+  , _rdcfsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterFromS3Response' with the minimum fields required to make a request.
 --
@@ -369,10 +372,9 @@ restoreDBClusterFromS3Response
     :: Int -- ^ 'rdcfsrsResponseStatus'
     -> RestoreDBClusterFromS3Response
 restoreDBClusterFromS3Response pResponseStatus_ =
-    RestoreDBClusterFromS3Response'
-    { _rdcfsrsDBCluster = Nothing
-    , _rdcfsrsResponseStatus = pResponseStatus_
-    }
+  RestoreDBClusterFromS3Response'
+  {_rdcfsrsDBCluster = Nothing, _rdcfsrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 rdcfsrsDBCluster :: Lens' RestoreDBClusterFromS3Response (Maybe DBCluster)
@@ -382,4 +384,4 @@ rdcfsrsDBCluster = lens _rdcfsrsDBCluster (\ s a -> s{_rdcfsrsDBCluster = a});
 rdcfsrsResponseStatus :: Lens' RestoreDBClusterFromS3Response Int
 rdcfsrsResponseStatus = lens _rdcfsrsResponseStatus (\ s a -> s{_rdcfsrsResponseStatus = a});
 
-instance NFData RestoreDBClusterFromS3Response
+instance NFData RestoreDBClusterFromS3Response where

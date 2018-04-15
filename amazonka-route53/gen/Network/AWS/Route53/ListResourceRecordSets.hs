@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Route53.ListResourceRecordSets
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -72,13 +72,13 @@ module Network.AWS.Route53.ListResourceRecordSets
     , lrrsrsMaxItems
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.Route53.Types
-import           Network.AWS.Route53.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.Route53.Types
+import Network.AWS.Route53.Types.Product
 
 -- | A request for the resource record sets that are associated with a specified hosted zone.
 --
@@ -86,12 +86,13 @@ import           Network.AWS.Route53.Types.Product
 --
 -- /See:/ 'listResourceRecordSets' smart constructor.
 data ListResourceRecordSets = ListResourceRecordSets'
-    { _lrrsStartRecordName       :: !(Maybe Text)
-    , _lrrsStartRecordType       :: !(Maybe RecordType)
-    , _lrrsStartRecordIdentifier :: !(Maybe Text)
-    , _lrrsMaxItems              :: !(Maybe Text)
-    , _lrrsHostedZoneId          :: !ResourceId
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lrrsStartRecordName       :: !(Maybe Text)
+  , _lrrsStartRecordType       :: !(Maybe RecordType)
+  , _lrrsStartRecordIdentifier :: !(Maybe Text)
+  , _lrrsMaxItems              :: !(Maybe Text)
+  , _lrrsHostedZoneId          :: !ResourceId
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListResourceRecordSets' with the minimum fields required to make a request.
 --
@@ -99,7 +100,7 @@ data ListResourceRecordSets = ListResourceRecordSets'
 --
 -- * 'lrrsStartRecordName' - The first name in the lexicographic ordering of resource record sets that you want to list.
 --
--- * 'lrrsStartRecordType' - The type of resource record set to begin the record listing from. Valid values for basic resource record sets: @A@ | @AAAA@ | @CNAME@ | @MX@ | @NAPTR@ | @NS@ | @PTR@ | @SOA@ | @SPF@ | @SRV@ | @TXT@  Values for weighted, latency, geo, and failover resource record sets: @A@ | @AAAA@ | @CNAME@ | @MX@ | @NAPTR@ | @PTR@ | @SPF@ | @SRV@ | @TXT@  Values for alias resource record sets:      * __CloudFront distribution__ : A or AAAA     * __Elastic Beanstalk environment that has a regionalized subdomain__ : A     * __ELB load balancer__ : A | AAAA     * __Amazon S3 bucket__ : A Constraint: Specifying @type@ without specifying @name@ returns an @InvalidInput@ error.
+-- * 'lrrsStartRecordType' - The type of resource record set to begin the record listing from. Valid values for basic resource record sets: @A@ | @AAAA@ | @CAA@ | @CNAME@ | @MX@ | @NAPTR@ | @NS@ | @PTR@ | @SOA@ | @SPF@ | @SRV@ | @TXT@  Values for weighted, latency, geo, and failover resource record sets: @A@ | @AAAA@ | @CAA@ | @CNAME@ | @MX@ | @NAPTR@ | @PTR@ | @SPF@ | @SRV@ | @TXT@  Values for alias resource record sets:      * __CloudFront distribution__ : A or AAAA     * __Elastic Beanstalk environment that has a regionalized subdomain__ : A     * __ELB load balancer__ : A | AAAA     * __Amazon S3 bucket__ : A     * __Another resource record set in this hosted zone:__ The type of the resource record set that the alias references. Constraint: Specifying @type@ without specifying @name@ returns an @InvalidInput@ error.
 --
 -- * 'lrrsStartRecordIdentifier' - /Weighted resource record sets only:/ If results were truncated for a given DNS name and type, specify the value of @NextRecordIdentifier@ from the previous response to get the next resource record set that has the current DNS name and type.
 --
@@ -110,19 +111,20 @@ listResourceRecordSets
     :: ResourceId -- ^ 'lrrsHostedZoneId'
     -> ListResourceRecordSets
 listResourceRecordSets pHostedZoneId_ =
-    ListResourceRecordSets'
-    { _lrrsStartRecordName = Nothing
-    , _lrrsStartRecordType = Nothing
-    , _lrrsStartRecordIdentifier = Nothing
-    , _lrrsMaxItems = Nothing
-    , _lrrsHostedZoneId = pHostedZoneId_
-    }
+  ListResourceRecordSets'
+  { _lrrsStartRecordName = Nothing
+  , _lrrsStartRecordType = Nothing
+  , _lrrsStartRecordIdentifier = Nothing
+  , _lrrsMaxItems = Nothing
+  , _lrrsHostedZoneId = pHostedZoneId_
+  }
+
 
 -- | The first name in the lexicographic ordering of resource record sets that you want to list.
 lrrsStartRecordName :: Lens' ListResourceRecordSets (Maybe Text)
 lrrsStartRecordName = lens _lrrsStartRecordName (\ s a -> s{_lrrsStartRecordName = a});
 
--- | The type of resource record set to begin the record listing from. Valid values for basic resource record sets: @A@ | @AAAA@ | @CNAME@ | @MX@ | @NAPTR@ | @NS@ | @PTR@ | @SOA@ | @SPF@ | @SRV@ | @TXT@  Values for weighted, latency, geo, and failover resource record sets: @A@ | @AAAA@ | @CNAME@ | @MX@ | @NAPTR@ | @PTR@ | @SPF@ | @SRV@ | @TXT@  Values for alias resource record sets:      * __CloudFront distribution__ : A or AAAA     * __Elastic Beanstalk environment that has a regionalized subdomain__ : A     * __ELB load balancer__ : A | AAAA     * __Amazon S3 bucket__ : A Constraint: Specifying @type@ without specifying @name@ returns an @InvalidInput@ error.
+-- | The type of resource record set to begin the record listing from. Valid values for basic resource record sets: @A@ | @AAAA@ | @CAA@ | @CNAME@ | @MX@ | @NAPTR@ | @NS@ | @PTR@ | @SOA@ | @SPF@ | @SRV@ | @TXT@  Values for weighted, latency, geo, and failover resource record sets: @A@ | @AAAA@ | @CAA@ | @CNAME@ | @MX@ | @NAPTR@ | @PTR@ | @SPF@ | @SRV@ | @TXT@  Values for alias resource record sets:      * __CloudFront distribution__ : A or AAAA     * __Elastic Beanstalk environment that has a regionalized subdomain__ : A     * __ELB load balancer__ : A | AAAA     * __Amazon S3 bucket__ : A     * __Another resource record set in this hosted zone:__ The type of the resource record set that the alias references. Constraint: Specifying @type@ without specifying @name@ returns an @InvalidInput@ error.
 lrrsStartRecordType :: Lens' ListResourceRecordSets (Maybe RecordType)
 lrrsStartRecordType = lens _lrrsStartRecordType (\ s a -> s{_lrrsStartRecordType = a});
 
@@ -170,9 +172,9 @@ instance AWSRequest ListResourceRecordSets where
                      <*> (x .@ "IsTruncated")
                      <*> (x .@ "MaxItems"))
 
-instance Hashable ListResourceRecordSets
+instance Hashable ListResourceRecordSets where
 
-instance NFData ListResourceRecordSets
+instance NFData ListResourceRecordSets where
 
 instance ToHeaders ListResourceRecordSets where
         toHeaders = const mempty
@@ -197,14 +199,15 @@ instance ToQuery ListResourceRecordSets where
 --
 -- /See:/ 'listResourceRecordSetsResponse' smart constructor.
 data ListResourceRecordSetsResponse = ListResourceRecordSetsResponse'
-    { _lrrsrsNextRecordType       :: !(Maybe RecordType)
-    , _lrrsrsNextRecordName       :: !(Maybe Text)
-    , _lrrsrsNextRecordIdentifier :: !(Maybe Text)
-    , _lrrsrsResponseStatus       :: !Int
-    , _lrrsrsResourceRecordSets   :: ![ResourceRecordSet]
-    , _lrrsrsIsTruncated          :: !Bool
-    , _lrrsrsMaxItems             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lrrsrsNextRecordType       :: !(Maybe RecordType)
+  , _lrrsrsNextRecordName       :: !(Maybe Text)
+  , _lrrsrsNextRecordIdentifier :: !(Maybe Text)
+  , _lrrsrsResponseStatus       :: !Int
+  , _lrrsrsResourceRecordSets   :: ![ResourceRecordSet]
+  , _lrrsrsIsTruncated          :: !Bool
+  , _lrrsrsMaxItems             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListResourceRecordSetsResponse' with the minimum fields required to make a request.
 --
@@ -229,15 +232,16 @@ listResourceRecordSetsResponse
     -> Text -- ^ 'lrrsrsMaxItems'
     -> ListResourceRecordSetsResponse
 listResourceRecordSetsResponse pResponseStatus_ pIsTruncated_ pMaxItems_ =
-    ListResourceRecordSetsResponse'
-    { _lrrsrsNextRecordType = Nothing
-    , _lrrsrsNextRecordName = Nothing
-    , _lrrsrsNextRecordIdentifier = Nothing
-    , _lrrsrsResponseStatus = pResponseStatus_
-    , _lrrsrsResourceRecordSets = mempty
-    , _lrrsrsIsTruncated = pIsTruncated_
-    , _lrrsrsMaxItems = pMaxItems_
-    }
+  ListResourceRecordSetsResponse'
+  { _lrrsrsNextRecordType = Nothing
+  , _lrrsrsNextRecordName = Nothing
+  , _lrrsrsNextRecordIdentifier = Nothing
+  , _lrrsrsResponseStatus = pResponseStatus_
+  , _lrrsrsResourceRecordSets = mempty
+  , _lrrsrsIsTruncated = pIsTruncated_
+  , _lrrsrsMaxItems = pMaxItems_
+  }
+
 
 -- | If the results were truncated, the type of the next record in the list. This element is present only if @IsTruncated@ is true.
 lrrsrsNextRecordType :: Lens' ListResourceRecordSetsResponse (Maybe RecordType)
@@ -267,4 +271,4 @@ lrrsrsIsTruncated = lens _lrrsrsIsTruncated (\ s a -> s{_lrrsrsIsTruncated = a})
 lrrsrsMaxItems :: Lens' ListResourceRecordSetsResponse Text
 lrrsrsMaxItems = lens _lrrsrsMaxItems (\ s a -> s{_lrrsrsMaxItems = a});
 
-instance NFData ListResourceRecordSetsResponse
+instance NFData ListResourceRecordSetsResponse where

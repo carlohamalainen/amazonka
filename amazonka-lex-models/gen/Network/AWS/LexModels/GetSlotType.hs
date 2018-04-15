@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.GetSlotType
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -37,6 +37,7 @@ module Network.AWS.LexModels.GetSlotType
     , GetSlotTypeResponse
     -- * Response Lenses
     , getrsChecksum
+    , getrsValueSelectionStrategy
     , getrsCreatedDate
     , getrsName
     , getrsVersion
@@ -46,18 +47,19 @@ module Network.AWS.LexModels.GetSlotType
     , getrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getSlotType' smart constructor.
 data GetSlotType = GetSlotType'
-    { _gstName    :: !Text
-    , _gstVersion :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gstName    :: !Text
+  , _gstVersion :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetSlotType' with the minimum fields required to make a request.
 --
@@ -71,10 +73,8 @@ getSlotType
     -> Text -- ^ 'gstVersion'
     -> GetSlotType
 getSlotType pName_ pVersion_ =
-    GetSlotType'
-    { _gstName = pName_
-    , _gstVersion = pVersion_
-    }
+  GetSlotType' {_gstName = pName_, _gstVersion = pVersion_}
+
 
 -- | The name of the slot type. The name is case sensitive.
 gstName :: Lens' GetSlotType Text
@@ -91,17 +91,19 @@ instance AWSRequest GetSlotType where
           = receiveJSON
               (\ s h x ->
                  GetSlotTypeResponse' <$>
-                   (x .?> "checksum") <*> (x .?> "createdDate") <*>
-                     (x .?> "name")
+                   (x .?> "checksum") <*>
+                     (x .?> "valueSelectionStrategy")
+                     <*> (x .?> "createdDate")
+                     <*> (x .?> "name")
                      <*> (x .?> "version")
                      <*> (x .?> "lastUpdatedDate")
                      <*> (x .?> "description")
                      <*> (x .?> "enumerationValues")
                      <*> (pure (fromEnum s)))
 
-instance Hashable GetSlotType
+instance Hashable GetSlotType where
 
-instance NFData GetSlotType
+instance NFData GetSlotType where
 
 instance ToHeaders GetSlotType where
         toHeaders
@@ -121,21 +123,25 @@ instance ToQuery GetSlotType where
 
 -- | /See:/ 'getSlotTypeResponse' smart constructor.
 data GetSlotTypeResponse = GetSlotTypeResponse'
-    { _getrsChecksum          :: !(Maybe Text)
-    , _getrsCreatedDate       :: !(Maybe POSIX)
-    , _getrsName              :: !(Maybe Text)
-    , _getrsVersion           :: !(Maybe Text)
-    , _getrsLastUpdatedDate   :: !(Maybe POSIX)
-    , _getrsDescription       :: !(Maybe Text)
-    , _getrsEnumerationValues :: !(Maybe (List1 EnumerationValue))
-    , _getrsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _getrsChecksum               :: !(Maybe Text)
+  , _getrsValueSelectionStrategy :: !(Maybe SlotValueSelectionStrategy)
+  , _getrsCreatedDate            :: !(Maybe POSIX)
+  , _getrsName                   :: !(Maybe Text)
+  , _getrsVersion                :: !(Maybe Text)
+  , _getrsLastUpdatedDate        :: !(Maybe POSIX)
+  , _getrsDescription            :: !(Maybe Text)
+  , _getrsEnumerationValues      :: !(Maybe (List1 EnumerationValue))
+  , _getrsResponseStatus         :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetSlotTypeResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'getrsChecksum' - Checksum of the @> LATEST@ version of the slot type.
+--
+-- * 'getrsValueSelectionStrategy' - The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
 --
 -- * 'getrsCreatedDate' - The date that the slot type was created.
 --
@@ -154,20 +160,26 @@ getSlotTypeResponse
     :: Int -- ^ 'getrsResponseStatus'
     -> GetSlotTypeResponse
 getSlotTypeResponse pResponseStatus_ =
-    GetSlotTypeResponse'
-    { _getrsChecksum = Nothing
-    , _getrsCreatedDate = Nothing
-    , _getrsName = Nothing
-    , _getrsVersion = Nothing
-    , _getrsLastUpdatedDate = Nothing
-    , _getrsDescription = Nothing
-    , _getrsEnumerationValues = Nothing
-    , _getrsResponseStatus = pResponseStatus_
-    }
+  GetSlotTypeResponse'
+  { _getrsChecksum = Nothing
+  , _getrsValueSelectionStrategy = Nothing
+  , _getrsCreatedDate = Nothing
+  , _getrsName = Nothing
+  , _getrsVersion = Nothing
+  , _getrsLastUpdatedDate = Nothing
+  , _getrsDescription = Nothing
+  , _getrsEnumerationValues = Nothing
+  , _getrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Checksum of the @> LATEST@ version of the slot type.
 getrsChecksum :: Lens' GetSlotTypeResponse (Maybe Text)
 getrsChecksum = lens _getrsChecksum (\ s a -> s{_getrsChecksum = a});
+
+-- | The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
+getrsValueSelectionStrategy :: Lens' GetSlotTypeResponse (Maybe SlotValueSelectionStrategy)
+getrsValueSelectionStrategy = lens _getrsValueSelectionStrategy (\ s a -> s{_getrsValueSelectionStrategy = a});
 
 -- | The date that the slot type was created.
 getrsCreatedDate :: Lens' GetSlotTypeResponse (Maybe UTCTime)
@@ -197,4 +209,4 @@ getrsEnumerationValues = lens _getrsEnumerationValues (\ s a -> s{_getrsEnumerat
 getrsResponseStatus :: Lens' GetSlotTypeResponse Int
 getrsResponseStatus = lens _getrsResponseStatus (\ s a -> s{_getrsResponseStatus = a});
 
-instance NFData GetSlotTypeResponse
+instance NFData GetSlotTypeResponse where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.DescribeAutoScalingGroups
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,24 +42,21 @@ module Network.AWS.AutoScaling.DescribeAutoScalingGroups
     , dasgrsAutoScalingGroups
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for DescribeAutoScalingGroups.
---
---
---
--- /See:/ 'describeAutoScalingGroups' smart constructor.
+-- | /See:/ 'describeAutoScalingGroups' smart constructor.
 data DescribeAutoScalingGroups = DescribeAutoScalingGroups'
-    { _dasgAutoScalingGroupNames :: !(Maybe [Text])
-    , _dasgNextToken             :: !(Maybe Text)
-    , _dasgMaxRecords            :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dasgAutoScalingGroupNames :: !(Maybe [Text])
+  , _dasgNextToken             :: !(Maybe Text)
+  , _dasgMaxRecords            :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeAutoScalingGroups' with the minimum fields required to make a request.
 --
@@ -73,11 +70,12 @@ data DescribeAutoScalingGroups = DescribeAutoScalingGroups'
 describeAutoScalingGroups
     :: DescribeAutoScalingGroups
 describeAutoScalingGroups =
-    DescribeAutoScalingGroups'
-    { _dasgAutoScalingGroupNames = Nothing
-    , _dasgNextToken = Nothing
-    , _dasgMaxRecords = Nothing
-    }
+  DescribeAutoScalingGroups'
+  { _dasgAutoScalingGroupNames = Nothing
+  , _dasgNextToken = Nothing
+  , _dasgMaxRecords = Nothing
+  }
+
 
 -- | The group names. If you omit this parameter, all Auto Scaling groups are described.
 dasgAutoScalingGroupNames :: Lens' DescribeAutoScalingGroups [Text]
@@ -110,9 +108,9 @@ instance AWSRequest DescribeAutoScalingGroups where
                      (x .@? "AutoScalingGroups" .!@ mempty >>=
                         parseXMLList "member"))
 
-instance Hashable DescribeAutoScalingGroups
+instance Hashable DescribeAutoScalingGroups where
 
-instance NFData DescribeAutoScalingGroups
+instance NFData DescribeAutoScalingGroups where
 
 instance ToHeaders DescribeAutoScalingGroups where
         toHeaders = const mempty
@@ -133,16 +131,13 @@ instance ToQuery DescribeAutoScalingGroups where
                "NextToken" =: _dasgNextToken,
                "MaxRecords" =: _dasgMaxRecords]
 
--- | Contains the output for DescribeAutoScalingGroups.
---
---
---
--- /See:/ 'describeAutoScalingGroupsResponse' smart constructor.
+-- | /See:/ 'describeAutoScalingGroupsResponse' smart constructor.
 data DescribeAutoScalingGroupsResponse = DescribeAutoScalingGroupsResponse'
-    { _dasgrsNextToken         :: !(Maybe Text)
-    , _dasgrsResponseStatus    :: !Int
-    , _dasgrsAutoScalingGroups :: ![AutoScalingGroup]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dasgrsNextToken         :: !(Maybe Text)
+  , _dasgrsResponseStatus    :: !Int
+  , _dasgrsAutoScalingGroups :: ![AutoScalingGroup]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeAutoScalingGroupsResponse' with the minimum fields required to make a request.
 --
@@ -157,11 +152,12 @@ describeAutoScalingGroupsResponse
     :: Int -- ^ 'dasgrsResponseStatus'
     -> DescribeAutoScalingGroupsResponse
 describeAutoScalingGroupsResponse pResponseStatus_ =
-    DescribeAutoScalingGroupsResponse'
-    { _dasgrsNextToken = Nothing
-    , _dasgrsResponseStatus = pResponseStatus_
-    , _dasgrsAutoScalingGroups = mempty
-    }
+  DescribeAutoScalingGroupsResponse'
+  { _dasgrsNextToken = Nothing
+  , _dasgrsResponseStatus = pResponseStatus_
+  , _dasgrsAutoScalingGroups = mempty
+  }
+
 
 -- | The token to use when requesting the next set of items. If there are no additional items to return, the string is empty.
 dasgrsNextToken :: Lens' DescribeAutoScalingGroupsResponse (Maybe Text)
@@ -176,3 +172,4 @@ dasgrsAutoScalingGroups :: Lens' DescribeAutoScalingGroupsResponse [AutoScalingG
 dasgrsAutoScalingGroups = lens _dasgrsAutoScalingGroups (\ s a -> s{_dasgrsAutoScalingGroups = a}) . _Coerce;
 
 instance NFData DescribeAutoScalingGroupsResponse
+         where

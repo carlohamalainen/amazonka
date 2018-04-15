@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.PutBot
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -65,27 +65,28 @@ module Network.AWS.LexModels.PutBot
     , pbrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putBot' smart constructor.
 data PutBot = PutBot'
-    { _pbAbortStatement          :: !(Maybe Statement)
-    , _pbIntents                 :: !(Maybe (List1 Intent))
-    , _pbChecksum                :: !(Maybe Text)
-    , _pbProcessBehavior         :: !(Maybe ProcessBehavior)
-    , _pbIdleSessionTTLInSeconds :: !(Maybe Nat)
-    , _pbClarificationPrompt     :: !(Maybe Prompt)
-    , _pbVoiceId                 :: !(Maybe Text)
-    , _pbDescription             :: !(Maybe Text)
-    , _pbName                    :: !Text
-    , _pbLocale                  :: !Locale
-    , _pbChildDirected           :: !Bool
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pbAbortStatement          :: !(Maybe Statement)
+  , _pbIntents                 :: !(Maybe [Intent])
+  , _pbChecksum                :: !(Maybe Text)
+  , _pbProcessBehavior         :: !(Maybe ProcessBehavior)
+  , _pbIdleSessionTTLInSeconds :: !(Maybe Nat)
+  , _pbClarificationPrompt     :: !(Maybe Prompt)
+  , _pbVoiceId                 :: !(Maybe Text)
+  , _pbDescription             :: !(Maybe Text)
+  , _pbName                    :: !Text
+  , _pbLocale                  :: !Locale
+  , _pbChildDirected           :: !Bool
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutBot' with the minimum fields required to make a request.
 --
@@ -118,27 +119,28 @@ putBot
     -> Bool -- ^ 'pbChildDirected'
     -> PutBot
 putBot pName_ pLocale_ pChildDirected_ =
-    PutBot'
-    { _pbAbortStatement = Nothing
-    , _pbIntents = Nothing
-    , _pbChecksum = Nothing
-    , _pbProcessBehavior = Nothing
-    , _pbIdleSessionTTLInSeconds = Nothing
-    , _pbClarificationPrompt = Nothing
-    , _pbVoiceId = Nothing
-    , _pbDescription = Nothing
-    , _pbName = pName_
-    , _pbLocale = pLocale_
-    , _pbChildDirected = pChildDirected_
-    }
+  PutBot'
+  { _pbAbortStatement = Nothing
+  , _pbIntents = Nothing
+  , _pbChecksum = Nothing
+  , _pbProcessBehavior = Nothing
+  , _pbIdleSessionTTLInSeconds = Nothing
+  , _pbClarificationPrompt = Nothing
+  , _pbVoiceId = Nothing
+  , _pbDescription = Nothing
+  , _pbName = pName_
+  , _pbLocale = pLocale_
+  , _pbChildDirected = pChildDirected_
+  }
+
 
 -- | When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times. After that, Amazon Lex sends the message defined in @abortStatement@ to the user, and then aborts the conversation. To set the number of retries, use the @valueElicitationPrompt@ field for the slot type.  For example, in a pizza ordering bot, Amazon Lex might ask a user "What type of crust would you like?" If the user's response is not one of the expected responses (for example, "thin crust, "deep dish," etc.), Amazon Lex tries to elicit a correct response a few more times.  For example, in a pizza ordering application, @OrderPizza@ might be one of the intents. This intent might require the @CrustType@ slot. You specify the @valueElicitationPrompt@ field when you create the @CrustType@ slot.
 pbAbortStatement :: Lens' PutBot (Maybe Statement)
 pbAbortStatement = lens _pbAbortStatement (\ s a -> s{_pbAbortStatement = a});
 
 -- | An array of @Intent@ objects. Each intent represents a command that a user can express. For example, a pizza ordering bot might support an OrderPizza intent. For more information, see 'how-it-works' .
-pbIntents :: Lens' PutBot (Maybe (NonEmpty Intent))
-pbIntents = lens _pbIntents (\ s a -> s{_pbIntents = a}) . mapping _List1;
+pbIntents :: Lens' PutBot [Intent]
+pbIntents = lens _pbIntents (\ s a -> s{_pbIntents = a}) . _Default . _Coerce;
 
 -- | Identifies a specific revision of the @> LATEST@ version. When you create a new bot, leave the @checksum@ field blank. If you specify a checksum you get a @BadRequestException@ exception. When you want to update a bot, set the @checksum@ field to the checksum of the most recent revision of the @> LATEST@ version. If you don't specify the @checksum@ field, or if the checksum does not match the @> LATEST@ version, you get a @PreconditionFailedException@ exception.
 pbChecksum :: Lens' PutBot (Maybe Text)
@@ -185,7 +187,7 @@ instance AWSRequest PutBot where
                  PutBotResponse' <$>
                    (x .?> "failureReason") <*> (x .?> "status") <*>
                      (x .?> "abortStatement")
-                     <*> (x .?> "intents")
+                     <*> (x .?> "intents" .!@ mempty)
                      <*> (x .?> "checksum")
                      <*> (x .?> "locale")
                      <*> (x .?> "createdDate")
@@ -199,9 +201,9 @@ instance AWSRequest PutBot where
                      <*> (x .?> "description")
                      <*> (pure (fromEnum s)))
 
-instance Hashable PutBot
+instance Hashable PutBot where
 
-instance NFData PutBot
+instance NFData PutBot where
 
 instance ToHeaders PutBot where
         toHeaders
@@ -237,23 +239,24 @@ instance ToQuery PutBot where
 
 -- | /See:/ 'putBotResponse' smart constructor.
 data PutBotResponse = PutBotResponse'
-    { _pbrsFailureReason           :: !(Maybe Text)
-    , _pbrsStatus                  :: !(Maybe LexStatus)
-    , _pbrsAbortStatement          :: !(Maybe Statement)
-    , _pbrsIntents                 :: !(Maybe (List1 Intent))
-    , _pbrsChecksum                :: !(Maybe Text)
-    , _pbrsLocale                  :: !(Maybe Locale)
-    , _pbrsCreatedDate             :: !(Maybe POSIX)
-    , _pbrsName                    :: !(Maybe Text)
-    , _pbrsVersion                 :: !(Maybe Text)
-    , _pbrsIdleSessionTTLInSeconds :: !(Maybe Nat)
-    , _pbrsClarificationPrompt     :: !(Maybe Prompt)
-    , _pbrsVoiceId                 :: !(Maybe Text)
-    , _pbrsLastUpdatedDate         :: !(Maybe POSIX)
-    , _pbrsChildDirected           :: !(Maybe Bool)
-    , _pbrsDescription             :: !(Maybe Text)
-    , _pbrsResponseStatus          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pbrsFailureReason           :: !(Maybe Text)
+  , _pbrsStatus                  :: !(Maybe LexStatus)
+  , _pbrsAbortStatement          :: !(Maybe Statement)
+  , _pbrsIntents                 :: !(Maybe [Intent])
+  , _pbrsChecksum                :: !(Maybe Text)
+  , _pbrsLocale                  :: !(Maybe Locale)
+  , _pbrsCreatedDate             :: !(Maybe POSIX)
+  , _pbrsName                    :: !(Maybe Text)
+  , _pbrsVersion                 :: !(Maybe Text)
+  , _pbrsIdleSessionTTLInSeconds :: !(Maybe Nat)
+  , _pbrsClarificationPrompt     :: !(Maybe Prompt)
+  , _pbrsVoiceId                 :: !(Maybe Text)
+  , _pbrsLastUpdatedDate         :: !(Maybe POSIX)
+  , _pbrsChildDirected           :: !(Maybe Bool)
+  , _pbrsDescription             :: !(Maybe Text)
+  , _pbrsResponseStatus          :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutBotResponse' with the minimum fields required to make a request.
 --
@@ -294,24 +297,25 @@ putBotResponse
     :: Int -- ^ 'pbrsResponseStatus'
     -> PutBotResponse
 putBotResponse pResponseStatus_ =
-    PutBotResponse'
-    { _pbrsFailureReason = Nothing
-    , _pbrsStatus = Nothing
-    , _pbrsAbortStatement = Nothing
-    , _pbrsIntents = Nothing
-    , _pbrsChecksum = Nothing
-    , _pbrsLocale = Nothing
-    , _pbrsCreatedDate = Nothing
-    , _pbrsName = Nothing
-    , _pbrsVersion = Nothing
-    , _pbrsIdleSessionTTLInSeconds = Nothing
-    , _pbrsClarificationPrompt = Nothing
-    , _pbrsVoiceId = Nothing
-    , _pbrsLastUpdatedDate = Nothing
-    , _pbrsChildDirected = Nothing
-    , _pbrsDescription = Nothing
-    , _pbrsResponseStatus = pResponseStatus_
-    }
+  PutBotResponse'
+  { _pbrsFailureReason = Nothing
+  , _pbrsStatus = Nothing
+  , _pbrsAbortStatement = Nothing
+  , _pbrsIntents = Nothing
+  , _pbrsChecksum = Nothing
+  , _pbrsLocale = Nothing
+  , _pbrsCreatedDate = Nothing
+  , _pbrsName = Nothing
+  , _pbrsVersion = Nothing
+  , _pbrsIdleSessionTTLInSeconds = Nothing
+  , _pbrsClarificationPrompt = Nothing
+  , _pbrsVoiceId = Nothing
+  , _pbrsLastUpdatedDate = Nothing
+  , _pbrsChildDirected = Nothing
+  , _pbrsDescription = Nothing
+  , _pbrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to build the bot.
 pbrsFailureReason :: Lens' PutBotResponse (Maybe Text)
@@ -326,8 +330,8 @@ pbrsAbortStatement :: Lens' PutBotResponse (Maybe Statement)
 pbrsAbortStatement = lens _pbrsAbortStatement (\ s a -> s{_pbrsAbortStatement = a});
 
 -- | An array of @Intent@ objects. For more information, see 'PutBot' .
-pbrsIntents :: Lens' PutBotResponse (Maybe (NonEmpty Intent))
-pbrsIntents = lens _pbrsIntents (\ s a -> s{_pbrsIntents = a}) . mapping _List1;
+pbrsIntents :: Lens' PutBotResponse [Intent]
+pbrsIntents = lens _pbrsIntents (\ s a -> s{_pbrsIntents = a}) . _Default . _Coerce;
 
 -- | Checksum of the bot that you created.
 pbrsChecksum :: Lens' PutBotResponse (Maybe Text)
@@ -377,4 +381,4 @@ pbrsDescription = lens _pbrsDescription (\ s a -> s{_pbrsDescription = a});
 pbrsResponseStatus :: Lens' PutBotResponse Int
 pbrsResponseStatus = lens _pbrsResponseStatus (\ s a -> s{_pbrsResponseStatus = a});
 
-instance NFData PutBotResponse
+instance NFData PutBotResponse where

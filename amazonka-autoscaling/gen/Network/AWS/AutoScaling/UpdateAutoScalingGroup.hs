@@ -12,18 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.UpdateAutoScalingGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the configuration for the specified Auto Scaling group.
 --
 --
--- To update an Auto Scaling group with a launch configuration with @InstanceMonitoring@ set to @False@ , you must first disable the collection of group metrics. Otherwise, you will get an error. If you have previously enabled the collection of group metrics, you can disable it using 'DisableMetricsCollection' .
+-- The new settings take effect on any scaling activities after this call returns. Scaling activities that are currently in progress aren't affected.
 --
--- The new settings are registered upon the completion of this call. Any launch configuration settings take effect on any triggers after this call returns. Scaling activities that are currently in progress aren't affected.
+-- To update an Auto Scaling group with a launch configuration with @InstanceMonitoring@ set to @false@ , you must first disable the collection of group metrics. Otherwise, you will get an error. If you have previously enabled the collection of group metrics, you can disable it using 'DisableMetricsCollection' .
 --
 -- Note the following:
 --
@@ -60,33 +60,30 @@ module Network.AWS.AutoScaling.UpdateAutoScalingGroup
     , UpdateAutoScalingGroupResponse
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for UpdateAutoScalingGroup.
---
---
---
--- /See:/ 'updateAutoScalingGroup' smart constructor.
+-- | /See:/ 'updateAutoScalingGroup' smart constructor.
 data UpdateAutoScalingGroup = UpdateAutoScalingGroup'
-    { _uasgTerminationPolicies              :: !(Maybe [Text])
-    , _uasgHealthCheckGracePeriod           :: !(Maybe Int)
-    , _uasgNewInstancesProtectedFromScaleIn :: !(Maybe Bool)
-    , _uasgVPCZoneIdentifier                :: !(Maybe Text)
-    , _uasgDefaultCooldown                  :: !(Maybe Int)
-    , _uasgMaxSize                          :: !(Maybe Int)
-    , _uasgAvailabilityZones                :: !(Maybe (List1 Text))
-    , _uasgDesiredCapacity                  :: !(Maybe Int)
-    , _uasgMinSize                          :: !(Maybe Int)
-    , _uasgLaunchConfigurationName          :: !(Maybe Text)
-    , _uasgHealthCheckType                  :: !(Maybe Text)
-    , _uasgPlacementGroup                   :: !(Maybe Text)
-    , _uasgAutoScalingGroupName             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uasgTerminationPolicies              :: !(Maybe [Text])
+  , _uasgHealthCheckGracePeriod           :: !(Maybe Int)
+  , _uasgNewInstancesProtectedFromScaleIn :: !(Maybe Bool)
+  , _uasgVPCZoneIdentifier                :: !(Maybe Text)
+  , _uasgDefaultCooldown                  :: !(Maybe Int)
+  , _uasgMaxSize                          :: !(Maybe Int)
+  , _uasgAvailabilityZones                :: !(Maybe (List1 Text))
+  , _uasgDesiredCapacity                  :: !(Maybe Int)
+  , _uasgMinSize                          :: !(Maybe Int)
+  , _uasgLaunchConfigurationName          :: !(Maybe Text)
+  , _uasgHealthCheckType                  :: !(Maybe Text)
+  , _uasgPlacementGroup                   :: !(Maybe Text)
+  , _uasgAutoScalingGroupName             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateAutoScalingGroup' with the minimum fields required to make a request.
 --
@@ -121,21 +118,22 @@ updateAutoScalingGroup
     :: Text -- ^ 'uasgAutoScalingGroupName'
     -> UpdateAutoScalingGroup
 updateAutoScalingGroup pAutoScalingGroupName_ =
-    UpdateAutoScalingGroup'
-    { _uasgTerminationPolicies = Nothing
-    , _uasgHealthCheckGracePeriod = Nothing
-    , _uasgNewInstancesProtectedFromScaleIn = Nothing
-    , _uasgVPCZoneIdentifier = Nothing
-    , _uasgDefaultCooldown = Nothing
-    , _uasgMaxSize = Nothing
-    , _uasgAvailabilityZones = Nothing
-    , _uasgDesiredCapacity = Nothing
-    , _uasgMinSize = Nothing
-    , _uasgLaunchConfigurationName = Nothing
-    , _uasgHealthCheckType = Nothing
-    , _uasgPlacementGroup = Nothing
-    , _uasgAutoScalingGroupName = pAutoScalingGroupName_
-    }
+  UpdateAutoScalingGroup'
+  { _uasgTerminationPolicies = Nothing
+  , _uasgHealthCheckGracePeriod = Nothing
+  , _uasgNewInstancesProtectedFromScaleIn = Nothing
+  , _uasgVPCZoneIdentifier = Nothing
+  , _uasgDefaultCooldown = Nothing
+  , _uasgMaxSize = Nothing
+  , _uasgAvailabilityZones = Nothing
+  , _uasgDesiredCapacity = Nothing
+  , _uasgMinSize = Nothing
+  , _uasgLaunchConfigurationName = Nothing
+  , _uasgHealthCheckType = Nothing
+  , _uasgPlacementGroup = Nothing
+  , _uasgAutoScalingGroupName = pAutoScalingGroupName_
+  }
+
 
 -- | A standalone termination policy or a list of termination policies used to select the instance to terminate. The policies are executed in the order that they are listed. For more information, see <http://docs.aws.amazon.com/autoscaling/latest/userguide/as-instance-termination.html Controlling Which Instances Auto Scaling Terminates During Scale In> in the /Auto Scaling User Guide/ .
 uasgTerminationPolicies :: Lens' UpdateAutoScalingGroup [Text]
@@ -196,9 +194,9 @@ instance AWSRequest UpdateAutoScalingGroup where
         response
           = receiveNull UpdateAutoScalingGroupResponse'
 
-instance Hashable UpdateAutoScalingGroup
+instance Hashable UpdateAutoScalingGroup where
 
-instance NFData UpdateAutoScalingGroup
+instance NFData UpdateAutoScalingGroup where
 
 instance ToHeaders UpdateAutoScalingGroup where
         toHeaders = const mempty
@@ -235,8 +233,9 @@ instance ToQuery UpdateAutoScalingGroup where
 
 -- | /See:/ 'updateAutoScalingGroupResponse' smart constructor.
 data UpdateAutoScalingGroupResponse =
-    UpdateAutoScalingGroupResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  UpdateAutoScalingGroupResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateAutoScalingGroupResponse' with the minimum fields required to make a request.
 --
@@ -244,4 +243,5 @@ updateAutoScalingGroupResponse
     :: UpdateAutoScalingGroupResponse
 updateAutoScalingGroupResponse = UpdateAutoScalingGroupResponse'
 
-instance NFData UpdateAutoScalingGroupResponse
+
+instance NFData UpdateAutoScalingGroupResponse where

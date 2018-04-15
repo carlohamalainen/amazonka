@@ -9,17 +9,17 @@
 
 -- |
 -- Module      : Network.AWS.APIGateway.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.APIGateway.Types.Product where
 
-import           Network.AWS.APIGateway.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.APIGateway.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
 -- | A resource that can be distributed to callers for executing 'Method' resources that require an API key. API keys can be mapped to any 'Stage' on any 'RestApi' , which indicates that the callers with the API key can make requests to that stage.
 --
@@ -28,16 +28,17 @@ import           Network.AWS.Prelude
 --
 -- /See:/ 'apiKey' smart constructor.
 data APIKey = APIKey'
-    { _akEnabled         :: !(Maybe Bool)
-    , _akValue           :: !(Maybe Text)
-    , _akCustomerId      :: !(Maybe Text)
-    , _akCreatedDate     :: !(Maybe POSIX)
-    , _akName            :: !(Maybe Text)
-    , _akId              :: !(Maybe Text)
-    , _akStageKeys       :: !(Maybe [Text])
-    , _akLastUpdatedDate :: !(Maybe POSIX)
-    , _akDescription     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _akEnabled         :: !(Maybe Bool)
+  , _akValue           :: !(Maybe Text)
+  , _akCustomerId      :: !(Maybe Text)
+  , _akCreatedDate     :: !(Maybe POSIX)
+  , _akName            :: !(Maybe Text)
+  , _akId              :: !(Maybe Text)
+  , _akStageKeys       :: !(Maybe [Text])
+  , _akLastUpdatedDate :: !(Maybe POSIX)
+  , _akDescription     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'APIKey' with the minimum fields required to make a request.
 --
@@ -63,17 +64,18 @@ data APIKey = APIKey'
 apiKey
     :: APIKey
 apiKey =
-    APIKey'
-    { _akEnabled = Nothing
-    , _akValue = Nothing
-    , _akCustomerId = Nothing
-    , _akCreatedDate = Nothing
-    , _akName = Nothing
-    , _akId = Nothing
-    , _akStageKeys = Nothing
-    , _akLastUpdatedDate = Nothing
-    , _akDescription = Nothing
-    }
+  APIKey'
+  { _akEnabled = Nothing
+  , _akValue = Nothing
+  , _akCustomerId = Nothing
+  , _akCreatedDate = Nothing
+  , _akName = Nothing
+  , _akId = Nothing
+  , _akStageKeys = Nothing
+  , _akLastUpdatedDate = Nothing
+  , _akDescription = Nothing
+  }
+
 
 -- | Specifies whether the API Key can be used by callers.
 akEnabled :: Lens' APIKey (Maybe Bool)
@@ -125,9 +127,9 @@ instance FromJSON APIKey where
                      <*> (x .:? "lastUpdatedDate")
                      <*> (x .:? "description"))
 
-instance Hashable APIKey
+instance Hashable APIKey where
 
-instance NFData APIKey
+instance NFData APIKey where
 
 -- | API stage name of the associated API stage in a usage plan.
 --
@@ -135,9 +137,10 @@ instance NFData APIKey
 --
 -- /See:/ 'apiStage' smart constructor.
 data APIStage = APIStage'
-    { _asStage :: !(Maybe Text)
-    , _asApiId :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _asStage :: !(Maybe Text)
+  , _asApiId :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'APIStage' with the minimum fields required to make a request.
 --
@@ -148,11 +151,8 @@ data APIStage = APIStage'
 -- * 'asApiId' - API Id of the associated API stage in a usage plan.
 apiStage
     :: APIStage
-apiStage =
-    APIStage'
-    { _asStage = Nothing
-    , _asApiId = Nothing
-    }
+apiStage = APIStage' {_asStage = Nothing, _asApiId = Nothing}
+
 
 -- | API stage name of the associated API stage in a usage plan.
 asStage :: Lens' APIStage (Maybe Text)
@@ -168,9 +168,9 @@ instance FromJSON APIStage where
               (\ x ->
                  APIStage' <$> (x .:? "stage") <*> (x .:? "apiId"))
 
-instance Hashable APIStage
+instance Hashable APIStage where
 
-instance NFData APIStage
+instance NFData APIStage where
 
 instance ToJSON APIStage where
         toJSON APIStage'{..}
@@ -202,11 +202,12 @@ instance ToJSON APIStage where
 --
 -- /See:/ 'account' smart constructor.
 data Account = Account'
-    { _aApiKeyVersion     :: !(Maybe Text)
-    , _aCloudwatchRoleARN :: !(Maybe Text)
-    , _aFeatures          :: !(Maybe [Text])
-    , _aThrottleSettings  :: !(Maybe ThrottleSettings)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _aApiKeyVersion     :: !(Maybe Text)
+  , _aCloudwatchRoleARN :: !(Maybe Text)
+  , _aFeatures          :: !(Maybe [Text])
+  , _aThrottleSettings  :: !(Maybe ThrottleSettings)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Account' with the minimum fields required to make a request.
 --
@@ -222,12 +223,13 @@ data Account = Account'
 account
     :: Account
 account =
-    Account'
-    { _aApiKeyVersion = Nothing
-    , _aCloudwatchRoleARN = Nothing
-    , _aFeatures = Nothing
-    , _aThrottleSettings = Nothing
-    }
+  Account'
+  { _aApiKeyVersion = Nothing
+  , _aCloudwatchRoleARN = Nothing
+  , _aFeatures = Nothing
+  , _aThrottleSettings = Nothing
+  }
+
 
 -- | The version of the API keys used for the account.
 aApiKeyVersion :: Lens' Account (Maybe Text)
@@ -255,9 +257,9 @@ instance FromJSON Account where
                      <*> (x .:? "features" .!= mempty)
                      <*> (x .:? "throttleSettings"))
 
-instance Hashable Account
+instance Hashable Account where
 
-instance NFData Account
+instance NFData Account where
 
 -- | Represents an authorization layer for methods. If enabled on a method, API Gateway will activate the authorizer when a client calls the method.
 --
@@ -266,66 +268,68 @@ instance NFData Account
 --
 -- /See:/ 'authorizer' smart constructor.
 data Authorizer = Authorizer'
-    { _aAuthorizerURI                :: !(Maybe Text)
-    , _aIdentityValidationExpression :: !(Maybe Text)
-    , _aProviderARNs                 :: !(Maybe [Text])
-    , _aName                         :: !(Maybe Text)
-    , _aId                           :: !(Maybe Text)
-    , _aAuthorizerResultTtlInSeconds :: !(Maybe Int)
-    , _aAuthType                     :: !(Maybe Text)
-    , _aType                         :: !(Maybe AuthorizerType)
-    , _aIdentitySource               :: !(Maybe Text)
-    , _aAuthorizerCredentials        :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _aAuthorizerURI                :: !(Maybe Text)
+  , _aIdentityValidationExpression :: !(Maybe Text)
+  , _aProviderARNs                 :: !(Maybe [Text])
+  , _aName                         :: !(Maybe Text)
+  , _aId                           :: !(Maybe Text)
+  , _aAuthorizerResultTtlInSeconds :: !(Maybe Int)
+  , _aAuthType                     :: !(Maybe Text)
+  , _aType                         :: !(Maybe AuthorizerType)
+  , _aIdentitySource               :: !(Maybe Text)
+  , _aAuthorizerCredentials        :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Authorizer' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'aAuthorizerURI' - [Required] Specifies the authorizer's Uniform Resource Identifier (URI). For @TOKEN@ authorizers, this must be a well-formed Lambda function URI, for example, @arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations@ . In general, the URI has this form @arn:aws:apigateway:{region}:lambda:path/{service_api}@ , where @{region}@ is the same as the region hosting the Lambda function, @path@ indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial @/@ . For Lambda functions, this is usually of the form /2015-03-31/functions/[FunctionARN]/invocations.
+-- * 'aAuthorizerURI' - Specifies the authorizer's Uniform Resource Identifier (URI). For @TOKEN@ or @REQUEST@ authorizers, this must be a well-formed Lambda function URI, for example, @arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations@ . In general, the URI has this form @arn:aws:apigateway:{region}:lambda:path/{service_api}@ , where @{region}@ is the same as the region hosting the Lambda function, @path@ indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial @/@ . For Lambda functions, this is usually of the form @/2015-03-31/functions/[FunctionARN]/invocations@ .
 --
--- * 'aIdentityValidationExpression' - A validation expression for the incoming identity. For @TOKEN@ authorizers, this value should be a regular expression. The incoming token from the client is matched against this expression, and will proceed if the token matches. If the token doesn't match, the client receives a 401 Unauthorized response.
+-- * 'aIdentityValidationExpression' - A validation expression for the incoming identity token. For @TOKEN@ authorizers, this value is a regular expression. Amazon API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the @REQUEST@ authorizer.
 --
--- * 'aProviderARNs' - A list of the provider ARNs of the authorizer. For an @TOKEN@ authorizer, this is not defined. For authorizers of the @COGNITO_USER_POOLS@ type, each element corresponds to a user pool ARN of this format: @arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}@ .
+-- * 'aProviderARNs' - A list of the Amazon Cognito user pool ARNs for the @COGNITO_USER_POOLS@ authorizer. Each element is of this format: @arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}@ . For a @TOKEN@ or @REQUEST@ authorizer, this is not defined.
 --
 -- * 'aName' - [Required] The name of the authorizer.
 --
 -- * 'aId' - The identifier for the authorizer resource.
 --
--- * 'aAuthorizerResultTtlInSeconds' - The TTL in seconds of cached authorizer results. If greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour.
+-- * 'aAuthorizerResultTtlInSeconds' - The TTL in seconds of cached authorizer results. If it equals 0, authorization caching is disabled. If it is greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour.
 --
--- * 'aAuthType' - Optional customer-defined field, used in Swagger imports/exports. Has no functional impact.
+-- * 'aAuthType' - Optional customer-defined field, used in Swagger imports and exports without functional impact.
 --
--- * 'aType' - [Required] The type of the authorizer. Currently, the valid type is @TOKEN@ for a Lambda function or @COGNITO_USER_POOLS@ for an Amazon Cognito user pool.
+-- * 'aType' - [Required] The authorizer type. Valid values are @TOKEN@ for a Lambda function using a single authorization token submitted in a custom header, @REQUEST@ for a Lambda function using incoming request parameters, and @COGNITO_USER_POOLS@ for using an Amazon Cognito user pool.
 --
--- * 'aIdentitySource' - [Required] The source of the identity in an incoming request. For a @TOKEN@ authorizer, this value is a mapping expression with the same syntax as integration parameter mappings. The only valid source for tokens is 'header', so the expression should match 'method.request.header.[headerName]'. The value of the header '[headerName]' will be interpreted as the incoming token. For @COGNITO_USER_POOLS@ authorizers, this property is used.
+-- * 'aIdentitySource' - The identity source for which authorization is requested.     * For a @TOKEN@ authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is @Auth@ , the header mapping expression is @method.request.header.Auth@ .    * For the @REQUEST@ authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an @Auth@ header, a @Name@ query string parameter are defined as identity sources, this value is @method.request.header.Auth, method.request.querystring.Name@ . These parameters will be used to derive the authorization caching key and to perform runtime validation of the @REQUEST@ authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.    * For a @COGNITO_USER_POOLS@ authorizer, this property is not used.
 --
--- * 'aAuthorizerCredentials' - Specifies the credentials required for the authorizer, if any. Two options are available. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.
+-- * 'aAuthorizerCredentials' - Specifies the required credentials as an IAM role for Amazon API Gateway to invoke the authorizer. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.
 authorizer
     :: Authorizer
 authorizer =
-    Authorizer'
-    { _aAuthorizerURI = Nothing
-    , _aIdentityValidationExpression = Nothing
-    , _aProviderARNs = Nothing
-    , _aName = Nothing
-    , _aId = Nothing
-    , _aAuthorizerResultTtlInSeconds = Nothing
-    , _aAuthType = Nothing
-    , _aType = Nothing
-    , _aIdentitySource = Nothing
-    , _aAuthorizerCredentials = Nothing
-    }
+  Authorizer'
+  { _aAuthorizerURI = Nothing
+  , _aIdentityValidationExpression = Nothing
+  , _aProviderARNs = Nothing
+  , _aName = Nothing
+  , _aId = Nothing
+  , _aAuthorizerResultTtlInSeconds = Nothing
+  , _aAuthType = Nothing
+  , _aType = Nothing
+  , _aIdentitySource = Nothing
+  , _aAuthorizerCredentials = Nothing
+  }
 
--- | [Required] Specifies the authorizer's Uniform Resource Identifier (URI). For @TOKEN@ authorizers, this must be a well-formed Lambda function URI, for example, @arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations@ . In general, the URI has this form @arn:aws:apigateway:{region}:lambda:path/{service_api}@ , where @{region}@ is the same as the region hosting the Lambda function, @path@ indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial @/@ . For Lambda functions, this is usually of the form /2015-03-31/functions/[FunctionARN]/invocations.
+
+-- | Specifies the authorizer's Uniform Resource Identifier (URI). For @TOKEN@ or @REQUEST@ authorizers, this must be a well-formed Lambda function URI, for example, @arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations@ . In general, the URI has this form @arn:aws:apigateway:{region}:lambda:path/{service_api}@ , where @{region}@ is the same as the region hosting the Lambda function, @path@ indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial @/@ . For Lambda functions, this is usually of the form @/2015-03-31/functions/[FunctionARN]/invocations@ .
 aAuthorizerURI :: Lens' Authorizer (Maybe Text)
 aAuthorizerURI = lens _aAuthorizerURI (\ s a -> s{_aAuthorizerURI = a});
 
--- | A validation expression for the incoming identity. For @TOKEN@ authorizers, this value should be a regular expression. The incoming token from the client is matched against this expression, and will proceed if the token matches. If the token doesn't match, the client receives a 401 Unauthorized response.
+-- | A validation expression for the incoming identity token. For @TOKEN@ authorizers, this value is a regular expression. Amazon API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the @REQUEST@ authorizer.
 aIdentityValidationExpression :: Lens' Authorizer (Maybe Text)
 aIdentityValidationExpression = lens _aIdentityValidationExpression (\ s a -> s{_aIdentityValidationExpression = a});
 
--- | A list of the provider ARNs of the authorizer. For an @TOKEN@ authorizer, this is not defined. For authorizers of the @COGNITO_USER_POOLS@ type, each element corresponds to a user pool ARN of this format: @arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}@ .
+-- | A list of the Amazon Cognito user pool ARNs for the @COGNITO_USER_POOLS@ authorizer. Each element is of this format: @arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}@ . For a @TOKEN@ or @REQUEST@ authorizer, this is not defined.
 aProviderARNs :: Lens' Authorizer [Text]
 aProviderARNs = lens _aProviderARNs (\ s a -> s{_aProviderARNs = a}) . _Default . _Coerce;
 
@@ -337,23 +341,23 @@ aName = lens _aName (\ s a -> s{_aName = a});
 aId :: Lens' Authorizer (Maybe Text)
 aId = lens _aId (\ s a -> s{_aId = a});
 
--- | The TTL in seconds of cached authorizer results. If greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour.
+-- | The TTL in seconds of cached authorizer results. If it equals 0, authorization caching is disabled. If it is greater than 0, API Gateway will cache authorizer responses. If this field is not set, the default value is 300. The maximum value is 3600, or 1 hour.
 aAuthorizerResultTtlInSeconds :: Lens' Authorizer (Maybe Int)
 aAuthorizerResultTtlInSeconds = lens _aAuthorizerResultTtlInSeconds (\ s a -> s{_aAuthorizerResultTtlInSeconds = a});
 
--- | Optional customer-defined field, used in Swagger imports/exports. Has no functional impact.
+-- | Optional customer-defined field, used in Swagger imports and exports without functional impact.
 aAuthType :: Lens' Authorizer (Maybe Text)
 aAuthType = lens _aAuthType (\ s a -> s{_aAuthType = a});
 
--- | [Required] The type of the authorizer. Currently, the valid type is @TOKEN@ for a Lambda function or @COGNITO_USER_POOLS@ for an Amazon Cognito user pool.
+-- | [Required] The authorizer type. Valid values are @TOKEN@ for a Lambda function using a single authorization token submitted in a custom header, @REQUEST@ for a Lambda function using incoming request parameters, and @COGNITO_USER_POOLS@ for using an Amazon Cognito user pool.
 aType :: Lens' Authorizer (Maybe AuthorizerType)
 aType = lens _aType (\ s a -> s{_aType = a});
 
--- | [Required] The source of the identity in an incoming request. For a @TOKEN@ authorizer, this value is a mapping expression with the same syntax as integration parameter mappings. The only valid source for tokens is 'header', so the expression should match 'method.request.header.[headerName]'. The value of the header '[headerName]' will be interpreted as the incoming token. For @COGNITO_USER_POOLS@ authorizers, this property is used.
+-- | The identity source for which authorization is requested.     * For a @TOKEN@ authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is @Auth@ , the header mapping expression is @method.request.header.Auth@ .    * For the @REQUEST@ authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an @Auth@ header, a @Name@ query string parameter are defined as identity sources, this value is @method.request.header.Auth, method.request.querystring.Name@ . These parameters will be used to derive the authorization caching key and to perform runtime validation of the @REQUEST@ authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.    * For a @COGNITO_USER_POOLS@ authorizer, this property is not used.
 aIdentitySource :: Lens' Authorizer (Maybe Text)
 aIdentitySource = lens _aIdentitySource (\ s a -> s{_aIdentitySource = a});
 
--- | Specifies the credentials required for the authorizer, if any. Two options are available. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.
+-- | Specifies the required credentials as an IAM role for Amazon API Gateway to invoke the authorizer. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.
 aAuthorizerCredentials :: Lens' Authorizer (Maybe Text)
 aAuthorizerCredentials = lens _aAuthorizerCredentials (\ s a -> s{_aAuthorizerCredentials = a});
 
@@ -373,9 +377,9 @@ instance FromJSON Authorizer where
                      <*> (x .:? "identitySource")
                      <*> (x .:? "authorizerCredentials"))
 
-instance Hashable Authorizer
+instance Hashable Authorizer where
 
-instance NFData Authorizer
+instance NFData Authorizer where
 
 -- | Represents the base path that callers of the API must provide as part of the URL after the domain name.
 --
@@ -384,10 +388,11 @@ instance NFData Authorizer
 --
 -- /See:/ 'basePathMapping' smart constructor.
 data BasePathMapping = BasePathMapping'
-    { _bpmStage     :: !(Maybe Text)
-    , _bpmBasePath  :: !(Maybe Text)
-    , _bpmRestAPIId :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _bpmStage     :: !(Maybe Text)
+  , _bpmBasePath  :: !(Maybe Text)
+  , _bpmRestAPIId :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'BasePathMapping' with the minimum fields required to make a request.
 --
@@ -401,11 +406,9 @@ data BasePathMapping = BasePathMapping'
 basePathMapping
     :: BasePathMapping
 basePathMapping =
-    BasePathMapping'
-    { _bpmStage = Nothing
-    , _bpmBasePath = Nothing
-    , _bpmRestAPIId = Nothing
-    }
+  BasePathMapping'
+  {_bpmStage = Nothing, _bpmBasePath = Nothing, _bpmRestAPIId = Nothing}
+
 
 -- | The name of the associated stage.
 bpmStage :: Lens' BasePathMapping (Maybe Text)
@@ -427,23 +430,24 @@ instance FromJSON BasePathMapping where
                    (x .:? "stage") <*> (x .:? "basePath") <*>
                      (x .:? "restApiId"))
 
-instance Hashable BasePathMapping
+instance Hashable BasePathMapping where
 
-instance NFData BasePathMapping
+instance NFData BasePathMapping where
 
 -- | Represents a client certificate used to configure client-side SSL authentication while sending requests to the integration endpoint.
 --
 --
--- Client certificates are used authenticate an API by the back-end server. To authenticate an API client (or user), use a custom 'Authorizer' .<http://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html Use Client-Side Certificate>
+-- Client certificates are used to authenticate an API by the backend server. To authenticate an API client (or user), use IAM roles and policies, a custom 'Authorizer' or an Amazon Cognito user pool.<http://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html Use Client-Side Certificate>
 --
 -- /See:/ 'clientCertificate' smart constructor.
 data ClientCertificate = ClientCertificate'
-    { _ccPemEncodedCertificate :: !(Maybe Text)
-    , _ccClientCertificateId   :: !(Maybe Text)
-    , _ccCreatedDate           :: !(Maybe POSIX)
-    , _ccExpirationDate        :: !(Maybe POSIX)
-    , _ccDescription           :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccPemEncodedCertificate :: !(Maybe Text)
+  , _ccClientCertificateId   :: !(Maybe Text)
+  , _ccCreatedDate           :: !(Maybe POSIX)
+  , _ccExpirationDate        :: !(Maybe POSIX)
+  , _ccDescription           :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ClientCertificate' with the minimum fields required to make a request.
 --
@@ -461,13 +465,14 @@ data ClientCertificate = ClientCertificate'
 clientCertificate
     :: ClientCertificate
 clientCertificate =
-    ClientCertificate'
-    { _ccPemEncodedCertificate = Nothing
-    , _ccClientCertificateId = Nothing
-    , _ccCreatedDate = Nothing
-    , _ccExpirationDate = Nothing
-    , _ccDescription = Nothing
-    }
+  ClientCertificate'
+  { _ccPemEncodedCertificate = Nothing
+  , _ccClientCertificateId = Nothing
+  , _ccCreatedDate = Nothing
+  , _ccExpirationDate = Nothing
+  , _ccDescription = Nothing
+  }
+
 
 -- | The PEM-encoded public key of the client certificate, which can be used to configure certificate authentication in the integration endpoint .
 ccPemEncodedCertificate :: Lens' ClientCertificate (Maybe Text)
@@ -500,9 +505,9 @@ instance FromJSON ClientCertificate where
                      <*> (x .:? "expirationDate")
                      <*> (x .:? "description"))
 
-instance Hashable ClientCertificate
+instance Hashable ClientCertificate where
 
-instance NFData ClientCertificate
+instance NFData ClientCertificate where
 
 -- | An immutable representation of a 'RestApi' resource that can be called by users using 'Stages' . A deployment must be associated with a 'Stage' for it to be callable over the Internet.
 --
@@ -511,11 +516,12 @@ instance NFData ClientCertificate
 --
 -- /See:/ 'deployment' smart constructor.
 data Deployment = Deployment'
-    { _dApiSummary  :: !(Maybe (Map Text (Map Text MethodSnapshot)))
-    , _dCreatedDate :: !(Maybe POSIX)
-    , _dId          :: !(Maybe Text)
-    , _dDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dApiSummary  :: !(Maybe (Map Text (Map Text MethodSnapshot)))
+  , _dCreatedDate :: !(Maybe POSIX)
+  , _dId          :: !(Maybe Text)
+  , _dDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Deployment' with the minimum fields required to make a request.
 --
@@ -531,12 +537,13 @@ data Deployment = Deployment'
 deployment
     :: Deployment
 deployment =
-    Deployment'
-    { _dApiSummary = Nothing
-    , _dCreatedDate = Nothing
-    , _dId = Nothing
-    , _dDescription = Nothing
-    }
+  Deployment'
+  { _dApiSummary = Nothing
+  , _dCreatedDate = Nothing
+  , _dId = Nothing
+  , _dDescription = Nothing
+  }
+
 
 -- | A summary of the 'RestApi' at the date and time that the deployment resource was created.
 dApiSummary :: Lens' Deployment (HashMap Text (HashMap Text MethodSnapshot))
@@ -564,9 +571,9 @@ instance FromJSON Deployment where
                      <*> (x .:? "id")
                      <*> (x .:? "description"))
 
-instance Hashable Deployment
+instance Hashable Deployment where
 
-instance NFData Deployment
+instance NFData Deployment where
 
 -- | A documentation part for a targeted API entity.
 --
@@ -579,10 +586,11 @@ instance NFData Deployment
 --
 -- /See:/ 'documentationPart' smart constructor.
 data DocumentationPart = DocumentationPart'
-    { _dpLocation   :: !(Maybe DocumentationPartLocation)
-    , _dpId         :: !(Maybe Text)
-    , _dpProperties :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dpLocation   :: !(Maybe DocumentationPartLocation)
+  , _dpId         :: !(Maybe Text)
+  , _dpProperties :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DocumentationPart' with the minimum fields required to make a request.
 --
@@ -596,11 +604,9 @@ data DocumentationPart = DocumentationPart'
 documentationPart
     :: DocumentationPart
 documentationPart =
-    DocumentationPart'
-    { _dpLocation = Nothing
-    , _dpId = Nothing
-    , _dpProperties = Nothing
-    }
+  DocumentationPart'
+  {_dpLocation = Nothing, _dpId = Nothing, _dpProperties = Nothing}
+
 
 -- | The location of the API entity to which the documentation applies. Valid fields depend on the targeted API entity type. All the valid location fields are not required. If not explicitly specified, a valid location field is treated as a wildcard and associated documentation content may be inherited by matching entities, unless overridden.
 dpLocation :: Lens' DocumentationPart (Maybe DocumentationPartLocation)
@@ -622,9 +628,9 @@ instance FromJSON DocumentationPart where
                    (x .:? "location") <*> (x .:? "id") <*>
                      (x .:? "properties"))
 
-instance Hashable DocumentationPart
+instance Hashable DocumentationPart where
 
-instance NFData DocumentationPart
+instance NFData DocumentationPart where
 
 -- | Specifies the target API entity to which the documentation applies.
 --
@@ -632,12 +638,13 @@ instance NFData DocumentationPart
 --
 -- /See:/ 'documentationPartLocation' smart constructor.
 data DocumentationPartLocation = DocumentationPartLocation'
-    { _dplPath       :: !(Maybe Text)
-    , _dplName       :: !(Maybe Text)
-    , _dplMethod     :: !(Maybe Text)
-    , _dplStatusCode :: !(Maybe Text)
-    , _dplType       :: !DocumentationPartType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dplPath       :: !(Maybe Text)
+  , _dplName       :: !(Maybe Text)
+  , _dplMethod     :: !(Maybe Text)
+  , _dplStatusCode :: !(Maybe Text)
+  , _dplType       :: !DocumentationPartType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DocumentationPartLocation' with the minimum fields required to make a request.
 --
@@ -651,18 +658,19 @@ data DocumentationPartLocation = DocumentationPartLocation'
 --
 -- * 'dplStatusCode' - The HTTP status code of a response. It is a valid field for the API entity types of @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @*@ for any status code. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other @location@ attributes, the child entity's @statusCode@ attribute must match that of the parent entity exactly.
 --
--- * 'dplType' - The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHROZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
+-- * 'dplType' - The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHORIZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
 documentationPartLocation
     :: DocumentationPartType -- ^ 'dplType'
     -> DocumentationPartLocation
 documentationPartLocation pType_ =
-    DocumentationPartLocation'
-    { _dplPath = Nothing
-    , _dplName = Nothing
-    , _dplMethod = Nothing
-    , _dplStatusCode = Nothing
-    , _dplType = pType_
-    }
+  DocumentationPartLocation'
+  { _dplPath = Nothing
+  , _dplName = Nothing
+  , _dplMethod = Nothing
+  , _dplStatusCode = Nothing
+  , _dplType = pType_
+  }
+
 
 -- | The URL path of the target. It is a valid field for the API entity types of @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @/@ for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other @location@ attributes, the child entity's @path@ attribute must match that of the parent entity as a prefix.
 dplPath :: Lens' DocumentationPartLocation (Maybe Text)
@@ -680,7 +688,7 @@ dplMethod = lens _dplMethod (\ s a -> s{_dplMethod = a});
 dplStatusCode :: Lens' DocumentationPartLocation (Maybe Text)
 dplStatusCode = lens _dplStatusCode (\ s a -> s{_dplStatusCode = a});
 
--- | The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHROZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
+-- | The type of API entity to which the documentation content applies. It is a valid and required field for API entity types of @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHORIZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
 dplType :: Lens' DocumentationPartLocation DocumentationPartType
 dplType = lens _dplType (\ s a -> s{_dplType = a});
 
@@ -694,9 +702,9 @@ instance FromJSON DocumentationPartLocation where
                      <*> (x .:? "statusCode")
                      <*> (x .: "type"))
 
-instance Hashable DocumentationPartLocation
+instance Hashable DocumentationPartLocation where
 
-instance NFData DocumentationPartLocation
+instance NFData DocumentationPartLocation where
 
 instance ToJSON DocumentationPartLocation where
         toJSON DocumentationPartLocation'{..}
@@ -716,10 +724,11 @@ instance ToJSON DocumentationPartLocation where
 --
 -- /See:/ 'documentationVersion' smart constructor.
 data DocumentationVersion = DocumentationVersion'
-    { _dvCreatedDate :: !(Maybe POSIX)
-    , _dvVersion     :: !(Maybe Text)
-    , _dvDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dvCreatedDate :: !(Maybe POSIX)
+  , _dvVersion     :: !(Maybe Text)
+  , _dvDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DocumentationVersion' with the minimum fields required to make a request.
 --
@@ -733,11 +742,9 @@ data DocumentationVersion = DocumentationVersion'
 documentationVersion
     :: DocumentationVersion
 documentationVersion =
-    DocumentationVersion'
-    { _dvCreatedDate = Nothing
-    , _dvVersion = Nothing
-    , _dvDescription = Nothing
-    }
+  DocumentationVersion'
+  {_dvCreatedDate = Nothing, _dvVersion = Nothing, _dvDescription = Nothing}
+
 
 -- | The date when the API documentation snapshot is created.
 dvCreatedDate :: Lens' DocumentationVersion (Maybe UTCTime)
@@ -759,53 +766,77 @@ instance FromJSON DocumentationVersion where
                    (x .:? "createdDate") <*> (x .:? "version") <*>
                      (x .:? "description"))
 
-instance Hashable DocumentationVersion
+instance Hashable DocumentationVersion where
 
-instance NFData DocumentationVersion
+instance NFData DocumentationVersion where
 
--- | Represents a domain name that is contained in a simpler, more intuitive URL that can be called.
+-- | Represents a custom domain name as a user-friendly host name of an API ('RestApi' ).
 --
 --
--- <http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html Use Client-Side Certificate>
+-- When you deploy an API, Amazon API Gateway creates a default host name for the API. This default API host name is of the @{restapi-id}.execute-api.{region}.amazonaws.com@ format. With the default host name, you can access the API's root resource with the URL of @https://{restapi-id}.execute-api.{region}.amazonaws.com/{stage}/@ . When you set up a custom domain name of @apis.example.com@ for this API, you can then access the same resource using the URL of the @https://apis.examples.com/myApi@ , where @myApi@ is the base path mapping ('BasePathMapping' ) of your API under the custom domain name.
+--
+-- <http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html Set a Custom Host Name for an API>
 --
 -- /See:/ 'domainName' smart constructor.
 data DomainName = DomainName'
-    { _dnCertificateName        :: !(Maybe Text)
-    , _dnCertificateARN         :: !(Maybe Text)
-    , _dnDomainName             :: !(Maybe Text)
-    , _dnCertificateUploadDate  :: !(Maybe POSIX)
-    , _dnDistributionDomainName :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dnCertificateName         :: !(Maybe Text)
+  , _dnRegionalCertificateARN  :: !(Maybe Text)
+  , _dnCertificateARN          :: !(Maybe Text)
+  , _dnDomainName              :: !(Maybe Text)
+  , _dnRegionalCertificateName :: !(Maybe Text)
+  , _dnRegionalDomainName      :: !(Maybe Text)
+  , _dnCertificateUploadDate   :: !(Maybe POSIX)
+  , _dnDistributionDomainName  :: !(Maybe Text)
+  , _dnEndpointConfiguration   :: !(Maybe EndpointConfiguration)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DomainName' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dnCertificateName' - The name of the certificate.
+-- * 'dnCertificateName' - The name of the certificate that will be used by edge-optimized endpoint for this domain name.
 --
--- * 'dnCertificateARN' - The reference to an AWS-managed certificate. AWS Certificate Manager is the only supported source.
+-- * 'dnRegionalCertificateARN' - The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.
+--
+-- * 'dnCertificateARN' - The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
 --
 -- * 'dnDomainName' - The name of the 'DomainName' resource.
 --
--- * 'dnCertificateUploadDate' - The timestamp when the certificate was uploaded.
+-- * 'dnRegionalCertificateName' - The name of the certificate that will be used for validating the regional domain name.
 --
--- * 'dnDistributionDomainName' - The domain name of the Amazon CloudFront distribution. For more information, see the <http://aws.amazon.com/documentation/cloudfront/ Amazon CloudFront documentation> .
+-- * 'dnRegionalDomainName' - The domain name associated with the regional endpoint for this custom domain name. You set up this association by adding a DNS record that points the custom domain name to this regional domain name. The regional domain name is returned by Amazon API Gateway when you create a regional endpoint.
+--
+-- * 'dnCertificateUploadDate' - The timestamp when the certificate that was used by edge-optimized endpoint for this domain name was uploaded.
+--
+-- * 'dnDistributionDomainName' - The domain name of the Amazon CloudFront distribution associated with this custom domain name for an edge-optimized endpoint. You set up this association when adding a DNS record pointing the custom domain name to this distribution name. For more information about CloudFront distributions, see the <http://aws.amazon.com/documentation/cloudfront/ Amazon CloudFront documentation> .
+--
+-- * 'dnEndpointConfiguration' - The endpoint configuration of this 'DomainName' showing the endpoint types of the domain name.
 domainName
     :: DomainName
 domainName =
-    DomainName'
-    { _dnCertificateName = Nothing
-    , _dnCertificateARN = Nothing
-    , _dnDomainName = Nothing
-    , _dnCertificateUploadDate = Nothing
-    , _dnDistributionDomainName = Nothing
-    }
+  DomainName'
+  { _dnCertificateName = Nothing
+  , _dnRegionalCertificateARN = Nothing
+  , _dnCertificateARN = Nothing
+  , _dnDomainName = Nothing
+  , _dnRegionalCertificateName = Nothing
+  , _dnRegionalDomainName = Nothing
+  , _dnCertificateUploadDate = Nothing
+  , _dnDistributionDomainName = Nothing
+  , _dnEndpointConfiguration = Nothing
+  }
 
--- | The name of the certificate.
+
+-- | The name of the certificate that will be used by edge-optimized endpoint for this domain name.
 dnCertificateName :: Lens' DomainName (Maybe Text)
 dnCertificateName = lens _dnCertificateName (\ s a -> s{_dnCertificateName = a});
 
--- | The reference to an AWS-managed certificate. AWS Certificate Manager is the only supported source.
+-- | The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.
+dnRegionalCertificateARN :: Lens' DomainName (Maybe Text)
+dnRegionalCertificateARN = lens _dnRegionalCertificateARN (\ s a -> s{_dnRegionalCertificateARN = a});
+
+-- | The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
 dnCertificateARN :: Lens' DomainName (Maybe Text)
 dnCertificateARN = lens _dnCertificateARN (\ s a -> s{_dnCertificateARN = a});
 
@@ -813,13 +844,25 @@ dnCertificateARN = lens _dnCertificateARN (\ s a -> s{_dnCertificateARN = a});
 dnDomainName :: Lens' DomainName (Maybe Text)
 dnDomainName = lens _dnDomainName (\ s a -> s{_dnDomainName = a});
 
--- | The timestamp when the certificate was uploaded.
+-- | The name of the certificate that will be used for validating the regional domain name.
+dnRegionalCertificateName :: Lens' DomainName (Maybe Text)
+dnRegionalCertificateName = lens _dnRegionalCertificateName (\ s a -> s{_dnRegionalCertificateName = a});
+
+-- | The domain name associated with the regional endpoint for this custom domain name. You set up this association by adding a DNS record that points the custom domain name to this regional domain name. The regional domain name is returned by Amazon API Gateway when you create a regional endpoint.
+dnRegionalDomainName :: Lens' DomainName (Maybe Text)
+dnRegionalDomainName = lens _dnRegionalDomainName (\ s a -> s{_dnRegionalDomainName = a});
+
+-- | The timestamp when the certificate that was used by edge-optimized endpoint for this domain name was uploaded.
 dnCertificateUploadDate :: Lens' DomainName (Maybe UTCTime)
 dnCertificateUploadDate = lens _dnCertificateUploadDate (\ s a -> s{_dnCertificateUploadDate = a}) . mapping _Time;
 
--- | The domain name of the Amazon CloudFront distribution. For more information, see the <http://aws.amazon.com/documentation/cloudfront/ Amazon CloudFront documentation> .
+-- | The domain name of the Amazon CloudFront distribution associated with this custom domain name for an edge-optimized endpoint. You set up this association when adding a DNS record pointing the custom domain name to this distribution name. For more information about CloudFront distributions, see the <http://aws.amazon.com/documentation/cloudfront/ Amazon CloudFront documentation> .
 dnDistributionDomainName :: Lens' DomainName (Maybe Text)
 dnDistributionDomainName = lens _dnDistributionDomainName (\ s a -> s{_dnDistributionDomainName = a});
+
+-- | The endpoint configuration of this 'DomainName' showing the endpoint types of the domain name.
+dnEndpointConfiguration :: Lens' DomainName (Maybe EndpointConfiguration)
+dnEndpointConfiguration = lens _dnEndpointConfiguration (\ s a -> s{_dnEndpointConfiguration = a});
 
 instance FromJSON DomainName where
         parseJSON
@@ -827,14 +870,57 @@ instance FromJSON DomainName where
               (\ x ->
                  DomainName' <$>
                    (x .:? "certificateName") <*>
-                     (x .:? "certificateArn")
+                     (x .:? "regionalCertificateArn")
+                     <*> (x .:? "certificateArn")
                      <*> (x .:? "domainName")
+                     <*> (x .:? "regionalCertificateName")
+                     <*> (x .:? "regionalDomainName")
                      <*> (x .:? "certificateUploadDate")
-                     <*> (x .:? "distributionDomainName"))
+                     <*> (x .:? "distributionDomainName")
+                     <*> (x .:? "endpointConfiguration"))
 
-instance Hashable DomainName
+instance Hashable DomainName where
 
-instance NFData DomainName
+instance NFData DomainName where
+
+-- | The endpoint configuration to indicate the types of endpoints an API ('RestApi' ) or its custom domain name ('DomainName' ) has.
+--
+--
+--
+-- /See:/ 'endpointConfiguration' smart constructor.
+newtype EndpointConfiguration = EndpointConfiguration'
+  { _ecTypes :: Maybe [EndpointType]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'EndpointConfiguration' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'ecTypes' - A list of endpoint types of an API ('RestApi' ) or its custom domain name ('DomainName' ). For an edge-optimized API and its custom domain name, the endpoint type is @"EDGE"@ . For a regional API and its custom domain name, the endpoint type is @REGIONAL@ .
+endpointConfiguration
+    :: EndpointConfiguration
+endpointConfiguration = EndpointConfiguration' {_ecTypes = Nothing}
+
+
+-- | A list of endpoint types of an API ('RestApi' ) or its custom domain name ('DomainName' ). For an edge-optimized API and its custom domain name, the endpoint type is @"EDGE"@ . For a regional API and its custom domain name, the endpoint type is @REGIONAL@ .
+ecTypes :: Lens' EndpointConfiguration [EndpointType]
+ecTypes = lens _ecTypes (\ s a -> s{_ecTypes = a}) . _Default . _Coerce;
+
+instance FromJSON EndpointConfiguration where
+        parseJSON
+          = withObject "EndpointConfiguration"
+              (\ x ->
+                 EndpointConfiguration' <$>
+                   (x .:? "types" .!= mempty))
+
+instance Hashable EndpointConfiguration where
+
+instance NFData EndpointConfiguration where
+
+instance ToJSON EndpointConfiguration where
+        toJSON EndpointConfiguration'{..}
+          = object (catMaybes [("types" .=) <$> _ecTypes])
 
 -- | A gateway response of a given response type and status code, with optional response parameters and mapping templates.
 --
@@ -854,12 +940,13 @@ instance NFData DomainName
 --
 -- /See:/ 'gatewayResponse' smart constructor.
 data GatewayResponse = GatewayResponse'
-    { _gDefaultResponse    :: !(Maybe Bool)
-    , _gResponseTemplates  :: !(Maybe (Map Text Text))
-    , _gResponseType       :: !(Maybe GatewayResponseType)
-    , _gStatusCode         :: !(Maybe Text)
-    , _gResponseParameters :: !(Maybe (Map Text Text))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gDefaultResponse    :: !(Maybe Bool)
+  , _gResponseTemplates  :: !(Maybe (Map Text Text))
+  , _gResponseType       :: !(Maybe GatewayResponseType)
+  , _gStatusCode         :: !(Maybe Text)
+  , _gResponseParameters :: !(Maybe (Map Text Text))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GatewayResponse' with the minimum fields required to make a request.
 --
@@ -877,13 +964,14 @@ data GatewayResponse = GatewayResponse'
 gatewayResponse
     :: GatewayResponse
 gatewayResponse =
-    GatewayResponse'
-    { _gDefaultResponse = Nothing
-    , _gResponseTemplates = Nothing
-    , _gResponseType = Nothing
-    , _gStatusCode = Nothing
-    , _gResponseParameters = Nothing
-    }
+  GatewayResponse'
+  { _gDefaultResponse = Nothing
+  , _gResponseTemplates = Nothing
+  , _gResponseType = Nothing
+  , _gStatusCode = Nothing
+  , _gResponseParameters = Nothing
+  }
+
 
 -- | A Boolean flag to indicate whether this 'GatewayResponse' is the default gateway response (@true@ ) or not (@false@ ). A default gateway response is one generated by Amazon API Gateway without any customization by an API developer.
 gDefaultResponse :: Lens' GatewayResponse (Maybe Bool)
@@ -916,9 +1004,9 @@ instance FromJSON GatewayResponse where
                      <*> (x .:? "statusCode")
                      <*> (x .:? "responseParameters" .!= mempty))
 
-instance Hashable GatewayResponse
+instance Hashable GatewayResponse where
 
-instance NFData GatewayResponse
+instance NFData GatewayResponse where
 
 -- | Represents an HTTP, HTTP_PROXY, AWS, AWS_PROXY, or Mock integration.
 --
@@ -927,18 +1015,19 @@ instance NFData GatewayResponse
 --
 -- /See:/ 'integration' smart constructor.
 data Integration = Integration'
-    { _iHttpMethod           :: !(Maybe Text)
-    , _iRequestTemplates     :: !(Maybe (Map Text Text))
-    , _iCredentials          :: !(Maybe Text)
-    , _iRequestParameters    :: !(Maybe (Map Text Text))
-    , _iContentHandling      :: !(Maybe ContentHandlingStrategy)
-    , _iPassthroughBehavior  :: !(Maybe Text)
-    , _iUri                  :: !(Maybe Text)
-    , _iIntegrationResponses :: !(Maybe (Map Text IntegrationResponse))
-    , _iCacheNamespace       :: !(Maybe Text)
-    , _iType                 :: !(Maybe IntegrationType)
-    , _iCacheKeyParameters   :: !(Maybe [Text])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _iHttpMethod           :: !(Maybe Text)
+  , _iRequestTemplates     :: !(Maybe (Map Text Text))
+  , _iCredentials          :: !(Maybe Text)
+  , _iRequestParameters    :: !(Maybe (Map Text Text))
+  , _iContentHandling      :: !(Maybe ContentHandlingStrategy)
+  , _iPassthroughBehavior  :: !(Maybe Text)
+  , _iUri                  :: !(Maybe Text)
+  , _iIntegrationResponses :: !(Maybe (Map Text IntegrationResponse))
+  , _iCacheNamespace       :: !(Maybe Text)
+  , _iType                 :: !(Maybe IntegrationType)
+  , _iCacheKeyParameters   :: !(Maybe [Text])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Integration' with the minimum fields required to make a request.
 --
@@ -968,19 +1057,20 @@ data Integration = Integration'
 integration
     :: Integration
 integration =
-    Integration'
-    { _iHttpMethod = Nothing
-    , _iRequestTemplates = Nothing
-    , _iCredentials = Nothing
-    , _iRequestParameters = Nothing
-    , _iContentHandling = Nothing
-    , _iPassthroughBehavior = Nothing
-    , _iUri = Nothing
-    , _iIntegrationResponses = Nothing
-    , _iCacheNamespace = Nothing
-    , _iType = Nothing
-    , _iCacheKeyParameters = Nothing
-    }
+  Integration'
+  { _iHttpMethod = Nothing
+  , _iRequestTemplates = Nothing
+  , _iCredentials = Nothing
+  , _iRequestParameters = Nothing
+  , _iContentHandling = Nothing
+  , _iPassthroughBehavior = Nothing
+  , _iUri = Nothing
+  , _iIntegrationResponses = Nothing
+  , _iCacheNamespace = Nothing
+  , _iType = Nothing
+  , _iCacheKeyParameters = Nothing
+  }
+
 
 -- | Specifies the integration's HTTP method type.
 iHttpMethod :: Lens' Integration (Maybe Text)
@@ -1043,9 +1133,9 @@ instance FromJSON Integration where
                      <*> (x .:? "type")
                      <*> (x .:? "cacheKeyParameters" .!= mempty))
 
-instance Hashable Integration
+instance Hashable Integration where
 
-instance NFData Integration
+instance NFData Integration where
 
 -- | Represents an integration response. The status code must map to an existing 'MethodResponse' , and parameters and templates can be used to transform the back-end response.
 --
@@ -1054,12 +1144,13 @@ instance NFData Integration
 --
 -- /See:/ 'integrationResponse' smart constructor.
 data IntegrationResponse = IntegrationResponse'
-    { _intContentHandling    :: !(Maybe ContentHandlingStrategy)
-    , _intResponseTemplates  :: !(Maybe (Map Text Text))
-    , _intSelectionPattern   :: !(Maybe Text)
-    , _intStatusCode         :: !(Maybe Text)
-    , _intResponseParameters :: !(Maybe (Map Text Text))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _intContentHandling    :: !(Maybe ContentHandlingStrategy)
+  , _intResponseTemplates  :: !(Maybe (Map Text Text))
+  , _intSelectionPattern   :: !(Maybe Text)
+  , _intStatusCode         :: !(Maybe Text)
+  , _intResponseParameters :: !(Maybe (Map Text Text))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'IntegrationResponse' with the minimum fields required to make a request.
 --
@@ -1077,13 +1168,14 @@ data IntegrationResponse = IntegrationResponse'
 integrationResponse
     :: IntegrationResponse
 integrationResponse =
-    IntegrationResponse'
-    { _intContentHandling = Nothing
-    , _intResponseTemplates = Nothing
-    , _intSelectionPattern = Nothing
-    , _intStatusCode = Nothing
-    , _intResponseParameters = Nothing
-    }
+  IntegrationResponse'
+  { _intContentHandling = Nothing
+  , _intResponseTemplates = Nothing
+  , _intSelectionPattern = Nothing
+  , _intStatusCode = Nothing
+  , _intResponseParameters = Nothing
+  }
+
 
 -- | Specifies how to handle response payload content type conversions. Supported values are @CONVERT_TO_BINARY@ and @CONVERT_TO_TEXT@ , with the following behaviors:     * @CONVERT_TO_BINARY@ : Converts a response payload from a Base64-encoded string to the corresponding binary blob.     * @CONVERT_TO_TEXT@ : Converts a response payload from a binary blob to a Base64-encoded string. If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
 intContentHandling :: Lens' IntegrationResponse (Maybe ContentHandlingStrategy)
@@ -1116,9 +1208,9 @@ instance FromJSON IntegrationResponse where
                      <*> (x .:? "statusCode")
                      <*> (x .:? "responseParameters" .!= mempty))
 
-instance Hashable IntegrationResponse
+instance Hashable IntegrationResponse where
 
-instance NFData IntegrationResponse
+instance NFData IntegrationResponse where
 
 -- | Represents a client-facing interface by which the client calls the API to access back-end resources. A __Method__ resource is integrated with an 'Integration' resource. Both consist of a request and one or more responses. The method request takes the client input that is passed to the back end through the integration request. A method response returns the output from the back end to the client through an integration response. A method request is embodied in a __Method__ resource, whereas an integration request is embodied in an 'Integration' resource. On the other hand, a method response is represented by a 'MethodResponse' resource, whereas an integration response is represented by an 'IntegrationResponse' resource.
 --
@@ -1138,17 +1230,18 @@ instance NFData IntegrationResponse
 --
 -- /See:/ 'method' smart constructor.
 data Method = Method'
-    { _mMethodResponses    :: !(Maybe (Map Text MethodResponse))
-    , _mHttpMethod         :: !(Maybe Text)
-    , _mRequestValidatorId :: !(Maybe Text)
-    , _mRequestModels      :: !(Maybe (Map Text Text))
-    , _mRequestParameters  :: !(Maybe (Map Text Bool))
-    , _mAuthorizerId       :: !(Maybe Text)
-    , _mOperationName      :: !(Maybe Text)
-    , _mAuthorizationType  :: !(Maybe Text)
-    , _mApiKeyRequired     :: !(Maybe Bool)
-    , _mMethodIntegration  :: !(Maybe Integration)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mMethodResponses    :: !(Maybe (Map Text MethodResponse))
+  , _mHttpMethod         :: !(Maybe Text)
+  , _mRequestValidatorId :: !(Maybe Text)
+  , _mRequestModels      :: !(Maybe (Map Text Text))
+  , _mRequestParameters  :: !(Maybe (Map Text Bool))
+  , _mAuthorizerId       :: !(Maybe Text)
+  , _mOperationName      :: !(Maybe Text)
+  , _mAuthorizationType  :: !(Maybe Text)
+  , _mApiKeyRequired     :: !(Maybe Bool)
+  , _mMethodIntegration  :: !(Maybe Integration)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Method' with the minimum fields required to make a request.
 --
@@ -1176,18 +1269,19 @@ data Method = Method'
 method
     :: Method
 method =
-    Method'
-    { _mMethodResponses = Nothing
-    , _mHttpMethod = Nothing
-    , _mRequestValidatorId = Nothing
-    , _mRequestModels = Nothing
-    , _mRequestParameters = Nothing
-    , _mAuthorizerId = Nothing
-    , _mOperationName = Nothing
-    , _mAuthorizationType = Nothing
-    , _mApiKeyRequired = Nothing
-    , _mMethodIntegration = Nothing
-    }
+  Method'
+  { _mMethodResponses = Nothing
+  , _mHttpMethod = Nothing
+  , _mRequestValidatorId = Nothing
+  , _mRequestModels = Nothing
+  , _mRequestParameters = Nothing
+  , _mAuthorizerId = Nothing
+  , _mOperationName = Nothing
+  , _mAuthorizationType = Nothing
+  , _mApiKeyRequired = Nothing
+  , _mMethodIntegration = Nothing
+  }
+
 
 -- | Gets a method response associated with a given HTTP status code.  The collection of method responses are encapsulated in a key-value map, where the key is a response's HTTP status code and the value is a 'MethodResponse' resource that specifies the response returned to the caller from the back end through the integration response. __Example: Get a 200 OK response of a GET method__  __Request__  @@GET /restapis/uojnr9hd57/resources/0cjtch/methods/GET/responses/200 HTTP/1.1 Content-Type: application/json Host: apigateway.us-east-1.amazonaws.com Content-Length: 117 X-Amz-Date: 20160613T215008Z Authorization: AWS4-HMAC-SHA256 Credential={access_key_ID}/20160613/us-east-1/apigateway/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature={sig4_hash}@ @ __Response__  The successful response returns a @200 OK@ status code and a payload similar to the following: @@{ "_links": { "curies": { "href": "http://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-method-response-{rel}.html", "name": "methodresponse", "templated": true }, "self": { "href": "/restapis/uojnr9hd57/resources/0cjtch/methods/GET/responses/200", "title": "200" }, "methodresponse:delete": { "href": "/restapis/uojnr9hd57/resources/0cjtch/methods/GET/responses/200" }, "methodresponse:update": { "href": "/restapis/uojnr9hd57/resources/0cjtch/methods/GET/responses/200" } }, "responseModels": { "application/json": "Empty" }, "responseParameters": { "method.response.header.operator": false, "method.response.header.operand_2": false, "method.response.header.operand_1": false }, "statusCode": "200" }@ @  <http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-method-response.html AWS CLI>
 mMethodResponses :: Lens' Method (HashMap Text MethodResponse)
@@ -1245,9 +1339,9 @@ instance FromJSON Method where
                      <*> (x .:? "apiKeyRequired")
                      <*> (x .:? "methodIntegration"))
 
-instance Hashable Method
+instance Hashable Method where
 
-instance NFData Method
+instance NFData Method where
 
 -- | Represents a method response of a given HTTP status code returned to the client. The method response is passed from the back end through the associated integration response that can be transformed using a mapping template.
 --
@@ -1267,10 +1361,11 @@ instance NFData Method
 --
 -- /See:/ 'methodResponse' smart constructor.
 data MethodResponse = MethodResponse'
-    { _mResponseModels     :: !(Maybe (Map Text Text))
-    , _mStatusCode         :: !(Maybe Text)
-    , _mResponseParameters :: !(Maybe (Map Text Bool))
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mResponseModels     :: !(Maybe (Map Text Text))
+  , _mStatusCode         :: !(Maybe Text)
+  , _mResponseParameters :: !(Maybe (Map Text Bool))
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MethodResponse' with the minimum fields required to make a request.
 --
@@ -1284,11 +1379,12 @@ data MethodResponse = MethodResponse'
 methodResponse
     :: MethodResponse
 methodResponse =
-    MethodResponse'
-    { _mResponseModels = Nothing
-    , _mStatusCode = Nothing
-    , _mResponseParameters = Nothing
-    }
+  MethodResponse'
+  { _mResponseModels = Nothing
+  , _mStatusCode = Nothing
+  , _mResponseParameters = Nothing
+  }
+
 
 -- | Specifies the 'Model' resources used for the response's content-type. Response models are represented as a key/value map, with a content-type as the key and a 'Model' name as the value.
 mResponseModels :: Lens' MethodResponse (HashMap Text Text)
@@ -1311,9 +1407,9 @@ instance FromJSON MethodResponse where
                      (x .:? "statusCode")
                      <*> (x .:? "responseParameters" .!= mempty))
 
-instance Hashable MethodResponse
+instance Hashable MethodResponse where
 
-instance NFData MethodResponse
+instance NFData MethodResponse where
 
 -- | Specifies the method setting properties.
 --
@@ -1321,17 +1417,18 @@ instance NFData MethodResponse
 --
 -- /See:/ 'methodSetting' smart constructor.
 data MethodSetting = MethodSetting'
-    { _msCacheTtlInSeconds                      :: !(Maybe Int)
-    , _msDataTraceEnabled                       :: !(Maybe Bool)
-    , _msThrottlingBurstLimit                   :: !(Maybe Int)
-    , _msCacheDataEncrypted                     :: !(Maybe Bool)
-    , _msLoggingLevel                           :: !(Maybe Text)
-    , _msRequireAuthorizationForCacheControl    :: !(Maybe Bool)
-    , _msCachingEnabled                         :: !(Maybe Bool)
-    , _msMetricsEnabled                         :: !(Maybe Bool)
-    , _msThrottlingRateLimit                    :: !(Maybe Double)
-    , _msUnauthorizedCacheControlHeaderStrategy :: !(Maybe UnauthorizedCacheControlHeaderStrategy)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _msCacheTtlInSeconds :: !(Maybe Int)
+  , _msDataTraceEnabled :: !(Maybe Bool)
+  , _msThrottlingBurstLimit :: !(Maybe Int)
+  , _msCacheDataEncrypted :: !(Maybe Bool)
+  , _msLoggingLevel :: !(Maybe Text)
+  , _msRequireAuthorizationForCacheControl :: !(Maybe Bool)
+  , _msCachingEnabled :: !(Maybe Bool)
+  , _msMetricsEnabled :: !(Maybe Bool)
+  , _msThrottlingRateLimit :: !(Maybe Double)
+  , _msUnauthorizedCacheControlHeaderStrategy :: !(Maybe UnauthorizedCacheControlHeaderStrategy)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MethodSetting' with the minimum fields required to make a request.
 --
@@ -1359,18 +1456,19 @@ data MethodSetting = MethodSetting'
 methodSetting
     :: MethodSetting
 methodSetting =
-    MethodSetting'
-    { _msCacheTtlInSeconds = Nothing
-    , _msDataTraceEnabled = Nothing
-    , _msThrottlingBurstLimit = Nothing
-    , _msCacheDataEncrypted = Nothing
-    , _msLoggingLevel = Nothing
-    , _msRequireAuthorizationForCacheControl = Nothing
-    , _msCachingEnabled = Nothing
-    , _msMetricsEnabled = Nothing
-    , _msThrottlingRateLimit = Nothing
-    , _msUnauthorizedCacheControlHeaderStrategy = Nothing
-    }
+  MethodSetting'
+  { _msCacheTtlInSeconds = Nothing
+  , _msDataTraceEnabled = Nothing
+  , _msThrottlingBurstLimit = Nothing
+  , _msCacheDataEncrypted = Nothing
+  , _msLoggingLevel = Nothing
+  , _msRequireAuthorizationForCacheControl = Nothing
+  , _msCachingEnabled = Nothing
+  , _msMetricsEnabled = Nothing
+  , _msThrottlingRateLimit = Nothing
+  , _msUnauthorizedCacheControlHeaderStrategy = Nothing
+  }
+
 
 -- | Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response will be cached. The PATCH path for this setting is @/{method_setting_key}/caching/ttlInSeconds@ , and the value is an integer.
 msCacheTtlInSeconds :: Lens' MethodSetting (Maybe Int)
@@ -1428,9 +1526,9 @@ instance FromJSON MethodSetting where
                      <*> (x .:? "throttlingRateLimit")
                      <*> (x .:? "unauthorizedCacheControlHeaderStrategy"))
 
-instance Hashable MethodSetting
+instance Hashable MethodSetting where
 
-instance NFData MethodSetting
+instance NFData MethodSetting where
 
 -- | Represents a summary of a 'Method' resource, given a particular date and time.
 --
@@ -1438,9 +1536,10 @@ instance NFData MethodSetting
 --
 -- /See:/ 'methodSnapshot' smart constructor.
 data MethodSnapshot = MethodSnapshot'
-    { _msAuthorizationType :: !(Maybe Text)
-    , _msApiKeyRequired    :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _msAuthorizationType :: !(Maybe Text)
+  , _msApiKeyRequired    :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MethodSnapshot' with the minimum fields required to make a request.
 --
@@ -1452,10 +1551,8 @@ data MethodSnapshot = MethodSnapshot'
 methodSnapshot
     :: MethodSnapshot
 methodSnapshot =
-    MethodSnapshot'
-    { _msAuthorizationType = Nothing
-    , _msApiKeyRequired = Nothing
-    }
+  MethodSnapshot' {_msAuthorizationType = Nothing, _msApiKeyRequired = Nothing}
+
 
 -- | The method's authorization type. Valid values are @NONE@ for open access, @AWS_IAM@ for using AWS IAM permissions, @CUSTOM@ for using a custom authorizer, or @COGNITO_USER_POOLS@ for using a Cognito user pool.
 msAuthorizationType :: Lens' MethodSnapshot (Maybe Text)
@@ -1473,9 +1570,9 @@ instance FromJSON MethodSnapshot where
                    (x .:? "authorizationType") <*>
                      (x .:? "apiKeyRequired"))
 
-instance Hashable MethodSnapshot
+instance Hashable MethodSnapshot where
 
-instance NFData MethodSnapshot
+instance NFData MethodSnapshot where
 
 -- | Represents the data structure of a method's request or response payload.
 --
@@ -1488,12 +1585,13 @@ instance NFData MethodSnapshot
 --
 -- /See:/ 'model' smart constructor.
 data Model = Model'
-    { _mSchema      :: !(Maybe Text)
-    , _mName        :: !(Maybe Text)
-    , _mId          :: !(Maybe Text)
-    , _mDescription :: !(Maybe Text)
-    , _mContentType :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mSchema      :: !(Maybe Text)
+  , _mName        :: !(Maybe Text)
+  , _mId          :: !(Maybe Text)
+  , _mDescription :: !(Maybe Text)
+  , _mContentType :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Model' with the minimum fields required to make a request.
 --
@@ -1501,7 +1599,7 @@ data Model = Model'
 --
 -- * 'mSchema' - The schema for the model. For @application/json@ models, this should be <http://json-schema.org/documentation.html JSON-schema draft v4> model. Do not include "\*/" characters in the description of any properties because such "\*/" characters may be interpreted as the closing marker for comments in some languages, such as Java or JavaScript, causing the installation of your API's SDK generated by API Gateway to fail.
 --
--- * 'mName' - The name of the model.
+-- * 'mName' - The name of the model. Must be an alphanumeric string.
 --
 -- * 'mId' - The identifier for the model resource.
 --
@@ -1511,19 +1609,20 @@ data Model = Model'
 model
     :: Model
 model =
-    Model'
-    { _mSchema = Nothing
-    , _mName = Nothing
-    , _mId = Nothing
-    , _mDescription = Nothing
-    , _mContentType = Nothing
-    }
+  Model'
+  { _mSchema = Nothing
+  , _mName = Nothing
+  , _mId = Nothing
+  , _mDescription = Nothing
+  , _mContentType = Nothing
+  }
+
 
 -- | The schema for the model. For @application/json@ models, this should be <http://json-schema.org/documentation.html JSON-schema draft v4> model. Do not include "\*/" characters in the description of any properties because such "\*/" characters may be interpreted as the closing marker for comments in some languages, such as Java or JavaScript, causing the installation of your API's SDK generated by API Gateway to fail.
 mSchema :: Lens' Model (Maybe Text)
 mSchema = lens _mSchema (\ s a -> s{_mSchema = a});
 
--- | The name of the model.
+-- | The name of the model. Must be an alphanumeric string.
 mName :: Lens' Model (Maybe Text)
 mName = lens _mName (\ s a -> s{_mName = a});
 
@@ -1548,19 +1647,20 @@ instance FromJSON Model where
                      <*> (x .:? "description")
                      <*> (x .:? "contentType"))
 
-instance Hashable Model
+instance Hashable Model where
 
-instance NFData Model
+instance NFData Model where
 
 -- | A single patch operation to apply to the specified resource. Please refer to http://tools.ietf.org/html/rfc6902#section-4 for an explanation of how each operation is used.
 --
 -- /See:/ 'patchOperation' smart constructor.
 data PatchOperation = PatchOperation'
-    { _poOp    :: !(Maybe Op)
-    , _poPath  :: !(Maybe Text)
-    , _poValue :: !(Maybe Text)
-    , _poFrom  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _poOp    :: !(Maybe Op)
+  , _poPath  :: !(Maybe Text)
+  , _poValue :: !(Maybe Text)
+  , _poFrom  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PatchOperation' with the minimum fields required to make a request.
 --
@@ -1576,12 +1676,9 @@ data PatchOperation = PatchOperation'
 patchOperation
     :: PatchOperation
 patchOperation =
-    PatchOperation'
-    { _poOp = Nothing
-    , _poPath = Nothing
-    , _poValue = Nothing
-    , _poFrom = Nothing
-    }
+  PatchOperation'
+  {_poOp = Nothing, _poPath = Nothing, _poValue = Nothing, _poFrom = Nothing}
+
 
 -- | An update operation to be performed with this PATCH request. The valid value can be "add", "remove", or "replace". Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message.
 poOp :: Lens' PatchOperation (Maybe Op)
@@ -1599,9 +1696,9 @@ poValue = lens _poValue (\ s a -> s{_poValue = a});
 poFrom :: Lens' PatchOperation (Maybe Text)
 poFrom = lens _poFrom (\ s a -> s{_poFrom = a});
 
-instance Hashable PatchOperation
+instance Hashable PatchOperation where
 
-instance NFData PatchOperation
+instance NFData PatchOperation where
 
 instance ToJSON PatchOperation where
         toJSON PatchOperation'{..}
@@ -1616,10 +1713,11 @@ instance ToJSON PatchOperation where
 --
 -- /See:/ 'quotaSettings' smart constructor.
 data QuotaSettings = QuotaSettings'
-    { _qsOffset :: !(Maybe Int)
-    , _qsPeriod :: !(Maybe QuotaPeriodType)
-    , _qsLimit  :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _qsOffset :: !(Maybe Int)
+  , _qsPeriod :: !(Maybe QuotaPeriodType)
+  , _qsLimit  :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'QuotaSettings' with the minimum fields required to make a request.
 --
@@ -1633,11 +1731,8 @@ data QuotaSettings = QuotaSettings'
 quotaSettings
     :: QuotaSettings
 quotaSettings =
-    QuotaSettings'
-    { _qsOffset = Nothing
-    , _qsPeriod = Nothing
-    , _qsLimit = Nothing
-    }
+  QuotaSettings' {_qsOffset = Nothing, _qsPeriod = Nothing, _qsLimit = Nothing}
+
 
 -- | The number of requests subtracted from the given limit in the initial time period.
 qsOffset :: Lens' QuotaSettings (Maybe Int)
@@ -1659,9 +1754,9 @@ instance FromJSON QuotaSettings where
                    (x .:? "offset") <*> (x .:? "period") <*>
                      (x .:? "limit"))
 
-instance Hashable QuotaSettings
+instance Hashable QuotaSettings where
 
-instance NFData QuotaSettings
+instance NFData QuotaSettings where
 
 instance ToJSON QuotaSettings where
         toJSON QuotaSettings'{..}
@@ -1680,11 +1775,12 @@ instance ToJSON QuotaSettings where
 --
 -- /See:/ 'requestValidator' smart constructor.
 data RequestValidator = RequestValidator'
-    { _rvValidateRequestParameters :: !(Maybe Bool)
-    , _rvName                      :: !(Maybe Text)
-    , _rvValidateRequestBody       :: !(Maybe Bool)
-    , _rvId                        :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rvValidateRequestParameters :: !(Maybe Bool)
+  , _rvName                      :: !(Maybe Text)
+  , _rvValidateRequestBody       :: !(Maybe Bool)
+  , _rvId                        :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RequestValidator' with the minimum fields required to make a request.
 --
@@ -1700,12 +1796,13 @@ data RequestValidator = RequestValidator'
 requestValidator
     :: RequestValidator
 requestValidator =
-    RequestValidator'
-    { _rvValidateRequestParameters = Nothing
-    , _rvName = Nothing
-    , _rvValidateRequestBody = Nothing
-    , _rvId = Nothing
-    }
+  RequestValidator'
+  { _rvValidateRequestParameters = Nothing
+  , _rvName = Nothing
+  , _rvValidateRequestBody = Nothing
+  , _rvId = Nothing
+  }
+
 
 -- | A Boolean flag to indicate whether to validate request parameters (@true@ ) or not (@false@ ).
 rvValidateRequestParameters :: Lens' RequestValidator (Maybe Bool)
@@ -1733,9 +1830,9 @@ instance FromJSON RequestValidator where
                      <*> (x .:? "validateRequestBody")
                      <*> (x .:? "id"))
 
-instance Hashable RequestValidator
+instance Hashable RequestValidator where
 
-instance NFData RequestValidator
+instance NFData RequestValidator where
 
 -- | Represents an API resource.
 --
@@ -1744,12 +1841,13 @@ instance NFData RequestValidator
 --
 -- /See:/ 'resource' smart constructor.
 data Resource = Resource'
-    { _rPathPart        :: !(Maybe Text)
-    , _rPath            :: !(Maybe Text)
-    , _rId              :: !(Maybe Text)
-    , _rResourceMethods :: !(Maybe (Map Text Method))
-    , _rParentId        :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rPathPart        :: !(Maybe Text)
+  , _rPath            :: !(Maybe Text)
+  , _rId              :: !(Maybe Text)
+  , _rResourceMethods :: !(Maybe (Map Text Method))
+  , _rParentId        :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Resource' with the minimum fields required to make a request.
 --
@@ -1767,13 +1865,14 @@ data Resource = Resource'
 resource
     :: Resource
 resource =
-    Resource'
-    { _rPathPart = Nothing
-    , _rPath = Nothing
-    , _rId = Nothing
-    , _rResourceMethods = Nothing
-    , _rParentId = Nothing
-    }
+  Resource'
+  { _rPathPart = Nothing
+  , _rPath = Nothing
+  , _rId = Nothing
+  , _rResourceMethods = Nothing
+  , _rParentId = Nothing
+  }
+
 
 -- | The last path segment for this resource.
 rPathPart :: Lens' Resource (Maybe Text)
@@ -1805,9 +1904,9 @@ instance FromJSON Resource where
                      <*> (x .:? "resourceMethods" .!= mempty)
                      <*> (x .:? "parentId"))
 
-instance Hashable Resource
+instance Hashable Resource where
 
-instance NFData Resource
+instance NFData Resource where
 
 -- | Represents a REST API.
 --
@@ -1816,14 +1915,16 @@ instance NFData Resource
 --
 -- /See:/ 'restAPI' smart constructor.
 data RestAPI = RestAPI'
-    { _raBinaryMediaTypes :: !(Maybe [Text])
-    , _raWarnings         :: !(Maybe [Text])
-    , _raCreatedDate      :: !(Maybe POSIX)
-    , _raName             :: !(Maybe Text)
-    , _raVersion          :: !(Maybe Text)
-    , _raId               :: !(Maybe Text)
-    , _raDescription      :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _raBinaryMediaTypes      :: !(Maybe [Text])
+  , _raWarnings              :: !(Maybe [Text])
+  , _raCreatedDate           :: !(Maybe POSIX)
+  , _raName                  :: !(Maybe Text)
+  , _raVersion               :: !(Maybe Text)
+  , _raId                    :: !(Maybe Text)
+  , _raEndpointConfiguration :: !(Maybe EndpointConfiguration)
+  , _raDescription           :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestAPI' with the minimum fields required to make a request.
 --
@@ -1841,19 +1942,23 @@ data RestAPI = RestAPI'
 --
 -- * 'raId' - The API's identifier. This identifier is unique across all of your APIs in Amazon API Gateway.
 --
+-- * 'raEndpointConfiguration' - The endpoint configuration of this 'RestApi' showing the endpoint types of the API.
+--
 -- * 'raDescription' - The API's description.
 restAPI
     :: RestAPI
 restAPI =
-    RestAPI'
-    { _raBinaryMediaTypes = Nothing
-    , _raWarnings = Nothing
-    , _raCreatedDate = Nothing
-    , _raName = Nothing
-    , _raVersion = Nothing
-    , _raId = Nothing
-    , _raDescription = Nothing
-    }
+  RestAPI'
+  { _raBinaryMediaTypes = Nothing
+  , _raWarnings = Nothing
+  , _raCreatedDate = Nothing
+  , _raName = Nothing
+  , _raVersion = Nothing
+  , _raId = Nothing
+  , _raEndpointConfiguration = Nothing
+  , _raDescription = Nothing
+  }
+
 
 -- | The list of binary media types supported by the 'RestApi' . By default, the 'RestApi' supports only UTF-8-encoded text payloads.
 raBinaryMediaTypes :: Lens' RestAPI [Text]
@@ -1879,6 +1984,10 @@ raVersion = lens _raVersion (\ s a -> s{_raVersion = a});
 raId :: Lens' RestAPI (Maybe Text)
 raId = lens _raId (\ s a -> s{_raId = a});
 
+-- | The endpoint configuration of this 'RestApi' showing the endpoint types of the API.
+raEndpointConfiguration :: Lens' RestAPI (Maybe EndpointConfiguration)
+raEndpointConfiguration = lens _raEndpointConfiguration (\ s a -> s{_raEndpointConfiguration = a});
+
 -- | The API's description.
 raDescription :: Lens' RestAPI (Maybe Text)
 raDescription = lens _raDescription (\ s a -> s{_raDescription = a});
@@ -1894,11 +2003,12 @@ instance FromJSON RestAPI where
                      <*> (x .:? "name")
                      <*> (x .:? "version")
                      <*> (x .:? "id")
+                     <*> (x .:? "endpointConfiguration")
                      <*> (x .:? "description"))
 
-instance Hashable RestAPI
+instance Hashable RestAPI where
 
-instance NFData RestAPI
+instance NFData RestAPI where
 
 -- | A configuration property of an SDK type.
 --
@@ -1906,12 +2016,13 @@ instance NFData RestAPI
 --
 -- /See:/ 'sdkConfigurationProperty' smart constructor.
 data SDKConfigurationProperty = SDKConfigurationProperty'
-    { _scpFriendlyName :: !(Maybe Text)
-    , _scpRequired     :: !(Maybe Bool)
-    , _scpName         :: !(Maybe Text)
-    , _scpDefaultValue :: !(Maybe Text)
-    , _scpDescription  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _scpFriendlyName :: !(Maybe Text)
+  , _scpRequired     :: !(Maybe Bool)
+  , _scpName         :: !(Maybe Text)
+  , _scpDefaultValue :: !(Maybe Text)
+  , _scpDescription  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SDKConfigurationProperty' with the minimum fields required to make a request.
 --
@@ -1929,13 +2040,14 @@ data SDKConfigurationProperty = SDKConfigurationProperty'
 sdkConfigurationProperty
     :: SDKConfigurationProperty
 sdkConfigurationProperty =
-    SDKConfigurationProperty'
-    { _scpFriendlyName = Nothing
-    , _scpRequired = Nothing
-    , _scpName = Nothing
-    , _scpDefaultValue = Nothing
-    , _scpDescription = Nothing
-    }
+  SDKConfigurationProperty'
+  { _scpFriendlyName = Nothing
+  , _scpRequired = Nothing
+  , _scpName = Nothing
+  , _scpDefaultValue = Nothing
+  , _scpDescription = Nothing
+  }
+
 
 -- | The user-friendly name of an 'SdkType' configuration property.
 scpFriendlyName :: Lens' SDKConfigurationProperty (Maybe Text)
@@ -1967,9 +2079,9 @@ instance FromJSON SDKConfigurationProperty where
                      <*> (x .:? "defaultValue")
                      <*> (x .:? "description"))
 
-instance Hashable SDKConfigurationProperty
+instance Hashable SDKConfigurationProperty where
 
-instance NFData SDKConfigurationProperty
+instance NFData SDKConfigurationProperty where
 
 -- | A type of SDK that API Gateway can generate.
 --
@@ -1977,11 +2089,12 @@ instance NFData SDKConfigurationProperty
 --
 -- /See:/ 'sdkType' smart constructor.
 data SDKType = SDKType'
-    { _stFriendlyName            :: !(Maybe Text)
-    , _stConfigurationProperties :: !(Maybe [SDKConfigurationProperty])
-    , _stId                      :: !(Maybe Text)
-    , _stDescription             :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _stFriendlyName            :: !(Maybe Text)
+  , _stConfigurationProperties :: !(Maybe [SDKConfigurationProperty])
+  , _stId                      :: !(Maybe Text)
+  , _stDescription             :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SDKType' with the minimum fields required to make a request.
 --
@@ -1997,12 +2110,13 @@ data SDKType = SDKType'
 sdkType
     :: SDKType
 sdkType =
-    SDKType'
-    { _stFriendlyName = Nothing
-    , _stConfigurationProperties = Nothing
-    , _stId = Nothing
-    , _stDescription = Nothing
-    }
+  SDKType'
+  { _stFriendlyName = Nothing
+  , _stConfigurationProperties = Nothing
+  , _stId = Nothing
+  , _stDescription = Nothing
+  }
+
 
 -- | The user-friendly name of an 'SdkType' instance.
 stFriendlyName :: Lens' SDKType (Maybe Text)
@@ -2030,9 +2144,9 @@ instance FromJSON SDKType where
                      <*> (x .:? "id")
                      <*> (x .:? "description"))
 
-instance Hashable SDKType
+instance Hashable SDKType where
 
-instance NFData SDKType
+instance NFData SDKType where
 
 -- | Represents a unique identifier for a version of a deployed 'RestApi' that is callable by users.
 --
@@ -2041,19 +2155,20 @@ instance NFData SDKType
 --
 -- /See:/ 'stage' smart constructor.
 data Stage = Stage'
-    { _sDeploymentId         :: !(Maybe Text)
-    , _sVariables            :: !(Maybe (Map Text Text))
-    , _sDocumentationVersion :: !(Maybe Text)
-    , _sClientCertificateId  :: !(Maybe Text)
-    , _sCreatedDate          :: !(Maybe POSIX)
-    , _sCacheClusterStatus   :: !(Maybe CacheClusterStatus)
-    , _sMethodSettings       :: !(Maybe (Map Text MethodSetting))
-    , _sLastUpdatedDate      :: !(Maybe POSIX)
-    , _sCacheClusterSize     :: !(Maybe CacheClusterSize)
-    , _sCacheClusterEnabled  :: !(Maybe Bool)
-    , _sStageName            :: !(Maybe Text)
-    , _sDescription          :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sDeploymentId         :: !(Maybe Text)
+  , _sVariables            :: !(Maybe (Map Text Text))
+  , _sDocumentationVersion :: !(Maybe Text)
+  , _sClientCertificateId  :: !(Maybe Text)
+  , _sCreatedDate          :: !(Maybe POSIX)
+  , _sCacheClusterStatus   :: !(Maybe CacheClusterStatus)
+  , _sMethodSettings       :: !(Maybe (Map Text MethodSetting))
+  , _sLastUpdatedDate      :: !(Maybe POSIX)
+  , _sCacheClusterSize     :: !(Maybe CacheClusterSize)
+  , _sCacheClusterEnabled  :: !(Maybe Bool)
+  , _sStageName            :: !(Maybe Text)
+  , _sDescription          :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Stage' with the minimum fields required to make a request.
 --
@@ -2085,20 +2200,21 @@ data Stage = Stage'
 stage
     :: Stage
 stage =
-    Stage'
-    { _sDeploymentId = Nothing
-    , _sVariables = Nothing
-    , _sDocumentationVersion = Nothing
-    , _sClientCertificateId = Nothing
-    , _sCreatedDate = Nothing
-    , _sCacheClusterStatus = Nothing
-    , _sMethodSettings = Nothing
-    , _sLastUpdatedDate = Nothing
-    , _sCacheClusterSize = Nothing
-    , _sCacheClusterEnabled = Nothing
-    , _sStageName = Nothing
-    , _sDescription = Nothing
-    }
+  Stage'
+  { _sDeploymentId = Nothing
+  , _sVariables = Nothing
+  , _sDocumentationVersion = Nothing
+  , _sClientCertificateId = Nothing
+  , _sCreatedDate = Nothing
+  , _sCacheClusterStatus = Nothing
+  , _sMethodSettings = Nothing
+  , _sLastUpdatedDate = Nothing
+  , _sCacheClusterSize = Nothing
+  , _sCacheClusterEnabled = Nothing
+  , _sStageName = Nothing
+  , _sDescription = Nothing
+  }
+
 
 -- | The identifier of the 'Deployment' that the stage points to.
 sDeploymentId :: Lens' Stage (Maybe Text)
@@ -2166,9 +2282,9 @@ instance FromJSON Stage where
                      <*> (x .:? "stageName")
                      <*> (x .:? "description"))
 
-instance Hashable Stage
+instance Hashable Stage where
 
-instance NFData Stage
+instance NFData Stage where
 
 -- | A reference to a unique stage identified in the format @{restApiId}/{stage}@ .
 --
@@ -2176,9 +2292,10 @@ instance NFData Stage
 --
 -- /See:/ 'stageKey' smart constructor.
 data StageKey = StageKey'
-    { _skRestAPIId :: !(Maybe Text)
-    , _skStageName :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _skRestAPIId :: !(Maybe Text)
+  , _skStageName :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StageKey' with the minimum fields required to make a request.
 --
@@ -2189,11 +2306,8 @@ data StageKey = StageKey'
 -- * 'skStageName' - The stage name associated with the stage key.
 stageKey
     :: StageKey
-stageKey =
-    StageKey'
-    { _skRestAPIId = Nothing
-    , _skStageName = Nothing
-    }
+stageKey = StageKey' {_skRestAPIId = Nothing, _skStageName = Nothing}
+
 
 -- | The string identifier of the associated 'RestApi' .
 skRestAPIId :: Lens' StageKey (Maybe Text)
@@ -2203,9 +2317,9 @@ skRestAPIId = lens _skRestAPIId (\ s a -> s{_skRestAPIId = a});
 skStageName :: Lens' StageKey (Maybe Text)
 skStageName = lens _skStageName (\ s a -> s{_skStageName = a});
 
-instance Hashable StageKey
+instance Hashable StageKey where
 
-instance NFData StageKey
+instance NFData StageKey where
 
 instance ToJSON StageKey where
         toJSON StageKey'{..}
@@ -2220,9 +2334,10 @@ instance ToJSON StageKey where
 --
 -- /See:/ 'throttleSettings' smart constructor.
 data ThrottleSettings = ThrottleSettings'
-    { _tsBurstLimit :: !(Maybe Int)
-    , _tsRateLimit  :: !(Maybe Double)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tsBurstLimit :: !(Maybe Int)
+  , _tsRateLimit  :: !(Maybe Double)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ThrottleSettings' with the minimum fields required to make a request.
 --
@@ -2234,10 +2349,8 @@ data ThrottleSettings = ThrottleSettings'
 throttleSettings
     :: ThrottleSettings
 throttleSettings =
-    ThrottleSettings'
-    { _tsBurstLimit = Nothing
-    , _tsRateLimit = Nothing
-    }
+  ThrottleSettings' {_tsBurstLimit = Nothing, _tsRateLimit = Nothing}
+
 
 -- | The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon whether the underlying token bucket is at its full capacity.
 tsBurstLimit :: Lens' ThrottleSettings (Maybe Int)
@@ -2254,9 +2367,9 @@ instance FromJSON ThrottleSettings where
                  ThrottleSettings' <$>
                    (x .:? "burstLimit") <*> (x .:? "rateLimit"))
 
-instance Hashable ThrottleSettings
+instance Hashable ThrottleSettings where
 
-instance NFData ThrottleSettings
+instance NFData ThrottleSettings where
 
 instance ToJSON ThrottleSettings where
         toJSON ThrottleSettings'{..}
@@ -2272,12 +2385,13 @@ instance ToJSON ThrottleSettings where
 --
 -- /See:/ 'usage' smart constructor.
 data Usage = Usage'
-    { _uUsagePlanId :: !(Maybe Text)
-    , _uEndDate     :: !(Maybe Text)
-    , _uItems       :: !(Maybe (Map Text [[Integer]]))
-    , _uStartDate   :: !(Maybe Text)
-    , _uPosition    :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uUsagePlanId :: !(Maybe Text)
+  , _uEndDate     :: !(Maybe Text)
+  , _uItems       :: !(Maybe (Map Text [[Integer]]))
+  , _uStartDate   :: !(Maybe Text)
+  , _uPosition    :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Usage' with the minimum fields required to make a request.
 --
@@ -2295,13 +2409,14 @@ data Usage = Usage'
 usage
     :: Usage
 usage =
-    Usage'
-    { _uUsagePlanId = Nothing
-    , _uEndDate = Nothing
-    , _uItems = Nothing
-    , _uStartDate = Nothing
-    , _uPosition = Nothing
-    }
+  Usage'
+  { _uUsagePlanId = Nothing
+  , _uEndDate = Nothing
+  , _uItems = Nothing
+  , _uStartDate = Nothing
+  , _uPosition = Nothing
+  }
+
 
 -- | The plan Id associated with this usage data.
 uUsagePlanId :: Lens' Usage (Maybe Text)
@@ -2333,9 +2448,9 @@ instance FromJSON Usage where
                      <*> (x .:? "startDate")
                      <*> (x .:? "position"))
 
-instance Hashable Usage
+instance Hashable Usage where
 
-instance NFData Usage
+instance NFData Usage where
 
 -- | Represents a usage plan than can specify who can assess associated API stages with specified request limits and quotas.
 --
@@ -2346,14 +2461,15 @@ instance NFData Usage
 --
 -- /See:/ 'usagePlan' smart constructor.
 data UsagePlan = UsagePlan'
-    { _upApiStages   :: !(Maybe [APIStage])
-    , _upName        :: !(Maybe Text)
-    , _upId          :: !(Maybe Text)
-    , _upThrottle    :: !(Maybe ThrottleSettings)
-    , _upQuota       :: !(Maybe QuotaSettings)
-    , _upDescription :: !(Maybe Text)
-    , _upProductCode :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _upApiStages   :: !(Maybe [APIStage])
+  , _upName        :: !(Maybe Text)
+  , _upId          :: !(Maybe Text)
+  , _upThrottle    :: !(Maybe ThrottleSettings)
+  , _upQuota       :: !(Maybe QuotaSettings)
+  , _upDescription :: !(Maybe Text)
+  , _upProductCode :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UsagePlan' with the minimum fields required to make a request.
 --
@@ -2375,15 +2491,16 @@ data UsagePlan = UsagePlan'
 usagePlan
     :: UsagePlan
 usagePlan =
-    UsagePlan'
-    { _upApiStages = Nothing
-    , _upName = Nothing
-    , _upId = Nothing
-    , _upThrottle = Nothing
-    , _upQuota = Nothing
-    , _upDescription = Nothing
-    , _upProductCode = Nothing
-    }
+  UsagePlan'
+  { _upApiStages = Nothing
+  , _upName = Nothing
+  , _upId = Nothing
+  , _upThrottle = Nothing
+  , _upQuota = Nothing
+  , _upDescription = Nothing
+  , _upProductCode = Nothing
+  }
+
 
 -- | The associated API stages of a usage plan.
 upApiStages :: Lens' UsagePlan [APIStage]
@@ -2425,9 +2542,9 @@ instance FromJSON UsagePlan where
                      <*> (x .:? "description")
                      <*> (x .:? "productCode"))
 
-instance Hashable UsagePlan
+instance Hashable UsagePlan where
 
-instance NFData UsagePlan
+instance NFData UsagePlan where
 
 -- | Represents a usage plan key to identify a plan customer.
 --
@@ -2438,11 +2555,12 @@ instance NFData UsagePlan
 --
 -- /See:/ 'usagePlanKey' smart constructor.
 data UsagePlanKey = UsagePlanKey'
-    { _upkValue :: !(Maybe Text)
-    , _upkName  :: !(Maybe Text)
-    , _upkId    :: !(Maybe Text)
-    , _upkType  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _upkValue :: !(Maybe Text)
+  , _upkName  :: !(Maybe Text)
+  , _upkId    :: !(Maybe Text)
+  , _upkType  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UsagePlanKey' with the minimum fields required to make a request.
 --
@@ -2458,12 +2576,13 @@ data UsagePlanKey = UsagePlanKey'
 usagePlanKey
     :: UsagePlanKey
 usagePlanKey =
-    UsagePlanKey'
-    { _upkValue = Nothing
-    , _upkName = Nothing
-    , _upkId = Nothing
-    , _upkType = Nothing
-    }
+  UsagePlanKey'
+  { _upkValue = Nothing
+  , _upkName = Nothing
+  , _upkId = Nothing
+  , _upkType = Nothing
+  }
+
 
 -- | The value of a usage plan key.
 upkValue :: Lens' UsagePlanKey (Maybe Text)
@@ -2489,6 +2608,6 @@ instance FromJSON UsagePlanKey where
                    (x .:? "value") <*> (x .:? "name") <*> (x .:? "id")
                      <*> (x .:? "type"))
 
-instance Hashable UsagePlanKey
+instance Hashable UsagePlanKey where
 
-instance NFData UsagePlanKey
+instance NFData UsagePlanKey where

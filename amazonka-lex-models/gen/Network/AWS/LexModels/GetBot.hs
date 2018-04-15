@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.GetBot
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns metadata information for a specific bot. You must provide the bot name and the bot version or alias.
 --
 --
--- The GetBot operation requires permissions for the @lex:GetBot@ action.
+-- This operation requires permissions for the @lex:GetBot@ action.
 --
 module Network.AWS.LexModels.GetBot
     (
@@ -54,18 +54,19 @@ module Network.AWS.LexModels.GetBot
     , gbrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getBot' smart constructor.
 data GetBot = GetBot'
-    { _gbName           :: !Text
-    , _gbVersionOrAlias :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gbName           :: !Text
+  , _gbVersionOrAlias :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetBot' with the minimum fields required to make a request.
 --
@@ -79,10 +80,8 @@ getBot
     -> Text -- ^ 'gbVersionOrAlias'
     -> GetBot
 getBot pName_ pVersionOrAlias_ =
-    GetBot'
-    { _gbName = pName_
-    , _gbVersionOrAlias = pVersionOrAlias_
-    }
+  GetBot' {_gbName = pName_, _gbVersionOrAlias = pVersionOrAlias_}
+
 
 -- | The name of the bot. The name is case sensitive.
 gbName :: Lens' GetBot Text
@@ -101,7 +100,7 @@ instance AWSRequest GetBot where
                  GetBotResponse' <$>
                    (x .?> "failureReason") <*> (x .?> "status") <*>
                      (x .?> "abortStatement")
-                     <*> (x .?> "intents")
+                     <*> (x .?> "intents" .!@ mempty)
                      <*> (x .?> "checksum")
                      <*> (x .?> "locale")
                      <*> (x .?> "createdDate")
@@ -115,9 +114,9 @@ instance AWSRequest GetBot where
                      <*> (x .?> "description")
                      <*> (pure (fromEnum s)))
 
-instance Hashable GetBot
+instance Hashable GetBot where
 
-instance NFData GetBot
+instance NFData GetBot where
 
 instance ToHeaders GetBot where
         toHeaders
@@ -137,23 +136,24 @@ instance ToQuery GetBot where
 
 -- | /See:/ 'getBotResponse' smart constructor.
 data GetBotResponse = GetBotResponse'
-    { _gbrsFailureReason           :: !(Maybe Text)
-    , _gbrsStatus                  :: !(Maybe LexStatus)
-    , _gbrsAbortStatement          :: !(Maybe Statement)
-    , _gbrsIntents                 :: !(Maybe (List1 Intent))
-    , _gbrsChecksum                :: !(Maybe Text)
-    , _gbrsLocale                  :: !(Maybe Locale)
-    , _gbrsCreatedDate             :: !(Maybe POSIX)
-    , _gbrsName                    :: !(Maybe Text)
-    , _gbrsVersion                 :: !(Maybe Text)
-    , _gbrsIdleSessionTTLInSeconds :: !(Maybe Nat)
-    , _gbrsClarificationPrompt     :: !(Maybe Prompt)
-    , _gbrsVoiceId                 :: !(Maybe Text)
-    , _gbrsLastUpdatedDate         :: !(Maybe POSIX)
-    , _gbrsChildDirected           :: !(Maybe Bool)
-    , _gbrsDescription             :: !(Maybe Text)
-    , _gbrsResponseStatus          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gbrsFailureReason           :: !(Maybe Text)
+  , _gbrsStatus                  :: !(Maybe LexStatus)
+  , _gbrsAbortStatement          :: !(Maybe Statement)
+  , _gbrsIntents                 :: !(Maybe [Intent])
+  , _gbrsChecksum                :: !(Maybe Text)
+  , _gbrsLocale                  :: !(Maybe Locale)
+  , _gbrsCreatedDate             :: !(Maybe POSIX)
+  , _gbrsName                    :: !(Maybe Text)
+  , _gbrsVersion                 :: !(Maybe Text)
+  , _gbrsIdleSessionTTLInSeconds :: !(Maybe Nat)
+  , _gbrsClarificationPrompt     :: !(Maybe Prompt)
+  , _gbrsVoiceId                 :: !(Maybe Text)
+  , _gbrsLastUpdatedDate         :: !(Maybe POSIX)
+  , _gbrsChildDirected           :: !(Maybe Bool)
+  , _gbrsDescription             :: !(Maybe Text)
+  , _gbrsResponseStatus          :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetBotResponse' with the minimum fields required to make a request.
 --
@@ -194,24 +194,25 @@ getBotResponse
     :: Int -- ^ 'gbrsResponseStatus'
     -> GetBotResponse
 getBotResponse pResponseStatus_ =
-    GetBotResponse'
-    { _gbrsFailureReason = Nothing
-    , _gbrsStatus = Nothing
-    , _gbrsAbortStatement = Nothing
-    , _gbrsIntents = Nothing
-    , _gbrsChecksum = Nothing
-    , _gbrsLocale = Nothing
-    , _gbrsCreatedDate = Nothing
-    , _gbrsName = Nothing
-    , _gbrsVersion = Nothing
-    , _gbrsIdleSessionTTLInSeconds = Nothing
-    , _gbrsClarificationPrompt = Nothing
-    , _gbrsVoiceId = Nothing
-    , _gbrsLastUpdatedDate = Nothing
-    , _gbrsChildDirected = Nothing
-    , _gbrsDescription = Nothing
-    , _gbrsResponseStatus = pResponseStatus_
-    }
+  GetBotResponse'
+  { _gbrsFailureReason = Nothing
+  , _gbrsStatus = Nothing
+  , _gbrsAbortStatement = Nothing
+  , _gbrsIntents = Nothing
+  , _gbrsChecksum = Nothing
+  , _gbrsLocale = Nothing
+  , _gbrsCreatedDate = Nothing
+  , _gbrsName = Nothing
+  , _gbrsVersion = Nothing
+  , _gbrsIdleSessionTTLInSeconds = Nothing
+  , _gbrsClarificationPrompt = Nothing
+  , _gbrsVoiceId = Nothing
+  , _gbrsLastUpdatedDate = Nothing
+  , _gbrsChildDirected = Nothing
+  , _gbrsDescription = Nothing
+  , _gbrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | If @status@ is @FAILED@ , Amazon Lex explains why it failed to build the bot.
 gbrsFailureReason :: Lens' GetBotResponse (Maybe Text)
@@ -226,8 +227,8 @@ gbrsAbortStatement :: Lens' GetBotResponse (Maybe Statement)
 gbrsAbortStatement = lens _gbrsAbortStatement (\ s a -> s{_gbrsAbortStatement = a});
 
 -- | An array of @intent@ objects. For more information, see 'PutBot' .
-gbrsIntents :: Lens' GetBotResponse (Maybe (NonEmpty Intent))
-gbrsIntents = lens _gbrsIntents (\ s a -> s{_gbrsIntents = a}) . mapping _List1;
+gbrsIntents :: Lens' GetBotResponse [Intent]
+gbrsIntents = lens _gbrsIntents (\ s a -> s{_gbrsIntents = a}) . _Default . _Coerce;
 
 -- | Checksum of the bot used to identify a specific revision of the bot's @> LATEST@ version.
 gbrsChecksum :: Lens' GetBotResponse (Maybe Text)
@@ -277,4 +278,4 @@ gbrsDescription = lens _gbrsDescription (\ s a -> s{_gbrsDescription = a});
 gbrsResponseStatus :: Lens' GetBotResponse Int
 gbrsResponseStatus = lens _gbrsResponseStatus (\ s a -> s{_gbrsResponseStatus = a});
 
-instance NFData GetBotResponse
+instance NFData GetBotResponse where

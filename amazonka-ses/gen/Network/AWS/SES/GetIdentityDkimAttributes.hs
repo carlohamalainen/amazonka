@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.SES.GetIdentityDkimAttributes
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the current status of Easy DKIM signing for an entity. For domain name identities, this action also returns the DKIM tokens that are required for Easy DKIM signing, and whether Amazon SES has successfully verified that these tokens have been published.
+-- Returns the current status of Easy DKIM signing for an entity. For domain name identities, this operation also returns the DKIM tokens that are required for Easy DKIM signing, and whether Amazon SES has successfully verified that these tokens have been published.
 --
 --
--- This action takes a list of identities as input and returns the following information for each:
+-- This operation takes a list of identities as input and returns the following information for each:
 --
 --     * Whether Easy DKIM signing is enabled or disabled.
 --
@@ -31,7 +31,7 @@
 --
 --
 --
--- This action is throttled at one request per second and can only get DKIM attributes for up to 100 identities at a time.
+-- This operation is throttled at one request per second and can only get DKIM attributes for up to 100 identities at a time.
 --
 -- For more information about creating DNS records using DKIM tokens, go to the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim-dns-records.html Amazon SES Developer Guide> .
 --
@@ -51,12 +51,12 @@ module Network.AWS.SES.GetIdentityDkimAttributes
     , gidarsDkimAttributes
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SES.Types
-import           Network.AWS.SES.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SES.Types
+import Network.AWS.SES.Types.Product
 
 -- | Represents a request for the status of Amazon SES Easy DKIM signing for an identity. For domain identities, this request also returns the DKIM tokens that are required for Easy DKIM signing, and whether Amazon SES successfully verified that these tokens were published. For more information about Easy DKIM, see the <http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Amazon SES Developer Guide> .
 --
@@ -64,8 +64,9 @@ import           Network.AWS.SES.Types.Product
 --
 -- /See:/ 'getIdentityDkimAttributes' smart constructor.
 newtype GetIdentityDkimAttributes = GetIdentityDkimAttributes'
-    { _gidaIdentities :: [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gidaIdentities :: [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetIdentityDkimAttributes' with the minimum fields required to make a request.
 --
@@ -75,9 +76,8 @@ newtype GetIdentityDkimAttributes = GetIdentityDkimAttributes'
 getIdentityDkimAttributes
     :: GetIdentityDkimAttributes
 getIdentityDkimAttributes =
-    GetIdentityDkimAttributes'
-    { _gidaIdentities = mempty
-    }
+  GetIdentityDkimAttributes' {_gidaIdentities = mempty}
+
 
 -- | A list of one or more verified identities - email addresses, domains, or both.
 gidaIdentities :: Lens' GetIdentityDkimAttributes [Text]
@@ -95,9 +95,9 @@ instance AWSRequest GetIdentityDkimAttributes where
                      (x .@? "DkimAttributes" .!@ mempty >>=
                         parseXMLMap "entry" "key" "value"))
 
-instance Hashable GetIdentityDkimAttributes
+instance Hashable GetIdentityDkimAttributes where
 
-instance NFData GetIdentityDkimAttributes
+instance NFData GetIdentityDkimAttributes where
 
 instance ToHeaders GetIdentityDkimAttributes where
         toHeaders = const mempty
@@ -119,9 +119,10 @@ instance ToQuery GetIdentityDkimAttributes where
 --
 -- /See:/ 'getIdentityDkimAttributesResponse' smart constructor.
 data GetIdentityDkimAttributesResponse = GetIdentityDkimAttributesResponse'
-    { _gidarsResponseStatus :: !Int
-    , _gidarsDkimAttributes :: !(Map Text IdentityDkimAttributes)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gidarsResponseStatus :: !Int
+  , _gidarsDkimAttributes :: !(Map Text IdentityDkimAttributes)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetIdentityDkimAttributesResponse' with the minimum fields required to make a request.
 --
@@ -134,10 +135,9 @@ getIdentityDkimAttributesResponse
     :: Int -- ^ 'gidarsResponseStatus'
     -> GetIdentityDkimAttributesResponse
 getIdentityDkimAttributesResponse pResponseStatus_ =
-    GetIdentityDkimAttributesResponse'
-    { _gidarsResponseStatus = pResponseStatus_
-    , _gidarsDkimAttributes = mempty
-    }
+  GetIdentityDkimAttributesResponse'
+  {_gidarsResponseStatus = pResponseStatus_, _gidarsDkimAttributes = mempty}
+
 
 -- | -- | The response status code.
 gidarsResponseStatus :: Lens' GetIdentityDkimAttributesResponse Int
@@ -148,3 +148,4 @@ gidarsDkimAttributes :: Lens' GetIdentityDkimAttributesResponse (HashMap Text Id
 gidarsDkimAttributes = lens _gidarsDkimAttributes (\ s a -> s{_gidarsDkimAttributes = a}) . _Map;
 
 instance NFData GetIdentityDkimAttributesResponse
+         where

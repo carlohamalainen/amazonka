@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ServiceCatalog.SearchProductsAsAdmin
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -45,24 +45,25 @@ module Network.AWS.ServiceCatalog.SearchProductsAsAdmin
     , spaarsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.ServiceCatalog.Types
-import           Network.AWS.ServiceCatalog.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.ServiceCatalog.Types
+import Network.AWS.ServiceCatalog.Types.Product
 
 -- | /See:/ 'searchProductsAsAdmin' smart constructor.
 data SearchProductsAsAdmin = SearchProductsAsAdmin'
-    { _spaaPortfolioId    :: !(Maybe Text)
-    , _spaaFilters        :: !(Maybe (Map ProductViewFilterBy [Text]))
-    , _spaaSortOrder      :: !(Maybe SortOrder)
-    , _spaaAcceptLanguage :: !(Maybe Text)
-    , _spaaPageToken      :: !(Maybe Text)
-    , _spaaPageSize       :: !(Maybe Nat)
-    , _spaaProductSource  :: !(Maybe ProductSource)
-    , _spaaSortBy         :: !(Maybe ProductViewSortBy)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spaaPortfolioId    :: !(Maybe Text)
+  , _spaaFilters        :: !(Maybe (Map ProductViewFilterBy [Text]))
+  , _spaaSortOrder      :: !(Maybe SortOrder)
+  , _spaaAcceptLanguage :: !(Maybe Text)
+  , _spaaPageToken      :: !(Maybe Text)
+  , _spaaPageSize       :: !(Maybe Nat)
+  , _spaaProductSource  :: !(Maybe ProductSource)
+  , _spaaSortBy         :: !(Maybe ProductViewSortBy)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SearchProductsAsAdmin' with the minimum fields required to make a request.
 --
@@ -74,7 +75,7 @@ data SearchProductsAsAdmin = SearchProductsAsAdmin'
 --
 -- * 'spaaSortOrder' - The sort order specifier. If no value is specified, results are not sorted.
 --
--- * 'spaaAcceptLanguage' - The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- * 'spaaAcceptLanguage' - The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 --
 -- * 'spaaPageToken' - The page token of the first page retrieved. If null, this retrieves the first page of size @PageSize@ .
 --
@@ -86,16 +87,17 @@ data SearchProductsAsAdmin = SearchProductsAsAdmin'
 searchProductsAsAdmin
     :: SearchProductsAsAdmin
 searchProductsAsAdmin =
-    SearchProductsAsAdmin'
-    { _spaaPortfolioId = Nothing
-    , _spaaFilters = Nothing
-    , _spaaSortOrder = Nothing
-    , _spaaAcceptLanguage = Nothing
-    , _spaaPageToken = Nothing
-    , _spaaPageSize = Nothing
-    , _spaaProductSource = Nothing
-    , _spaaSortBy = Nothing
-    }
+  SearchProductsAsAdmin'
+  { _spaaPortfolioId = Nothing
+  , _spaaFilters = Nothing
+  , _spaaSortOrder = Nothing
+  , _spaaAcceptLanguage = Nothing
+  , _spaaPageToken = Nothing
+  , _spaaPageSize = Nothing
+  , _spaaProductSource = Nothing
+  , _spaaSortBy = Nothing
+  }
+
 
 -- | The portfolio identifier.
 spaaPortfolioId :: Lens' SearchProductsAsAdmin (Maybe Text)
@@ -109,7 +111,7 @@ spaaFilters = lens _spaaFilters (\ s a -> s{_spaaFilters = a}) . _Default . _Map
 spaaSortOrder :: Lens' SearchProductsAsAdmin (Maybe SortOrder)
 spaaSortOrder = lens _spaaSortOrder (\ s a -> s{_spaaSortOrder = a});
 
--- | The language code to use for this operation. Supported language codes are as follows: "en" (English) "jp" (Japanese) "zh" (Chinese) If no code is specified, "en" is used as the default.
+-- | The language code.     * @en@ - English (default)     * @jp@ - Japanese     * @zh@ - Chinese
 spaaAcceptLanguage :: Lens' SearchProductsAsAdmin (Maybe Text)
 spaaAcceptLanguage = lens _spaaAcceptLanguage (\ s a -> s{_spaaAcceptLanguage = a});
 
@@ -141,9 +143,9 @@ instance AWSRequest SearchProductsAsAdmin where
                      (x .?> "ProductViewDetails" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable SearchProductsAsAdmin
+instance Hashable SearchProductsAsAdmin where
 
-instance NFData SearchProductsAsAdmin
+instance NFData SearchProductsAsAdmin where
 
 instance ToHeaders SearchProductsAsAdmin where
         toHeaders
@@ -176,10 +178,11 @@ instance ToQuery SearchProductsAsAdmin where
 
 -- | /See:/ 'searchProductsAsAdminResponse' smart constructor.
 data SearchProductsAsAdminResponse = SearchProductsAsAdminResponse'
-    { _spaarsNextPageToken      :: !(Maybe Text)
-    , _spaarsProductViewDetails :: !(Maybe [ProductViewDetail])
-    , _spaarsResponseStatus     :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spaarsNextPageToken      :: !(Maybe Text)
+  , _spaarsProductViewDetails :: !(Maybe [ProductViewDetail])
+  , _spaarsResponseStatus     :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SearchProductsAsAdminResponse' with the minimum fields required to make a request.
 --
@@ -194,11 +197,12 @@ searchProductsAsAdminResponse
     :: Int -- ^ 'spaarsResponseStatus'
     -> SearchProductsAsAdminResponse
 searchProductsAsAdminResponse pResponseStatus_ =
-    SearchProductsAsAdminResponse'
-    { _spaarsNextPageToken = Nothing
-    , _spaarsProductViewDetails = Nothing
-    , _spaarsResponseStatus = pResponseStatus_
-    }
+  SearchProductsAsAdminResponse'
+  { _spaarsNextPageToken = Nothing
+  , _spaarsProductViewDetails = Nothing
+  , _spaarsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The page token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.
 spaarsNextPageToken :: Lens' SearchProductsAsAdminResponse (Maybe Text)
@@ -212,4 +216,4 @@ spaarsProductViewDetails = lens _spaarsProductViewDetails (\ s a -> s{_spaarsPro
 spaarsResponseStatus :: Lens' SearchProductsAsAdminResponse Int
 spaarsResponseStatus = lens _spaarsResponseStatus (\ s a -> s{_spaarsResponseStatus = a});
 
-instance NFData SearchProductsAsAdminResponse
+instance NFData SearchProductsAsAdminResponse where

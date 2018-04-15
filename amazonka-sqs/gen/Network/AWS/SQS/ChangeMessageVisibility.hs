@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.SQS.ChangeMessageVisibility
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the visibility timeout of a specified message in a queue to a new value. The maximum allowed timeout value is 12 hours. Thus, you can't extend the timeout of a message in an existing queue to more than a total visibility timeout of 12 hours. For more information, see <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout> in the /Amazon SQS Developer Guide/ .
+-- Changes the visibility timeout of a specified message in a queue to a new value. The maximum allowed timeout value is 12 hours. Thus, you can't extend the timeout of a message in an existing queue to more than a total visibility timeout of 12 hours. For more information, see <http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout> in the /Amazon Simple Queue Service Developer Guide/ .
 --
 --
--- For example, you have a message and with the default visibility timeout of 5 minutes. After 3 minutes, you call @ChangeMessageVisiblity@ with a timeout of 10 minutes. At that time, the timeout for the message is extended by 10 minutes beyond the time of the @ChangeMessageVisibility@ action. This results in a total visibility timeout of 13 minutes. You can continue to call the @ChangeMessageVisibility@ to extend the visibility timeout to a maximum of 12 hours. If you try to extend the visibility timeout beyond 12 hours, your request is rejected.
+-- For example, you have a message with a visibility timeout of 5 minutes. After 3 minutes, you call @ChangeMessageVisiblity@ with a timeout of 10 minutes. At that time, the timeout for the message is extended by 10 minutes beyond the time of the @ChangeMessageVisibility@ action. This results in a total visibility timeout of 13 minutes. You can continue to call the @ChangeMessageVisibility@ to extend the visibility timeout to a maximum of 12 hours. If you try to extend the visibility timeout beyond 12 hours, your request is rejected.
 --
 -- A message is considered to be /in flight/ after it's received from a queue by a consumer, but not yet deleted from the queue.
 --
@@ -48,19 +48,20 @@ module Network.AWS.SQS.ChangeMessageVisibility
     , ChangeMessageVisibilityResponse
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SQS.Types
-import           Network.AWS.SQS.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SQS.Types
+import Network.AWS.SQS.Types.Product
 
 -- | /See:/ 'changeMessageVisibility' smart constructor.
 data ChangeMessageVisibility = ChangeMessageVisibility'
-    { _cmvQueueURL          :: !Text
-    , _cmvReceiptHandle     :: !Text
-    , _cmvVisibilityTimeout :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cmvQueueURL          :: !Text
+  , _cmvReceiptHandle     :: !Text
+  , _cmvVisibilityTimeout :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ChangeMessageVisibility' with the minimum fields required to make a request.
 --
@@ -77,11 +78,12 @@ changeMessageVisibility
     -> Int -- ^ 'cmvVisibilityTimeout'
     -> ChangeMessageVisibility
 changeMessageVisibility pQueueURL_ pReceiptHandle_ pVisibilityTimeout_ =
-    ChangeMessageVisibility'
-    { _cmvQueueURL = pQueueURL_
-    , _cmvReceiptHandle = pReceiptHandle_
-    , _cmvVisibilityTimeout = pVisibilityTimeout_
-    }
+  ChangeMessageVisibility'
+  { _cmvQueueURL = pQueueURL_
+  , _cmvReceiptHandle = pReceiptHandle_
+  , _cmvVisibilityTimeout = pVisibilityTimeout_
+  }
+
 
 -- | The URL of the Amazon SQS queue whose message's visibility is changed. Queue URLs are case-sensitive.
 cmvQueueURL :: Lens' ChangeMessageVisibility Text
@@ -102,9 +104,9 @@ instance AWSRequest ChangeMessageVisibility where
         response
           = receiveNull ChangeMessageVisibilityResponse'
 
-instance Hashable ChangeMessageVisibility
+instance Hashable ChangeMessageVisibility where
 
-instance NFData ChangeMessageVisibility
+instance NFData ChangeMessageVisibility where
 
 instance ToHeaders ChangeMessageVisibility where
         toHeaders = const mempty
@@ -124,8 +126,9 @@ instance ToQuery ChangeMessageVisibility where
 
 -- | /See:/ 'changeMessageVisibilityResponse' smart constructor.
 data ChangeMessageVisibilityResponse =
-    ChangeMessageVisibilityResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  ChangeMessageVisibilityResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ChangeMessageVisibilityResponse' with the minimum fields required to make a request.
 --
@@ -133,4 +136,5 @@ changeMessageVisibilityResponse
     :: ChangeMessageVisibilityResponse
 changeMessageVisibilityResponse = ChangeMessageVisibilityResponse'
 
-instance NFData ChangeMessageVisibilityResponse
+
+instance NFData ChangeMessageVisibilityResponse where

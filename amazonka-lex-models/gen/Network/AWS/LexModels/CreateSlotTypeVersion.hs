@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.CreateSlotTypeVersion
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,6 +39,7 @@ module Network.AWS.LexModels.CreateSlotTypeVersion
     , CreateSlotTypeVersionResponse
     -- * Response Lenses
     , cstvrsChecksum
+    , cstvrsValueSelectionStrategy
     , cstvrsCreatedDate
     , cstvrsName
     , cstvrsVersion
@@ -48,18 +49,19 @@ module Network.AWS.LexModels.CreateSlotTypeVersion
     , cstvrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createSlotTypeVersion' smart constructor.
 data CreateSlotTypeVersion = CreateSlotTypeVersion'
-    { _cstvChecksum :: !(Maybe Text)
-    , _cstvName     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cstvChecksum :: !(Maybe Text)
+  , _cstvName     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateSlotTypeVersion' with the minimum fields required to make a request.
 --
@@ -72,10 +74,8 @@ createSlotTypeVersion
     :: Text -- ^ 'cstvName'
     -> CreateSlotTypeVersion
 createSlotTypeVersion pName_ =
-    CreateSlotTypeVersion'
-    { _cstvChecksum = Nothing
-    , _cstvName = pName_
-    }
+  CreateSlotTypeVersion' {_cstvChecksum = Nothing, _cstvName = pName_}
+
 
 -- | Checksum for the @> LATEST@ version of the slot type that you want to publish. If you specify a checksum and the @> LATEST@ version of the slot type has a different checksum, Amazon Lex returns a @PreconditionFailedException@ exception and doesn't publish the new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
 cstvChecksum :: Lens' CreateSlotTypeVersion (Maybe Text)
@@ -93,17 +93,19 @@ instance AWSRequest CreateSlotTypeVersion where
           = receiveJSON
               (\ s h x ->
                  CreateSlotTypeVersionResponse' <$>
-                   (x .?> "checksum") <*> (x .?> "createdDate") <*>
-                     (x .?> "name")
+                   (x .?> "checksum") <*>
+                     (x .?> "valueSelectionStrategy")
+                     <*> (x .?> "createdDate")
+                     <*> (x .?> "name")
                      <*> (x .?> "version")
                      <*> (x .?> "lastUpdatedDate")
                      <*> (x .?> "description")
                      <*> (x .?> "enumerationValues")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateSlotTypeVersion
+instance Hashable CreateSlotTypeVersion where
 
-instance NFData CreateSlotTypeVersion
+instance NFData CreateSlotTypeVersion where
 
 instance ToHeaders CreateSlotTypeVersion where
         toHeaders
@@ -127,21 +129,25 @@ instance ToQuery CreateSlotTypeVersion where
 
 -- | /See:/ 'createSlotTypeVersionResponse' smart constructor.
 data CreateSlotTypeVersionResponse = CreateSlotTypeVersionResponse'
-    { _cstvrsChecksum          :: !(Maybe Text)
-    , _cstvrsCreatedDate       :: !(Maybe POSIX)
-    , _cstvrsName              :: !(Maybe Text)
-    , _cstvrsVersion           :: !(Maybe Text)
-    , _cstvrsLastUpdatedDate   :: !(Maybe POSIX)
-    , _cstvrsDescription       :: !(Maybe Text)
-    , _cstvrsEnumerationValues :: !(Maybe (List1 EnumerationValue))
-    , _cstvrsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cstvrsChecksum               :: !(Maybe Text)
+  , _cstvrsValueSelectionStrategy :: !(Maybe SlotValueSelectionStrategy)
+  , _cstvrsCreatedDate            :: !(Maybe POSIX)
+  , _cstvrsName                   :: !(Maybe Text)
+  , _cstvrsVersion                :: !(Maybe Text)
+  , _cstvrsLastUpdatedDate        :: !(Maybe POSIX)
+  , _cstvrsDescription            :: !(Maybe Text)
+  , _cstvrsEnumerationValues      :: !(Maybe (List1 EnumerationValue))
+  , _cstvrsResponseStatus         :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateSlotTypeVersionResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'cstvrsChecksum' - Checksum of the @> LATEST@ version of the slot type.
+--
+-- * 'cstvrsValueSelectionStrategy' - The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
 --
 -- * 'cstvrsCreatedDate' - The date that the slot type was created.
 --
@@ -160,20 +166,26 @@ createSlotTypeVersionResponse
     :: Int -- ^ 'cstvrsResponseStatus'
     -> CreateSlotTypeVersionResponse
 createSlotTypeVersionResponse pResponseStatus_ =
-    CreateSlotTypeVersionResponse'
-    { _cstvrsChecksum = Nothing
-    , _cstvrsCreatedDate = Nothing
-    , _cstvrsName = Nothing
-    , _cstvrsVersion = Nothing
-    , _cstvrsLastUpdatedDate = Nothing
-    , _cstvrsDescription = Nothing
-    , _cstvrsEnumerationValues = Nothing
-    , _cstvrsResponseStatus = pResponseStatus_
-    }
+  CreateSlotTypeVersionResponse'
+  { _cstvrsChecksum = Nothing
+  , _cstvrsValueSelectionStrategy = Nothing
+  , _cstvrsCreatedDate = Nothing
+  , _cstvrsName = Nothing
+  , _cstvrsVersion = Nothing
+  , _cstvrsLastUpdatedDate = Nothing
+  , _cstvrsDescription = Nothing
+  , _cstvrsEnumerationValues = Nothing
+  , _cstvrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Checksum of the @> LATEST@ version of the slot type.
 cstvrsChecksum :: Lens' CreateSlotTypeVersionResponse (Maybe Text)
 cstvrsChecksum = lens _cstvrsChecksum (\ s a -> s{_cstvrsChecksum = a});
+
+-- | The strategy that Amazon Lex uses to determine the value of the slot. For more information, see 'PutSlotType' .
+cstvrsValueSelectionStrategy :: Lens' CreateSlotTypeVersionResponse (Maybe SlotValueSelectionStrategy)
+cstvrsValueSelectionStrategy = lens _cstvrsValueSelectionStrategy (\ s a -> s{_cstvrsValueSelectionStrategy = a});
 
 -- | The date that the slot type was created.
 cstvrsCreatedDate :: Lens' CreateSlotTypeVersionResponse (Maybe UTCTime)
@@ -203,4 +215,4 @@ cstvrsEnumerationValues = lens _cstvrsEnumerationValues (\ s a -> s{_cstvrsEnume
 cstvrsResponseStatus :: Lens' CreateSlotTypeVersionResponse Int
 cstvrsResponseStatus = lens _cstvrsResponseStatus (\ s a -> s{_cstvrsResponseStatus = a});
 
-instance NFData CreateSlotTypeVersionResponse
+instance NFData CreateSlotTypeVersionResponse where

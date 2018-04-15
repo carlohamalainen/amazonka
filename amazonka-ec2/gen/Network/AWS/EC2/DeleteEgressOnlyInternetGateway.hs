@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.DeleteEgressOnlyInternetGateway
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -34,22 +34,23 @@ module Network.AWS.EC2.DeleteEgressOnlyInternetGateway
     , deleteEgressOnlyInternetGatewayResponse
     , DeleteEgressOnlyInternetGatewayResponse
     -- * Response Lenses
-    , delrsReturnCode
-    , delrsResponseStatus
+    , deoigersReturnCode
+    , deoigersResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'deleteEgressOnlyInternetGateway' smart constructor.
 data DeleteEgressOnlyInternetGateway = DeleteEgressOnlyInternetGateway'
-    { _deoigeDryRun                      :: !(Maybe Bool)
-    , _deoigeEgressOnlyInternetGatewayId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _deoigeDryRun                      :: !(Maybe Bool)
+  , _deoigeEgressOnlyInternetGatewayId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteEgressOnlyInternetGateway' with the minimum fields required to make a request.
 --
@@ -62,10 +63,11 @@ deleteEgressOnlyInternetGateway
     :: Text -- ^ 'deoigeEgressOnlyInternetGatewayId'
     -> DeleteEgressOnlyInternetGateway
 deleteEgressOnlyInternetGateway pEgressOnlyInternetGatewayId_ =
-    DeleteEgressOnlyInternetGateway'
-    { _deoigeDryRun = Nothing
-    , _deoigeEgressOnlyInternetGatewayId = pEgressOnlyInternetGatewayId_
-    }
+  DeleteEgressOnlyInternetGateway'
+  { _deoigeDryRun = Nothing
+  , _deoigeEgressOnlyInternetGatewayId = pEgressOnlyInternetGatewayId_
+  }
+
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 deoigeDryRun :: Lens' DeleteEgressOnlyInternetGateway (Maybe Bool)
@@ -87,8 +89,9 @@ instance AWSRequest DeleteEgressOnlyInternetGateway
                    (x .@? "returnCode") <*> (pure (fromEnum s)))
 
 instance Hashable DeleteEgressOnlyInternetGateway
+         where
 
-instance NFData DeleteEgressOnlyInternetGateway
+instance NFData DeleteEgressOnlyInternetGateway where
 
 instance ToHeaders DeleteEgressOnlyInternetGateway
          where
@@ -110,33 +113,34 @@ instance ToQuery DeleteEgressOnlyInternetGateway
 
 -- | /See:/ 'deleteEgressOnlyInternetGatewayResponse' smart constructor.
 data DeleteEgressOnlyInternetGatewayResponse = DeleteEgressOnlyInternetGatewayResponse'
-    { _delrsReturnCode     :: !(Maybe Bool)
-    , _delrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _deoigersReturnCode     :: !(Maybe Bool)
+  , _deoigersResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteEgressOnlyInternetGatewayResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'delrsReturnCode' - Returns @true@ if the request succeeds; otherwise, it returns an error.
+-- * 'deoigersReturnCode' - Returns @true@ if the request succeeds; otherwise, it returns an error.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
+-- * 'deoigersResponseStatus' - -- | The response status code.
 deleteEgressOnlyInternetGatewayResponse
-    :: Int -- ^ 'delrsResponseStatus'
+    :: Int -- ^ 'deoigersResponseStatus'
     -> DeleteEgressOnlyInternetGatewayResponse
 deleteEgressOnlyInternetGatewayResponse pResponseStatus_ =
-    DeleteEgressOnlyInternetGatewayResponse'
-    { _delrsReturnCode = Nothing
-    , _delrsResponseStatus = pResponseStatus_
-    }
+  DeleteEgressOnlyInternetGatewayResponse'
+  {_deoigersReturnCode = Nothing, _deoigersResponseStatus = pResponseStatus_}
+
 
 -- | Returns @true@ if the request succeeds; otherwise, it returns an error.
-delrsReturnCode :: Lens' DeleteEgressOnlyInternetGatewayResponse (Maybe Bool)
-delrsReturnCode = lens _delrsReturnCode (\ s a -> s{_delrsReturnCode = a});
+deoigersReturnCode :: Lens' DeleteEgressOnlyInternetGatewayResponse (Maybe Bool)
+deoigersReturnCode = lens _deoigersReturnCode (\ s a -> s{_deoigersReturnCode = a});
 
 -- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteEgressOnlyInternetGatewayResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\ s a -> s{_delrsResponseStatus = a});
+deoigersResponseStatus :: Lens' DeleteEgressOnlyInternetGatewayResponse Int
+deoigersResponseStatus = lens _deoigersResponseStatus (\ s a -> s{_deoigersResponseStatus = a});
 
 instance NFData
-         DeleteEgressOnlyInternetGatewayResponse
+           DeleteEgressOnlyInternetGatewayResponse
+         where

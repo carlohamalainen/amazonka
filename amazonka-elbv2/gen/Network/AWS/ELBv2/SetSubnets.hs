@@ -12,14 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.ELBv2.SetSubnets
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables the Availability Zone for the specified subnets for the specified load balancer. The specified subnets replace the previously enabled subnets.
+-- Enables the Availability Zone for the specified subnets for the specified Application Load Balancer. The specified subnets replace the previously enabled subnets.
 --
+--
+-- Note that you can't change the subnets for a Network Load Balancer.
 --
 module Network.AWS.ELBv2.SetSubnets
     (
@@ -27,6 +29,7 @@ module Network.AWS.ELBv2.SetSubnets
       setSubnets
     , SetSubnets
     -- * Request Lenses
+    , ssSubnetMappings
     , ssLoadBalancerARN
     , ssSubnets
 
@@ -38,40 +41,50 @@ module Network.AWS.ELBv2.SetSubnets
     , ssrsResponseStatus
     ) where
 
-import           Network.AWS.ELBv2.Types
-import           Network.AWS.ELBv2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ELBv2.Types
+import Network.AWS.ELBv2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'setSubnets' smart constructor.
 data SetSubnets = SetSubnets'
-    { _ssLoadBalancerARN :: !Text
-    , _ssSubnets         :: ![Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssSubnetMappings  :: !(Maybe [SubnetMapping])
+  , _ssLoadBalancerARN :: !Text
+  , _ssSubnets         :: ![Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SetSubnets' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
+-- * 'ssSubnetMappings' - The IDs of the subnets. You must specify subnets from at least two Availability Zones. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings. You cannot specify Elastic IP addresses for your subnets.
+--
 -- * 'ssLoadBalancerARN' - The Amazon Resource Name (ARN) of the load balancer.
 --
--- * 'ssSubnets' - The IDs of the subnets. You must specify at least two subnets. You can add only one subnet per Availability Zone.
+-- * 'ssSubnets' - The IDs of the subnets. You must specify subnets from at least two Availability Zones. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings.
 setSubnets
     :: Text -- ^ 'ssLoadBalancerARN'
     -> SetSubnets
 setSubnets pLoadBalancerARN_ =
-    SetSubnets'
-    { _ssLoadBalancerARN = pLoadBalancerARN_
-    , _ssSubnets = mempty
-    }
+  SetSubnets'
+  { _ssSubnetMappings = Nothing
+  , _ssLoadBalancerARN = pLoadBalancerARN_
+  , _ssSubnets = mempty
+  }
+
+
+-- | The IDs of the subnets. You must specify subnets from at least two Availability Zones. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings. You cannot specify Elastic IP addresses for your subnets.
+ssSubnetMappings :: Lens' SetSubnets [SubnetMapping]
+ssSubnetMappings = lens _ssSubnetMappings (\ s a -> s{_ssSubnetMappings = a}) . _Default . _Coerce;
 
 -- | The Amazon Resource Name (ARN) of the load balancer.
 ssLoadBalancerARN :: Lens' SetSubnets Text
 ssLoadBalancerARN = lens _ssLoadBalancerARN (\ s a -> s{_ssLoadBalancerARN = a});
 
--- | The IDs of the subnets. You must specify at least two subnets. You can add only one subnet per Availability Zone.
+-- | The IDs of the subnets. You must specify subnets from at least two Availability Zones. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings.
 ssSubnets :: Lens' SetSubnets [Text]
 ssSubnets = lens _ssSubnets (\ s a -> s{_ssSubnets = a}) . _Coerce;
 
@@ -86,9 +99,9 @@ instance AWSRequest SetSubnets where
                       may (parseXMLList "member"))
                      <*> (pure (fromEnum s)))
 
-instance Hashable SetSubnets
+instance Hashable SetSubnets where
 
-instance NFData SetSubnets
+instance NFData SetSubnets where
 
 instance ToHeaders SetSubnets where
         toHeaders = const mempty
@@ -101,14 +114,17 @@ instance ToQuery SetSubnets where
           = mconcat
               ["Action" =: ("SetSubnets" :: ByteString),
                "Version" =: ("2015-12-01" :: ByteString),
+               "SubnetMappings" =:
+                 toQuery (toQueryList "member" <$> _ssSubnetMappings),
                "LoadBalancerArn" =: _ssLoadBalancerARN,
                "Subnets" =: toQueryList "member" _ssSubnets]
 
 -- | /See:/ 'setSubnetsResponse' smart constructor.
 data SetSubnetsResponse = SetSubnetsResponse'
-    { _ssrsAvailabilityZones :: !(Maybe [AvailabilityZone])
-    , _ssrsResponseStatus    :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssrsAvailabilityZones :: !(Maybe [AvailabilityZone])
+  , _ssrsResponseStatus    :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SetSubnetsResponse' with the minimum fields required to make a request.
 --
@@ -121,10 +137,9 @@ setSubnetsResponse
     :: Int -- ^ 'ssrsResponseStatus'
     -> SetSubnetsResponse
 setSubnetsResponse pResponseStatus_ =
-    SetSubnetsResponse'
-    { _ssrsAvailabilityZones = Nothing
-    , _ssrsResponseStatus = pResponseStatus_
-    }
+  SetSubnetsResponse'
+  {_ssrsAvailabilityZones = Nothing, _ssrsResponseStatus = pResponseStatus_}
+
 
 -- | Information about the subnet and Availability Zone.
 ssrsAvailabilityZones :: Lens' SetSubnetsResponse [AvailabilityZone]
@@ -134,4 +149,4 @@ ssrsAvailabilityZones = lens _ssrsAvailabilityZones (\ s a -> s{_ssrsAvailabilit
 ssrsResponseStatus :: Lens' SetSubnetsResponse Int
 ssrsResponseStatus = lens _ssrsResponseStatus (\ s a -> s{_ssrsResponseStatus = a});
 
-instance NFData SetSubnetsResponse
+instance NFData SetSubnetsResponse where

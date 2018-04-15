@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.MechanicalTurk.CreateAdditionalAssignmentsForHIT
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -30,8 +30,8 @@ module Network.AWS.MechanicalTurk.CreateAdditionalAssignmentsForHIT
     , CreateAdditionalAssignmentsForHIT
     -- * Request Lenses
     , caafhitUniqueRequestToken
-    , caafhitNumberOfAdditionalAssignments
     , caafhitHITId
+    , caafhitNumberOfAdditionalAssignments
 
     -- * Destructuring the Response
     , createAdditionalAssignmentsForHITResponse
@@ -40,19 +40,20 @@ module Network.AWS.MechanicalTurk.CreateAdditionalAssignmentsForHIT
     , caafhitrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.MechanicalTurk.Types
-import           Network.AWS.MechanicalTurk.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.MechanicalTurk.Types
+import Network.AWS.MechanicalTurk.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createAdditionalAssignmentsForHIT' smart constructor.
 data CreateAdditionalAssignmentsForHIT = CreateAdditionalAssignmentsForHIT'
-    { _caafhitUniqueRequestToken            :: !(Maybe Text)
-    , _caafhitNumberOfAdditionalAssignments :: !(Maybe Int)
-    , _caafhitHITId                         :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _caafhitUniqueRequestToken            :: !(Maybe Text)
+  , _caafhitHITId                         :: !Text
+  , _caafhitNumberOfAdditionalAssignments :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateAdditionalAssignmentsForHIT' with the minimum fields required to make a request.
 --
@@ -60,30 +61,32 @@ data CreateAdditionalAssignmentsForHIT = CreateAdditionalAssignmentsForHIT'
 --
 -- * 'caafhitUniqueRequestToken' - A unique identifier for this request, which allows you to retry the call on error without extending the HIT multiple times. This is useful in cases such as network timeouts where it is unclear whether or not the call succeeded on the server. If the extend HIT already exists in the system from a previous call using the same @UniqueRequestToken@ , subsequent calls will return an error with a message containing the request ID.
 --
--- * 'caafhitNumberOfAdditionalAssignments' - The number of additional assignments to request for this HIT.
---
 -- * 'caafhitHITId' - The ID of the HIT to extend.
+--
+-- * 'caafhitNumberOfAdditionalAssignments' - The number of additional assignments to request for this HIT.
 createAdditionalAssignmentsForHIT
     :: Text -- ^ 'caafhitHITId'
+    -> Int -- ^ 'caafhitNumberOfAdditionalAssignments'
     -> CreateAdditionalAssignmentsForHIT
-createAdditionalAssignmentsForHIT pHITId_ =
-    CreateAdditionalAssignmentsForHIT'
-    { _caafhitUniqueRequestToken = Nothing
-    , _caafhitNumberOfAdditionalAssignments = Nothing
-    , _caafhitHITId = pHITId_
-    }
+createAdditionalAssignmentsForHIT pHITId_ pNumberOfAdditionalAssignments_ =
+  CreateAdditionalAssignmentsForHIT'
+  { _caafhitUniqueRequestToken = Nothing
+  , _caafhitHITId = pHITId_
+  , _caafhitNumberOfAdditionalAssignments = pNumberOfAdditionalAssignments_
+  }
+
 
 -- | A unique identifier for this request, which allows you to retry the call on error without extending the HIT multiple times. This is useful in cases such as network timeouts where it is unclear whether or not the call succeeded on the server. If the extend HIT already exists in the system from a previous call using the same @UniqueRequestToken@ , subsequent calls will return an error with a message containing the request ID.
 caafhitUniqueRequestToken :: Lens' CreateAdditionalAssignmentsForHIT (Maybe Text)
 caafhitUniqueRequestToken = lens _caafhitUniqueRequestToken (\ s a -> s{_caafhitUniqueRequestToken = a});
 
--- | The number of additional assignments to request for this HIT.
-caafhitNumberOfAdditionalAssignments :: Lens' CreateAdditionalAssignmentsForHIT (Maybe Int)
-caafhitNumberOfAdditionalAssignments = lens _caafhitNumberOfAdditionalAssignments (\ s a -> s{_caafhitNumberOfAdditionalAssignments = a});
-
 -- | The ID of the HIT to extend.
 caafhitHITId :: Lens' CreateAdditionalAssignmentsForHIT Text
 caafhitHITId = lens _caafhitHITId (\ s a -> s{_caafhitHITId = a});
+
+-- | The number of additional assignments to request for this HIT.
+caafhitNumberOfAdditionalAssignments :: Lens' CreateAdditionalAssignmentsForHIT Int
+caafhitNumberOfAdditionalAssignments = lens _caafhitNumberOfAdditionalAssignments (\ s a -> s{_caafhitNumberOfAdditionalAssignments = a});
 
 instance AWSRequest CreateAdditionalAssignmentsForHIT
          where
@@ -97,8 +100,10 @@ instance AWSRequest CreateAdditionalAssignmentsForHIT
                    (pure (fromEnum s)))
 
 instance Hashable CreateAdditionalAssignmentsForHIT
+         where
 
 instance NFData CreateAdditionalAssignmentsForHIT
+         where
 
 instance ToHeaders CreateAdditionalAssignmentsForHIT
          where
@@ -118,9 +123,10 @@ instance ToJSON CreateAdditionalAssignmentsForHIT
               (catMaybes
                  [("UniqueRequestToken" .=) <$>
                     _caafhitUniqueRequestToken,
-                  ("NumberOfAdditionalAssignments" .=) <$>
-                    _caafhitNumberOfAdditionalAssignments,
-                  Just ("HITId" .= _caafhitHITId)])
+                  Just ("HITId" .= _caafhitHITId),
+                  Just
+                    ("NumberOfAdditionalAssignments" .=
+                       _caafhitNumberOfAdditionalAssignments)])
 
 instance ToPath CreateAdditionalAssignmentsForHIT
          where
@@ -132,8 +138,9 @@ instance ToQuery CreateAdditionalAssignmentsForHIT
 
 -- | /See:/ 'createAdditionalAssignmentsForHITResponse' smart constructor.
 newtype CreateAdditionalAssignmentsForHITResponse = CreateAdditionalAssignmentsForHITResponse'
-    { _caafhitrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _caafhitrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateAdditionalAssignmentsForHITResponse' with the minimum fields required to make a request.
 --
@@ -144,13 +151,14 @@ createAdditionalAssignmentsForHITResponse
     :: Int -- ^ 'caafhitrsResponseStatus'
     -> CreateAdditionalAssignmentsForHITResponse
 createAdditionalAssignmentsForHITResponse pResponseStatus_ =
-    CreateAdditionalAssignmentsForHITResponse'
-    { _caafhitrsResponseStatus = pResponseStatus_
-    }
+  CreateAdditionalAssignmentsForHITResponse'
+  {_caafhitrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 caafhitrsResponseStatus :: Lens' CreateAdditionalAssignmentsForHITResponse Int
 caafhitrsResponseStatus = lens _caafhitrsResponseStatus (\ s a -> s{_caafhitrsResponseStatus = a});
 
 instance NFData
-         CreateAdditionalAssignmentsForHITResponse
+           CreateAdditionalAssignmentsForHITResponse
+         where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.WAFRegional.UpdateByteMatchSet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -65,19 +65,20 @@ module Network.AWS.WAFRegional.UpdateByteMatchSet
     , ubmsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.WAFRegional.Types
-import           Network.AWS.WAFRegional.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.Product
 
 -- | /See:/ 'updateByteMatchSet' smart constructor.
 data UpdateByteMatchSet = UpdateByteMatchSet'
-    { _ubmsByteMatchSetId :: !Text
-    , _ubmsChangeToken    :: !Text
-    , _ubmsUpdates        :: ![ByteMatchSetUpdate]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ubmsByteMatchSetId :: !Text
+  , _ubmsChangeToken    :: !Text
+  , _ubmsUpdates        :: !(List1 ByteMatchSetUpdate)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateByteMatchSet' with the minimum fields required to make a request.
 --
@@ -91,13 +92,15 @@ data UpdateByteMatchSet = UpdateByteMatchSet'
 updateByteMatchSet
     :: Text -- ^ 'ubmsByteMatchSetId'
     -> Text -- ^ 'ubmsChangeToken'
+    -> NonEmpty ByteMatchSetUpdate -- ^ 'ubmsUpdates'
     -> UpdateByteMatchSet
-updateByteMatchSet pByteMatchSetId_ pChangeToken_ =
-    UpdateByteMatchSet'
-    { _ubmsByteMatchSetId = pByteMatchSetId_
-    , _ubmsChangeToken = pChangeToken_
-    , _ubmsUpdates = mempty
-    }
+updateByteMatchSet pByteMatchSetId_ pChangeToken_ pUpdates_ =
+  UpdateByteMatchSet'
+  { _ubmsByteMatchSetId = pByteMatchSetId_
+  , _ubmsChangeToken = pChangeToken_
+  , _ubmsUpdates = _List1 # pUpdates_
+  }
+
 
 -- | The @ByteMatchSetId@ of the 'ByteMatchSet' that you want to update. @ByteMatchSetId@ is returned by 'CreateByteMatchSet' and by 'ListByteMatchSets' .
 ubmsByteMatchSetId :: Lens' UpdateByteMatchSet Text
@@ -108,8 +111,8 @@ ubmsChangeToken :: Lens' UpdateByteMatchSet Text
 ubmsChangeToken = lens _ubmsChangeToken (\ s a -> s{_ubmsChangeToken = a});
 
 -- | An array of @ByteMatchSetUpdate@ objects that you want to insert into or delete from a 'ByteMatchSet' . For more information, see the applicable data types:     * 'ByteMatchSetUpdate' : Contains @Action@ and @ByteMatchTuple@      * 'ByteMatchTuple' : Contains @FieldToMatch@ , @PositionalConstraint@ , @TargetString@ , and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
-ubmsUpdates :: Lens' UpdateByteMatchSet [ByteMatchSetUpdate]
-ubmsUpdates = lens _ubmsUpdates (\ s a -> s{_ubmsUpdates = a}) . _Coerce;
+ubmsUpdates :: Lens' UpdateByteMatchSet (NonEmpty ByteMatchSetUpdate)
+ubmsUpdates = lens _ubmsUpdates (\ s a -> s{_ubmsUpdates = a}) . _List1;
 
 instance AWSRequest UpdateByteMatchSet where
         type Rs UpdateByteMatchSet =
@@ -121,9 +124,9 @@ instance AWSRequest UpdateByteMatchSet where
                  UpdateByteMatchSetResponse' <$>
                    (x .?> "ChangeToken") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateByteMatchSet
+instance Hashable UpdateByteMatchSet where
 
-instance NFData UpdateByteMatchSet
+instance NFData UpdateByteMatchSet where
 
 instance ToHeaders UpdateByteMatchSet where
         toHeaders
@@ -151,9 +154,10 @@ instance ToQuery UpdateByteMatchSet where
 
 -- | /See:/ 'updateByteMatchSetResponse' smart constructor.
 data UpdateByteMatchSetResponse = UpdateByteMatchSetResponse'
-    { _ubmsrsChangeToken    :: !(Maybe Text)
-    , _ubmsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ubmsrsChangeToken    :: !(Maybe Text)
+  , _ubmsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateByteMatchSetResponse' with the minimum fields required to make a request.
 --
@@ -166,10 +170,9 @@ updateByteMatchSetResponse
     :: Int -- ^ 'ubmsrsResponseStatus'
     -> UpdateByteMatchSetResponse
 updateByteMatchSetResponse pResponseStatus_ =
-    UpdateByteMatchSetResponse'
-    { _ubmsrsChangeToken = Nothing
-    , _ubmsrsResponseStatus = pResponseStatus_
-    }
+  UpdateByteMatchSetResponse'
+  {_ubmsrsChangeToken = Nothing, _ubmsrsResponseStatus = pResponseStatus_}
+
 
 -- | The @ChangeToken@ that you used to submit the @UpdateByteMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
 ubmsrsChangeToken :: Lens' UpdateByteMatchSetResponse (Maybe Text)
@@ -179,4 +182,4 @@ ubmsrsChangeToken = lens _ubmsrsChangeToken (\ s a -> s{_ubmsrsChangeToken = a})
 ubmsrsResponseStatus :: Lens' UpdateByteMatchSetResponse Int
 ubmsrsResponseStatus = lens _ubmsrsResponseStatus (\ s a -> s{_ubmsrsResponseStatus = a});
 
-instance NFData UpdateByteMatchSetResponse
+instance NFData UpdateByteMatchSetResponse where

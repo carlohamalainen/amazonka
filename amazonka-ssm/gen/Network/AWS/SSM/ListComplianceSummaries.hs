@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.SSM.ListComplianceSummaries
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a summary count of compliant and non-compliant resources for a compliance type. For example, this call can return State Manager associations, patches, or custom compliance types according to the filter criteria you specify.
+-- Returns a summary count of compliant and non-compliant resources for a compliance type. For example, this call can return State Manager associations, patches, or custom compliance types according to the filter criteria that you specify.
 --
 --
 module Network.AWS.SSM.ListComplianceSummaries
@@ -40,19 +40,20 @@ module Network.AWS.SSM.ListComplianceSummaries
     , lcsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'listComplianceSummaries' smart constructor.
 data ListComplianceSummaries = ListComplianceSummaries'
-    { _lcsFilters    :: !(Maybe [ComplianceStringFilter])
-    , _lcsNextToken  :: !(Maybe Text)
-    , _lcsMaxResults :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lcsFilters    :: !(Maybe [ComplianceStringFilter])
+  , _lcsNextToken  :: !(Maybe Text)
+  , _lcsMaxResults :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListComplianceSummaries' with the minimum fields required to make a request.
 --
@@ -66,11 +67,9 @@ data ListComplianceSummaries = ListComplianceSummaries'
 listComplianceSummaries
     :: ListComplianceSummaries
 listComplianceSummaries =
-    ListComplianceSummaries'
-    { _lcsFilters = Nothing
-    , _lcsNextToken = Nothing
-    , _lcsMaxResults = Nothing
-    }
+  ListComplianceSummaries'
+  {_lcsFilters = Nothing, _lcsNextToken = Nothing, _lcsMaxResults = Nothing}
+
 
 -- | One or more compliance or inventory filters. Use a filter to return a more specific list of results.
 lcsFilters :: Lens' ListComplianceSummaries [ComplianceStringFilter]
@@ -96,9 +95,9 @@ instance AWSRequest ListComplianceSummaries where
                      (x .?> "ComplianceSummaryItems" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListComplianceSummaries
+instance Hashable ListComplianceSummaries where
 
-instance NFData ListComplianceSummaries
+instance NFData ListComplianceSummaries where
 
 instance ToHeaders ListComplianceSummaries where
         toHeaders
@@ -125,10 +124,11 @@ instance ToQuery ListComplianceSummaries where
 
 -- | /See:/ 'listComplianceSummariesResponse' smart constructor.
 data ListComplianceSummariesResponse = ListComplianceSummariesResponse'
-    { _lcsrsNextToken              :: !(Maybe Text)
-    , _lcsrsComplianceSummaryItems :: !(Maybe [ComplianceSummaryItem])
-    , _lcsrsResponseStatus         :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lcsrsNextToken              :: !(Maybe Text)
+  , _lcsrsComplianceSummaryItems :: !(Maybe [ComplianceSummaryItem])
+  , _lcsrsResponseStatus         :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListComplianceSummariesResponse' with the minimum fields required to make a request.
 --
@@ -136,24 +136,25 @@ data ListComplianceSummariesResponse = ListComplianceSummariesResponse'
 --
 -- * 'lcsrsNextToken' - The token for the next set of items to return. Use this token to get the next set of results.
 --
--- * 'lcsrsComplianceSummaryItems' - A list of compliant and non-compliant summary counts based on compliance types. For example, this call returns State Manager associations, patches, or custom compliance types according to the filter criteria you specified.
+-- * 'lcsrsComplianceSummaryItems' - A list of compliant and non-compliant summary counts based on compliance types. For example, this call returns State Manager associations, patches, or custom compliance types according to the filter criteria that you specified.
 --
 -- * 'lcsrsResponseStatus' - -- | The response status code.
 listComplianceSummariesResponse
     :: Int -- ^ 'lcsrsResponseStatus'
     -> ListComplianceSummariesResponse
 listComplianceSummariesResponse pResponseStatus_ =
-    ListComplianceSummariesResponse'
-    { _lcsrsNextToken = Nothing
-    , _lcsrsComplianceSummaryItems = Nothing
-    , _lcsrsResponseStatus = pResponseStatus_
-    }
+  ListComplianceSummariesResponse'
+  { _lcsrsNextToken = Nothing
+  , _lcsrsComplianceSummaryItems = Nothing
+  , _lcsrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The token for the next set of items to return. Use this token to get the next set of results.
 lcsrsNextToken :: Lens' ListComplianceSummariesResponse (Maybe Text)
 lcsrsNextToken = lens _lcsrsNextToken (\ s a -> s{_lcsrsNextToken = a});
 
--- | A list of compliant and non-compliant summary counts based on compliance types. For example, this call returns State Manager associations, patches, or custom compliance types according to the filter criteria you specified.
+-- | A list of compliant and non-compliant summary counts based on compliance types. For example, this call returns State Manager associations, patches, or custom compliance types according to the filter criteria that you specified.
 lcsrsComplianceSummaryItems :: Lens' ListComplianceSummariesResponse [ComplianceSummaryItem]
 lcsrsComplianceSummaryItems = lens _lcsrsComplianceSummaryItems (\ s a -> s{_lcsrsComplianceSummaryItems = a}) . _Default . _Coerce;
 
@@ -161,4 +162,4 @@ lcsrsComplianceSummaryItems = lens _lcsrsComplianceSummaryItems (\ s a -> s{_lcs
 lcsrsResponseStatus :: Lens' ListComplianceSummariesResponse Int
 lcsrsResponseStatus = lens _lcsrsResponseStatus (\ s a -> s{_lcsrsResponseStatus = a});
 
-instance NFData ListComplianceSummariesResponse
+instance NFData ListComplianceSummariesResponse where

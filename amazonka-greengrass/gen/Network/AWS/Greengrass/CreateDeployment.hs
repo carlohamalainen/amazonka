@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Greengrass.CreateDeployment
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,21 +40,22 @@ module Network.AWS.Greengrass.CreateDeployment
     , cdrsResponseStatus
     ) where
 
-import           Network.AWS.Greengrass.Types
-import           Network.AWS.Greengrass.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Greengrass.Types
+import Network.AWS.Greengrass.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createDeployment' smart constructor.
 data CreateDeployment = CreateDeployment'
-    { _cdDeploymentId    :: !(Maybe Text)
-    , _cdAmznClientToken :: !(Maybe Text)
-    , _cdDeploymentType  :: !(Maybe DeploymentType)
-    , _cdGroupVersionId  :: !(Maybe Text)
-    , _cdGroupId         :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdDeploymentId    :: !(Maybe Text)
+  , _cdAmznClientToken :: !(Maybe Text)
+  , _cdDeploymentType  :: !(Maybe DeploymentType)
+  , _cdGroupVersionId  :: !(Maybe Text)
+  , _cdGroupId         :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDeployment' with the minimum fields required to make a request.
 --
@@ -64,7 +65,7 @@ data CreateDeployment = CreateDeployment'
 --
 -- * 'cdAmznClientToken' - The client token used to request idempotent operations.
 --
--- * 'cdDeploymentType' - Type of deployment
+-- * 'cdDeploymentType' - Type of deployment. When used in CreateDeployment, only NewDeployment and Redeployment are valid.
 --
 -- * 'cdGroupVersionId' - Group Version you wish to deploy.
 --
@@ -73,13 +74,14 @@ createDeployment
     :: Text -- ^ 'cdGroupId'
     -> CreateDeployment
 createDeployment pGroupId_ =
-    CreateDeployment'
-    { _cdDeploymentId = Nothing
-    , _cdAmznClientToken = Nothing
-    , _cdDeploymentType = Nothing
-    , _cdGroupVersionId = Nothing
-    , _cdGroupId = pGroupId_
-    }
+  CreateDeployment'
+  { _cdDeploymentId = Nothing
+  , _cdAmznClientToken = Nothing
+  , _cdDeploymentType = Nothing
+  , _cdGroupVersionId = Nothing
+  , _cdGroupId = pGroupId_
+  }
+
 
 -- | Id of the deployment if you wish to redeploy a previous deployment.
 cdDeploymentId :: Lens' CreateDeployment (Maybe Text)
@@ -89,7 +91,7 @@ cdDeploymentId = lens _cdDeploymentId (\ s a -> s{_cdDeploymentId = a});
 cdAmznClientToken :: Lens' CreateDeployment (Maybe Text)
 cdAmznClientToken = lens _cdAmznClientToken (\ s a -> s{_cdAmznClientToken = a});
 
--- | Type of deployment
+-- | Type of deployment. When used in CreateDeployment, only NewDeployment and Redeployment are valid.
 cdDeploymentType :: Lens' CreateDeployment (Maybe DeploymentType)
 cdDeploymentType = lens _cdDeploymentType (\ s a -> s{_cdDeploymentType = a});
 
@@ -111,9 +113,9 @@ instance AWSRequest CreateDeployment where
                    (x .?> "DeploymentId") <*> (x .?> "DeploymentArn")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateDeployment
+instance Hashable CreateDeployment where
 
-instance NFData CreateDeployment
+instance NFData CreateDeployment where
 
 instance ToHeaders CreateDeployment where
         toHeaders CreateDeployment'{..}
@@ -141,35 +143,37 @@ instance ToQuery CreateDeployment where
 
 -- | /See:/ 'createDeploymentResponse' smart constructor.
 data CreateDeploymentResponse = CreateDeploymentResponse'
-    { _cdrsDeploymentId   :: !(Maybe Text)
-    , _cdrsDeploymentARN  :: !(Maybe Text)
-    , _cdrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cdrsDeploymentId   :: !(Maybe Text)
+  , _cdrsDeploymentARN  :: !(Maybe Text)
+  , _cdrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateDeploymentResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'cdrsDeploymentId' - Id of the deployment.
+-- * 'cdrsDeploymentId' - The id of the deployment.
 --
--- * 'cdrsDeploymentARN' - Arn of the deployment.
+-- * 'cdrsDeploymentARN' - The arn of the deployment.
 --
 -- * 'cdrsResponseStatus' - -- | The response status code.
 createDeploymentResponse
     :: Int -- ^ 'cdrsResponseStatus'
     -> CreateDeploymentResponse
 createDeploymentResponse pResponseStatus_ =
-    CreateDeploymentResponse'
-    { _cdrsDeploymentId = Nothing
-    , _cdrsDeploymentARN = Nothing
-    , _cdrsResponseStatus = pResponseStatus_
-    }
+  CreateDeploymentResponse'
+  { _cdrsDeploymentId = Nothing
+  , _cdrsDeploymentARN = Nothing
+  , _cdrsResponseStatus = pResponseStatus_
+  }
 
--- | Id of the deployment.
+
+-- | The id of the deployment.
 cdrsDeploymentId :: Lens' CreateDeploymentResponse (Maybe Text)
 cdrsDeploymentId = lens _cdrsDeploymentId (\ s a -> s{_cdrsDeploymentId = a});
 
--- | Arn of the deployment.
+-- | The arn of the deployment.
 cdrsDeploymentARN :: Lens' CreateDeploymentResponse (Maybe Text)
 cdrsDeploymentARN = lens _cdrsDeploymentARN (\ s a -> s{_cdrsDeploymentARN = a});
 
@@ -177,4 +181,4 @@ cdrsDeploymentARN = lens _cdrsDeploymentARN (\ s a -> s{_cdrsDeploymentARN = a})
 cdrsResponseStatus :: Lens' CreateDeploymentResponse Int
 cdrsResponseStatus = lens _cdrsResponseStatus (\ s a -> s{_cdrsResponseStatus = a});
 
-instance NFData CreateDeploymentResponse
+instance NFData CreateDeploymentResponse where

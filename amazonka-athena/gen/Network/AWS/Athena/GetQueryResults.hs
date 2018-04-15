@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.Athena.GetQueryResults
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,20 +42,21 @@ module Network.AWS.Athena.GetQueryResults
     , gqrrsResponseStatus
     ) where
 
-import           Network.AWS.Athena.Types
-import           Network.AWS.Athena.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Athena.Types
+import Network.AWS.Athena.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getQueryResults' smart constructor.
 data GetQueryResults = GetQueryResults'
-    { _gqrNextToken        :: !(Maybe Text)
-    , _gqrMaxResults       :: !(Maybe Nat)
-    , _gqrQueryExecutionId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gqrNextToken        :: !(Maybe Text)
+  , _gqrMaxResults       :: !(Maybe Nat)
+  , _gqrQueryExecutionId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetQueryResults' with the minimum fields required to make a request.
 --
@@ -70,11 +71,12 @@ getQueryResults
     :: Text -- ^ 'gqrQueryExecutionId'
     -> GetQueryResults
 getQueryResults pQueryExecutionId_ =
-    GetQueryResults'
-    { _gqrNextToken = Nothing
-    , _gqrMaxResults = Nothing
-    , _gqrQueryExecutionId = pQueryExecutionId_
-    }
+  GetQueryResults'
+  { _gqrNextToken = Nothing
+  , _gqrMaxResults = Nothing
+  , _gqrQueryExecutionId = pQueryExecutionId_
+  }
+
 
 -- | The token that specifies where to start pagination if a previous request was truncated.
 gqrNextToken :: Lens' GetQueryResults (Maybe Text)
@@ -91,7 +93,8 @@ gqrQueryExecutionId = lens _gqrQueryExecutionId (\ s a -> s{_gqrQueryExecutionId
 instance AWSPager GetQueryResults where
         page rq rs
           | stop (rs ^. gqrrsNextToken) = Nothing
-          | stop (rs ^. gqrrsResultSet) = Nothing
+          | stop (rs ^? gqrrsResultSet . _Just . rsRows) =
+            Nothing
           | otherwise =
             Just $ rq & gqrNextToken .~ rs ^. gqrrsNextToken
 
@@ -105,9 +108,9 @@ instance AWSRequest GetQueryResults where
                    (x .?> "NextToken") <*> (x .?> "ResultSet") <*>
                      (pure (fromEnum s)))
 
-instance Hashable GetQueryResults
+instance Hashable GetQueryResults where
 
-instance NFData GetQueryResults
+instance NFData GetQueryResults where
 
 instance ToHeaders GetQueryResults where
         toHeaders
@@ -134,10 +137,11 @@ instance ToQuery GetQueryResults where
 
 -- | /See:/ 'getQueryResultsResponse' smart constructor.
 data GetQueryResultsResponse = GetQueryResultsResponse'
-    { _gqrrsNextToken      :: !(Maybe Text)
-    , _gqrrsResultSet      :: !(Maybe ResultSet)
-    , _gqrrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gqrrsNextToken      :: !(Maybe Text)
+  , _gqrrsResultSet      :: !(Maybe ResultSet)
+  , _gqrrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetQueryResultsResponse' with the minimum fields required to make a request.
 --
@@ -152,11 +156,12 @@ getQueryResultsResponse
     :: Int -- ^ 'gqrrsResponseStatus'
     -> GetQueryResultsResponse
 getQueryResultsResponse pResponseStatus_ =
-    GetQueryResultsResponse'
-    { _gqrrsNextToken = Nothing
-    , _gqrrsResultSet = Nothing
-    , _gqrrsResponseStatus = pResponseStatus_
-    }
+  GetQueryResultsResponse'
+  { _gqrrsNextToken = Nothing
+  , _gqrrsResultSet = Nothing
+  , _gqrrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | A token to be used by the next request if this request is truncated.
 gqrrsNextToken :: Lens' GetQueryResultsResponse (Maybe Text)
@@ -170,4 +175,4 @@ gqrrsResultSet = lens _gqrrsResultSet (\ s a -> s{_gqrrsResultSet = a});
 gqrrsResponseStatus :: Lens' GetQueryResultsResponse Int
 gqrrsResponseStatus = lens _gqrrsResponseStatus (\ s a -> s{_gqrrsResponseStatus = a});
 
-instance NFData GetQueryResultsResponse
+instance NFData GetQueryResultsResponse where

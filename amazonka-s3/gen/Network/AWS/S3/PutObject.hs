@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.S3.PutObject
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -67,42 +67,43 @@ module Network.AWS.S3.PutObject
     , porsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.S3.Types
-import           Network.AWS.S3.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.S3.Types
+import Network.AWS.S3.Types.Product
 
 -- | /See:/ 'putObject' smart constructor.
 data PutObject = PutObject'
-    { _poContentLength           :: !(Maybe Integer)
-    , _poExpires                 :: !(Maybe RFC822)
-    , _poGrantReadACP            :: !(Maybe Text)
-    , _poSSECustomerAlgorithm    :: !(Maybe Text)
-    , _poSSECustomerKey          :: !(Maybe (Sensitive Text))
-    , _poRequestPayer            :: !(Maybe RequestPayer)
-    , _poGrantWriteACP           :: !(Maybe Text)
-    , _poWebsiteRedirectLocation :: !(Maybe Text)
-    , _poGrantRead               :: !(Maybe Text)
-    , _poStorageClass            :: !(Maybe StorageClass)
-    , _poSSECustomerKeyMD5       :: !(Maybe Text)
-    , _poSSEKMSKeyId             :: !(Maybe (Sensitive Text))
-    , _poGrantFullControl        :: !(Maybe Text)
-    , _poContentEncoding         :: !(Maybe Text)
-    , _poTagging                 :: !(Maybe Text)
-    , _poContentMD5              :: !(Maybe Text)
-    , _poMetadata                :: !(Map Text Text)
-    , _poCacheControl            :: !(Maybe Text)
-    , _poContentLanguage         :: !(Maybe Text)
-    , _poACL                     :: !(Maybe ObjectCannedACL)
-    , _poContentDisposition      :: !(Maybe Text)
-    , _poServerSideEncryption    :: !(Maybe ServerSideEncryption)
-    , _poContentType             :: !(Maybe Text)
-    , _poBucket                  :: !BucketName
-    , _poKey                     :: !ObjectKey
-    , _poBody                    :: !RqBody
-    } deriving (Show,Generic)
+  { _poContentLength           :: !(Maybe Integer)
+  , _poExpires                 :: !(Maybe RFC822)
+  , _poGrantReadACP            :: !(Maybe Text)
+  , _poSSECustomerAlgorithm    :: !(Maybe Text)
+  , _poSSECustomerKey          :: !(Maybe (Sensitive Text))
+  , _poRequestPayer            :: !(Maybe RequestPayer)
+  , _poGrantWriteACP           :: !(Maybe Text)
+  , _poWebsiteRedirectLocation :: !(Maybe Text)
+  , _poGrantRead               :: !(Maybe Text)
+  , _poStorageClass            :: !(Maybe StorageClass)
+  , _poSSECustomerKeyMD5       :: !(Maybe Text)
+  , _poSSEKMSKeyId             :: !(Maybe (Sensitive Text))
+  , _poGrantFullControl        :: !(Maybe Text)
+  , _poContentEncoding         :: !(Maybe Text)
+  , _poTagging                 :: !(Maybe Text)
+  , _poContentMD5              :: !(Maybe Text)
+  , _poMetadata                :: !(Map Text Text)
+  , _poCacheControl            :: !(Maybe Text)
+  , _poContentLanguage         :: !(Maybe Text)
+  , _poACL                     :: !(Maybe ObjectCannedACL)
+  , _poContentDisposition      :: !(Maybe Text)
+  , _poServerSideEncryption    :: !(Maybe ServerSideEncryption)
+  , _poContentType             :: !(Maybe Text)
+  , _poBucket                  :: !BucketName
+  , _poKey                     :: !ObjectKey
+  , _poBody                    :: !RqBody
+  } deriving (Show, Generic)
+
 
 -- | Creates a value of 'PutObject' with the minimum fields required to make a request.
 --
@@ -165,34 +166,35 @@ putObject
     -> RqBody -- ^ 'poBody'
     -> PutObject
 putObject pBucket_ pKey_ pBody_ =
-    PutObject'
-    { _poContentLength = Nothing
-    , _poExpires = Nothing
-    , _poGrantReadACP = Nothing
-    , _poSSECustomerAlgorithm = Nothing
-    , _poSSECustomerKey = Nothing
-    , _poRequestPayer = Nothing
-    , _poGrantWriteACP = Nothing
-    , _poWebsiteRedirectLocation = Nothing
-    , _poGrantRead = Nothing
-    , _poStorageClass = Nothing
-    , _poSSECustomerKeyMD5 = Nothing
-    , _poSSEKMSKeyId = Nothing
-    , _poGrantFullControl = Nothing
-    , _poContentEncoding = Nothing
-    , _poTagging = Nothing
-    , _poContentMD5 = Nothing
-    , _poMetadata = mempty
-    , _poCacheControl = Nothing
-    , _poContentLanguage = Nothing
-    , _poACL = Nothing
-    , _poContentDisposition = Nothing
-    , _poServerSideEncryption = Nothing
-    , _poContentType = Nothing
-    , _poBucket = pBucket_
-    , _poKey = pKey_
-    , _poBody = pBody_
-    }
+  PutObject'
+  { _poContentLength = Nothing
+  , _poExpires = Nothing
+  , _poGrantReadACP = Nothing
+  , _poSSECustomerAlgorithm = Nothing
+  , _poSSECustomerKey = Nothing
+  , _poRequestPayer = Nothing
+  , _poGrantWriteACP = Nothing
+  , _poWebsiteRedirectLocation = Nothing
+  , _poGrantRead = Nothing
+  , _poStorageClass = Nothing
+  , _poSSECustomerKeyMD5 = Nothing
+  , _poSSEKMSKeyId = Nothing
+  , _poGrantFullControl = Nothing
+  , _poContentEncoding = Nothing
+  , _poTagging = Nothing
+  , _poContentMD5 = Nothing
+  , _poMetadata = mempty
+  , _poCacheControl = Nothing
+  , _poContentLanguage = Nothing
+  , _poACL = Nothing
+  , _poContentDisposition = Nothing
+  , _poServerSideEncryption = Nothing
+  , _poContentType = Nothing
+  , _poBucket = pBucket_
+  , _poKey = pKey_
+  , _poBody = pBody_
+  }
+
 
 -- | Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically.
 poContentLength :: Lens' PutObject (Maybe Integer)
@@ -364,16 +366,17 @@ instance ToQuery PutObject where
 
 -- | /See:/ 'putObjectResponse' smart constructor.
 data PutObjectResponse = PutObjectResponse'
-    { _porsRequestCharged       :: !(Maybe RequestCharged)
-    , _porsETag                 :: !(Maybe ETag)
-    , _porsVersionId            :: !(Maybe ObjectVersionId)
-    , _porsExpiration           :: !(Maybe Text)
-    , _porsSSECustomerAlgorithm :: !(Maybe Text)
-    , _porsSSECustomerKeyMD5    :: !(Maybe Text)
-    , _porsSSEKMSKeyId          :: !(Maybe (Sensitive Text))
-    , _porsServerSideEncryption :: !(Maybe ServerSideEncryption)
-    , _porsResponseStatus       :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _porsRequestCharged       :: !(Maybe RequestCharged)
+  , _porsETag                 :: !(Maybe ETag)
+  , _porsVersionId            :: !(Maybe ObjectVersionId)
+  , _porsExpiration           :: !(Maybe Text)
+  , _porsSSECustomerAlgorithm :: !(Maybe Text)
+  , _porsSSECustomerKeyMD5    :: !(Maybe Text)
+  , _porsSSEKMSKeyId          :: !(Maybe (Sensitive Text))
+  , _porsServerSideEncryption :: !(Maybe ServerSideEncryption)
+  , _porsResponseStatus       :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutObjectResponse' with the minimum fields required to make a request.
 --
@@ -400,17 +403,18 @@ putObjectResponse
     :: Int -- ^ 'porsResponseStatus'
     -> PutObjectResponse
 putObjectResponse pResponseStatus_ =
-    PutObjectResponse'
-    { _porsRequestCharged = Nothing
-    , _porsETag = Nothing
-    , _porsVersionId = Nothing
-    , _porsExpiration = Nothing
-    , _porsSSECustomerAlgorithm = Nothing
-    , _porsSSECustomerKeyMD5 = Nothing
-    , _porsSSEKMSKeyId = Nothing
-    , _porsServerSideEncryption = Nothing
-    , _porsResponseStatus = pResponseStatus_
-    }
+  PutObjectResponse'
+  { _porsRequestCharged = Nothing
+  , _porsETag = Nothing
+  , _porsVersionId = Nothing
+  , _porsExpiration = Nothing
+  , _porsSSECustomerAlgorithm = Nothing
+  , _porsSSECustomerKeyMD5 = Nothing
+  , _porsSSEKMSKeyId = Nothing
+  , _porsServerSideEncryption = Nothing
+  , _porsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 porsRequestCharged :: Lens' PutObjectResponse (Maybe RequestCharged)
@@ -448,4 +452,4 @@ porsServerSideEncryption = lens _porsServerSideEncryption (\ s a -> s{_porsServe
 porsResponseStatus :: Lens' PutObjectResponse Int
 porsResponseStatus = lens _porsResponseStatus (\ s a -> s{_porsResponseStatus = a});
 
-instance NFData PutObjectResponse
+instance NFData PutObjectResponse where

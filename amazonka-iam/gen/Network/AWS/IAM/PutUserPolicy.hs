@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.IAM.PutUserPolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,19 +40,20 @@ module Network.AWS.IAM.PutUserPolicy
     , PutUserPolicyResponse
     ) where
 
-import           Network.AWS.IAM.Types
-import           Network.AWS.IAM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.IAM.Types
+import Network.AWS.IAM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putUserPolicy' smart constructor.
 data PutUserPolicy = PutUserPolicy'
-    { _pupUserName       :: !Text
-    , _pupPolicyName     :: !Text
-    , _pupPolicyDocument :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pupUserName       :: !Text
+  , _pupPolicyName     :: !Text
+  , _pupPolicyDocument :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutUserPolicy' with the minimum fields required to make a request.
 --
@@ -60,7 +61,7 @@ data PutUserPolicy = PutUserPolicy'
 --
 -- * 'pupUserName' - The name of the user to associate the policy with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 --
--- * 'pupPolicyName' - The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- * 'pupPolicyName' - The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 --
 -- * 'pupPolicyDocument' - The policy document. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF). It also includes the special characters tab (\u0009), line feed (\u000A), and carriage return (\u000D).
 putUserPolicy
@@ -69,17 +70,18 @@ putUserPolicy
     -> Text -- ^ 'pupPolicyDocument'
     -> PutUserPolicy
 putUserPolicy pUserName_ pPolicyName_ pPolicyDocument_ =
-    PutUserPolicy'
-    { _pupUserName = pUserName_
-    , _pupPolicyName = pPolicyName_
-    , _pupPolicyDocument = pPolicyDocument_
-    }
+  PutUserPolicy'
+  { _pupUserName = pUserName_
+  , _pupPolicyName = pPolicyName_
+  , _pupPolicyDocument = pPolicyDocument_
+  }
+
 
 -- | The name of the user to associate the policy with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
 pupUserName :: Lens' PutUserPolicy Text
 pupUserName = lens _pupUserName (\ s a -> s{_pupUserName = a});
 
--- | The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- | The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 pupPolicyName :: Lens' PutUserPolicy Text
 pupPolicyName = lens _pupPolicyName (\ s a -> s{_pupPolicyName = a});
 
@@ -92,9 +94,9 @@ instance AWSRequest PutUserPolicy where
         request = postQuery iam
         response = receiveNull PutUserPolicyResponse'
 
-instance Hashable PutUserPolicy
+instance Hashable PutUserPolicy where
 
-instance NFData PutUserPolicy
+instance NFData PutUserPolicy where
 
 instance ToHeaders PutUserPolicy where
         toHeaders = const mempty
@@ -113,8 +115,9 @@ instance ToQuery PutUserPolicy where
 
 -- | /See:/ 'putUserPolicyResponse' smart constructor.
 data PutUserPolicyResponse =
-    PutUserPolicyResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  PutUserPolicyResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutUserPolicyResponse' with the minimum fields required to make a request.
 --
@@ -122,4 +125,5 @@ putUserPolicyResponse
     :: PutUserPolicyResponse
 putUserPolicyResponse = PutUserPolicyResponse'
 
-instance NFData PutUserPolicyResponse
+
+instance NFData PutUserPolicyResponse where

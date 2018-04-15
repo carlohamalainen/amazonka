@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.WAFRegional.UpdateXSSMatchSet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -61,12 +61,12 @@ module Network.AWS.WAFRegional.UpdateXSSMatchSet
     , uxmsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.WAFRegional.Types
-import           Network.AWS.WAFRegional.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.WAFRegional.Types
+import Network.AWS.WAFRegional.Types.Product
 
 -- | A request to update an 'XssMatchSet' .
 --
@@ -74,10 +74,11 @@ import           Network.AWS.WAFRegional.Types.Product
 --
 -- /See:/ 'updateXSSMatchSet' smart constructor.
 data UpdateXSSMatchSet = UpdateXSSMatchSet'
-    { _uxmsXSSMatchSetId :: !Text
-    , _uxmsChangeToken   :: !Text
-    , _uxmsUpdates       :: ![XSSMatchSetUpdate]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uxmsXSSMatchSetId :: !Text
+  , _uxmsChangeToken   :: !Text
+  , _uxmsUpdates       :: !(List1 XSSMatchSetUpdate)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateXSSMatchSet' with the minimum fields required to make a request.
 --
@@ -91,13 +92,15 @@ data UpdateXSSMatchSet = UpdateXSSMatchSet'
 updateXSSMatchSet
     :: Text -- ^ 'uxmsXSSMatchSetId'
     -> Text -- ^ 'uxmsChangeToken'
+    -> NonEmpty XSSMatchSetUpdate -- ^ 'uxmsUpdates'
     -> UpdateXSSMatchSet
-updateXSSMatchSet pXSSMatchSetId_ pChangeToken_ =
-    UpdateXSSMatchSet'
-    { _uxmsXSSMatchSetId = pXSSMatchSetId_
-    , _uxmsChangeToken = pChangeToken_
-    , _uxmsUpdates = mempty
-    }
+updateXSSMatchSet pXSSMatchSetId_ pChangeToken_ pUpdates_ =
+  UpdateXSSMatchSet'
+  { _uxmsXSSMatchSetId = pXSSMatchSetId_
+  , _uxmsChangeToken = pChangeToken_
+  , _uxmsUpdates = _List1 # pUpdates_
+  }
+
 
 -- | The @XssMatchSetId@ of the @XssMatchSet@ that you want to update. @XssMatchSetId@ is returned by 'CreateXssMatchSet' and by 'ListXssMatchSets' .
 uxmsXSSMatchSetId :: Lens' UpdateXSSMatchSet Text
@@ -108,8 +111,8 @@ uxmsChangeToken :: Lens' UpdateXSSMatchSet Text
 uxmsChangeToken = lens _uxmsChangeToken (\ s a -> s{_uxmsChangeToken = a});
 
 -- | An array of @XssMatchSetUpdate@ objects that you want to insert into or delete from a 'XssMatchSet' . For more information, see the applicable data types:     * 'XssMatchSetUpdate' : Contains @Action@ and @XssMatchTuple@      * 'XssMatchTuple' : Contains @FieldToMatch@ and @TextTransformation@      * 'FieldToMatch' : Contains @Data@ and @Type@
-uxmsUpdates :: Lens' UpdateXSSMatchSet [XSSMatchSetUpdate]
-uxmsUpdates = lens _uxmsUpdates (\ s a -> s{_uxmsUpdates = a}) . _Coerce;
+uxmsUpdates :: Lens' UpdateXSSMatchSet (NonEmpty XSSMatchSetUpdate)
+uxmsUpdates = lens _uxmsUpdates (\ s a -> s{_uxmsUpdates = a}) . _List1;
 
 instance AWSRequest UpdateXSSMatchSet where
         type Rs UpdateXSSMatchSet = UpdateXSSMatchSetResponse
@@ -120,9 +123,9 @@ instance AWSRequest UpdateXSSMatchSet where
                  UpdateXSSMatchSetResponse' <$>
                    (x .?> "ChangeToken") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateXSSMatchSet
+instance Hashable UpdateXSSMatchSet where
 
-instance NFData UpdateXSSMatchSet
+instance NFData UpdateXSSMatchSet where
 
 instance ToHeaders UpdateXSSMatchSet where
         toHeaders
@@ -154,9 +157,10 @@ instance ToQuery UpdateXSSMatchSet where
 --
 -- /See:/ 'updateXSSMatchSetResponse' smart constructor.
 data UpdateXSSMatchSetResponse = UpdateXSSMatchSetResponse'
-    { _uxmsrsChangeToken    :: !(Maybe Text)
-    , _uxmsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uxmsrsChangeToken    :: !(Maybe Text)
+  , _uxmsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateXSSMatchSetResponse' with the minimum fields required to make a request.
 --
@@ -169,10 +173,9 @@ updateXSSMatchSetResponse
     :: Int -- ^ 'uxmsrsResponseStatus'
     -> UpdateXSSMatchSetResponse
 updateXSSMatchSetResponse pResponseStatus_ =
-    UpdateXSSMatchSetResponse'
-    { _uxmsrsChangeToken = Nothing
-    , _uxmsrsResponseStatus = pResponseStatus_
-    }
+  UpdateXSSMatchSetResponse'
+  {_uxmsrsChangeToken = Nothing, _uxmsrsResponseStatus = pResponseStatus_}
+
 
 -- | The @ChangeToken@ that you used to submit the @UpdateXssMatchSet@ request. You can also use this value to query the status of the request. For more information, see 'GetChangeTokenStatus' .
 uxmsrsChangeToken :: Lens' UpdateXSSMatchSetResponse (Maybe Text)
@@ -182,4 +185,4 @@ uxmsrsChangeToken = lens _uxmsrsChangeToken (\ s a -> s{_uxmsrsChangeToken = a})
 uxmsrsResponseStatus :: Lens' UpdateXSSMatchSetResponse Int
 uxmsrsResponseStatus = lens _uxmsrsResponseStatus (\ s a -> s{_uxmsrsResponseStatus = a});
 
-instance NFData UpdateXSSMatchSetResponse
+instance NFData UpdateXSSMatchSetResponse where

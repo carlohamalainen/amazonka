@@ -9,17 +9,17 @@
 
 -- |
 -- Module      : Network.AWS.IAM.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.IAM.Types.Product where
 
-import           Network.AWS.IAM.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.IAM.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
 -- | Contains information about an AWS access key.
 --
@@ -29,12 +29,13 @@ import           Network.AWS.Prelude
 --
 -- /See:/ 'accessKeyInfo' smart constructor.
 data AccessKeyInfo = AccessKeyInfo'
-    { _akiCreateDate      :: !(Maybe ISO8601)
-    , _akiUserName        :: !Text
-    , _akiAccessKeyId     :: !AccessKey
-    , _akiStatus          :: !StatusType
-    , _akiSecretAccessKey :: !(Sensitive Text)
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _akiCreateDate      :: !(Maybe ISO8601)
+  , _akiUserName        :: !Text
+  , _akiAccessKeyId     :: !AccessKey
+  , _akiStatus          :: !StatusType
+  , _akiSecretAccessKey :: !(Sensitive Text)
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AccessKeyInfo' with the minimum fields required to make a request.
 --
@@ -56,13 +57,14 @@ accessKeyInfo
     -> Text -- ^ 'akiSecretAccessKey'
     -> AccessKeyInfo
 accessKeyInfo pUserName_ pAccessKeyId_ pStatus_ pSecretAccessKey_ =
-    AccessKeyInfo'
-    { _akiCreateDate = Nothing
-    , _akiUserName = pUserName_
-    , _akiAccessKeyId = pAccessKeyId_
-    , _akiStatus = pStatus_
-    , _akiSecretAccessKey = _Sensitive # pSecretAccessKey_
-    }
+  AccessKeyInfo'
+  { _akiCreateDate = Nothing
+  , _akiUserName = pUserName_
+  , _akiAccessKeyId = pAccessKeyId_
+  , _akiStatus = pStatus_
+  , _akiSecretAccessKey = _Sensitive # pSecretAccessKey_
+  }
+
 
 -- | The date when the access key was created.
 akiCreateDate :: Lens' AccessKeyInfo (Maybe UTCTime)
@@ -92,9 +94,9 @@ instance FromXML AccessKeyInfo where
                 <*> (x .@ "Status")
                 <*> (x .@ "SecretAccessKey")
 
-instance Hashable AccessKeyInfo
+instance Hashable AccessKeyInfo where
 
-instance NFData AccessKeyInfo
+instance NFData AccessKeyInfo where
 
 -- | Contains information about the last time an AWS access key was used.
 --
@@ -104,10 +106,11 @@ instance NFData AccessKeyInfo
 --
 -- /See:/ 'accessKeyLastUsed' smart constructor.
 data AccessKeyLastUsed = AccessKeyLastUsed'
-    { _akluLastUsedDate :: !ISO8601
-    , _akluServiceName  :: !Text
-    , _akluRegion       :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _akluLastUsedDate :: !ISO8601
+  , _akluServiceName  :: !Text
+  , _akluRegion       :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AccessKeyLastUsed' with the minimum fields required to make a request.
 --
@@ -124,11 +127,12 @@ accessKeyLastUsed
     -> Text -- ^ 'akluRegion'
     -> AccessKeyLastUsed
 accessKeyLastUsed pLastUsedDate_ pServiceName_ pRegion_ =
-    AccessKeyLastUsed'
-    { _akluLastUsedDate = _Time # pLastUsedDate_
-    , _akluServiceName = pServiceName_
-    , _akluRegion = pRegion_
-    }
+  AccessKeyLastUsed'
+  { _akluLastUsedDate = _Time # pLastUsedDate_
+  , _akluServiceName = pServiceName_
+  , _akluRegion = pRegion_
+  }
+
 
 -- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the access key was most recently used. This field is null when:     * The user does not have an access key.     * An access key exists but has never been used, at least not since IAM started tracking this information on April 22nd, 2015.     * There is no sign-in data associated with the user
 akluLastUsedDate :: Lens' AccessKeyLastUsed UTCTime
@@ -148,9 +152,9 @@ instance FromXML AccessKeyLastUsed where
               (x .@ "LastUsedDate") <*> (x .@ "ServiceName") <*>
                 (x .@ "Region")
 
-instance Hashable AccessKeyLastUsed
+instance Hashable AccessKeyLastUsed where
 
-instance NFData AccessKeyLastUsed
+instance NFData AccessKeyLastUsed where
 
 -- | Contains information about an AWS access key, without its secret key.
 --
@@ -160,11 +164,12 @@ instance NFData AccessKeyLastUsed
 --
 -- /See:/ 'accessKeyMetadata' smart constructor.
 data AccessKeyMetadata = AccessKeyMetadata'
-    { _akmStatus      :: !(Maybe StatusType)
-    , _akmCreateDate  :: !(Maybe ISO8601)
-    , _akmUserName    :: !(Maybe Text)
-    , _akmAccessKeyId :: !(Maybe AccessKey)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _akmStatus      :: !(Maybe StatusType)
+  , _akmCreateDate  :: !(Maybe ISO8601)
+  , _akmUserName    :: !(Maybe Text)
+  , _akmAccessKeyId :: !(Maybe AccessKey)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AccessKeyMetadata' with the minimum fields required to make a request.
 --
@@ -180,12 +185,13 @@ data AccessKeyMetadata = AccessKeyMetadata'
 accessKeyMetadata
     :: AccessKeyMetadata
 accessKeyMetadata =
-    AccessKeyMetadata'
-    { _akmStatus = Nothing
-    , _akmCreateDate = Nothing
-    , _akmUserName = Nothing
-    , _akmAccessKeyId = Nothing
-    }
+  AccessKeyMetadata'
+  { _akmStatus = Nothing
+  , _akmCreateDate = Nothing
+  , _akmUserName = Nothing
+  , _akmAccessKeyId = Nothing
+  }
+
 
 -- | The status of the access key. @Active@ means the key is valid for API calls; @Inactive@ means it is not.
 akmStatus :: Lens' AccessKeyMetadata (Maybe StatusType)
@@ -210,9 +216,9 @@ instance FromXML AccessKeyMetadata where
                 (x .@? "UserName")
                 <*> (x .@? "AccessKeyId")
 
-instance Hashable AccessKeyMetadata
+instance Hashable AccessKeyMetadata where
 
-instance NFData AccessKeyMetadata
+instance NFData AccessKeyMetadata where
 
 -- | Contains information about an attached policy.
 --
@@ -224,9 +230,10 @@ instance NFData AccessKeyMetadata
 --
 -- /See:/ 'attachedPolicy' smart constructor.
 data AttachedPolicy = AttachedPolicy'
-    { _apPolicyName :: !(Maybe Text)
-    , _apPolicyARN  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _apPolicyName :: !(Maybe Text)
+  , _apPolicyARN  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AttachedPolicy' with the minimum fields required to make a request.
 --
@@ -238,10 +245,8 @@ data AttachedPolicy = AttachedPolicy'
 attachedPolicy
     :: AttachedPolicy
 attachedPolicy =
-    AttachedPolicy'
-    { _apPolicyName = Nothing
-    , _apPolicyARN = Nothing
-    }
+  AttachedPolicy' {_apPolicyName = Nothing, _apPolicyARN = Nothing}
+
 
 -- | The friendly name of the attached policy.
 apPolicyName :: Lens' AttachedPolicy (Maybe Text)
@@ -256,9 +261,9 @@ instance FromXML AttachedPolicy where
           = AttachedPolicy' <$>
               (x .@? "PolicyName") <*> (x .@? "PolicyArn")
 
-instance Hashable AttachedPolicy
+instance Hashable AttachedPolicy where
 
-instance NFData AttachedPolicy
+instance NFData AttachedPolicy where
 
 -- | Contains information about a condition context key. It includes the name of the key and specifies the value (or values, if the context key supports multiple values) to use in the simulation. This information is used when evaluating the @Condition@ elements of the input policies.
 --
@@ -268,10 +273,11 @@ instance NFData AttachedPolicy
 --
 -- /See:/ 'contextEntry' smart constructor.
 data ContextEntry = ContextEntry'
-    { _ceContextKeyValues :: !(Maybe [Text])
-    , _ceContextKeyName   :: !(Maybe Text)
-    , _ceContextKeyType   :: !(Maybe ContextKeyTypeEnum)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ceContextKeyValues :: !(Maybe [Text])
+  , _ceContextKeyName   :: !(Maybe Text)
+  , _ceContextKeyType   :: !(Maybe ContextKeyTypeEnum)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ContextEntry' with the minimum fields required to make a request.
 --
@@ -285,11 +291,12 @@ data ContextEntry = ContextEntry'
 contextEntry
     :: ContextEntry
 contextEntry =
-    ContextEntry'
-    { _ceContextKeyValues = Nothing
-    , _ceContextKeyName = Nothing
-    , _ceContextKeyType = Nothing
-    }
+  ContextEntry'
+  { _ceContextKeyValues = Nothing
+  , _ceContextKeyName = Nothing
+  , _ceContextKeyType = Nothing
+  }
+
 
 -- | The value (or values, if the condition context key supports multiple values) to provide to the simulation for use when the key is referenced by a @Condition@ element in an input policy.
 ceContextKeyValues :: Lens' ContextEntry [Text]
@@ -303,9 +310,9 @@ ceContextKeyName = lens _ceContextKeyName (\ s a -> s{_ceContextKeyName = a});
 ceContextKeyType :: Lens' ContextEntry (Maybe ContextKeyTypeEnum)
 ceContextKeyType = lens _ceContextKeyType (\ s a -> s{_ceContextKeyType = a});
 
-instance Hashable ContextEntry
+instance Hashable ContextEntry where
 
-instance NFData ContextEntry
+instance NFData ContextEntry where
 
 instance ToQuery ContextEntry where
         toQuery ContextEntry'{..}
@@ -316,6 +323,52 @@ instance ToQuery ContextEntry where
                "ContextKeyName" =: _ceContextKeyName,
                "ContextKeyType" =: _ceContextKeyType]
 
+-- | The reason that the service-linked role deletion failed.
+--
+--
+-- This data type is used as a response element in the 'GetServiceLinkedRoleDeletionStatus' operation.
+--
+--
+-- /See:/ 'deletionTaskFailureReasonType' smart constructor.
+data DeletionTaskFailureReasonType = DeletionTaskFailureReasonType'
+  { _dtfrtRoleUsageList :: !(Maybe [RoleUsageType])
+  , _dtfrtReason        :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'DeletionTaskFailureReasonType' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'dtfrtRoleUsageList' - A list of objects that contains details about the service-linked role deletion failure. If the service-linked role has active sessions or if any resources that were used by the role have not been deleted from the linked service, the role can't be deleted. This parameter includes a list of the resources that are associated with the role and the region in which the resources are being used.
+--
+-- * 'dtfrtReason' - A short description of the reason that the service-linked role deletion failed.
+deletionTaskFailureReasonType
+    :: DeletionTaskFailureReasonType
+deletionTaskFailureReasonType =
+  DeletionTaskFailureReasonType'
+  {_dtfrtRoleUsageList = Nothing, _dtfrtReason = Nothing}
+
+
+-- | A list of objects that contains details about the service-linked role deletion failure. If the service-linked role has active sessions or if any resources that were used by the role have not been deleted from the linked service, the role can't be deleted. This parameter includes a list of the resources that are associated with the role and the region in which the resources are being used.
+dtfrtRoleUsageList :: Lens' DeletionTaskFailureReasonType [RoleUsageType]
+dtfrtRoleUsageList = lens _dtfrtRoleUsageList (\ s a -> s{_dtfrtRoleUsageList = a}) . _Default . _Coerce;
+
+-- | A short description of the reason that the service-linked role deletion failed.
+dtfrtReason :: Lens' DeletionTaskFailureReasonType (Maybe Text)
+dtfrtReason = lens _dtfrtReason (\ s a -> s{_dtfrtReason = a});
+
+instance FromXML DeletionTaskFailureReasonType where
+        parseXML x
+          = DeletionTaskFailureReasonType' <$>
+              (x .@? "RoleUsageList" .!@ mempty >>=
+                 may (parseXMLList "member"))
+                <*> (x .@? "Reason")
+
+instance Hashable DeletionTaskFailureReasonType where
+
+instance NFData DeletionTaskFailureReasonType where
+
 -- | Contains the results of a simulation.
 --
 --
@@ -324,15 +377,16 @@ instance ToQuery ContextEntry where
 --
 -- /See:/ 'evaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-    { _erMatchedStatements           :: !(Maybe [Statement])
-    , _erEvalDecisionDetails         :: !(Maybe (Map Text PolicyEvaluationDecisionType))
-    , _erResourceSpecificResults     :: !(Maybe [ResourceSpecificResult])
-    , _erEvalResourceName            :: !(Maybe Text)
-    , _erMissingContextValues        :: !(Maybe [Text])
-    , _erOrganizationsDecisionDetail :: !(Maybe OrganizationsDecisionDetail)
-    , _erEvalActionName              :: !Text
-    , _erEvalDecision                :: !PolicyEvaluationDecisionType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _erMatchedStatements :: !(Maybe [Statement])
+  , _erEvalDecisionDetails :: !(Maybe (Map Text PolicyEvaluationDecisionType))
+  , _erResourceSpecificResults :: !(Maybe [ResourceSpecificResult])
+  , _erEvalResourceName :: !(Maybe Text)
+  , _erMissingContextValues :: !(Maybe [Text])
+  , _erOrganizationsDecisionDetail :: !(Maybe OrganizationsDecisionDetail)
+  , _erEvalActionName :: !Text
+  , _erEvalDecision :: !PolicyEvaluationDecisionType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'EvaluationResult' with the minimum fields required to make a request.
 --
@@ -358,16 +412,17 @@ evaluationResult
     -> PolicyEvaluationDecisionType -- ^ 'erEvalDecision'
     -> EvaluationResult
 evaluationResult pEvalActionName_ pEvalDecision_ =
-    EvaluationResult'
-    { _erMatchedStatements = Nothing
-    , _erEvalDecisionDetails = Nothing
-    , _erResourceSpecificResults = Nothing
-    , _erEvalResourceName = Nothing
-    , _erMissingContextValues = Nothing
-    , _erOrganizationsDecisionDetail = Nothing
-    , _erEvalActionName = pEvalActionName_
-    , _erEvalDecision = pEvalDecision_
-    }
+  EvaluationResult'
+  { _erMatchedStatements = Nothing
+  , _erEvalDecisionDetails = Nothing
+  , _erResourceSpecificResults = Nothing
+  , _erEvalResourceName = Nothing
+  , _erMissingContextValues = Nothing
+  , _erOrganizationsDecisionDetail = Nothing
+  , _erEvalActionName = pEvalActionName_
+  , _erEvalDecision = pEvalDecision_
+  }
+
 
 -- | A list of the statements in the input policies that determine the result for this scenario. Remember that even if multiple statements allow the action on the resource, if only one statement denies that action, then the explicit deny overrides any allow, and the deny statement is the only entry included in the result.
 erMatchedStatements :: Lens' EvaluationResult [Statement]
@@ -420,9 +475,9 @@ instance FromXML EvaluationResult where
                 <*> (x .@ "EvalActionName")
                 <*> (x .@ "EvalDecision")
 
-instance Hashable EvaluationResult
+instance Hashable EvaluationResult where
 
-instance NFData EvaluationResult
+instance NFData EvaluationResult where
 
 -- | Contains the response to a successful 'GetContextKeysForPrincipalPolicy' or 'GetContextKeysForCustomPolicy' request.
 --
@@ -430,8 +485,9 @@ instance NFData EvaluationResult
 --
 -- /See:/ 'getContextKeysForPolicyResponse' smart constructor.
 newtype GetContextKeysForPolicyResponse = GetContextKeysForPolicyResponse'
-    { _gckfpContextKeyNames :: Maybe [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gckfpContextKeyNames :: Maybe [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetContextKeysForPolicyResponse' with the minimum fields required to make a request.
 --
@@ -441,9 +497,8 @@ newtype GetContextKeysForPolicyResponse = GetContextKeysForPolicyResponse'
 getContextKeysForPolicyResponse
     :: GetContextKeysForPolicyResponse
 getContextKeysForPolicyResponse =
-    GetContextKeysForPolicyResponse'
-    { _gckfpContextKeyNames = Nothing
-    }
+  GetContextKeysForPolicyResponse' {_gckfpContextKeyNames = Nothing}
+
 
 -- | The list of context keys that are referenced in the input policies.
 gckfpContextKeyNames :: Lens' GetContextKeysForPolicyResponse [Text]
@@ -457,8 +512,9 @@ instance FromXML GetContextKeysForPolicyResponse
                  may (parseXMLList "member"))
 
 instance Hashable GetContextKeysForPolicyResponse
+         where
 
-instance NFData GetContextKeysForPolicyResponse
+instance NFData GetContextKeysForPolicyResponse where
 
 -- | Contains information about an IAM group entity.
 --
@@ -476,12 +532,13 @@ instance NFData GetContextKeysForPolicyResponse
 --
 -- /See:/ 'group'' smart constructor.
 data Group = Group'
-    { _gPath       :: !Text
-    , _gGroupName  :: !Text
-    , _gGroupId    :: !Text
-    , _gARN        :: !Text
-    , _gCreateDate :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gPath       :: !Text
+  , _gGroupName  :: !Text
+  , _gGroupId    :: !Text
+  , _gARN        :: !Text
+  , _gCreateDate :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Group' with the minimum fields required to make a request.
 --
@@ -504,13 +561,14 @@ group'
     -> UTCTime -- ^ 'gCreateDate'
     -> Group
 group' pPath_ pGroupName_ pGroupId_ pARN_ pCreateDate_ =
-    Group'
-    { _gPath = pPath_
-    , _gGroupName = pGroupName_
-    , _gGroupId = pGroupId_
-    , _gARN = pARN_
-    , _gCreateDate = _Time # pCreateDate_
-    }
+  Group'
+  { _gPath = pPath_
+  , _gGroupName = pGroupName_
+  , _gGroupId = pGroupId_
+  , _gARN = pARN_
+  , _gCreateDate = _Time # pCreateDate_
+  }
+
 
 -- | The path to the group. For more information about paths, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers> in the /Using IAM/ guide.
 gPath :: Lens' Group Text
@@ -540,9 +598,9 @@ instance FromXML Group where
                 <*> (x .@ "Arn")
                 <*> (x .@ "CreateDate")
 
-instance Hashable Group
+instance Hashable Group where
 
-instance NFData Group
+instance NFData Group where
 
 -- | Contains information about an IAM group, including all of the group's policies.
 --
@@ -552,14 +610,15 @@ instance NFData Group
 --
 -- /See:/ 'groupDetail' smart constructor.
 data GroupDetail = GroupDetail'
-    { _gdARN                     :: !(Maybe Text)
-    , _gdPath                    :: !(Maybe Text)
-    , _gdCreateDate              :: !(Maybe ISO8601)
-    , _gdGroupId                 :: !(Maybe Text)
-    , _gdGroupPolicyList         :: !(Maybe [PolicyDetail])
-    , _gdGroupName               :: !(Maybe Text)
-    , _gdAttachedManagedPolicies :: !(Maybe [AttachedPolicy])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gdARN                     :: !(Maybe Text)
+  , _gdPath                    :: !(Maybe Text)
+  , _gdCreateDate              :: !(Maybe ISO8601)
+  , _gdGroupId                 :: !(Maybe Text)
+  , _gdGroupPolicyList         :: !(Maybe [PolicyDetail])
+  , _gdGroupName               :: !(Maybe Text)
+  , _gdAttachedManagedPolicies :: !(Maybe [AttachedPolicy])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GroupDetail' with the minimum fields required to make a request.
 --
@@ -581,15 +640,16 @@ data GroupDetail = GroupDetail'
 groupDetail
     :: GroupDetail
 groupDetail =
-    GroupDetail'
-    { _gdARN = Nothing
-    , _gdPath = Nothing
-    , _gdCreateDate = Nothing
-    , _gdGroupId = Nothing
-    , _gdGroupPolicyList = Nothing
-    , _gdGroupName = Nothing
-    , _gdAttachedManagedPolicies = Nothing
-    }
+  GroupDetail'
+  { _gdARN = Nothing
+  , _gdPath = Nothing
+  , _gdCreateDate = Nothing
+  , _gdGroupId = Nothing
+  , _gdGroupPolicyList = Nothing
+  , _gdGroupName = Nothing
+  , _gdAttachedManagedPolicies = Nothing
+  }
+
 
 -- | Undocumented member.
 gdARN :: Lens' GroupDetail (Maybe Text)
@@ -633,9 +693,9 @@ instance FromXML GroupDetail where
                 (x .@? "AttachedManagedPolicies" .!@ mempty >>=
                    may (parseXMLList "member"))
 
-instance Hashable GroupDetail
+instance Hashable GroupDetail where
 
-instance NFData GroupDetail
+instance NFData GroupDetail where
 
 -- | Contains information about an instance profile.
 --
@@ -655,13 +715,14 @@ instance NFData GroupDetail
 --
 -- /See:/ 'instanceProfile' smart constructor.
 data InstanceProfile = InstanceProfile'
-    { _ipPath                :: !Text
-    , _ipInstanceProfileName :: !Text
-    , _ipInstanceProfileId   :: !Text
-    , _ipARN                 :: !Text
-    , _ipCreateDate          :: !ISO8601
-    , _ipRoles               :: ![Role]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ipPath                :: !Text
+  , _ipInstanceProfileName :: !Text
+  , _ipInstanceProfileId   :: !Text
+  , _ipARN                 :: !Text
+  , _ipCreateDate          :: !ISO8601
+  , _ipRoles               :: ![Role]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'InstanceProfile' with the minimum fields required to make a request.
 --
@@ -686,14 +747,15 @@ instanceProfile
     -> UTCTime -- ^ 'ipCreateDate'
     -> InstanceProfile
 instanceProfile pPath_ pInstanceProfileName_ pInstanceProfileId_ pARN_ pCreateDate_ =
-    InstanceProfile'
-    { _ipPath = pPath_
-    , _ipInstanceProfileName = pInstanceProfileName_
-    , _ipInstanceProfileId = pInstanceProfileId_
-    , _ipARN = pARN_
-    , _ipCreateDate = _Time # pCreateDate_
-    , _ipRoles = mempty
-    }
+  InstanceProfile'
+  { _ipPath = pPath_
+  , _ipInstanceProfileName = pInstanceProfileName_
+  , _ipInstanceProfileId = pInstanceProfileId_
+  , _ipARN = pARN_
+  , _ipCreateDate = _Time # pCreateDate_
+  , _ipRoles = mempty
+  }
+
 
 -- | The path to the instance profile. For more information about paths, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers> in the /Using IAM/ guide.
 ipPath :: Lens' InstanceProfile Text
@@ -729,9 +791,9 @@ instance FromXML InstanceProfile where
                 <*>
                 (x .@? "Roles" .!@ mempty >>= parseXMLList "member")
 
-instance Hashable InstanceProfile
+instance Hashable InstanceProfile where
 
-instance NFData InstanceProfile
+instance NFData InstanceProfile where
 
 -- | Contains the user name and password create date for a user.
 --
@@ -741,10 +803,11 @@ instance NFData InstanceProfile
 --
 -- /See:/ 'loginProfile' smart constructor.
 data LoginProfile = LoginProfile'
-    { _lpPasswordResetRequired :: !(Maybe Bool)
-    , _lpUserName              :: !Text
-    , _lpCreateDate            :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lpPasswordResetRequired :: !(Maybe Bool)
+  , _lpUserName              :: !Text
+  , _lpCreateDate            :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'LoginProfile' with the minimum fields required to make a request.
 --
@@ -760,11 +823,12 @@ loginProfile
     -> UTCTime -- ^ 'lpCreateDate'
     -> LoginProfile
 loginProfile pUserName_ pCreateDate_ =
-    LoginProfile'
-    { _lpPasswordResetRequired = Nothing
-    , _lpUserName = pUserName_
-    , _lpCreateDate = _Time # pCreateDate_
-    }
+  LoginProfile'
+  { _lpPasswordResetRequired = Nothing
+  , _lpUserName = pUserName_
+  , _lpCreateDate = _Time # pCreateDate_
+  }
+
 
 -- | Specifies whether the user is required to set a new password on next sign-in.
 lpPasswordResetRequired :: Lens' LoginProfile (Maybe Bool)
@@ -784,9 +848,9 @@ instance FromXML LoginProfile where
               (x .@? "PasswordResetRequired") <*> (x .@ "UserName")
                 <*> (x .@ "CreateDate")
 
-instance Hashable LoginProfile
+instance Hashable LoginProfile where
 
-instance NFData LoginProfile
+instance NFData LoginProfile where
 
 -- | Contains information about an MFA device.
 --
@@ -796,10 +860,11 @@ instance NFData LoginProfile
 --
 -- /See:/ 'mfaDevice' smart constructor.
 data MFADevice = MFADevice'
-    { _mdUserName     :: !Text
-    , _mdSerialNumber :: !Text
-    , _mdEnableDate   :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mdUserName     :: !Text
+  , _mdSerialNumber :: !Text
+  , _mdEnableDate   :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'MFADevice' with the minimum fields required to make a request.
 --
@@ -816,11 +881,12 @@ mfaDevice
     -> UTCTime -- ^ 'mdEnableDate'
     -> MFADevice
 mfaDevice pUserName_ pSerialNumber_ pEnableDate_ =
-    MFADevice'
-    { _mdUserName = pUserName_
-    , _mdSerialNumber = pSerialNumber_
-    , _mdEnableDate = _Time # pEnableDate_
-    }
+  MFADevice'
+  { _mdUserName = pUserName_
+  , _mdSerialNumber = pSerialNumber_
+  , _mdEnableDate = _Time # pEnableDate_
+  }
+
 
 -- | The user with whom the MFA device is associated.
 mdUserName :: Lens' MFADevice Text
@@ -840,9 +906,9 @@ instance FromXML MFADevice where
               (x .@ "UserName") <*> (x .@ "SerialNumber") <*>
                 (x .@ "EnableDate")
 
-instance Hashable MFADevice
+instance Hashable MFADevice where
 
-instance NFData MFADevice
+instance NFData MFADevice where
 
 -- | Contains information about a managed policy, including the policy's ARN, versions, and the number of principal entities (users, groups, and roles) that the policy is attached to.
 --
@@ -854,18 +920,19 @@ instance NFData MFADevice
 --
 -- /See:/ 'managedPolicyDetail' smart constructor.
 data ManagedPolicyDetail = ManagedPolicyDetail'
-    { _mpdPolicyName        :: !(Maybe Text)
-    , _mpdARN               :: !(Maybe Text)
-    , _mpdUpdateDate        :: !(Maybe ISO8601)
-    , _mpdPolicyId          :: !(Maybe Text)
-    , _mpdPath              :: !(Maybe Text)
-    , _mpdPolicyVersionList :: !(Maybe [PolicyVersion])
-    , _mpdCreateDate        :: !(Maybe ISO8601)
-    , _mpdIsAttachable      :: !(Maybe Bool)
-    , _mpdDefaultVersionId  :: !(Maybe Text)
-    , _mpdAttachmentCount   :: !(Maybe Int)
-    , _mpdDescription       :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mpdPolicyName        :: !(Maybe Text)
+  , _mpdARN               :: !(Maybe Text)
+  , _mpdUpdateDate        :: !(Maybe ISO8601)
+  , _mpdPolicyId          :: !(Maybe Text)
+  , _mpdPath              :: !(Maybe Text)
+  , _mpdPolicyVersionList :: !(Maybe [PolicyVersion])
+  , _mpdCreateDate        :: !(Maybe ISO8601)
+  , _mpdIsAttachable      :: !(Maybe Bool)
+  , _mpdDefaultVersionId  :: !(Maybe Text)
+  , _mpdAttachmentCount   :: !(Maybe Int)
+  , _mpdDescription       :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ManagedPolicyDetail' with the minimum fields required to make a request.
 --
@@ -895,19 +962,20 @@ data ManagedPolicyDetail = ManagedPolicyDetail'
 managedPolicyDetail
     :: ManagedPolicyDetail
 managedPolicyDetail =
-    ManagedPolicyDetail'
-    { _mpdPolicyName = Nothing
-    , _mpdARN = Nothing
-    , _mpdUpdateDate = Nothing
-    , _mpdPolicyId = Nothing
-    , _mpdPath = Nothing
-    , _mpdPolicyVersionList = Nothing
-    , _mpdCreateDate = Nothing
-    , _mpdIsAttachable = Nothing
-    , _mpdDefaultVersionId = Nothing
-    , _mpdAttachmentCount = Nothing
-    , _mpdDescription = Nothing
-    }
+  ManagedPolicyDetail'
+  { _mpdPolicyName = Nothing
+  , _mpdARN = Nothing
+  , _mpdUpdateDate = Nothing
+  , _mpdPolicyId = Nothing
+  , _mpdPath = Nothing
+  , _mpdPolicyVersionList = Nothing
+  , _mpdCreateDate = Nothing
+  , _mpdIsAttachable = Nothing
+  , _mpdDefaultVersionId = Nothing
+  , _mpdAttachmentCount = Nothing
+  , _mpdDescription = Nothing
+  }
+
 
 -- | The friendly name (not ARN) identifying the policy.
 mpdPolicyName :: Lens' ManagedPolicyDetail (Maybe Text)
@@ -969,9 +1037,9 @@ instance FromXML ManagedPolicyDetail where
                 <*> (x .@? "AttachmentCount")
                 <*> (x .@? "Description")
 
-instance Hashable ManagedPolicyDetail
+instance Hashable ManagedPolicyDetail where
 
-instance NFData ManagedPolicyDetail
+instance NFData ManagedPolicyDetail where
 
 -- | Contains the Amazon Resource Name (ARN) for an IAM OpenID Connect provider.
 --
@@ -979,8 +1047,9 @@ instance NFData ManagedPolicyDetail
 --
 -- /See:/ 'openIdConnectProviderListEntry' smart constructor.
 newtype OpenIdConnectProviderListEntry = OpenIdConnectProviderListEntry'
-    { _oicpleARN :: Maybe Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _oicpleARN :: Maybe Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'OpenIdConnectProviderListEntry' with the minimum fields required to make a request.
 --
@@ -990,9 +1059,8 @@ newtype OpenIdConnectProviderListEntry = OpenIdConnectProviderListEntry'
 openIdConnectProviderListEntry
     :: OpenIdConnectProviderListEntry
 openIdConnectProviderListEntry =
-    OpenIdConnectProviderListEntry'
-    { _oicpleARN = Nothing
-    }
+  OpenIdConnectProviderListEntry' {_oicpleARN = Nothing}
+
 
 -- | Undocumented member.
 oicpleARN :: Lens' OpenIdConnectProviderListEntry (Maybe Text)
@@ -1003,8 +1071,9 @@ instance FromXML OpenIdConnectProviderListEntry where
           = OpenIdConnectProviderListEntry' <$> (x .@? "Arn")
 
 instance Hashable OpenIdConnectProviderListEntry
+         where
 
-instance NFData OpenIdConnectProviderListEntry
+instance NFData OpenIdConnectProviderListEntry where
 
 -- | Contains information about AWS Organizations's affect on a policy simulation.
 --
@@ -1012,8 +1081,9 @@ instance NFData OpenIdConnectProviderListEntry
 --
 -- /See:/ 'organizationsDecisionDetail' smart constructor.
 newtype OrganizationsDecisionDetail = OrganizationsDecisionDetail'
-    { _oddAllowedByOrganizations :: Maybe Bool
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _oddAllowedByOrganizations :: Maybe Bool
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'OrganizationsDecisionDetail' with the minimum fields required to make a request.
 --
@@ -1023,9 +1093,8 @@ newtype OrganizationsDecisionDetail = OrganizationsDecisionDetail'
 organizationsDecisionDetail
     :: OrganizationsDecisionDetail
 organizationsDecisionDetail =
-    OrganizationsDecisionDetail'
-    { _oddAllowedByOrganizations = Nothing
-    }
+  OrganizationsDecisionDetail' {_oddAllowedByOrganizations = Nothing}
+
 
 -- | Specifies whether the simulated action is allowed by the AWS Organizations service control policies that impact the simulated user's account.
 oddAllowedByOrganizations :: Lens' OrganizationsDecisionDetail (Maybe Bool)
@@ -1036,9 +1105,9 @@ instance FromXML OrganizationsDecisionDetail where
           = OrganizationsDecisionDetail' <$>
               (x .@? "AllowedByOrganizations")
 
-instance Hashable OrganizationsDecisionDetail
+instance Hashable OrganizationsDecisionDetail where
 
-instance NFData OrganizationsDecisionDetail
+instance NFData OrganizationsDecisionDetail where
 
 -- | Contains information about the account password policy.
 --
@@ -1048,17 +1117,18 @@ instance NFData OrganizationsDecisionDetail
 --
 -- /See:/ 'passwordPolicy' smart constructor.
 data PasswordPolicy = PasswordPolicy'
-    { _ppExpirePasswords            :: !(Maybe Bool)
-    , _ppMinimumPasswordLength      :: !(Maybe Nat)
-    , _ppRequireNumbers             :: !(Maybe Bool)
-    , _ppPasswordReusePrevention    :: !(Maybe Nat)
-    , _ppRequireLowercaseCharacters :: !(Maybe Bool)
-    , _ppMaxPasswordAge             :: !(Maybe Nat)
-    , _ppHardExpiry                 :: !(Maybe Bool)
-    , _ppRequireSymbols             :: !(Maybe Bool)
-    , _ppRequireUppercaseCharacters :: !(Maybe Bool)
-    , _ppAllowUsersToChangePassword :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ppExpirePasswords            :: !(Maybe Bool)
+  , _ppMinimumPasswordLength      :: !(Maybe Nat)
+  , _ppRequireNumbers             :: !(Maybe Bool)
+  , _ppPasswordReusePrevention    :: !(Maybe Nat)
+  , _ppRequireLowercaseCharacters :: !(Maybe Bool)
+  , _ppMaxPasswordAge             :: !(Maybe Nat)
+  , _ppHardExpiry                 :: !(Maybe Bool)
+  , _ppRequireSymbols             :: !(Maybe Bool)
+  , _ppRequireUppercaseCharacters :: !(Maybe Bool)
+  , _ppAllowUsersToChangePassword :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PasswordPolicy' with the minimum fields required to make a request.
 --
@@ -1086,18 +1156,19 @@ data PasswordPolicy = PasswordPolicy'
 passwordPolicy
     :: PasswordPolicy
 passwordPolicy =
-    PasswordPolicy'
-    { _ppExpirePasswords = Nothing
-    , _ppMinimumPasswordLength = Nothing
-    , _ppRequireNumbers = Nothing
-    , _ppPasswordReusePrevention = Nothing
-    , _ppRequireLowercaseCharacters = Nothing
-    , _ppMaxPasswordAge = Nothing
-    , _ppHardExpiry = Nothing
-    , _ppRequireSymbols = Nothing
-    , _ppRequireUppercaseCharacters = Nothing
-    , _ppAllowUsersToChangePassword = Nothing
-    }
+  PasswordPolicy'
+  { _ppExpirePasswords = Nothing
+  , _ppMinimumPasswordLength = Nothing
+  , _ppRequireNumbers = Nothing
+  , _ppPasswordReusePrevention = Nothing
+  , _ppRequireLowercaseCharacters = Nothing
+  , _ppMaxPasswordAge = Nothing
+  , _ppHardExpiry = Nothing
+  , _ppRequireSymbols = Nothing
+  , _ppRequireUppercaseCharacters = Nothing
+  , _ppAllowUsersToChangePassword = Nothing
+  }
+
 
 -- | Indicates whether passwords in the account expire. Returns true if MaxPasswordAge is contains a value greater than 0. Returns false if MaxPasswordAge is 0 or not present.
 ppExpirePasswords :: Lens' PasswordPolicy (Maybe Bool)
@@ -1153,9 +1224,9 @@ instance FromXML PasswordPolicy where
                 <*> (x .@? "RequireUppercaseCharacters")
                 <*> (x .@? "AllowUsersToChangePassword")
 
-instance Hashable PasswordPolicy
+instance Hashable PasswordPolicy where
 
-instance NFData PasswordPolicy
+instance NFData PasswordPolicy where
 
 -- | Contains information about a managed policy.
 --
@@ -1167,17 +1238,18 @@ instance NFData PasswordPolicy
 --
 -- /See:/ 'policy' smart constructor.
 data Policy = Policy'
-    { _pPolicyName       :: !(Maybe Text)
-    , _pARN              :: !(Maybe Text)
-    , _pUpdateDate       :: !(Maybe ISO8601)
-    , _pPolicyId         :: !(Maybe Text)
-    , _pPath             :: !(Maybe Text)
-    , _pCreateDate       :: !(Maybe ISO8601)
-    , _pIsAttachable     :: !(Maybe Bool)
-    , _pDefaultVersionId :: !(Maybe Text)
-    , _pAttachmentCount  :: !(Maybe Int)
-    , _pDescription      :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pPolicyName       :: !(Maybe Text)
+  , _pARN              :: !(Maybe Text)
+  , _pUpdateDate       :: !(Maybe ISO8601)
+  , _pPolicyId         :: !(Maybe Text)
+  , _pPath             :: !(Maybe Text)
+  , _pCreateDate       :: !(Maybe ISO8601)
+  , _pIsAttachable     :: !(Maybe Bool)
+  , _pDefaultVersionId :: !(Maybe Text)
+  , _pAttachmentCount  :: !(Maybe Int)
+  , _pDescription      :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Policy' with the minimum fields required to make a request.
 --
@@ -1205,18 +1277,19 @@ data Policy = Policy'
 policy
     :: Policy
 policy =
-    Policy'
-    { _pPolicyName = Nothing
-    , _pARN = Nothing
-    , _pUpdateDate = Nothing
-    , _pPolicyId = Nothing
-    , _pPath = Nothing
-    , _pCreateDate = Nothing
-    , _pIsAttachable = Nothing
-    , _pDefaultVersionId = Nothing
-    , _pAttachmentCount = Nothing
-    , _pDescription = Nothing
-    }
+  Policy'
+  { _pPolicyName = Nothing
+  , _pARN = Nothing
+  , _pUpdateDate = Nothing
+  , _pPolicyId = Nothing
+  , _pPath = Nothing
+  , _pCreateDate = Nothing
+  , _pIsAttachable = Nothing
+  , _pDefaultVersionId = Nothing
+  , _pAttachmentCount = Nothing
+  , _pDescription = Nothing
+  }
+
 
 -- | The friendly name (not ARN) identifying the policy.
 pPolicyName :: Lens' Policy (Maybe Text)
@@ -1271,9 +1344,9 @@ instance FromXML Policy where
                 <*> (x .@? "AttachmentCount")
                 <*> (x .@? "Description")
 
-instance Hashable Policy
+instance Hashable Policy where
 
-instance NFData Policy
+instance NFData Policy where
 
 -- | Contains information about an IAM policy, including the policy document.
 --
@@ -1283,9 +1356,10 @@ instance NFData Policy
 --
 -- /See:/ 'policyDetail' smart constructor.
 data PolicyDetail = PolicyDetail'
-    { _pdPolicyDocument :: !(Maybe Text)
-    , _pdPolicyName     :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pdPolicyDocument :: !(Maybe Text)
+  , _pdPolicyName     :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PolicyDetail' with the minimum fields required to make a request.
 --
@@ -1297,10 +1371,8 @@ data PolicyDetail = PolicyDetail'
 policyDetail
     :: PolicyDetail
 policyDetail =
-    PolicyDetail'
-    { _pdPolicyDocument = Nothing
-    , _pdPolicyName = Nothing
-    }
+  PolicyDetail' {_pdPolicyDocument = Nothing, _pdPolicyName = Nothing}
+
 
 -- | The policy document.
 pdPolicyDocument :: Lens' PolicyDetail (Maybe Text)
@@ -1315,9 +1387,9 @@ instance FromXML PolicyDetail where
           = PolicyDetail' <$>
               (x .@? "PolicyDocument") <*> (x .@? "PolicyName")
 
-instance Hashable PolicyDetail
+instance Hashable PolicyDetail where
 
-instance NFData PolicyDetail
+instance NFData PolicyDetail where
 
 -- | Contains information about a group that a managed policy is attached to.
 --
@@ -1329,9 +1401,10 @@ instance NFData PolicyDetail
 --
 -- /See:/ 'policyGroup' smart constructor.
 data PolicyGroup = PolicyGroup'
-    { _pgGroupId   :: !(Maybe Text)
-    , _pgGroupName :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pgGroupId   :: !(Maybe Text)
+  , _pgGroupName :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PolicyGroup' with the minimum fields required to make a request.
 --
@@ -1342,11 +1415,8 @@ data PolicyGroup = PolicyGroup'
 -- * 'pgGroupName' - The name (friendly name, not ARN) identifying the group.
 policyGroup
     :: PolicyGroup
-policyGroup =
-    PolicyGroup'
-    { _pgGroupId = Nothing
-    , _pgGroupName = Nothing
-    }
+policyGroup = PolicyGroup' {_pgGroupId = Nothing, _pgGroupName = Nothing}
+
 
 -- | The stable and unique string identifying the group. For more information about IDs, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers> in the /IAM User Guide/ .
 pgGroupId :: Lens' PolicyGroup (Maybe Text)
@@ -1361,9 +1431,9 @@ instance FromXML PolicyGroup where
           = PolicyGroup' <$>
               (x .@? "GroupId") <*> (x .@? "GroupName")
 
-instance Hashable PolicyGroup
+instance Hashable PolicyGroup where
 
-instance NFData PolicyGroup
+instance NFData PolicyGroup where
 
 -- | Contains information about a role that a managed policy is attached to.
 --
@@ -1375,9 +1445,10 @@ instance NFData PolicyGroup
 --
 -- /See:/ 'policyRole' smart constructor.
 data PolicyRole = PolicyRole'
-    { _prRoleName :: !(Maybe Text)
-    , _prRoleId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _prRoleName :: !(Maybe Text)
+  , _prRoleId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PolicyRole' with the minimum fields required to make a request.
 --
@@ -1388,11 +1459,8 @@ data PolicyRole = PolicyRole'
 -- * 'prRoleId' - The stable and unique string identifying the role. For more information about IDs, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers> in the /IAM User Guide/ .
 policyRole
     :: PolicyRole
-policyRole =
-    PolicyRole'
-    { _prRoleName = Nothing
-    , _prRoleId = Nothing
-    }
+policyRole = PolicyRole' {_prRoleName = Nothing, _prRoleId = Nothing}
+
 
 -- | The name (friendly name, not ARN) identifying the role.
 prRoleName :: Lens' PolicyRole (Maybe Text)
@@ -1407,9 +1475,9 @@ instance FromXML PolicyRole where
           = PolicyRole' <$>
               (x .@? "RoleName") <*> (x .@? "RoleId")
 
-instance Hashable PolicyRole
+instance Hashable PolicyRole where
 
-instance NFData PolicyRole
+instance NFData PolicyRole where
 
 -- | Contains information about a user that a managed policy is attached to.
 --
@@ -1421,9 +1489,10 @@ instance NFData PolicyRole
 --
 -- /See:/ 'policyUser' smart constructor.
 data PolicyUser = PolicyUser'
-    { _puUserName :: !(Maybe Text)
-    , _puUserId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _puUserName :: !(Maybe Text)
+  , _puUserId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PolicyUser' with the minimum fields required to make a request.
 --
@@ -1434,11 +1503,8 @@ data PolicyUser = PolicyUser'
 -- * 'puUserId' - The stable and unique string identifying the user. For more information about IDs, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM Identifiers> in the /IAM User Guide/ .
 policyUser
     :: PolicyUser
-policyUser =
-    PolicyUser'
-    { _puUserName = Nothing
-    , _puUserId = Nothing
-    }
+policyUser = PolicyUser' {_puUserName = Nothing, _puUserId = Nothing}
+
 
 -- | The name (friendly name, not ARN) identifying the user.
 puUserName :: Lens' PolicyUser (Maybe Text)
@@ -1453,9 +1519,9 @@ instance FromXML PolicyUser where
           = PolicyUser' <$>
               (x .@? "UserName") <*> (x .@? "UserId")
 
-instance Hashable PolicyUser
+instance Hashable PolicyUser where
 
-instance NFData PolicyUser
+instance NFData PolicyUser where
 
 -- | Contains information about a version of a managed policy.
 --
@@ -1467,11 +1533,12 @@ instance NFData PolicyUser
 --
 -- /See:/ 'policyVersion' smart constructor.
 data PolicyVersion = PolicyVersion'
-    { _pvVersionId        :: !(Maybe Text)
-    , _pvCreateDate       :: !(Maybe ISO8601)
-    , _pvDocument         :: !(Maybe Text)
-    , _pvIsDefaultVersion :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pvVersionId        :: !(Maybe Text)
+  , _pvCreateDate       :: !(Maybe ISO8601)
+  , _pvDocument         :: !(Maybe Text)
+  , _pvIsDefaultVersion :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PolicyVersion' with the minimum fields required to make a request.
 --
@@ -1487,12 +1554,13 @@ data PolicyVersion = PolicyVersion'
 policyVersion
     :: PolicyVersion
 policyVersion =
-    PolicyVersion'
-    { _pvVersionId = Nothing
-    , _pvCreateDate = Nothing
-    , _pvDocument = Nothing
-    , _pvIsDefaultVersion = Nothing
-    }
+  PolicyVersion'
+  { _pvVersionId = Nothing
+  , _pvCreateDate = Nothing
+  , _pvDocument = Nothing
+  , _pvIsDefaultVersion = Nothing
+  }
+
 
 -- | The identifier for the policy version. Policy version identifiers always begin with @v@ (always lowercase). When a policy is created, the first policy version is @v1@ .
 pvVersionId :: Lens' PolicyVersion (Maybe Text)
@@ -1517,9 +1585,9 @@ instance FromXML PolicyVersion where
                 (x .@? "Document")
                 <*> (x .@? "IsDefaultVersion")
 
-instance Hashable PolicyVersion
+instance Hashable PolicyVersion where
 
-instance NFData PolicyVersion
+instance NFData PolicyVersion where
 
 -- | Contains the row and column of a location of a @Statement@ element in a policy document.
 --
@@ -1529,9 +1597,10 @@ instance NFData PolicyVersion
 --
 -- /See:/ 'position' smart constructor.
 data Position = Position'
-    { _pLine   :: !(Maybe Int)
-    , _pColumn :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pLine   :: !(Maybe Int)
+  , _pColumn :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Position' with the minimum fields required to make a request.
 --
@@ -1542,11 +1611,8 @@ data Position = Position'
 -- * 'pColumn' - The column in the line containing the specified position in the document.
 position
     :: Position
-position =
-    Position'
-    { _pLine = Nothing
-    , _pColumn = Nothing
-    }
+position = Position' {_pLine = Nothing, _pColumn = Nothing}
+
 
 -- | The line containing the specified position in the document.
 pLine :: Lens' Position (Maybe Int)
@@ -1560,9 +1626,9 @@ instance FromXML Position where
         parseXML x
           = Position' <$> (x .@? "Line") <*> (x .@? "Column")
 
-instance Hashable Position
+instance Hashable Position where
 
-instance NFData Position
+instance NFData Position where
 
 -- | Contains the result of the simulation of a single API action call on a single resource.
 --
@@ -1572,12 +1638,13 @@ instance NFData Position
 --
 -- /See:/ 'resourceSpecificResult' smart constructor.
 data ResourceSpecificResult = ResourceSpecificResult'
-    { _rsrMatchedStatements    :: !(Maybe [Statement])
-    , _rsrEvalDecisionDetails  :: !(Maybe (Map Text PolicyEvaluationDecisionType))
-    , _rsrMissingContextValues :: !(Maybe [Text])
-    , _rsrEvalResourceName     :: !Text
-    , _rsrEvalResourceDecision :: !PolicyEvaluationDecisionType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rsrMatchedStatements    :: !(Maybe [Statement])
+  , _rsrEvalDecisionDetails  :: !(Maybe (Map Text PolicyEvaluationDecisionType))
+  , _rsrMissingContextValues :: !(Maybe [Text])
+  , _rsrEvalResourceName     :: !Text
+  , _rsrEvalResourceDecision :: !PolicyEvaluationDecisionType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ResourceSpecificResult' with the minimum fields required to make a request.
 --
@@ -1597,13 +1664,14 @@ resourceSpecificResult
     -> PolicyEvaluationDecisionType -- ^ 'rsrEvalResourceDecision'
     -> ResourceSpecificResult
 resourceSpecificResult pEvalResourceName_ pEvalResourceDecision_ =
-    ResourceSpecificResult'
-    { _rsrMatchedStatements = Nothing
-    , _rsrEvalDecisionDetails = Nothing
-    , _rsrMissingContextValues = Nothing
-    , _rsrEvalResourceName = pEvalResourceName_
-    , _rsrEvalResourceDecision = pEvalResourceDecision_
-    }
+  ResourceSpecificResult'
+  { _rsrMatchedStatements = Nothing
+  , _rsrEvalDecisionDetails = Nothing
+  , _rsrMissingContextValues = Nothing
+  , _rsrEvalResourceName = pEvalResourceName_
+  , _rsrEvalResourceDecision = pEvalResourceDecision_
+  }
+
 
 -- | A list of the statements in the input policies that determine the result for this part of the simulation. Remember that even if multiple statements allow the action on the resource, if /any/ statement denies that action, then the explicit deny overrides any allow, and the deny statement is the only entry included in the result.
 rsrMatchedStatements :: Lens' ResourceSpecificResult [Statement]
@@ -1639,9 +1707,9 @@ instance FromXML ResourceSpecificResult where
                 <*> (x .@ "EvalResourceName")
                 <*> (x .@ "EvalResourceDecision")
 
-instance Hashable ResourceSpecificResult
+instance Hashable ResourceSpecificResult where
 
-instance NFData ResourceSpecificResult
+instance NFData ResourceSpecificResult where
 
 -- | Contains information about an IAM role. This structure is returned as a response element in several APIs that interact with roles.
 --
@@ -1649,14 +1717,15 @@ instance NFData ResourceSpecificResult
 --
 -- /See:/ 'role'' smart constructor.
 data Role = Role'
-    { _rAssumeRolePolicyDocument :: !(Maybe Text)
-    , _rDescription              :: !(Maybe Text)
-    , _rPath                     :: !Text
-    , _rRoleName                 :: !Text
-    , _rRoleId                   :: !Text
-    , _rARN                      :: !Text
-    , _rCreateDate               :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rAssumeRolePolicyDocument :: !(Maybe Text)
+  , _rDescription              :: !(Maybe Text)
+  , _rPath                     :: !Text
+  , _rRoleName                 :: !Text
+  , _rRoleId                   :: !Text
+  , _rARN                      :: !Text
+  , _rCreateDate               :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Role' with the minimum fields required to make a request.
 --
@@ -1683,15 +1752,16 @@ role'
     -> UTCTime -- ^ 'rCreateDate'
     -> Role
 role' pPath_ pRoleName_ pRoleId_ pARN_ pCreateDate_ =
-    Role'
-    { _rAssumeRolePolicyDocument = Nothing
-    , _rDescription = Nothing
-    , _rPath = pPath_
-    , _rRoleName = pRoleName_
-    , _rRoleId = pRoleId_
-    , _rARN = pARN_
-    , _rCreateDate = _Time # pCreateDate_
-    }
+  Role'
+  { _rAssumeRolePolicyDocument = Nothing
+  , _rDescription = Nothing
+  , _rPath = pPath_
+  , _rRoleName = pRoleName_
+  , _rRoleId = pRoleId_
+  , _rARN = pARN_
+  , _rCreateDate = _Time # pCreateDate_
+  }
+
 
 -- | The policy that grants an entity permission to assume the role.
 rAssumeRolePolicyDocument :: Lens' Role (Maybe Text)
@@ -1732,9 +1802,9 @@ instance FromXML Role where
                 <*> (x .@ "Arn")
                 <*> (x .@ "CreateDate")
 
-instance Hashable Role
+instance Hashable Role where
 
-instance NFData Role
+instance NFData Role where
 
 -- | Contains information about an IAM role, including all of the role's policies.
 --
@@ -1744,16 +1814,17 @@ instance NFData Role
 --
 -- /See:/ 'roleDetail' smart constructor.
 data RoleDetail = RoleDetail'
-    { _rdAssumeRolePolicyDocument :: !(Maybe Text)
-    , _rdARN                      :: !(Maybe Text)
-    , _rdPath                     :: !(Maybe Text)
-    , _rdInstanceProfileList      :: !(Maybe [InstanceProfile])
-    , _rdCreateDate               :: !(Maybe ISO8601)
-    , _rdRoleName                 :: !(Maybe Text)
-    , _rdRoleId                   :: !(Maybe Text)
-    , _rdRolePolicyList           :: !(Maybe [PolicyDetail])
-    , _rdAttachedManagedPolicies  :: !(Maybe [AttachedPolicy])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdAssumeRolePolicyDocument :: !(Maybe Text)
+  , _rdARN                      :: !(Maybe Text)
+  , _rdPath                     :: !(Maybe Text)
+  , _rdInstanceProfileList      :: !(Maybe [InstanceProfile])
+  , _rdCreateDate               :: !(Maybe ISO8601)
+  , _rdRoleName                 :: !(Maybe Text)
+  , _rdRoleId                   :: !(Maybe Text)
+  , _rdRolePolicyList           :: !(Maybe [PolicyDetail])
+  , _rdAttachedManagedPolicies  :: !(Maybe [AttachedPolicy])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RoleDetail' with the minimum fields required to make a request.
 --
@@ -1779,17 +1850,18 @@ data RoleDetail = RoleDetail'
 roleDetail
     :: RoleDetail
 roleDetail =
-    RoleDetail'
-    { _rdAssumeRolePolicyDocument = Nothing
-    , _rdARN = Nothing
-    , _rdPath = Nothing
-    , _rdInstanceProfileList = Nothing
-    , _rdCreateDate = Nothing
-    , _rdRoleName = Nothing
-    , _rdRoleId = Nothing
-    , _rdRolePolicyList = Nothing
-    , _rdAttachedManagedPolicies = Nothing
-    }
+  RoleDetail'
+  { _rdAssumeRolePolicyDocument = Nothing
+  , _rdARN = Nothing
+  , _rdPath = Nothing
+  , _rdInstanceProfileList = Nothing
+  , _rdCreateDate = Nothing
+  , _rdRoleName = Nothing
+  , _rdRoleId = Nothing
+  , _rdRolePolicyList = Nothing
+  , _rdAttachedManagedPolicies = Nothing
+  }
+
 
 -- | The trust policy that grants permission to assume the role.
 rdAssumeRolePolicyDocument :: Lens' RoleDetail (Maybe Text)
@@ -1845,9 +1917,53 @@ instance FromXML RoleDetail where
                 (x .@? "AttachedManagedPolicies" .!@ mempty >>=
                    may (parseXMLList "member"))
 
-instance Hashable RoleDetail
+instance Hashable RoleDetail where
 
-instance NFData RoleDetail
+instance NFData RoleDetail where
+
+-- | An object that contains details about how a service-linked role is used.
+--
+--
+-- This data type is used as a response element in the 'GetServiceLinkedRoleDeletionStatus' operation.
+--
+--
+-- /See:/ 'roleUsageType' smart constructor.
+data RoleUsageType = RoleUsageType'
+  { _rutResources :: !(Maybe [Text])
+  , _rutRegion    :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'RoleUsageType' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'rutResources' - The name of the resource that is using the service-linked role.
+--
+-- * 'rutRegion' - The name of the region where the service-linked role is being used.
+roleUsageType
+    :: RoleUsageType
+roleUsageType = RoleUsageType' {_rutResources = Nothing, _rutRegion = Nothing}
+
+
+-- | The name of the resource that is using the service-linked role.
+rutResources :: Lens' RoleUsageType [Text]
+rutResources = lens _rutResources (\ s a -> s{_rutResources = a}) . _Default . _Coerce;
+
+-- | The name of the region where the service-linked role is being used.
+rutRegion :: Lens' RoleUsageType (Maybe Text)
+rutRegion = lens _rutRegion (\ s a -> s{_rutRegion = a});
+
+instance FromXML RoleUsageType where
+        parseXML x
+          = RoleUsageType' <$>
+              (x .@? "Resources" .!@ mempty >>=
+                 may (parseXMLList "member"))
+                <*> (x .@? "Region")
+
+instance Hashable RoleUsageType where
+
+instance NFData RoleUsageType where
 
 -- | Contains the list of SAML providers for this account.
 --
@@ -1855,10 +1971,11 @@ instance NFData RoleDetail
 --
 -- /See:/ 'sAMLProviderListEntry' smart constructor.
 data SAMLProviderListEntry = SAMLProviderListEntry'
-    { _samlpleARN        :: !(Maybe Text)
-    , _samlpleCreateDate :: !(Maybe ISO8601)
-    , _samlpleValidUntil :: !(Maybe ISO8601)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _samlpleARN        :: !(Maybe Text)
+  , _samlpleCreateDate :: !(Maybe ISO8601)
+  , _samlpleValidUntil :: !(Maybe ISO8601)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SAMLProviderListEntry' with the minimum fields required to make a request.
 --
@@ -1872,11 +1989,12 @@ data SAMLProviderListEntry = SAMLProviderListEntry'
 sAMLProviderListEntry
     :: SAMLProviderListEntry
 sAMLProviderListEntry =
-    SAMLProviderListEntry'
-    { _samlpleARN = Nothing
-    , _samlpleCreateDate = Nothing
-    , _samlpleValidUntil = Nothing
-    }
+  SAMLProviderListEntry'
+  { _samlpleARN = Nothing
+  , _samlpleCreateDate = Nothing
+  , _samlpleValidUntil = Nothing
+  }
+
 
 -- | The Amazon Resource Name (ARN) of the SAML provider.
 samlpleARN :: Lens' SAMLProviderListEntry (Maybe Text)
@@ -1896,9 +2014,9 @@ instance FromXML SAMLProviderListEntry where
               (x .@? "Arn") <*> (x .@? "CreateDate") <*>
                 (x .@? "ValidUntil")
 
-instance Hashable SAMLProviderListEntry
+instance Hashable SAMLProviderListEntry where
 
-instance NFData SAMLProviderListEntry
+instance NFData SAMLProviderListEntry where
 
 -- | Contains information about an SSH public key.
 --
@@ -1908,13 +2026,14 @@ instance NFData SAMLProviderListEntry
 --
 -- /See:/ 'sshPublicKey' smart constructor.
 data SSHPublicKey = SSHPublicKey'
-    { _spkUploadDate       :: !(Maybe ISO8601)
-    , _spkUserName         :: !Text
-    , _spkSSHPublicKeyId   :: !Text
-    , _spkFingerprint      :: !Text
-    , _spkSSHPublicKeyBody :: !Text
-    , _spkStatus           :: !StatusType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spkUploadDate       :: !(Maybe ISO8601)
+  , _spkUserName         :: !Text
+  , _spkSSHPublicKeyId   :: !Text
+  , _spkFingerprint      :: !Text
+  , _spkSSHPublicKeyBody :: !Text
+  , _spkStatus           :: !StatusType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SSHPublicKey' with the minimum fields required to make a request.
 --
@@ -1939,14 +2058,15 @@ sshPublicKey
     -> StatusType -- ^ 'spkStatus'
     -> SSHPublicKey
 sshPublicKey pUserName_ pSSHPublicKeyId_ pFingerprint_ pSSHPublicKeyBody_ pStatus_ =
-    SSHPublicKey'
-    { _spkUploadDate = Nothing
-    , _spkUserName = pUserName_
-    , _spkSSHPublicKeyId = pSSHPublicKeyId_
-    , _spkFingerprint = pFingerprint_
-    , _spkSSHPublicKeyBody = pSSHPublicKeyBody_
-    , _spkStatus = pStatus_
-    }
+  SSHPublicKey'
+  { _spkUploadDate = Nothing
+  , _spkUserName = pUserName_
+  , _spkSSHPublicKeyId = pSSHPublicKeyId_
+  , _spkFingerprint = pFingerprint_
+  , _spkSSHPublicKeyBody = pSSHPublicKeyBody_
+  , _spkStatus = pStatus_
+  }
+
 
 -- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the SSH public key was uploaded.
 spkUploadDate :: Lens' SSHPublicKey (Maybe UTCTime)
@@ -1981,9 +2101,9 @@ instance FromXML SSHPublicKey where
                 <*> (x .@ "SSHPublicKeyBody")
                 <*> (x .@ "Status")
 
-instance Hashable SSHPublicKey
+instance Hashable SSHPublicKey where
 
-instance NFData SSHPublicKey
+instance NFData SSHPublicKey where
 
 -- | Contains information about an SSH public key, without the key's body or fingerprint.
 --
@@ -1993,11 +2113,12 @@ instance NFData SSHPublicKey
 --
 -- /See:/ 'sshPublicKeyMetadata' smart constructor.
 data SSHPublicKeyMetadata = SSHPublicKeyMetadata'
-    { _spkmUserName       :: !Text
-    , _spkmSSHPublicKeyId :: !Text
-    , _spkmStatus         :: !StatusType
-    , _spkmUploadDate     :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spkmUserName       :: !Text
+  , _spkmSSHPublicKeyId :: !Text
+  , _spkmStatus         :: !StatusType
+  , _spkmUploadDate     :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SSHPublicKeyMetadata' with the minimum fields required to make a request.
 --
@@ -2017,12 +2138,13 @@ sshPublicKeyMetadata
     -> UTCTime -- ^ 'spkmUploadDate'
     -> SSHPublicKeyMetadata
 sshPublicKeyMetadata pUserName_ pSSHPublicKeyId_ pStatus_ pUploadDate_ =
-    SSHPublicKeyMetadata'
-    { _spkmUserName = pUserName_
-    , _spkmSSHPublicKeyId = pSSHPublicKeyId_
-    , _spkmStatus = pStatus_
-    , _spkmUploadDate = _Time # pUploadDate_
-    }
+  SSHPublicKeyMetadata'
+  { _spkmUserName = pUserName_
+  , _spkmSSHPublicKeyId = pSSHPublicKeyId_
+  , _spkmStatus = pStatus_
+  , _spkmUploadDate = _Time # pUploadDate_
+  }
+
 
 -- | The name of the IAM user associated with the SSH public key.
 spkmUserName :: Lens' SSHPublicKeyMetadata Text
@@ -2047,9 +2169,9 @@ instance FromXML SSHPublicKeyMetadata where
                 (x .@ "Status")
                 <*> (x .@ "UploadDate")
 
-instance Hashable SSHPublicKeyMetadata
+instance Hashable SSHPublicKeyMetadata where
 
-instance NFData SSHPublicKeyMetadata
+instance NFData SSHPublicKeyMetadata where
 
 -- | Contains information about a server certificate.
 --
@@ -2059,10 +2181,11 @@ instance NFData SSHPublicKeyMetadata
 --
 -- /See:/ 'serverCertificate' smart constructor.
 data ServerCertificate = ServerCertificate'
-    { _sCertificateChain          :: !(Maybe Text)
-    , _sServerCertificateMetadata :: !ServerCertificateMetadata
-    , _sCertificateBody           :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sCertificateChain          :: !(Maybe Text)
+  , _sServerCertificateMetadata :: !ServerCertificateMetadata
+  , _sCertificateBody           :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ServerCertificate' with the minimum fields required to make a request.
 --
@@ -2078,11 +2201,12 @@ serverCertificate
     -> Text -- ^ 'sCertificateBody'
     -> ServerCertificate
 serverCertificate pServerCertificateMetadata_ pCertificateBody_ =
-    ServerCertificate'
-    { _sCertificateChain = Nothing
-    , _sServerCertificateMetadata = pServerCertificateMetadata_
-    , _sCertificateBody = pCertificateBody_
-    }
+  ServerCertificate'
+  { _sCertificateChain = Nothing
+  , _sServerCertificateMetadata = pServerCertificateMetadata_
+  , _sCertificateBody = pCertificateBody_
+  }
+
 
 -- | The contents of the public key certificate chain.
 sCertificateChain :: Lens' ServerCertificate (Maybe Text)
@@ -2103,9 +2227,9 @@ instance FromXML ServerCertificate where
                 (x .@ "ServerCertificateMetadata")
                 <*> (x .@ "CertificateBody")
 
-instance Hashable ServerCertificate
+instance Hashable ServerCertificate where
 
-instance NFData ServerCertificate
+instance NFData ServerCertificate where
 
 -- | Contains information about a server certificate without its certificate body, certificate chain, and private key.
 --
@@ -2115,13 +2239,14 @@ instance NFData ServerCertificate
 --
 -- /See:/ 'serverCertificateMetadata' smart constructor.
 data ServerCertificateMetadata = ServerCertificateMetadata'
-    { _scmUploadDate            :: !(Maybe ISO8601)
-    , _scmExpiration            :: !(Maybe ISO8601)
-    , _scmPath                  :: !Text
-    , _scmServerCertificateName :: !Text
-    , _scmServerCertificateId   :: !Text
-    , _scmARN                   :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _scmUploadDate            :: !(Maybe ISO8601)
+  , _scmExpiration            :: !(Maybe ISO8601)
+  , _scmPath                  :: !Text
+  , _scmServerCertificateName :: !Text
+  , _scmServerCertificateId   :: !Text
+  , _scmARN                   :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ServerCertificateMetadata' with the minimum fields required to make a request.
 --
@@ -2145,14 +2270,15 @@ serverCertificateMetadata
     -> Text -- ^ 'scmARN'
     -> ServerCertificateMetadata
 serverCertificateMetadata pPath_ pServerCertificateName_ pServerCertificateId_ pARN_ =
-    ServerCertificateMetadata'
-    { _scmUploadDate = Nothing
-    , _scmExpiration = Nothing
-    , _scmPath = pPath_
-    , _scmServerCertificateName = pServerCertificateName_
-    , _scmServerCertificateId = pServerCertificateId_
-    , _scmARN = pARN_
-    }
+  ServerCertificateMetadata'
+  { _scmUploadDate = Nothing
+  , _scmExpiration = Nothing
+  , _scmPath = pPath_
+  , _scmServerCertificateName = pServerCertificateName_
+  , _scmServerCertificateId = pServerCertificateId_
+  , _scmARN = pARN_
+  }
+
 
 -- | The date when the server certificate was uploaded.
 scmUploadDate :: Lens' ServerCertificateMetadata (Maybe UTCTime)
@@ -2187,9 +2313,9 @@ instance FromXML ServerCertificateMetadata where
                 <*> (x .@ "ServerCertificateId")
                 <*> (x .@ "Arn")
 
-instance Hashable ServerCertificateMetadata
+instance Hashable ServerCertificateMetadata where
 
-instance NFData ServerCertificateMetadata
+instance NFData ServerCertificateMetadata where
 
 -- | Contains the details of a service specific credential.
 --
@@ -2197,14 +2323,15 @@ instance NFData ServerCertificateMetadata
 --
 -- /See:/ 'serviceSpecificCredential' smart constructor.
 data ServiceSpecificCredential = ServiceSpecificCredential'
-    { _sscCreateDate                  :: !ISO8601
-    , _sscServiceName                 :: !Text
-    , _sscServiceUserName             :: !Text
-    , _sscServicePassword             :: !(Sensitive Text)
-    , _sscServiceSpecificCredentialId :: !Text
-    , _sscUserName                    :: !Text
-    , _sscStatus                      :: !StatusType
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _sscCreateDate                  :: !ISO8601
+  , _sscServiceName                 :: !Text
+  , _sscServiceUserName             :: !Text
+  , _sscServicePassword             :: !(Sensitive Text)
+  , _sscServiceSpecificCredentialId :: !Text
+  , _sscUserName                    :: !Text
+  , _sscStatus                      :: !StatusType
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ServiceSpecificCredential' with the minimum fields required to make a request.
 --
@@ -2233,15 +2360,16 @@ serviceSpecificCredential
     -> StatusType -- ^ 'sscStatus'
     -> ServiceSpecificCredential
 serviceSpecificCredential pCreateDate_ pServiceName_ pServiceUserName_ pServicePassword_ pServiceSpecificCredentialId_ pUserName_ pStatus_ =
-    ServiceSpecificCredential'
-    { _sscCreateDate = _Time # pCreateDate_
-    , _sscServiceName = pServiceName_
-    , _sscServiceUserName = pServiceUserName_
-    , _sscServicePassword = _Sensitive # pServicePassword_
-    , _sscServiceSpecificCredentialId = pServiceSpecificCredentialId_
-    , _sscUserName = pUserName_
-    , _sscStatus = pStatus_
-    }
+  ServiceSpecificCredential'
+  { _sscCreateDate = _Time # pCreateDate_
+  , _sscServiceName = pServiceName_
+  , _sscServiceUserName = pServiceUserName_
+  , _sscServicePassword = _Sensitive # pServicePassword_
+  , _sscServiceSpecificCredentialId = pServiceSpecificCredentialId_
+  , _sscUserName = pUserName_
+  , _sscStatus = pStatus_
+  }
+
 
 -- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the service-specific credential were created.
 sscCreateDate :: Lens' ServiceSpecificCredential UTCTime
@@ -2281,9 +2409,9 @@ instance FromXML ServiceSpecificCredential where
                 <*> (x .@ "UserName")
                 <*> (x .@ "Status")
 
-instance Hashable ServiceSpecificCredential
+instance Hashable ServiceSpecificCredential where
 
-instance NFData ServiceSpecificCredential
+instance NFData ServiceSpecificCredential where
 
 -- | Contains additional details about a service-specific credential.
 --
@@ -2291,13 +2419,14 @@ instance NFData ServiceSpecificCredential
 --
 -- /See:/ 'serviceSpecificCredentialMetadata' smart constructor.
 data ServiceSpecificCredentialMetadata = ServiceSpecificCredentialMetadata'
-    { _sscmUserName                    :: !Text
-    , _sscmStatus                      :: !StatusType
-    , _sscmServiceUserName             :: !Text
-    , _sscmCreateDate                  :: !ISO8601
-    , _sscmServiceSpecificCredentialId :: !Text
-    , _sscmServiceName                 :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sscmUserName                    :: !Text
+  , _sscmStatus                      :: !StatusType
+  , _sscmServiceUserName             :: !Text
+  , _sscmCreateDate                  :: !ISO8601
+  , _sscmServiceSpecificCredentialId :: !Text
+  , _sscmServiceName                 :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ServiceSpecificCredentialMetadata' with the minimum fields required to make a request.
 --
@@ -2323,14 +2452,15 @@ serviceSpecificCredentialMetadata
     -> Text -- ^ 'sscmServiceName'
     -> ServiceSpecificCredentialMetadata
 serviceSpecificCredentialMetadata pUserName_ pStatus_ pServiceUserName_ pCreateDate_ pServiceSpecificCredentialId_ pServiceName_ =
-    ServiceSpecificCredentialMetadata'
-    { _sscmUserName = pUserName_
-    , _sscmStatus = pStatus_
-    , _sscmServiceUserName = pServiceUserName_
-    , _sscmCreateDate = _Time # pCreateDate_
-    , _sscmServiceSpecificCredentialId = pServiceSpecificCredentialId_
-    , _sscmServiceName = pServiceName_
-    }
+  ServiceSpecificCredentialMetadata'
+  { _sscmUserName = pUserName_
+  , _sscmStatus = pStatus_
+  , _sscmServiceUserName = pServiceUserName_
+  , _sscmCreateDate = _Time # pCreateDate_
+  , _sscmServiceSpecificCredentialId = pServiceSpecificCredentialId_
+  , _sscmServiceName = pServiceName_
+  }
+
 
 -- | The name of the IAM user associated with the service-specific credential.
 sscmUserName :: Lens' ServiceSpecificCredentialMetadata Text
@@ -2367,8 +2497,10 @@ instance FromXML ServiceSpecificCredentialMetadata
                 <*> (x .@ "ServiceName")
 
 instance Hashable ServiceSpecificCredentialMetadata
+         where
 
 instance NFData ServiceSpecificCredentialMetadata
+         where
 
 -- | Contains information about an X.509 signing certificate.
 --
@@ -2378,12 +2510,13 @@ instance NFData ServiceSpecificCredentialMetadata
 --
 -- /See:/ 'signingCertificate' smart constructor.
 data SigningCertificate = SigningCertificate'
-    { _scUploadDate      :: !(Maybe ISO8601)
-    , _scUserName        :: !Text
-    , _scCertificateId   :: !Text
-    , _scCertificateBody :: !Text
-    , _scStatus          :: !StatusType
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _scUploadDate      :: !(Maybe ISO8601)
+  , _scUserName        :: !Text
+  , _scCertificateId   :: !Text
+  , _scCertificateBody :: !Text
+  , _scStatus          :: !StatusType
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SigningCertificate' with the minimum fields required to make a request.
 --
@@ -2405,13 +2538,14 @@ signingCertificate
     -> StatusType -- ^ 'scStatus'
     -> SigningCertificate
 signingCertificate pUserName_ pCertificateId_ pCertificateBody_ pStatus_ =
-    SigningCertificate'
-    { _scUploadDate = Nothing
-    , _scUserName = pUserName_
-    , _scCertificateId = pCertificateId_
-    , _scCertificateBody = pCertificateBody_
-    , _scStatus = pStatus_
-    }
+  SigningCertificate'
+  { _scUploadDate = Nothing
+  , _scUserName = pUserName_
+  , _scCertificateId = pCertificateId_
+  , _scCertificateBody = pCertificateBody_
+  , _scStatus = pStatus_
+  }
+
 
 -- | The date when the signing certificate was uploaded.
 scUploadDate :: Lens' SigningCertificate (Maybe UTCTime)
@@ -2441,9 +2575,9 @@ instance FromXML SigningCertificate where
                 <*> (x .@ "CertificateBody")
                 <*> (x .@ "Status")
 
-instance Hashable SigningCertificate
+instance Hashable SigningCertificate where
 
-instance NFData SigningCertificate
+instance NFData SigningCertificate where
 
 -- | Contains the response to a successful 'SimulatePrincipalPolicy' or 'SimulateCustomPolicy' request.
 --
@@ -2451,10 +2585,11 @@ instance NFData SigningCertificate
 --
 -- /See:/ 'simulatePolicyResponse' smart constructor.
 data SimulatePolicyResponse = SimulatePolicyResponse'
-    { _spEvaluationResults :: !(Maybe [EvaluationResult])
-    , _spMarker            :: !(Maybe Text)
-    , _spIsTruncated       :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _spEvaluationResults :: !(Maybe [EvaluationResult])
+  , _spMarker            :: !(Maybe Text)
+  , _spIsTruncated       :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'SimulatePolicyResponse' with the minimum fields required to make a request.
 --
@@ -2468,11 +2603,12 @@ data SimulatePolicyResponse = SimulatePolicyResponse'
 simulatePolicyResponse
     :: SimulatePolicyResponse
 simulatePolicyResponse =
-    SimulatePolicyResponse'
-    { _spEvaluationResults = Nothing
-    , _spMarker = Nothing
-    , _spIsTruncated = Nothing
-    }
+  SimulatePolicyResponse'
+  { _spEvaluationResults = Nothing
+  , _spMarker = Nothing
+  , _spIsTruncated = Nothing
+  }
+
 
 -- | The results of the simulation.
 spEvaluationResults :: Lens' SimulatePolicyResponse [EvaluationResult]
@@ -2494,9 +2630,9 @@ instance FromXML SimulatePolicyResponse where
                 <*> (x .@? "Marker")
                 <*> (x .@? "IsTruncated")
 
-instance Hashable SimulatePolicyResponse
+instance Hashable SimulatePolicyResponse where
 
-instance NFData SimulatePolicyResponse
+instance NFData SimulatePolicyResponse where
 
 -- | Contains a reference to a @Statement@ element in a policy document that determines the result of the simulation.
 --
@@ -2506,11 +2642,12 @@ instance NFData SimulatePolicyResponse
 --
 -- /See:/ 'statement' smart constructor.
 data Statement = Statement'
-    { _sSourcePolicyType :: !(Maybe PolicySourceType)
-    , _sSourcePolicyId   :: !(Maybe Text)
-    , _sEndPosition      :: !(Maybe Position)
-    , _sStartPosition    :: !(Maybe Position)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sSourcePolicyType :: !(Maybe PolicySourceType)
+  , _sSourcePolicyId   :: !(Maybe Text)
+  , _sEndPosition      :: !(Maybe Position)
+  , _sStartPosition    :: !(Maybe Position)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Statement' with the minimum fields required to make a request.
 --
@@ -2526,12 +2663,13 @@ data Statement = Statement'
 statement
     :: Statement
 statement =
-    Statement'
-    { _sSourcePolicyType = Nothing
-    , _sSourcePolicyId = Nothing
-    , _sEndPosition = Nothing
-    , _sStartPosition = Nothing
-    }
+  Statement'
+  { _sSourcePolicyType = Nothing
+  , _sSourcePolicyId = Nothing
+  , _sEndPosition = Nothing
+  , _sStartPosition = Nothing
+  }
+
 
 -- | The type of the policy.
 sSourcePolicyType :: Lens' Statement (Maybe PolicySourceType)
@@ -2557,9 +2695,9 @@ instance FromXML Statement where
                 <*> (x .@? "EndPosition")
                 <*> (x .@? "StartPosition")
 
-instance Hashable Statement
+instance Hashable Statement where
 
-instance NFData Statement
+instance NFData Statement where
 
 -- | Contains information about an IAM user entity.
 --
@@ -2577,19 +2715,20 @@ instance NFData Statement
 --
 -- /See:/ 'user' smart constructor.
 data User = User'
-    { _uPasswordLastUsed :: !(Maybe ISO8601)
-    , _uPath             :: !Text
-    , _uUserName         :: !Text
-    , _uUserId           :: !Text
-    , _uARN              :: !Text
-    , _uCreateDate       :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uPasswordLastUsed :: !(Maybe ISO8601)
+  , _uPath             :: !Text
+  , _uUserName         :: !Text
+  , _uUserId           :: !Text
+  , _uARN              :: !Text
+  , _uCreateDate       :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'User' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'uPasswordLastUsed' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user's password was last used to sign in to an AWS website. For a list of AWS websites that capture a user's last sign-in time, see the <http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Credential Reports> topic in the /Using IAM/ guide. If a password is used more than once in a five-minute span, only the first use is returned in this field. This field is null (not present) when:     * The user does not have a password     * The password exists but has never been used (at least not since IAM started tracking this information on October 20th, 2014     * there is no sign-in data associated with the user This value is returned only in the 'GetUser' and 'ListUsers' actions.
+-- * 'uPasswordLastUsed' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user's password was last used to sign in to an AWS website. For a list of AWS websites that capture a user's last sign-in time, see the <http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Credential Reports> topic in the /Using IAM/ guide. If a password is used more than once in a five-minute span, only the first use is returned in this field. If the field is null (no value) then it indicates that they never signed in with a password. This can be because:     * The user never had a password.     * A password exists but has not been used since IAM started tracking this information on October 20th, 2014. A null does not mean that the user /never/ had a password. Also, if the user does not currently have a password, but had one in the past, then this field contains the date and time the most recent password was used. This value is returned only in the 'GetUser' and 'ListUsers' actions.
 --
 -- * 'uPath' - The path to the user. For more information about paths, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers> in the /Using IAM/ guide.
 --
@@ -2608,16 +2747,17 @@ user
     -> UTCTime -- ^ 'uCreateDate'
     -> User
 user pPath_ pUserName_ pUserId_ pARN_ pCreateDate_ =
-    User'
-    { _uPasswordLastUsed = Nothing
-    , _uPath = pPath_
-    , _uUserName = pUserName_
-    , _uUserId = pUserId_
-    , _uARN = pARN_
-    , _uCreateDate = _Time # pCreateDate_
-    }
+  User'
+  { _uPasswordLastUsed = Nothing
+  , _uPath = pPath_
+  , _uUserName = pUserName_
+  , _uUserId = pUserId_
+  , _uARN = pARN_
+  , _uCreateDate = _Time # pCreateDate_
+  }
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user's password was last used to sign in to an AWS website. For a list of AWS websites that capture a user's last sign-in time, see the <http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Credential Reports> topic in the /Using IAM/ guide. If a password is used more than once in a five-minute span, only the first use is returned in this field. This field is null (not present) when:     * The user does not have a password     * The password exists but has never been used (at least not since IAM started tracking this information on October 20th, 2014     * there is no sign-in data associated with the user This value is returned only in the 'GetUser' and 'ListUsers' actions.
+
+-- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user's password was last used to sign in to an AWS website. For a list of AWS websites that capture a user's last sign-in time, see the <http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Credential Reports> topic in the /Using IAM/ guide. If a password is used more than once in a five-minute span, only the first use is returned in this field. If the field is null (no value) then it indicates that they never signed in with a password. This can be because:     * The user never had a password.     * A password exists but has not been used since IAM started tracking this information on October 20th, 2014. A null does not mean that the user /never/ had a password. Also, if the user does not currently have a password, but had one in the past, then this field contains the date and time the most recent password was used. This value is returned only in the 'GetUser' and 'ListUsers' actions.
 uPasswordLastUsed :: Lens' User (Maybe UTCTime)
 uPasswordLastUsed = lens _uPasswordLastUsed (\ s a -> s{_uPasswordLastUsed = a}) . mapping _Time;
 
@@ -2650,9 +2790,9 @@ instance FromXML User where
                 <*> (x .@ "Arn")
                 <*> (x .@ "CreateDate")
 
-instance Hashable User
+instance Hashable User where
 
-instance NFData User
+instance NFData User where
 
 -- | Contains information about an IAM user, including all the user's policies and all the IAM groups the user is in.
 --
@@ -2662,15 +2802,16 @@ instance NFData User
 --
 -- /See:/ 'userDetail' smart constructor.
 data UserDetail = UserDetail'
-    { _udGroupList               :: !(Maybe [Text])
-    , _udARN                     :: !(Maybe Text)
-    , _udPath                    :: !(Maybe Text)
-    , _udCreateDate              :: !(Maybe ISO8601)
-    , _udUserName                :: !(Maybe Text)
-    , _udUserId                  :: !(Maybe Text)
-    , _udUserPolicyList          :: !(Maybe [PolicyDetail])
-    , _udAttachedManagedPolicies :: !(Maybe [AttachedPolicy])
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _udGroupList               :: !(Maybe [Text])
+  , _udARN                     :: !(Maybe Text)
+  , _udPath                    :: !(Maybe Text)
+  , _udCreateDate              :: !(Maybe ISO8601)
+  , _udUserName                :: !(Maybe Text)
+  , _udUserId                  :: !(Maybe Text)
+  , _udUserPolicyList          :: !(Maybe [PolicyDetail])
+  , _udAttachedManagedPolicies :: !(Maybe [AttachedPolicy])
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UserDetail' with the minimum fields required to make a request.
 --
@@ -2694,16 +2835,17 @@ data UserDetail = UserDetail'
 userDetail
     :: UserDetail
 userDetail =
-    UserDetail'
-    { _udGroupList = Nothing
-    , _udARN = Nothing
-    , _udPath = Nothing
-    , _udCreateDate = Nothing
-    , _udUserName = Nothing
-    , _udUserId = Nothing
-    , _udUserPolicyList = Nothing
-    , _udAttachedManagedPolicies = Nothing
-    }
+  UserDetail'
+  { _udGroupList = Nothing
+  , _udARN = Nothing
+  , _udPath = Nothing
+  , _udCreateDate = Nothing
+  , _udUserName = Nothing
+  , _udUserId = Nothing
+  , _udUserPolicyList = Nothing
+  , _udAttachedManagedPolicies = Nothing
+  }
+
 
 -- | A list of IAM groups that the user is in.
 udGroupList :: Lens' UserDetail [Text]
@@ -2754,9 +2896,9 @@ instance FromXML UserDetail where
                 (x .@? "AttachedManagedPolicies" .!@ mempty >>=
                    may (parseXMLList "member"))
 
-instance Hashable UserDetail
+instance Hashable UserDetail where
 
-instance NFData UserDetail
+instance NFData UserDetail where
 
 -- | Contains information about a virtual MFA device.
 --
@@ -2764,12 +2906,13 @@ instance NFData UserDetail
 --
 -- /See:/ 'virtualMFADevice' smart constructor.
 data VirtualMFADevice = VirtualMFADevice'
-    { _vmdQRCodePNG        :: !(Maybe (Sensitive Base64))
-    , _vmdBase32StringSeed :: !(Maybe (Sensitive Base64))
-    , _vmdUser             :: !(Maybe User)
-    , _vmdEnableDate       :: !(Maybe ISO8601)
-    , _vmdSerialNumber     :: !Text
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _vmdQRCodePNG        :: !(Maybe (Sensitive Base64))
+  , _vmdBase32StringSeed :: !(Maybe (Sensitive Base64))
+  , _vmdUser             :: !(Maybe User)
+  , _vmdEnableDate       :: !(Maybe ISO8601)
+  , _vmdSerialNumber     :: !Text
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'VirtualMFADevice' with the minimum fields required to make a request.
 --
@@ -2788,13 +2931,14 @@ virtualMFADevice
     :: Text -- ^ 'vmdSerialNumber'
     -> VirtualMFADevice
 virtualMFADevice pSerialNumber_ =
-    VirtualMFADevice'
-    { _vmdQRCodePNG = Nothing
-    , _vmdBase32StringSeed = Nothing
-    , _vmdUser = Nothing
-    , _vmdEnableDate = Nothing
-    , _vmdSerialNumber = pSerialNumber_
-    }
+  VirtualMFADevice'
+  { _vmdQRCodePNG = Nothing
+  , _vmdBase32StringSeed = Nothing
+  , _vmdUser = Nothing
+  , _vmdEnableDate = Nothing
+  , _vmdSerialNumber = pSerialNumber_
+  }
+
 
 -- | A QR code PNG image that encodes @otpauth://totp/$virtualMFADeviceName@$AccountName?secret=$Base32String@ where @> virtualMFADeviceName@ is one of the create call arguments, @AccountName@ is the user name if set (otherwise, the account ID otherwise), and @Base32String@ is the seed in Base32 format. The @Base32String@ value is Base64-encoded. -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
 vmdQRCodePNG :: Lens' VirtualMFADevice (Maybe ByteString)
@@ -2824,6 +2968,6 @@ instance FromXML VirtualMFADevice where
                 <*> (x .@? "EnableDate")
                 <*> (x .@ "SerialNumber")
 
-instance Hashable VirtualMFADevice
+instance Hashable VirtualMFADevice where
 
-instance NFData VirtualMFADevice
+instance NFData VirtualMFADevice where

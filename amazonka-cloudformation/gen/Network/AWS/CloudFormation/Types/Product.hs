@@ -9,50 +9,51 @@
 
 -- |
 -- Module      : Network.AWS.CloudFormation.Types.Product
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.CloudFormation.Types.Product where
 
-import           Network.AWS.CloudFormation.Types.Sum
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
+import Network.AWS.CloudFormation.Types.Sum
+import Network.AWS.Lens
+import Network.AWS.Prelude
 
--- | Structure that contains the results of the account gate function AWS CloudFormation StackSets invokes, if present, before proceeding with stack set operations in an account.
+-- | Structure that contains the results of the account gate function which AWS CloudFormation invokes, if present, before proceeding with a stack set operation in an account and region.
 --
 --
--- Account gating enables you to specify a Lamdba function for an account that encapsulates any requirements that must be met before AWS CloudFormation StackSets proceeds with stack set operations in that account. CloudFormation invokes the function each time stack set operations are initiated for that account, and only proceeds if the function returns a success code.
+-- For each account and region, AWS CloudFormation lets you specify a Lamdba function that encapsulates any requirements that must be met before CloudFormation can proceed with a stack set operation in that account and region. CloudFormation invokes the function each time a stack set operation is requested for that account and region; if the function returns @FAILED@ , CloudFormation cancels the operation in that account and region, and sets the stack set operation result status for that account and region to @FAILED@ .
+--
+-- For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html Configuring a target account gate> .
 --
 --
 -- /See:/ 'accountGateResult' smart constructor.
 data AccountGateResult = AccountGateResult'
-    { _agrStatus       :: !(Maybe AccountGateStatus)
-    , _agrStatusReason :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _agrStatus       :: !(Maybe AccountGateStatus)
+  , _agrStatusReason :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AccountGateResult' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'agrStatus' - The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account passes any requirements for stack set operations to occur. AWS CloudFormation proceeds with stack operations in the account.      * @FAILED@ : The account gate function has determined that the account does not meet the requirements for stack set operations to occur. AWS CloudFormation cancels the stack set operations in that account, and the stack set operation status is set to FAILED.     * @SKIPPED@ : An account gate function has not been specified for the account, or the AWSCloudFormationStackSetExecutionRole of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with stack set operations in the account.
+-- * 'agrStatus' - The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account and region passes any requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that account and region.      * @FAILED@ : The account gate function has determined that the account and region does not meet the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that account and region, and sets the stack set operation result status for that account and region to @FAILED@ .      * @SKIPPED@ : AWS CloudFormation has skipped calling the account gate function for this account and region, for one of the following reasons:     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the stack set operation in this account and region.     * The @AWSCloudFormationStackSetExecutionRole@ of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set operation in this account and region.
 --
--- * 'agrStatusReason' - The reason for the account gate status assigned to this account.
+-- * 'agrStatusReason' - The reason for the account gate status assigned to this account and region for the stack set operation.
 accountGateResult
     :: AccountGateResult
 accountGateResult =
-    AccountGateResult'
-    { _agrStatus = Nothing
-    , _agrStatusReason = Nothing
-    }
+  AccountGateResult' {_agrStatus = Nothing, _agrStatusReason = Nothing}
 
--- | The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account passes any requirements for stack set operations to occur. AWS CloudFormation proceeds with stack operations in the account.      * @FAILED@ : The account gate function has determined that the account does not meet the requirements for stack set operations to occur. AWS CloudFormation cancels the stack set operations in that account, and the stack set operation status is set to FAILED.     * @SKIPPED@ : An account gate function has not been specified for the account, or the AWSCloudFormationStackSetExecutionRole of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with stack set operations in the account.
+
+-- | The status of the account gate function.     * @SUCCEEDED@ : The account gate function has determined that the account and region passes any requirements for a stack set operation to occur. AWS CloudFormation proceeds with the stack operation in that account and region.      * @FAILED@ : The account gate function has determined that the account and region does not meet the requirements for a stack set operation to occur. AWS CloudFormation cancels the stack set operation in that account and region, and sets the stack set operation result status for that account and region to @FAILED@ .      * @SKIPPED@ : AWS CloudFormation has skipped calling the account gate function for this account and region, for one of the following reasons:     * An account gate function has not been specified for the account and region. AWS CloudFormation proceeds with the stack set operation in this account and region.     * The @AWSCloudFormationStackSetExecutionRole@ of the stack set adminstration account lacks permissions to invoke the function. AWS CloudFormation proceeds with the stack set operation in this account and region.     * Either no action is necessary, or no action is possible, on the stack. AWS CloudFormation skips the stack set operation in this account and region.
 agrStatus :: Lens' AccountGateResult (Maybe AccountGateStatus)
 agrStatus = lens _agrStatus (\ s a -> s{_agrStatus = a});
 
--- | The reason for the account gate status assigned to this account.
+-- | The reason for the account gate status assigned to this account and region for the stack set operation.
 agrStatusReason :: Lens' AccountGateResult (Maybe Text)
 agrStatusReason = lens _agrStatusReason (\ s a -> s{_agrStatusReason = a});
 
@@ -61,9 +62,9 @@ instance FromXML AccountGateResult where
           = AccountGateResult' <$>
               (x .@? "Status") <*> (x .@? "StatusReason")
 
-instance Hashable AccountGateResult
+instance Hashable AccountGateResult where
 
-instance NFData AccountGateResult
+instance NFData AccountGateResult where
 
 -- | The AccountLimit data type.
 --
@@ -71,9 +72,10 @@ instance NFData AccountGateResult
 --
 -- /See:/ 'accountLimit' smart constructor.
 data AccountLimit = AccountLimit'
-    { _alValue :: !(Maybe Int)
-    , _alName  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _alValue :: !(Maybe Int)
+  , _alName  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'AccountLimit' with the minimum fields required to make a request.
 --
@@ -84,11 +86,8 @@ data AccountLimit = AccountLimit'
 -- * 'alName' - The name of the account limit. Currently, the only account limit is @StackLimit@ .
 accountLimit
     :: AccountLimit
-accountLimit =
-    AccountLimit'
-    { _alValue = Nothing
-    , _alName = Nothing
-    }
+accountLimit = AccountLimit' {_alValue = Nothing, _alName = Nothing}
+
 
 -- | The value that is associated with the account limit name.
 alValue :: Lens' AccountLimit (Maybe Int)
@@ -103,9 +102,9 @@ instance FromXML AccountLimit where
           = AccountLimit' <$>
               (x .@? "Value") <*> (x .@? "Name")
 
-instance Hashable AccountLimit
+instance Hashable AccountLimit where
 
-instance NFData AccountLimit
+instance NFData AccountLimit where
 
 -- | The @Change@ structure describes the changes AWS CloudFormation will perform if you execute the change set.
 --
@@ -113,9 +112,10 @@ instance NFData AccountLimit
 --
 -- /See:/ 'change' smart constructor.
 data Change = Change'
-    { _cResourceChange :: !(Maybe ResourceChange)
-    , _cType           :: !(Maybe ChangeType)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cResourceChange :: !(Maybe ResourceChange)
+  , _cType           :: !(Maybe ChangeType)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Change' with the minimum fields required to make a request.
 --
@@ -126,11 +126,8 @@ data Change = Change'
 -- * 'cType' - The type of entity that AWS CloudFormation changes. Currently, the only entity type is @Resource@ .
 change
     :: Change
-change =
-    Change'
-    { _cResourceChange = Nothing
-    , _cType = Nothing
-    }
+change = Change' {_cResourceChange = Nothing, _cType = Nothing}
+
 
 -- | A @ResourceChange@ structure that describes the resource and action that AWS CloudFormation will perform.
 cResourceChange :: Lens' Change (Maybe ResourceChange)
@@ -145,9 +142,9 @@ instance FromXML Change where
           = Change' <$>
               (x .@? "ResourceChange") <*> (x .@? "Type")
 
-instance Hashable Change
+instance Hashable Change where
 
-instance NFData Change
+instance NFData Change where
 
 -- | The @ChangeSetSummary@ structure describes a change set, its status, and the stack with which it's associated.
 --
@@ -155,16 +152,17 @@ instance NFData Change
 --
 -- /See:/ 'changeSetSummary' smart constructor.
 data ChangeSetSummary = ChangeSetSummary'
-    { _cCreationTime    :: !(Maybe ISO8601)
-    , _cStatus          :: !(Maybe ChangeSetStatus)
-    , _cChangeSetName   :: !(Maybe Text)
-    , _cExecutionStatus :: !(Maybe ExecutionStatus)
-    , _cChangeSetId     :: !(Maybe Text)
-    , _cStatusReason    :: !(Maybe Text)
-    , _cStackId         :: !(Maybe Text)
-    , _cDescription     :: !(Maybe Text)
-    , _cStackName       :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cCreationTime    :: !(Maybe ISO8601)
+  , _cStatus          :: !(Maybe ChangeSetStatus)
+  , _cChangeSetName   :: !(Maybe Text)
+  , _cExecutionStatus :: !(Maybe ExecutionStatus)
+  , _cChangeSetId     :: !(Maybe Text)
+  , _cStatusReason    :: !(Maybe Text)
+  , _cStackId         :: !(Maybe Text)
+  , _cDescription     :: !(Maybe Text)
+  , _cStackName       :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ChangeSetSummary' with the minimum fields required to make a request.
 --
@@ -190,17 +188,18 @@ data ChangeSetSummary = ChangeSetSummary'
 changeSetSummary
     :: ChangeSetSummary
 changeSetSummary =
-    ChangeSetSummary'
-    { _cCreationTime = Nothing
-    , _cStatus = Nothing
-    , _cChangeSetName = Nothing
-    , _cExecutionStatus = Nothing
-    , _cChangeSetId = Nothing
-    , _cStatusReason = Nothing
-    , _cStackId = Nothing
-    , _cDescription = Nothing
-    , _cStackName = Nothing
-    }
+  ChangeSetSummary'
+  { _cCreationTime = Nothing
+  , _cStatus = Nothing
+  , _cChangeSetName = Nothing
+  , _cExecutionStatus = Nothing
+  , _cChangeSetId = Nothing
+  , _cStatusReason = Nothing
+  , _cStackId = Nothing
+  , _cDescription = Nothing
+  , _cStackName = Nothing
+  }
+
 
 -- | The start time when the change set was created, in UTC.
 cCreationTime :: Lens' ChangeSetSummary (Maybe UTCTime)
@@ -250,9 +249,9 @@ instance FromXML ChangeSetSummary where
                 <*> (x .@? "Description")
                 <*> (x .@? "StackName")
 
-instance Hashable ChangeSetSummary
+instance Hashable ChangeSetSummary where
 
-instance NFData ChangeSetSummary
+instance NFData ChangeSetSummary where
 
 -- | The @Export@ structure describes the exported output values for a stack.
 --
@@ -260,10 +259,11 @@ instance NFData ChangeSetSummary
 --
 -- /See:/ 'export'' smart constructor.
 data Export = Export'
-    { _eValue            :: !(Maybe Text)
-    , _eExportingStackId :: !(Maybe Text)
-    , _eName             :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _eValue            :: !(Maybe Text)
+  , _eExportingStackId :: !(Maybe Text)
+  , _eName             :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Export' with the minimum fields required to make a request.
 --
@@ -277,11 +277,8 @@ data Export = Export'
 export'
     :: Export
 export' =
-    Export'
-    { _eValue = Nothing
-    , _eExportingStackId = Nothing
-    , _eName = Nothing
-    }
+  Export' {_eValue = Nothing, _eExportingStackId = Nothing, _eName = Nothing}
+
 
 -- | The value of the exported output, such as a resource physical ID. This value is defined in the @Export@ field in the associated stack's @Outputs@ section.
 eValue :: Lens' Export (Maybe Text)
@@ -301,9 +298,9 @@ instance FromXML Export where
               (x .@? "Value") <*> (x .@? "ExportingStackId") <*>
                 (x .@? "Name")
 
-instance Hashable Export
+instance Hashable Export where
 
-instance NFData Export
+instance NFData Export where
 
 -- | The Output data type.
 --
@@ -311,11 +308,12 @@ instance NFData Export
 --
 -- /See:/ 'output' smart constructor.
 data Output = Output'
-    { _oOutputValue :: !(Maybe Text)
-    , _oOutputKey   :: !(Maybe Text)
-    , _oExportName  :: !(Maybe Text)
-    , _oDescription :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _oOutputValue :: !(Maybe Text)
+  , _oOutputKey   :: !(Maybe Text)
+  , _oExportName  :: !(Maybe Text)
+  , _oDescription :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Output' with the minimum fields required to make a request.
 --
@@ -331,12 +329,13 @@ data Output = Output'
 output
     :: Output
 output =
-    Output'
-    { _oOutputValue = Nothing
-    , _oOutputKey = Nothing
-    , _oExportName = Nothing
-    , _oDescription = Nothing
-    }
+  Output'
+  { _oOutputValue = Nothing
+  , _oOutputKey = Nothing
+  , _oExportName = Nothing
+  , _oDescription = Nothing
+  }
+
 
 -- | The value associated with the output.
 oOutputValue :: Lens' Output (Maybe Text)
@@ -361,9 +360,9 @@ instance FromXML Output where
                 (x .@? "ExportName")
                 <*> (x .@? "Description")
 
-instance Hashable Output
+instance Hashable Output where
 
-instance NFData Output
+instance NFData Output where
 
 -- | The Parameter data type.
 --
@@ -371,10 +370,11 @@ instance NFData Output
 --
 -- /See:/ 'parameter' smart constructor.
 data Parameter = Parameter'
-    { _pParameterValue   :: !(Maybe Text)
-    , _pParameterKey     :: !(Maybe Text)
-    , _pUsePreviousValue :: !(Maybe Bool)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pParameterValue   :: !(Maybe Text)
+  , _pParameterKey     :: !(Maybe Text)
+  , _pUsePreviousValue :: !(Maybe Bool)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Parameter' with the minimum fields required to make a request.
 --
@@ -388,11 +388,12 @@ data Parameter = Parameter'
 parameter
     :: Parameter
 parameter =
-    Parameter'
-    { _pParameterValue = Nothing
-    , _pParameterKey = Nothing
-    , _pUsePreviousValue = Nothing
-    }
+  Parameter'
+  { _pParameterValue = Nothing
+  , _pParameterKey = Nothing
+  , _pUsePreviousValue = Nothing
+  }
+
 
 -- | The value associated with the parameter.
 pParameterValue :: Lens' Parameter (Maybe Text)
@@ -412,9 +413,9 @@ instance FromXML Parameter where
               (x .@? "ParameterValue") <*> (x .@? "ParameterKey")
                 <*> (x .@? "UsePreviousValue")
 
-instance Hashable Parameter
+instance Hashable Parameter where
 
-instance NFData Parameter
+instance NFData Parameter where
 
 instance ToQuery Parameter where
         toQuery Parameter'{..}
@@ -429,8 +430,9 @@ instance ToQuery Parameter where
 --
 -- /See:/ 'parameterConstraints' smart constructor.
 newtype ParameterConstraints = ParameterConstraints'
-    { _pcAllowedValues :: Maybe [Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pcAllowedValues :: Maybe [Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ParameterConstraints' with the minimum fields required to make a request.
 --
@@ -439,10 +441,8 @@ newtype ParameterConstraints = ParameterConstraints'
 -- * 'pcAllowedValues' - A list of values that are permitted for a parameter.
 parameterConstraints
     :: ParameterConstraints
-parameterConstraints =
-    ParameterConstraints'
-    { _pcAllowedValues = Nothing
-    }
+parameterConstraints = ParameterConstraints' {_pcAllowedValues = Nothing}
+
 
 -- | A list of values that are permitted for a parameter.
 pcAllowedValues :: Lens' ParameterConstraints [Text]
@@ -454,9 +454,9 @@ instance FromXML ParameterConstraints where
               (x .@? "AllowedValues" .!@ mempty >>=
                  may (parseXMLList "member"))
 
-instance Hashable ParameterConstraints
+instance Hashable ParameterConstraints where
 
-instance NFData ParameterConstraints
+instance NFData ParameterConstraints where
 
 -- | The ParameterDeclaration data type.
 --
@@ -464,13 +464,14 @@ instance NFData ParameterConstraints
 --
 -- /See:/ 'parameterDeclaration' smart constructor.
 data ParameterDeclaration = ParameterDeclaration'
-    { _pdParameterKey         :: !(Maybe Text)
-    , _pdParameterType        :: !(Maybe Text)
-    , _pdParameterConstraints :: !(Maybe ParameterConstraints)
-    , _pdDefaultValue         :: !(Maybe Text)
-    , _pdNoEcho               :: !(Maybe Bool)
-    , _pdDescription          :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pdParameterKey         :: !(Maybe Text)
+  , _pdParameterType        :: !(Maybe Text)
+  , _pdParameterConstraints :: !(Maybe ParameterConstraints)
+  , _pdDefaultValue         :: !(Maybe Text)
+  , _pdNoEcho               :: !(Maybe Bool)
+  , _pdDescription          :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ParameterDeclaration' with the minimum fields required to make a request.
 --
@@ -490,14 +491,15 @@ data ParameterDeclaration = ParameterDeclaration'
 parameterDeclaration
     :: ParameterDeclaration
 parameterDeclaration =
-    ParameterDeclaration'
-    { _pdParameterKey = Nothing
-    , _pdParameterType = Nothing
-    , _pdParameterConstraints = Nothing
-    , _pdDefaultValue = Nothing
-    , _pdNoEcho = Nothing
-    , _pdDescription = Nothing
-    }
+  ParameterDeclaration'
+  { _pdParameterKey = Nothing
+  , _pdParameterType = Nothing
+  , _pdParameterConstraints = Nothing
+  , _pdDefaultValue = Nothing
+  , _pdNoEcho = Nothing
+  , _pdDescription = Nothing
+  }
+
 
 -- | The name that is associated with the parameter.
 pdParameterKey :: Lens' ParameterDeclaration (Maybe Text)
@@ -532,9 +534,9 @@ instance FromXML ParameterDeclaration where
                 <*> (x .@? "NoEcho")
                 <*> (x .@? "Description")
 
-instance Hashable ParameterDeclaration
+instance Hashable ParameterDeclaration where
 
-instance NFData ParameterDeclaration
+instance NFData ParameterDeclaration where
 
 -- | The @ResourceChange@ structure describes the resource and the action that AWS CloudFormation will perform on it if you execute this change set.
 --
@@ -542,14 +544,15 @@ instance NFData ParameterDeclaration
 --
 -- /See:/ 'resourceChange' smart constructor.
 data ResourceChange = ResourceChange'
-    { _rcLogicalResourceId  :: !(Maybe Text)
-    , _rcPhysicalResourceId :: !(Maybe Text)
-    , _rcResourceType       :: !(Maybe Text)
-    , _rcAction             :: !(Maybe ChangeAction)
-    , _rcScope              :: !(Maybe [ResourceAttribute])
-    , _rcDetails            :: !(Maybe [ResourceChangeDetail])
-    , _rcReplacement        :: !(Maybe Replacement)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rcLogicalResourceId  :: !(Maybe Text)
+  , _rcPhysicalResourceId :: !(Maybe Text)
+  , _rcResourceType       :: !(Maybe Text)
+  , _rcAction             :: !(Maybe ChangeAction)
+  , _rcScope              :: !(Maybe [ResourceAttribute])
+  , _rcDetails            :: !(Maybe [ResourceChangeDetail])
+  , _rcReplacement        :: !(Maybe Replacement)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ResourceChange' with the minimum fields required to make a request.
 --
@@ -571,15 +574,16 @@ data ResourceChange = ResourceChange'
 resourceChange
     :: ResourceChange
 resourceChange =
-    ResourceChange'
-    { _rcLogicalResourceId = Nothing
-    , _rcPhysicalResourceId = Nothing
-    , _rcResourceType = Nothing
-    , _rcAction = Nothing
-    , _rcScope = Nothing
-    , _rcDetails = Nothing
-    , _rcReplacement = Nothing
-    }
+  ResourceChange'
+  { _rcLogicalResourceId = Nothing
+  , _rcPhysicalResourceId = Nothing
+  , _rcResourceType = Nothing
+  , _rcAction = Nothing
+  , _rcScope = Nothing
+  , _rcDetails = Nothing
+  , _rcReplacement = Nothing
+  }
+
 
 -- | The resource's logical ID, which is defined in the stack's template.
 rcLogicalResourceId :: Lens' ResourceChange (Maybe Text)
@@ -624,9 +628,9 @@ instance FromXML ResourceChange where
                    may (parseXMLList "member"))
                 <*> (x .@? "Replacement")
 
-instance Hashable ResourceChange
+instance Hashable ResourceChange where
 
-instance NFData ResourceChange
+instance NFData ResourceChange where
 
 -- | For a resource with @Modify@ as the action, the @ResourceChange@ structure describes the changes AWS CloudFormation will make to that resource.
 --
@@ -634,11 +638,12 @@ instance NFData ResourceChange
 --
 -- /See:/ 'resourceChangeDetail' smart constructor.
 data ResourceChangeDetail = ResourceChangeDetail'
-    { _rcdCausingEntity :: !(Maybe Text)
-    , _rcdChangeSource  :: !(Maybe ChangeSource)
-    , _rcdEvaluation    :: !(Maybe EvaluationType)
-    , _rcdTarget        :: !(Maybe ResourceTargetDefinition)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rcdCausingEntity :: !(Maybe Text)
+  , _rcdChangeSource  :: !(Maybe ChangeSource)
+  , _rcdEvaluation    :: !(Maybe EvaluationType)
+  , _rcdTarget        :: !(Maybe ResourceTargetDefinition)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ResourceChangeDetail' with the minimum fields required to make a request.
 --
@@ -654,12 +659,13 @@ data ResourceChangeDetail = ResourceChangeDetail'
 resourceChangeDetail
     :: ResourceChangeDetail
 resourceChangeDetail =
-    ResourceChangeDetail'
-    { _rcdCausingEntity = Nothing
-    , _rcdChangeSource = Nothing
-    , _rcdEvaluation = Nothing
-    , _rcdTarget = Nothing
-    }
+  ResourceChangeDetail'
+  { _rcdCausingEntity = Nothing
+  , _rcdChangeSource = Nothing
+  , _rcdEvaluation = Nothing
+  , _rcdTarget = Nothing
+  }
+
 
 -- | The identity of the entity that triggered this change. This entity is a member of the group that is specified by the @ChangeSource@ field. For example, if you modified the value of the @KeyPairName@ parameter, the @CausingEntity@ is the name of the parameter (@KeyPairName@ ). If the @ChangeSource@ value is @DirectModification@ , no value is given for @CausingEntity@ .
 rcdCausingEntity :: Lens' ResourceChangeDetail (Maybe Text)
@@ -684,9 +690,9 @@ instance FromXML ResourceChangeDetail where
                 <*> (x .@? "Evaluation")
                 <*> (x .@? "Target")
 
-instance Hashable ResourceChangeDetail
+instance Hashable ResourceChangeDetail where
 
-instance NFData ResourceChangeDetail
+instance NFData ResourceChangeDetail where
 
 -- | The field that AWS CloudFormation will change, such as the name of a resource's property, and whether the resource will be recreated.
 --
@@ -694,10 +700,11 @@ instance NFData ResourceChangeDetail
 --
 -- /See:/ 'resourceTargetDefinition' smart constructor.
 data ResourceTargetDefinition = ResourceTargetDefinition'
-    { _rtdAttribute          :: !(Maybe ResourceAttribute)
-    , _rtdRequiresRecreation :: !(Maybe RequiresRecreation)
-    , _rtdName               :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rtdAttribute          :: !(Maybe ResourceAttribute)
+  , _rtdRequiresRecreation :: !(Maybe RequiresRecreation)
+  , _rtdName               :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ResourceTargetDefinition' with the minimum fields required to make a request.
 --
@@ -711,11 +718,12 @@ data ResourceTargetDefinition = ResourceTargetDefinition'
 resourceTargetDefinition
     :: ResourceTargetDefinition
 resourceTargetDefinition =
-    ResourceTargetDefinition'
-    { _rtdAttribute = Nothing
-    , _rtdRequiresRecreation = Nothing
-    , _rtdName = Nothing
-    }
+  ResourceTargetDefinition'
+  { _rtdAttribute = Nothing
+  , _rtdRequiresRecreation = Nothing
+  , _rtdName = Nothing
+  }
+
 
 -- | Indicates which resource attribute is triggering this update, such as a change in the resource attribute's @Metadata@ , @Properties@ , or @Tags@ .
 rtdAttribute :: Lens' ResourceTargetDefinition (Maybe ResourceAttribute)
@@ -735,9 +743,114 @@ instance FromXML ResourceTargetDefinition where
               (x .@? "Attribute") <*> (x .@? "RequiresRecreation")
                 <*> (x .@? "Name")
 
-instance Hashable ResourceTargetDefinition
+instance Hashable ResourceTargetDefinition where
 
-instance NFData ResourceTargetDefinition
+instance NFData ResourceTargetDefinition where
+
+-- | Structure containing the rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+--
+--
+-- Rollback triggers enable you to have AWS CloudFormation monitor the state of your application during stack creation and updating, and to roll back that operation if the application breaches the threshold of any of the alarms you've specified. For each rollback trigger you create, you specify the Cloudwatch alarm that CloudFormation should monitor. CloudFormation monitors the specified alarms during the stack create or update operation, and for the specified amount of time after all resources have been deployed. If any of the alarms goes to ALERT state during the stack operation or the monitoring period, CloudFormation rolls back the entire stack operation. If the monitoring period expires without any alarms going to ALERT state, CloudFormation proceeds to dispose of old resources as usual.
+--
+-- By default, CloudFormation only rolls back stack operations if an alarm goes to ALERT state, not INSUFFICIENT_DATA state. To have CloudFormation roll back the stack operation if an alarm goes to INSUFFICIENT_DATA state as well, edit the CloudWatch alarm to treat missing data as @breaching@ . For more information, see <http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html Configuring How CloudWatch Alarms Treats Missing Data> .
+--
+-- AWS CloudFormation does not monitor rollback triggers when it rolls back a stack during an update operation.
+--
+--
+-- /See:/ 'rollbackConfiguration' smart constructor.
+data RollbackConfiguration = RollbackConfiguration'
+  { _rcRollbackTriggers        :: !(Maybe [RollbackTrigger])
+  , _rcMonitoringTimeInMinutes :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'RollbackConfiguration' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'rcRollbackTriggers' - The triggers to monitor during stack creation or update actions.  By default, AWS CloudFormation saves the rollback triggers specified for a stack and applies them to any subsequent update operations for the stack, unless you specify otherwise. If you do specify rollback triggers for this parameter, those triggers replace any list of triggers previously specified for the stack. This means:     * If you don't specify this parameter, AWS CloudFormation uses the rollback triggers previously specified for this stack, if any.     * If you specify any rollback triggers using this parameter, you must specify all the triggers that you want used for this stack, even triggers you've specifed before (for example, when creating the stack or during a previous stack update). Any triggers that you don't include in the updated list of triggers are no longer applied to the stack.     * If you specify an empty list, AWS CloudFormation removes all currently specified triggers. If a specified Cloudwatch alarm is missing, the entire stack operation fails and is rolled back.
+--
+-- * 'rcMonitoringTimeInMinutes' - The amount of time, in minutes, during which CloudFormation should monitor all the rollback triggers after the stack creation or update operation deploys all necessary resources. If any of the alarms goes to ALERT state during the stack operation or this monitoring period, CloudFormation rolls back the entire stack operation. Then, for update operations, if the monitoring period expires without any alarms going to ALERT state CloudFormation proceeds to dispose of old resources as usual. If you specify a monitoring period but do not specify any rollback triggers, CloudFormation still waits the specified period of time before cleaning up old resources for update operations. You can use this monitoring period to perform any manual stack validation desired, and manually cancel the stack creation or update (using <http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack> , for example) as necessary. If you specify 0 for this parameter, CloudFormation still monitors the specified rollback triggers during stack creation and update operations. Then, for update operations, it begins disposing of old resources immediately once the operation completes.
+rollbackConfiguration
+    :: RollbackConfiguration
+rollbackConfiguration =
+  RollbackConfiguration'
+  {_rcRollbackTriggers = Nothing, _rcMonitoringTimeInMinutes = Nothing}
+
+
+-- | The triggers to monitor during stack creation or update actions.  By default, AWS CloudFormation saves the rollback triggers specified for a stack and applies them to any subsequent update operations for the stack, unless you specify otherwise. If you do specify rollback triggers for this parameter, those triggers replace any list of triggers previously specified for the stack. This means:     * If you don't specify this parameter, AWS CloudFormation uses the rollback triggers previously specified for this stack, if any.     * If you specify any rollback triggers using this parameter, you must specify all the triggers that you want used for this stack, even triggers you've specifed before (for example, when creating the stack or during a previous stack update). Any triggers that you don't include in the updated list of triggers are no longer applied to the stack.     * If you specify an empty list, AWS CloudFormation removes all currently specified triggers. If a specified Cloudwatch alarm is missing, the entire stack operation fails and is rolled back.
+rcRollbackTriggers :: Lens' RollbackConfiguration [RollbackTrigger]
+rcRollbackTriggers = lens _rcRollbackTriggers (\ s a -> s{_rcRollbackTriggers = a}) . _Default . _Coerce;
+
+-- | The amount of time, in minutes, during which CloudFormation should monitor all the rollback triggers after the stack creation or update operation deploys all necessary resources. If any of the alarms goes to ALERT state during the stack operation or this monitoring period, CloudFormation rolls back the entire stack operation. Then, for update operations, if the monitoring period expires without any alarms going to ALERT state CloudFormation proceeds to dispose of old resources as usual. If you specify a monitoring period but do not specify any rollback triggers, CloudFormation still waits the specified period of time before cleaning up old resources for update operations. You can use this monitoring period to perform any manual stack validation desired, and manually cancel the stack creation or update (using <http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack> , for example) as necessary. If you specify 0 for this parameter, CloudFormation still monitors the specified rollback triggers during stack creation and update operations. Then, for update operations, it begins disposing of old resources immediately once the operation completes.
+rcMonitoringTimeInMinutes :: Lens' RollbackConfiguration (Maybe Natural)
+rcMonitoringTimeInMinutes = lens _rcMonitoringTimeInMinutes (\ s a -> s{_rcMonitoringTimeInMinutes = a}) . mapping _Nat;
+
+instance FromXML RollbackConfiguration where
+        parseXML x
+          = RollbackConfiguration' <$>
+              (x .@? "RollbackTriggers" .!@ mempty >>=
+                 may (parseXMLList "member"))
+                <*> (x .@? "MonitoringTimeInMinutes")
+
+instance Hashable RollbackConfiguration where
+
+instance NFData RollbackConfiguration where
+
+instance ToQuery RollbackConfiguration where
+        toQuery RollbackConfiguration'{..}
+          = mconcat
+              ["RollbackTriggers" =:
+                 toQuery
+                   (toQueryList "member" <$> _rcRollbackTriggers),
+               "MonitoringTimeInMinutes" =:
+                 _rcMonitoringTimeInMinutes]
+
+-- | A rollback trigger AWS CloudFormation monitors during creation and updating of stacks. If any of the alarms you specify goes to ALERT state during the stack operation or within the specified monitoring period afterwards, CloudFormation rolls back the entire stack operation.
+--
+--
+--
+-- /See:/ 'rollbackTrigger' smart constructor.
+data RollbackTrigger = RollbackTrigger'
+  { _rtARN  :: !Text
+  , _rtType :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
+
+-- | Creates a value of 'RollbackTrigger' with the minimum fields required to make a request.
+--
+-- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'rtARN' - The Amazon Resource Name (ARN) of the rollback trigger.
+--
+-- * 'rtType' - The resource type of the rollback trigger. Currently, <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html AWS::CloudWatch::Alarm> is the only supported resource type.
+rollbackTrigger
+    :: Text -- ^ 'rtARN'
+    -> Text -- ^ 'rtType'
+    -> RollbackTrigger
+rollbackTrigger pARN_ pType_ =
+  RollbackTrigger' {_rtARN = pARN_, _rtType = pType_}
+
+
+-- | The Amazon Resource Name (ARN) of the rollback trigger.
+rtARN :: Lens' RollbackTrigger Text
+rtARN = lens _rtARN (\ s a -> s{_rtARN = a});
+
+-- | The resource type of the rollback trigger. Currently, <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html AWS::CloudWatch::Alarm> is the only supported resource type.
+rtType :: Lens' RollbackTrigger Text
+rtType = lens _rtType (\ s a -> s{_rtType = a});
+
+instance FromXML RollbackTrigger where
+        parseXML x
+          = RollbackTrigger' <$> (x .@ "Arn") <*> (x .@ "Type")
+
+instance Hashable RollbackTrigger where
+
+instance NFData RollbackTrigger where
+
+instance ToQuery RollbackTrigger where
+        toQuery RollbackTrigger'{..}
+          = mconcat ["Arn" =: _rtARN, "Type" =: _rtType]
 
 -- | The Stack data type.
 --
@@ -745,23 +858,29 @@ instance NFData ResourceTargetDefinition
 --
 -- /See:/ 'stack' smart constructor.
 data Stack = Stack'
-    { _sDisableRollback   :: !(Maybe Bool)
-    , _sLastUpdatedTime   :: !(Maybe ISO8601)
-    , _sNotificationARNs  :: !(Maybe [Text])
-    , _sStackStatusReason :: !(Maybe Text)
-    , _sChangeSetId       :: !(Maybe Text)
-    , _sOutputs           :: !(Maybe [Output])
-    , _sParameters        :: !(Maybe [Parameter])
-    , _sStackId           :: !(Maybe Text)
-    , _sDescription       :: !(Maybe Text)
-    , _sCapabilities      :: !(Maybe [Capability])
-    , _sTags              :: !(Maybe [Tag])
-    , _sTimeoutInMinutes  :: !(Maybe Nat)
-    , _sRoleARN           :: !(Maybe Text)
-    , _sStackName         :: !Text
-    , _sCreationTime      :: !ISO8601
-    , _sStackStatus       :: !StackStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sDisableRollback             :: !(Maybe Bool)
+  , _sLastUpdatedTime             :: !(Maybe ISO8601)
+  , _sRootId                      :: !(Maybe Text)
+  , _sNotificationARNs            :: !(Maybe [Text])
+  , _sStackStatusReason           :: !(Maybe Text)
+  , _sEnableTerminationProtection :: !(Maybe Bool)
+  , _sChangeSetId                 :: !(Maybe Text)
+  , _sDeletionTime                :: !(Maybe ISO8601)
+  , _sOutputs                     :: !(Maybe [Output])
+  , _sParameters                  :: !(Maybe [Parameter])
+  , _sStackId                     :: !(Maybe Text)
+  , _sDescription                 :: !(Maybe Text)
+  , _sCapabilities                :: !(Maybe [Capability])
+  , _sRollbackConfiguration       :: !(Maybe RollbackConfiguration)
+  , _sTags                        :: !(Maybe [Tag])
+  , _sTimeoutInMinutes            :: !(Maybe Nat)
+  , _sParentId                    :: !(Maybe Text)
+  , _sRoleARN                     :: !(Maybe Text)
+  , _sStackName                   :: !Text
+  , _sCreationTime                :: !ISO8601
+  , _sStackStatus                 :: !StackStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Stack' with the minimum fields required to make a request.
 --
@@ -771,11 +890,17 @@ data Stack = Stack'
 --
 -- * 'sLastUpdatedTime' - The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
 --
+-- * 'sRootId' - For nested stacks--stacks created as resources for another stack--the stack ID of the the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+--
 -- * 'sNotificationARNs' - SNS topic ARNs to which stack related events are published.
 --
 -- * 'sStackStatusReason' - Success/failure message associated with the stack status.
 --
+-- * 'sEnableTerminationProtection' - Whether termination protection is enabled for the stack. For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ .
+--
 -- * 'sChangeSetId' - The unique ID of the change set.
+--
+-- * 'sDeletionTime' - The time the stack was deleted.
 --
 -- * 'sOutputs' - A list of output structures.
 --
@@ -787,9 +912,13 @@ data Stack = Stack'
 --
 -- * 'sCapabilities' - The capabilities allowed in the stack.
 --
+-- * 'sRollbackConfiguration' - The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+--
 -- * 'sTags' - A list of @Tag@ s that specify information about the stack.
 --
 -- * 'sTimeoutInMinutes' - The amount of time within which stack creation should complete.
+--
+-- * 'sParentId' - For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
 --
 -- * 'sRoleARN' - The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack. During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
 --
@@ -804,24 +933,30 @@ stack
     -> StackStatus -- ^ 'sStackStatus'
     -> Stack
 stack pStackName_ pCreationTime_ pStackStatus_ =
-    Stack'
-    { _sDisableRollback = Nothing
-    , _sLastUpdatedTime = Nothing
-    , _sNotificationARNs = Nothing
-    , _sStackStatusReason = Nothing
-    , _sChangeSetId = Nothing
-    , _sOutputs = Nothing
-    , _sParameters = Nothing
-    , _sStackId = Nothing
-    , _sDescription = Nothing
-    , _sCapabilities = Nothing
-    , _sTags = Nothing
-    , _sTimeoutInMinutes = Nothing
-    , _sRoleARN = Nothing
-    , _sStackName = pStackName_
-    , _sCreationTime = _Time # pCreationTime_
-    , _sStackStatus = pStackStatus_
-    }
+  Stack'
+  { _sDisableRollback = Nothing
+  , _sLastUpdatedTime = Nothing
+  , _sRootId = Nothing
+  , _sNotificationARNs = Nothing
+  , _sStackStatusReason = Nothing
+  , _sEnableTerminationProtection = Nothing
+  , _sChangeSetId = Nothing
+  , _sDeletionTime = Nothing
+  , _sOutputs = Nothing
+  , _sParameters = Nothing
+  , _sStackId = Nothing
+  , _sDescription = Nothing
+  , _sCapabilities = Nothing
+  , _sRollbackConfiguration = Nothing
+  , _sTags = Nothing
+  , _sTimeoutInMinutes = Nothing
+  , _sParentId = Nothing
+  , _sRoleARN = Nothing
+  , _sStackName = pStackName_
+  , _sCreationTime = _Time # pCreationTime_
+  , _sStackStatus = pStackStatus_
+  }
+
 
 -- | Boolean to enable or disable rollback on stack creation failures:     * @true@ : disable rollback     * @false@ : enable rollback
 sDisableRollback :: Lens' Stack (Maybe Bool)
@@ -831,6 +966,10 @@ sDisableRollback = lens _sDisableRollback (\ s a -> s{_sDisableRollback = a});
 sLastUpdatedTime :: Lens' Stack (Maybe UTCTime)
 sLastUpdatedTime = lens _sLastUpdatedTime (\ s a -> s{_sLastUpdatedTime = a}) . mapping _Time;
 
+-- | For nested stacks--stacks created as resources for another stack--the stack ID of the the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+sRootId :: Lens' Stack (Maybe Text)
+sRootId = lens _sRootId (\ s a -> s{_sRootId = a});
+
 -- | SNS topic ARNs to which stack related events are published.
 sNotificationARNs :: Lens' Stack [Text]
 sNotificationARNs = lens _sNotificationARNs (\ s a -> s{_sNotificationARNs = a}) . _Default . _Coerce;
@@ -839,9 +978,17 @@ sNotificationARNs = lens _sNotificationARNs (\ s a -> s{_sNotificationARNs = a})
 sStackStatusReason :: Lens' Stack (Maybe Text)
 sStackStatusReason = lens _sStackStatusReason (\ s a -> s{_sStackStatusReason = a});
 
+-- | Whether termination protection is enabled for the stack. For <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks> , termination protection is set on the root stack and cannot be changed directly on the nested stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html Protecting a Stack From Being Deleted> in the /AWS CloudFormation User Guide/ .
+sEnableTerminationProtection :: Lens' Stack (Maybe Bool)
+sEnableTerminationProtection = lens _sEnableTerminationProtection (\ s a -> s{_sEnableTerminationProtection = a});
+
 -- | The unique ID of the change set.
 sChangeSetId :: Lens' Stack (Maybe Text)
 sChangeSetId = lens _sChangeSetId (\ s a -> s{_sChangeSetId = a});
+
+-- | The time the stack was deleted.
+sDeletionTime :: Lens' Stack (Maybe UTCTime)
+sDeletionTime = lens _sDeletionTime (\ s a -> s{_sDeletionTime = a}) . mapping _Time;
 
 -- | A list of output structures.
 sOutputs :: Lens' Stack [Output]
@@ -863,6 +1010,10 @@ sDescription = lens _sDescription (\ s a -> s{_sDescription = a});
 sCapabilities :: Lens' Stack [Capability]
 sCapabilities = lens _sCapabilities (\ s a -> s{_sCapabilities = a}) . _Default . _Coerce;
 
+-- | The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
+sRollbackConfiguration :: Lens' Stack (Maybe RollbackConfiguration)
+sRollbackConfiguration = lens _sRollbackConfiguration (\ s a -> s{_sRollbackConfiguration = a});
+
 -- | A list of @Tag@ s that specify information about the stack.
 sTags :: Lens' Stack [Tag]
 sTags = lens _sTags (\ s a -> s{_sTags = a}) . _Default . _Coerce;
@@ -870,6 +1021,10 @@ sTags = lens _sTags (\ s a -> s{_sTags = a}) . _Default . _Coerce;
 -- | The amount of time within which stack creation should complete.
 sTimeoutInMinutes :: Lens' Stack (Maybe Natural)
 sTimeoutInMinutes = lens _sTimeoutInMinutes (\ s a -> s{_sTimeoutInMinutes = a}) . mapping _Nat;
+
+-- | For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+sParentId :: Lens' Stack (Maybe Text)
+sParentId = lens _sParentId (\ s a -> s{_sParentId = a});
 
 -- | The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that is associated with the stack. During a stack operation, AWS CloudFormation uses this role's credentials to make calls on your behalf.
 sRoleARN :: Lens' Stack (Maybe Text)
@@ -892,11 +1047,14 @@ instance FromXML Stack where
           = Stack' <$>
               (x .@? "DisableRollback") <*>
                 (x .@? "LastUpdatedTime")
+                <*> (x .@? "RootId")
                 <*>
                 (x .@? "NotificationARNs" .!@ mempty >>=
                    may (parseXMLList "member"))
                 <*> (x .@? "StackStatusReason")
+                <*> (x .@? "EnableTerminationProtection")
                 <*> (x .@? "ChangeSetId")
+                <*> (x .@? "DeletionTime")
                 <*>
                 (x .@? "Outputs" .!@ mempty >>=
                    may (parseXMLList "member"))
@@ -908,18 +1066,20 @@ instance FromXML Stack where
                 <*>
                 (x .@? "Capabilities" .!@ mempty >>=
                    may (parseXMLList "member"))
+                <*> (x .@? "RollbackConfiguration")
                 <*>
                 (x .@? "Tags" .!@ mempty >>=
                    may (parseXMLList "member"))
                 <*> (x .@? "TimeoutInMinutes")
+                <*> (x .@? "ParentId")
                 <*> (x .@? "RoleARN")
                 <*> (x .@ "StackName")
                 <*> (x .@ "CreationTime")
                 <*> (x .@ "StackStatus")
 
-instance Hashable Stack
+instance Hashable Stack where
 
-instance NFData Stack
+instance NFData Stack where
 
 -- | The StackEvent data type.
 --
@@ -927,18 +1087,19 @@ instance NFData Stack
 --
 -- /See:/ 'stackEvent' smart constructor.
 data StackEvent = StackEvent'
-    { _seLogicalResourceId    :: !(Maybe Text)
-    , _sePhysicalResourceId   :: !(Maybe Text)
-    , _seResourceType         :: !(Maybe Text)
-    , _seResourceStatusReason :: !(Maybe Text)
-    , _seResourceProperties   :: !(Maybe Text)
-    , _seResourceStatus       :: !(Maybe ResourceStatus)
-    , _seClientRequestToken   :: !(Maybe Text)
-    , _seStackId              :: !Text
-    , _seEventId              :: !Text
-    , _seStackName            :: !Text
-    , _seTimestamp            :: !ISO8601
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _seLogicalResourceId    :: !(Maybe Text)
+  , _sePhysicalResourceId   :: !(Maybe Text)
+  , _seResourceType         :: !(Maybe Text)
+  , _seResourceStatusReason :: !(Maybe Text)
+  , _seResourceProperties   :: !(Maybe Text)
+  , _seResourceStatus       :: !(Maybe ResourceStatus)
+  , _seClientRequestToken   :: !(Maybe Text)
+  , _seStackId              :: !Text
+  , _seEventId              :: !Text
+  , _seStackName            :: !Text
+  , _seTimestamp            :: !ISO8601
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackEvent' with the minimum fields required to make a request.
 --
@@ -972,19 +1133,20 @@ stackEvent
     -> UTCTime -- ^ 'seTimestamp'
     -> StackEvent
 stackEvent pStackId_ pEventId_ pStackName_ pTimestamp_ =
-    StackEvent'
-    { _seLogicalResourceId = Nothing
-    , _sePhysicalResourceId = Nothing
-    , _seResourceType = Nothing
-    , _seResourceStatusReason = Nothing
-    , _seResourceProperties = Nothing
-    , _seResourceStatus = Nothing
-    , _seClientRequestToken = Nothing
-    , _seStackId = pStackId_
-    , _seEventId = pEventId_
-    , _seStackName = pStackName_
-    , _seTimestamp = _Time # pTimestamp_
-    }
+  StackEvent'
+  { _seLogicalResourceId = Nothing
+  , _sePhysicalResourceId = Nothing
+  , _seResourceType = Nothing
+  , _seResourceStatusReason = Nothing
+  , _seResourceProperties = Nothing
+  , _seResourceStatus = Nothing
+  , _seClientRequestToken = Nothing
+  , _seStackId = pStackId_
+  , _seEventId = pEventId_
+  , _seStackName = pStackName_
+  , _seTimestamp = _Time # pTimestamp_
+  }
+
 
 -- | The logical name of the resource specified in the template.
 seLogicalResourceId :: Lens' StackEvent (Maybe Text)
@@ -1045,9 +1207,9 @@ instance FromXML StackEvent where
                 <*> (x .@ "StackName")
                 <*> (x .@ "Timestamp")
 
-instance Hashable StackEvent
+instance Hashable StackEvent where
 
-instance NFData StackEvent
+instance NFData StackEvent where
 
 -- | An AWS CloudFormation stack, in a specific account and region, that's part of a stack set operation. A stack instance is a reference to an attempted or actual stack in a given account within a given region. A stack instance can exist without a stack—for example, if the stack couldn't be created for some reason. A stack instance is associated with only one stack set. Each stack instance contains the ID of its associated stack set, as well as the ID of the actual stack and the stack status.
 --
@@ -1055,19 +1217,20 @@ instance NFData StackEvent
 --
 -- /See:/ 'stackInstance' smart constructor.
 data StackInstance = StackInstance'
-    { _siStatus       :: !(Maybe StackInstanceStatus)
-    , _siAccount      :: !(Maybe Text)
-    , _siRegion       :: !(Maybe Text)
-    , _siStatusReason :: !(Maybe Text)
-    , _siStackId      :: !(Maybe Text)
-    , _siStackSetId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _siStatus       :: !(Maybe StackInstanceStatus)
+  , _siAccount      :: !(Maybe Text)
+  , _siRegion       :: !(Maybe Text)
+  , _siStatusReason :: !(Maybe Text)
+  , _siStackId      :: !(Maybe Text)
+  , _siStackSetId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackInstance' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'siStatus' - The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ and @DeleteStackInstances@ operations. You might need to clean up the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
+-- * 'siStatus' - The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ operations. You might need to perform a @DeleteStackInstances@ operation, with @RetainStacks@ set to @true@ , to delete the stack instance, and then delete the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
 --
 -- * 'siAccount' - The name of the AWS account that the stack instance is associated with.
 --
@@ -1081,16 +1244,17 @@ data StackInstance = StackInstance'
 stackInstance
     :: StackInstance
 stackInstance =
-    StackInstance'
-    { _siStatus = Nothing
-    , _siAccount = Nothing
-    , _siRegion = Nothing
-    , _siStatusReason = Nothing
-    , _siStackId = Nothing
-    , _siStackSetId = Nothing
-    }
+  StackInstance'
+  { _siStatus = Nothing
+  , _siAccount = Nothing
+  , _siRegion = Nothing
+  , _siStatusReason = Nothing
+  , _siStackId = Nothing
+  , _siStackSetId = Nothing
+  }
 
--- | The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ and @DeleteStackInstances@ operations. You might need to clean up the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
+
+-- | The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ operations. You might need to perform a @DeleteStackInstances@ operation, with @RetainStacks@ set to @true@ , to delete the stack instance, and then delete the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
 siStatus :: Lens' StackInstance (Maybe StackInstanceStatus)
 siStatus = lens _siStatus (\ s a -> s{_siStatus = a});
 
@@ -1123,9 +1287,9 @@ instance FromXML StackInstance where
                 <*> (x .@? "StackId")
                 <*> (x .@? "StackSetId")
 
-instance Hashable StackInstance
+instance Hashable StackInstance where
 
-instance NFData StackInstance
+instance NFData StackInstance where
 
 -- | The structure that contains summary information about a stack instance.
 --
@@ -1133,19 +1297,20 @@ instance NFData StackInstance
 --
 -- /See:/ 'stackInstanceSummary' smart constructor.
 data StackInstanceSummary = StackInstanceSummary'
-    { _sisStatus       :: !(Maybe StackInstanceStatus)
-    , _sisAccount      :: !(Maybe Text)
-    , _sisRegion       :: !(Maybe Text)
-    , _sisStatusReason :: !(Maybe Text)
-    , _sisStackId      :: !(Maybe Text)
-    , _sisStackSetId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sisStatus       :: !(Maybe StackInstanceStatus)
+  , _sisAccount      :: !(Maybe Text)
+  , _sisRegion       :: !(Maybe Text)
+  , _sisStatusReason :: !(Maybe Text)
+  , _sisStackId      :: !(Maybe Text)
+  , _sisStackSetId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackInstanceSummary' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'sisStatus' - The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ and @DeleteStackInstances@ operations. You might need to clean up the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
+-- * 'sisStatus' - The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ operations. You might need to perform a @DeleteStackInstances@ operation, with @RetainStacks@ set to @true@ , to delete the stack instance, and then delete the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
 --
 -- * 'sisAccount' - The name of the AWS account that the stack instance is associated with.
 --
@@ -1159,16 +1324,17 @@ data StackInstanceSummary = StackInstanceSummary'
 stackInstanceSummary
     :: StackInstanceSummary
 stackInstanceSummary =
-    StackInstanceSummary'
-    { _sisStatus = Nothing
-    , _sisAccount = Nothing
-    , _sisRegion = Nothing
-    , _sisStatusReason = Nothing
-    , _sisStackId = Nothing
-    , _sisStackSetId = Nothing
-    }
+  StackInstanceSummary'
+  { _sisStatus = Nothing
+  , _sisAccount = Nothing
+  , _sisRegion = Nothing
+  , _sisStatusReason = Nothing
+  , _sisStackId = Nothing
+  , _sisStackSetId = Nothing
+  }
 
--- | The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ and @DeleteStackInstances@ operations. You might need to clean up the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
+
+-- | The status of the stack instance, in terms of its synchronization with its associated stack set.     * @INOPERABLE@ : A @DeleteStackInstances@ operation has failed and left the stack in an unstable state. Stacks in this state are excluded from further @UpdateStackSet@ operations. You might need to perform a @DeleteStackInstances@ operation, with @RetainStacks@ set to @true@ , to delete the stack instance, and then delete the stack manually.     * @OUTDATED@ : The stack isn't currently up to date with the stack set because:     * The associated stack failed during a @CreateStackSet@ or @UpdateStackSet@ operation.      * The stack was part of a @CreateStackSet@ or @UpdateStackSet@ operation that failed or was stopped before the stack was created or updated.      * @CURRENT@ : The stack is currently up to date with the stack set.
 sisStatus :: Lens' StackInstanceSummary (Maybe StackInstanceStatus)
 sisStatus = lens _sisStatus (\ s a -> s{_sisStatus = a});
 
@@ -1201,9 +1367,9 @@ instance FromXML StackInstanceSummary where
                 <*> (x .@? "StackId")
                 <*> (x .@? "StackSetId")
 
-instance Hashable StackInstanceSummary
+instance Hashable StackInstanceSummary where
 
-instance NFData StackInstanceSummary
+instance NFData StackInstanceSummary where
 
 -- | The StackResource data type.
 --
@@ -1211,16 +1377,17 @@ instance NFData StackInstanceSummary
 --
 -- /See:/ 'stackResource' smart constructor.
 data StackResource = StackResource'
-    { _srPhysicalResourceId   :: !(Maybe Text)
-    , _srResourceStatusReason :: !(Maybe Text)
-    , _srStackId              :: !(Maybe Text)
-    , _srDescription          :: !(Maybe Text)
-    , _srStackName            :: !(Maybe Text)
-    , _srLogicalResourceId    :: !Text
-    , _srResourceType         :: !Text
-    , _srTimestamp            :: !ISO8601
-    , _srResourceStatus       :: !ResourceStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srPhysicalResourceId   :: !(Maybe Text)
+  , _srResourceStatusReason :: !(Maybe Text)
+  , _srStackId              :: !(Maybe Text)
+  , _srDescription          :: !(Maybe Text)
+  , _srStackName            :: !(Maybe Text)
+  , _srLogicalResourceId    :: !Text
+  , _srResourceType         :: !Text
+  , _srTimestamp            :: !ISO8601
+  , _srResourceStatus       :: !ResourceStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackResource' with the minimum fields required to make a request.
 --
@@ -1250,17 +1417,18 @@ stackResource
     -> ResourceStatus -- ^ 'srResourceStatus'
     -> StackResource
 stackResource pLogicalResourceId_ pResourceType_ pTimestamp_ pResourceStatus_ =
-    StackResource'
-    { _srPhysicalResourceId = Nothing
-    , _srResourceStatusReason = Nothing
-    , _srStackId = Nothing
-    , _srDescription = Nothing
-    , _srStackName = Nothing
-    , _srLogicalResourceId = pLogicalResourceId_
-    , _srResourceType = pResourceType_
-    , _srTimestamp = _Time # pTimestamp_
-    , _srResourceStatus = pResourceStatus_
-    }
+  StackResource'
+  { _srPhysicalResourceId = Nothing
+  , _srResourceStatusReason = Nothing
+  , _srStackId = Nothing
+  , _srDescription = Nothing
+  , _srStackName = Nothing
+  , _srLogicalResourceId = pLogicalResourceId_
+  , _srResourceType = pResourceType_
+  , _srTimestamp = _Time # pTimestamp_
+  , _srResourceStatus = pResourceStatus_
+  }
+
 
 -- | The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS CloudFormation.
 srPhysicalResourceId :: Lens' StackResource (Maybe Text)
@@ -1311,9 +1479,9 @@ instance FromXML StackResource where
                 <*> (x .@ "Timestamp")
                 <*> (x .@ "ResourceStatus")
 
-instance Hashable StackResource
+instance Hashable StackResource where
 
-instance NFData StackResource
+instance NFData StackResource where
 
 -- | Contains detailed information about the specified stack resource.
 --
@@ -1321,17 +1489,18 @@ instance NFData StackResource
 --
 -- /See:/ 'stackResourceDetail' smart constructor.
 data StackResourceDetail = StackResourceDetail'
-    { _srdPhysicalResourceId   :: !(Maybe Text)
-    , _srdResourceStatusReason :: !(Maybe Text)
-    , _srdMetadata             :: !(Maybe Text)
-    , _srdStackId              :: !(Maybe Text)
-    , _srdDescription          :: !(Maybe Text)
-    , _srdStackName            :: !(Maybe Text)
-    , _srdLogicalResourceId    :: !Text
-    , _srdResourceType         :: !Text
-    , _srdLastUpdatedTimestamp :: !ISO8601
-    , _srdResourceStatus       :: !ResourceStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srdPhysicalResourceId   :: !(Maybe Text)
+  , _srdResourceStatusReason :: !(Maybe Text)
+  , _srdMetadata             :: !(Maybe Text)
+  , _srdStackId              :: !(Maybe Text)
+  , _srdDescription          :: !(Maybe Text)
+  , _srdStackName            :: !(Maybe Text)
+  , _srdLogicalResourceId    :: !Text
+  , _srdResourceType         :: !Text
+  , _srdLastUpdatedTimestamp :: !ISO8601
+  , _srdResourceStatus       :: !ResourceStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackResourceDetail' with the minimum fields required to make a request.
 --
@@ -1363,18 +1532,19 @@ stackResourceDetail
     -> ResourceStatus -- ^ 'srdResourceStatus'
     -> StackResourceDetail
 stackResourceDetail pLogicalResourceId_ pResourceType_ pLastUpdatedTimestamp_ pResourceStatus_ =
-    StackResourceDetail'
-    { _srdPhysicalResourceId = Nothing
-    , _srdResourceStatusReason = Nothing
-    , _srdMetadata = Nothing
-    , _srdStackId = Nothing
-    , _srdDescription = Nothing
-    , _srdStackName = Nothing
-    , _srdLogicalResourceId = pLogicalResourceId_
-    , _srdResourceType = pResourceType_
-    , _srdLastUpdatedTimestamp = _Time # pLastUpdatedTimestamp_
-    , _srdResourceStatus = pResourceStatus_
-    }
+  StackResourceDetail'
+  { _srdPhysicalResourceId = Nothing
+  , _srdResourceStatusReason = Nothing
+  , _srdMetadata = Nothing
+  , _srdStackId = Nothing
+  , _srdDescription = Nothing
+  , _srdStackName = Nothing
+  , _srdLogicalResourceId = pLogicalResourceId_
+  , _srdResourceType = pResourceType_
+  , _srdLastUpdatedTimestamp = _Time # pLastUpdatedTimestamp_
+  , _srdResourceStatus = pResourceStatus_
+  }
+
 
 -- | The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS CloudFormation.
 srdPhysicalResourceId :: Lens' StackResourceDetail (Maybe Text)
@@ -1430,9 +1600,9 @@ instance FromXML StackResourceDetail where
                 <*> (x .@ "LastUpdatedTimestamp")
                 <*> (x .@ "ResourceStatus")
 
-instance Hashable StackResourceDetail
+instance Hashable StackResourceDetail where
 
-instance NFData StackResourceDetail
+instance NFData StackResourceDetail where
 
 -- | Contains high-level information about the specified stack resource.
 --
@@ -1440,13 +1610,14 @@ instance NFData StackResourceDetail
 --
 -- /See:/ 'stackResourceSummary' smart constructor.
 data StackResourceSummary = StackResourceSummary'
-    { _srsPhysicalResourceId   :: !(Maybe Text)
-    , _srsResourceStatusReason :: !(Maybe Text)
-    , _srsLogicalResourceId    :: !Text
-    , _srsResourceType         :: !Text
-    , _srsLastUpdatedTimestamp :: !ISO8601
-    , _srsResourceStatus       :: !ResourceStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _srsPhysicalResourceId   :: !(Maybe Text)
+  , _srsResourceStatusReason :: !(Maybe Text)
+  , _srsLogicalResourceId    :: !Text
+  , _srsResourceType         :: !Text
+  , _srsLastUpdatedTimestamp :: !ISO8601
+  , _srsResourceStatus       :: !ResourceStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackResourceSummary' with the minimum fields required to make a request.
 --
@@ -1470,14 +1641,15 @@ stackResourceSummary
     -> ResourceStatus -- ^ 'srsResourceStatus'
     -> StackResourceSummary
 stackResourceSummary pLogicalResourceId_ pResourceType_ pLastUpdatedTimestamp_ pResourceStatus_ =
-    StackResourceSummary'
-    { _srsPhysicalResourceId = Nothing
-    , _srsResourceStatusReason = Nothing
-    , _srsLogicalResourceId = pLogicalResourceId_
-    , _srsResourceType = pResourceType_
-    , _srsLastUpdatedTimestamp = _Time # pLastUpdatedTimestamp_
-    , _srsResourceStatus = pResourceStatus_
-    }
+  StackResourceSummary'
+  { _srsPhysicalResourceId = Nothing
+  , _srsResourceStatusReason = Nothing
+  , _srsLogicalResourceId = pLogicalResourceId_
+  , _srsResourceType = pResourceType_
+  , _srsLastUpdatedTimestamp = _Time # pLastUpdatedTimestamp_
+  , _srsResourceStatus = pResourceStatus_
+  }
+
 
 -- | The name or unique identifier that corresponds to a physical instance ID of the resource.
 srsPhysicalResourceId :: Lens' StackResourceSummary (Maybe Text)
@@ -1513,9 +1685,9 @@ instance FromXML StackResourceSummary where
                 <*> (x .@ "LastUpdatedTimestamp")
                 <*> (x .@ "ResourceStatus")
 
-instance Hashable StackResourceSummary
+instance Hashable StackResourceSummary where
 
-instance NFData StackResourceSummary
+instance NFData StackResourceSummary where
 
 -- | A structure that contains information about a stack set. A stack set enables you to provision stacks into AWS accounts and across regions by using a single CloudFormation template. In the stack set, you specify the template to use, as well as any parameters and capabilities that the template requires.
 --
@@ -1523,15 +1695,16 @@ instance NFData StackResourceSummary
 --
 -- /See:/ 'stackSet' smart constructor.
 data StackSet = StackSet'
-    { _ssStatus       :: !(Maybe StackSetStatus)
-    , _ssParameters   :: !(Maybe [Parameter])
-    , _ssTemplateBody :: !(Maybe Text)
-    , _ssStackSetName :: !(Maybe Text)
-    , _ssDescription  :: !(Maybe Text)
-    , _ssCapabilities :: !(Maybe [Capability])
-    , _ssTags         :: !(Maybe [Tag])
-    , _ssStackSetId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssStatus       :: !(Maybe StackSetStatus)
+  , _ssParameters   :: !(Maybe [Parameter])
+  , _ssTemplateBody :: !(Maybe Text)
+  , _ssStackSetName :: !(Maybe Text)
+  , _ssDescription  :: !(Maybe Text)
+  , _ssCapabilities :: !(Maybe [Capability])
+  , _ssTags         :: !(Maybe [Tag])
+  , _ssStackSetId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSet' with the minimum fields required to make a request.
 --
@@ -1555,16 +1728,17 @@ data StackSet = StackSet'
 stackSet
     :: StackSet
 stackSet =
-    StackSet'
-    { _ssStatus = Nothing
-    , _ssParameters = Nothing
-    , _ssTemplateBody = Nothing
-    , _ssStackSetName = Nothing
-    , _ssDescription = Nothing
-    , _ssCapabilities = Nothing
-    , _ssTags = Nothing
-    , _ssStackSetId = Nothing
-    }
+  StackSet'
+  { _ssStatus = Nothing
+  , _ssParameters = Nothing
+  , _ssTemplateBody = Nothing
+  , _ssStackSetName = Nothing
+  , _ssDescription = Nothing
+  , _ssCapabilities = Nothing
+  , _ssTags = Nothing
+  , _ssStackSetId = Nothing
+  }
+
 
 -- | The status of the stack set.
 ssStatus :: Lens' StackSet (Maybe StackSetStatus)
@@ -1615,9 +1789,9 @@ instance FromXML StackSet where
                    may (parseXMLList "member"))
                 <*> (x .@? "StackSetId")
 
-instance Hashable StackSet
+instance Hashable StackSet where
 
-instance NFData StackSet
+instance NFData StackSet where
 
 -- | The structure that contains information about a stack set operation.
 --
@@ -1625,15 +1799,16 @@ instance NFData StackSet
 --
 -- /See:/ 'stackSetOperation' smart constructor.
 data StackSetOperation = StackSetOperation'
-    { _ssoStatus               :: !(Maybe StackSetOperationStatus)
-    , _ssoAction               :: !(Maybe StackSetOperationAction)
-    , _ssoEndTimestamp         :: !(Maybe ISO8601)
-    , _ssoCreationTimestamp    :: !(Maybe ISO8601)
-    , _ssoOperationPreferences :: !(Maybe StackSetOperationPreferences)
-    , _ssoOperationId          :: !(Maybe Text)
-    , _ssoRetainStacks         :: !(Maybe Bool)
-    , _ssoStackSetId           :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssoStatus               :: !(Maybe StackSetOperationStatus)
+  , _ssoAction               :: !(Maybe StackSetOperationAction)
+  , _ssoEndTimestamp         :: !(Maybe ISO8601)
+  , _ssoCreationTimestamp    :: !(Maybe ISO8601)
+  , _ssoOperationPreferences :: !(Maybe StackSetOperationPreferences)
+  , _ssoOperationId          :: !(Maybe Text)
+  , _ssoRetainStacks         :: !(Maybe Bool)
+  , _ssoStackSetId           :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSetOperation' with the minimum fields required to make a request.
 --
@@ -1657,16 +1832,17 @@ data StackSetOperation = StackSetOperation'
 stackSetOperation
     :: StackSetOperation
 stackSetOperation =
-    StackSetOperation'
-    { _ssoStatus = Nothing
-    , _ssoAction = Nothing
-    , _ssoEndTimestamp = Nothing
-    , _ssoCreationTimestamp = Nothing
-    , _ssoOperationPreferences = Nothing
-    , _ssoOperationId = Nothing
-    , _ssoRetainStacks = Nothing
-    , _ssoStackSetId = Nothing
-    }
+  StackSetOperation'
+  { _ssoStatus = Nothing
+  , _ssoAction = Nothing
+  , _ssoEndTimestamp = Nothing
+  , _ssoCreationTimestamp = Nothing
+  , _ssoOperationPreferences = Nothing
+  , _ssoOperationId = Nothing
+  , _ssoRetainStacks = Nothing
+  , _ssoStackSetId = Nothing
+  }
+
 
 -- | The status of the operation.      * @FAILED@ : The operation exceeded the specified failure tolerance. The failure tolerance value that you've set for an operation is applied for each region during stack create and update operations. If the number of failed stacks within a region exceeds the failure tolerance, the status of the operation in the region is set to @FAILED@ . This in turn sets the status of the operation as a whole to @FAILED@ , and AWS CloudFormation cancels the operation in any remaining regions.     * @RUNNING@ : The operation is currently being performed.     * @STOPPED@ : The user has cancelled the operation.     * @STOPPING@ : The operation is in the process of stopping, at user request.      * @SUCCEEDED@ : The operation completed creating or updating all the specified stacks without exceeding the failure tolerance for the operation.
 ssoStatus :: Lens' StackSetOperation (Maybe StackSetOperationStatus)
@@ -1711,22 +1887,25 @@ instance FromXML StackSetOperation where
                 <*> (x .@? "RetainStacks")
                 <*> (x .@? "StackSetId")
 
-instance Hashable StackSetOperation
+instance Hashable StackSetOperation where
 
-instance NFData StackSetOperation
+instance NFData StackSetOperation where
 
 -- | The user-specified preferences for how AWS CloudFormation performs a stack set operation.
 --
 --
+-- For more information on maximum concurrent accounts and failure tolerance, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options Stack set operation options> .
+--
 --
 -- /See:/ 'stackSetOperationPreferences' smart constructor.
 data StackSetOperationPreferences = StackSetOperationPreferences'
-    { _ssopRegionOrder                :: !(Maybe [Text])
-    , _ssopMaxConcurrentCount         :: !(Maybe Nat)
-    , _ssopMaxConcurrentPercentage    :: !(Maybe Nat)
-    , _ssopFailureToleranceCount      :: !(Maybe Nat)
-    , _ssopFailureTolerancePercentage :: !(Maybe Nat)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssopRegionOrder                :: !(Maybe [Text])
+  , _ssopMaxConcurrentCount         :: !(Maybe Nat)
+  , _ssopMaxConcurrentPercentage    :: !(Maybe Nat)
+  , _ssopFailureToleranceCount      :: !(Maybe Nat)
+  , _ssopFailureTolerancePercentage :: !(Maybe Nat)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSetOperationPreferences' with the minimum fields required to make a request.
 --
@@ -1734,9 +1913,9 @@ data StackSetOperationPreferences = StackSetOperationPreferences'
 --
 -- * 'ssopRegionOrder' - The order of the regions in where you want to perform the stack operation.
 --
--- * 'ssopMaxConcurrentCount' - The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of @FailureToleranceCount@ —@MaxConcurrentCount@ is at most one more than the @FailureToleranceCount@ . Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
+-- * 'ssopMaxConcurrentCount' - The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of @FailureToleranceCount@ —@MaxConcurrentCount@ is at most one more than the @FailureToleranceCount@ . Note that this setting lets you specify the /maximum/ for operations. For large deployments, under certain circumstances the actual number of accounts acted upon concurrently may be lower due to service throttling. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
 --
--- * 'ssopMaxConcurrentPercentage' - The maximum percentage of accounts in which to perform this operation at one time. When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the next whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation sets the number as one instead. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
+-- * 'ssopMaxConcurrentPercentage' - The maximum percentage of accounts in which to perform this operation at one time. When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the next whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation sets the number as one instead. Note that this setting lets you specify the /maximum/ for operations. For large deployments, under certain circumstances the actual number of accounts acted upon concurrently may be lower due to service throttling. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
 --
 -- * 'ssopFailureToleranceCount' - The number of accounts, per region, for which this operation can fail before AWS CloudFormation stops the operation in that region. If the operation is stopped in a region, AWS CloudFormation doesn't attempt the operation in any subsequent regions. Conditional: You must specify either @FailureToleranceCount@ or @FailureTolerancePercentage@ (but not both).
 --
@@ -1744,23 +1923,24 @@ data StackSetOperationPreferences = StackSetOperationPreferences'
 stackSetOperationPreferences
     :: StackSetOperationPreferences
 stackSetOperationPreferences =
-    StackSetOperationPreferences'
-    { _ssopRegionOrder = Nothing
-    , _ssopMaxConcurrentCount = Nothing
-    , _ssopMaxConcurrentPercentage = Nothing
-    , _ssopFailureToleranceCount = Nothing
-    , _ssopFailureTolerancePercentage = Nothing
-    }
+  StackSetOperationPreferences'
+  { _ssopRegionOrder = Nothing
+  , _ssopMaxConcurrentCount = Nothing
+  , _ssopMaxConcurrentPercentage = Nothing
+  , _ssopFailureToleranceCount = Nothing
+  , _ssopFailureTolerancePercentage = Nothing
+  }
+
 
 -- | The order of the regions in where you want to perform the stack operation.
 ssopRegionOrder :: Lens' StackSetOperationPreferences [Text]
 ssopRegionOrder = lens _ssopRegionOrder (\ s a -> s{_ssopRegionOrder = a}) . _Default . _Coerce;
 
--- | The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of @FailureToleranceCount@ —@MaxConcurrentCount@ is at most one more than the @FailureToleranceCount@ . Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
+-- | The maximum number of accounts in which to perform this operation at one time. This is dependent on the value of @FailureToleranceCount@ —@MaxConcurrentCount@ is at most one more than the @FailureToleranceCount@ . Note that this setting lets you specify the /maximum/ for operations. For large deployments, under certain circumstances the actual number of accounts acted upon concurrently may be lower due to service throttling. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
 ssopMaxConcurrentCount :: Lens' StackSetOperationPreferences (Maybe Natural)
 ssopMaxConcurrentCount = lens _ssopMaxConcurrentCount (\ s a -> s{_ssopMaxConcurrentCount = a}) . mapping _Nat;
 
--- | The maximum percentage of accounts in which to perform this operation at one time. When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the next whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation sets the number as one instead. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
+-- | The maximum percentage of accounts in which to perform this operation at one time. When calculating the number of accounts based on the specified percentage, AWS CloudFormation rounds down to the next whole number. This is true except in cases where rounding down would result is zero. In this case, CloudFormation sets the number as one instead. Note that this setting lets you specify the /maximum/ for operations. For large deployments, under certain circumstances the actual number of accounts acted upon concurrently may be lower due to service throttling. Conditional: You must specify either @MaxConcurrentCount@ or @MaxConcurrentPercentage@ , but not both.
 ssopMaxConcurrentPercentage :: Lens' StackSetOperationPreferences (Maybe Natural)
 ssopMaxConcurrentPercentage = lens _ssopMaxConcurrentPercentage (\ s a -> s{_ssopMaxConcurrentPercentage = a}) . mapping _Nat;
 
@@ -1782,9 +1962,9 @@ instance FromXML StackSetOperationPreferences where
                 <*> (x .@? "FailureToleranceCount")
                 <*> (x .@? "FailureTolerancePercentage")
 
-instance Hashable StackSetOperationPreferences
+instance Hashable StackSetOperationPreferences where
 
-instance NFData StackSetOperationPreferences
+instance NFData StackSetOperationPreferences where
 
 instance ToQuery StackSetOperationPreferences where
         toQuery StackSetOperationPreferences'{..}
@@ -1805,12 +1985,13 @@ instance ToQuery StackSetOperationPreferences where
 --
 -- /See:/ 'stackSetOperationResultSummary' smart constructor.
 data StackSetOperationResultSummary = StackSetOperationResultSummary'
-    { _ssorsStatus            :: !(Maybe StackSetOperationResultStatus)
-    , _ssorsAccount           :: !(Maybe Text)
-    , _ssorsAccountGateResult :: !(Maybe AccountGateResult)
-    , _ssorsRegion            :: !(Maybe Text)
-    , _ssorsStatusReason      :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssorsStatus            :: !(Maybe StackSetOperationResultStatus)
+  , _ssorsAccount           :: !(Maybe Text)
+  , _ssorsAccountGateResult :: !(Maybe AccountGateResult)
+  , _ssorsRegion            :: !(Maybe Text)
+  , _ssorsStatusReason      :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSetOperationResultSummary' with the minimum fields required to make a request.
 --
@@ -1828,13 +2009,14 @@ data StackSetOperationResultSummary = StackSetOperationResultSummary'
 stackSetOperationResultSummary
     :: StackSetOperationResultSummary
 stackSetOperationResultSummary =
-    StackSetOperationResultSummary'
-    { _ssorsStatus = Nothing
-    , _ssorsAccount = Nothing
-    , _ssorsAccountGateResult = Nothing
-    , _ssorsRegion = Nothing
-    , _ssorsStatusReason = Nothing
-    }
+  StackSetOperationResultSummary'
+  { _ssorsStatus = Nothing
+  , _ssorsAccount = Nothing
+  , _ssorsAccountGateResult = Nothing
+  , _ssorsRegion = Nothing
+  , _ssorsStatusReason = Nothing
+  }
+
 
 -- | The result status of the stack set operation for the given account in the given region.     * @CANCELLED@ : The operation in the specified account and region has been cancelled. This is either because a user has stopped the stack set operation, or because the failure tolerance of the stack set operation has been exceeded.     * @FAILED@ : The operation in the specified account and region failed.  If the stack set operation fails in enough accounts within a region, the failure tolerance for the stack set operation as a whole might be exceeded.      * @RUNNING@ : The operation in the specified account and region is currently in progress.     * @PENDING@ : The operation in the specified account and region has yet to start.      * @SUCCEEDED@ : The operation in the specified account and region completed successfully.
 ssorsStatus :: Lens' StackSetOperationResultSummary (Maybe StackSetOperationResultStatus)
@@ -1865,8 +2047,9 @@ instance FromXML StackSetOperationResultSummary where
                 <*> (x .@? "StatusReason")
 
 instance Hashable StackSetOperationResultSummary
+         where
 
-instance NFData StackSetOperationResultSummary
+instance NFData StackSetOperationResultSummary where
 
 -- | The structures that contain summary information about the specified operation.
 --
@@ -1874,12 +2057,13 @@ instance NFData StackSetOperationResultSummary
 --
 -- /See:/ 'stackSetOperationSummary' smart constructor.
 data StackSetOperationSummary = StackSetOperationSummary'
-    { _ssosStatus            :: !(Maybe StackSetOperationStatus)
-    , _ssosAction            :: !(Maybe StackSetOperationAction)
-    , _ssosEndTimestamp      :: !(Maybe ISO8601)
-    , _ssosCreationTimestamp :: !(Maybe ISO8601)
-    , _ssosOperationId       :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssosStatus            :: !(Maybe StackSetOperationStatus)
+  , _ssosAction            :: !(Maybe StackSetOperationAction)
+  , _ssosEndTimestamp      :: !(Maybe ISO8601)
+  , _ssosCreationTimestamp :: !(Maybe ISO8601)
+  , _ssosOperationId       :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSetOperationSummary' with the minimum fields required to make a request.
 --
@@ -1897,13 +2081,14 @@ data StackSetOperationSummary = StackSetOperationSummary'
 stackSetOperationSummary
     :: StackSetOperationSummary
 stackSetOperationSummary =
-    StackSetOperationSummary'
-    { _ssosStatus = Nothing
-    , _ssosAction = Nothing
-    , _ssosEndTimestamp = Nothing
-    , _ssosCreationTimestamp = Nothing
-    , _ssosOperationId = Nothing
-    }
+  StackSetOperationSummary'
+  { _ssosStatus = Nothing
+  , _ssosAction = Nothing
+  , _ssosEndTimestamp = Nothing
+  , _ssosCreationTimestamp = Nothing
+  , _ssosOperationId = Nothing
+  }
+
 
 -- | The overall status of the operation.     * @FAILED@ : The operation exceeded the specified failure tolerance. The failure tolerance value that you've set for an operation is applied for each region during stack create and update operations. If the number of failed stacks within a region exceeds the failure tolerance, the status of the operation in the region is set to @FAILED@ . This in turn sets the status of the operation as a whole to @FAILED@ , and AWS CloudFormation cancels the operation in any remaining regions.     * @RUNNING@ : The operation is currently being performed.     * @STOPPED@ : The user has cancelled the operation.     * @STOPPING@ : The operation is in the process of stopping, at user request.      * @SUCCEEDED@ : The operation completed creating or updating all the specified stacks without exceeding the failure tolerance for the operation.
 ssosStatus :: Lens' StackSetOperationSummary (Maybe StackSetOperationStatus)
@@ -1933,9 +2118,9 @@ instance FromXML StackSetOperationSummary where
                 <*> (x .@? "CreationTimestamp")
                 <*> (x .@? "OperationId")
 
-instance Hashable StackSetOperationSummary
+instance Hashable StackSetOperationSummary where
 
-instance NFData StackSetOperationSummary
+instance NFData StackSetOperationSummary where
 
 -- | The structures that contain summary information about the specified stack set.
 --
@@ -1943,11 +2128,12 @@ instance NFData StackSetOperationSummary
 --
 -- /See:/ 'stackSetSummary' smart constructor.
 data StackSetSummary = StackSetSummary'
-    { _sssStatus       :: !(Maybe StackSetStatus)
-    , _sssStackSetName :: !(Maybe Text)
-    , _sssDescription  :: !(Maybe Text)
-    , _sssStackSetId   :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sssStatus       :: !(Maybe StackSetStatus)
+  , _sssStackSetName :: !(Maybe Text)
+  , _sssDescription  :: !(Maybe Text)
+  , _sssStackSetId   :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSetSummary' with the minimum fields required to make a request.
 --
@@ -1963,12 +2149,13 @@ data StackSetSummary = StackSetSummary'
 stackSetSummary
     :: StackSetSummary
 stackSetSummary =
-    StackSetSummary'
-    { _sssStatus = Nothing
-    , _sssStackSetName = Nothing
-    , _sssDescription = Nothing
-    , _sssStackSetId = Nothing
-    }
+  StackSetSummary'
+  { _sssStatus = Nothing
+  , _sssStackSetName = Nothing
+  , _sssDescription = Nothing
+  , _sssStackSetId = Nothing
+  }
+
 
 -- | The status of the stack set.
 sssStatus :: Lens' StackSetSummary (Maybe StackSetStatus)
@@ -1993,9 +2180,9 @@ instance FromXML StackSetSummary where
                 (x .@? "Description")
                 <*> (x .@? "StackSetId")
 
-instance Hashable StackSetSummary
+instance Hashable StackSetSummary where
 
-instance NFData StackSetSummary
+instance NFData StackSetSummary where
 
 -- | The StackSummary Data Type
 --
@@ -2003,21 +2190,26 @@ instance NFData StackSetSummary
 --
 -- /See:/ 'stackSummary' smart constructor.
 data StackSummary = StackSummary'
-    { _ssLastUpdatedTime     :: !(Maybe ISO8601)
-    , _ssStackStatusReason   :: !(Maybe Text)
-    , _ssTemplateDescription :: !(Maybe Text)
-    , _ssDeletionTime        :: !(Maybe ISO8601)
-    , _ssStackId             :: !(Maybe Text)
-    , _ssStackName           :: !Text
-    , _ssCreationTime        :: !ISO8601
-    , _ssStackStatus         :: !StackStatus
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ssLastUpdatedTime     :: !(Maybe ISO8601)
+  , _ssRootId              :: !(Maybe Text)
+  , _ssStackStatusReason   :: !(Maybe Text)
+  , _ssTemplateDescription :: !(Maybe Text)
+  , _ssDeletionTime        :: !(Maybe ISO8601)
+  , _ssStackId             :: !(Maybe Text)
+  , _ssParentId            :: !(Maybe Text)
+  , _ssStackName           :: !Text
+  , _ssCreationTime        :: !ISO8601
+  , _ssStackStatus         :: !StackStatus
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StackSummary' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
 -- * 'ssLastUpdatedTime' - The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
+--
+-- * 'ssRootId' - For nested stacks--stacks created as resources for another stack--the stack ID of the the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
 --
 -- * 'ssStackStatusReason' - Success/Failure message associated with the stack status.
 --
@@ -2026,6 +2218,8 @@ data StackSummary = StackSummary'
 -- * 'ssDeletionTime' - The time the stack was deleted.
 --
 -- * 'ssStackId' - Unique stack identifier.
+--
+-- * 'ssParentId' - For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
 --
 -- * 'ssStackName' - The name associated with the stack.
 --
@@ -2038,20 +2232,27 @@ stackSummary
     -> StackStatus -- ^ 'ssStackStatus'
     -> StackSummary
 stackSummary pStackName_ pCreationTime_ pStackStatus_ =
-    StackSummary'
-    { _ssLastUpdatedTime = Nothing
-    , _ssStackStatusReason = Nothing
-    , _ssTemplateDescription = Nothing
-    , _ssDeletionTime = Nothing
-    , _ssStackId = Nothing
-    , _ssStackName = pStackName_
-    , _ssCreationTime = _Time # pCreationTime_
-    , _ssStackStatus = pStackStatus_
-    }
+  StackSummary'
+  { _ssLastUpdatedTime = Nothing
+  , _ssRootId = Nothing
+  , _ssStackStatusReason = Nothing
+  , _ssTemplateDescription = Nothing
+  , _ssDeletionTime = Nothing
+  , _ssStackId = Nothing
+  , _ssParentId = Nothing
+  , _ssStackName = pStackName_
+  , _ssCreationTime = _Time # pCreationTime_
+  , _ssStackStatus = pStackStatus_
+  }
+
 
 -- | The time the stack was last updated. This field will only be returned if the stack has been updated at least once.
 ssLastUpdatedTime :: Lens' StackSummary (Maybe UTCTime)
 ssLastUpdatedTime = lens _ssLastUpdatedTime (\ s a -> s{_ssLastUpdatedTime = a}) . mapping _Time;
+
+-- | For nested stacks--stacks created as resources for another stack--the stack ID of the the top-level stack to which the nested stack ultimately belongs. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+ssRootId :: Lens' StackSummary (Maybe Text)
+ssRootId = lens _ssRootId (\ s a -> s{_ssRootId = a});
 
 -- | Success/Failure message associated with the stack status.
 ssStackStatusReason :: Lens' StackSummary (Maybe Text)
@@ -2069,6 +2270,10 @@ ssDeletionTime = lens _ssDeletionTime (\ s a -> s{_ssDeletionTime = a}) . mappin
 ssStackId :: Lens' StackSummary (Maybe Text)
 ssStackId = lens _ssStackId (\ s a -> s{_ssStackId = a});
 
+-- | For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack. For more information, see <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html Working with Nested Stacks> in the /AWS CloudFormation User Guide/ .
+ssParentId :: Lens' StackSummary (Maybe Text)
+ssParentId = lens _ssParentId (\ s a -> s{_ssParentId = a});
+
 -- | The name associated with the stack.
 ssStackName :: Lens' StackSummary Text
 ssStackName = lens _ssStackName (\ s a -> s{_ssStackName = a});
@@ -2084,18 +2289,19 @@ ssStackStatus = lens _ssStackStatus (\ s a -> s{_ssStackStatus = a});
 instance FromXML StackSummary where
         parseXML x
           = StackSummary' <$>
-              (x .@? "LastUpdatedTime") <*>
+              (x .@? "LastUpdatedTime") <*> (x .@? "RootId") <*>
                 (x .@? "StackStatusReason")
                 <*> (x .@? "TemplateDescription")
                 <*> (x .@? "DeletionTime")
                 <*> (x .@? "StackId")
+                <*> (x .@? "ParentId")
                 <*> (x .@ "StackName")
                 <*> (x .@ "CreationTime")
                 <*> (x .@ "StackStatus")
 
-instance Hashable StackSummary
+instance Hashable StackSummary where
 
-instance NFData StackSummary
+instance NFData StackSummary where
 
 -- | The Tag type enables you to specify a key-value pair that can be used to store information about an AWS CloudFormation stack.
 --
@@ -2103,9 +2309,10 @@ instance NFData StackSummary
 --
 -- /See:/ 'tag' smart constructor.
 data Tag = Tag'
-    { _tagKey   :: !Text
-    , _tagValue :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tagKey   :: !Text
+  , _tagValue :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Tag' with the minimum fields required to make a request.
 --
@@ -2118,11 +2325,8 @@ tag
     :: Text -- ^ 'tagKey'
     -> Text -- ^ 'tagValue'
     -> Tag
-tag pKey_ pValue_ =
-    Tag'
-    { _tagKey = pKey_
-    , _tagValue = pValue_
-    }
+tag pKey_ pValue_ = Tag' {_tagKey = pKey_, _tagValue = pValue_}
+
 
 -- | /Required/ . A string used to identify this tag. You can specify a maximum of 128 characters for a tag key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: @aws:@ .
 tagKey :: Lens' Tag Text
@@ -2135,9 +2339,9 @@ tagValue = lens _tagValue (\ s a -> s{_tagValue = a});
 instance FromXML Tag where
         parseXML x = Tag' <$> (x .@ "Key") <*> (x .@ "Value")
 
-instance Hashable Tag
+instance Hashable Tag where
 
-instance NFData Tag
+instance NFData Tag where
 
 instance ToQuery Tag where
         toQuery Tag'{..}
@@ -2149,11 +2353,12 @@ instance ToQuery Tag where
 --
 -- /See:/ 'templateParameter' smart constructor.
 data TemplateParameter = TemplateParameter'
-    { _tpParameterKey :: !(Maybe Text)
-    , _tpDefaultValue :: !(Maybe Text)
-    , _tpNoEcho       :: !(Maybe Bool)
-    , _tpDescription  :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _tpParameterKey :: !(Maybe Text)
+  , _tpDefaultValue :: !(Maybe Text)
+  , _tpNoEcho       :: !(Maybe Bool)
+  , _tpDescription  :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'TemplateParameter' with the minimum fields required to make a request.
 --
@@ -2169,12 +2374,13 @@ data TemplateParameter = TemplateParameter'
 templateParameter
     :: TemplateParameter
 templateParameter =
-    TemplateParameter'
-    { _tpParameterKey = Nothing
-    , _tpDefaultValue = Nothing
-    , _tpNoEcho = Nothing
-    , _tpDescription = Nothing
-    }
+  TemplateParameter'
+  { _tpParameterKey = Nothing
+  , _tpDefaultValue = Nothing
+  , _tpNoEcho = Nothing
+  , _tpDescription = Nothing
+  }
+
 
 -- | The name associated with the parameter.
 tpParameterKey :: Lens' TemplateParameter (Maybe Text)
@@ -2199,6 +2405,6 @@ instance FromXML TemplateParameter where
                 (x .@? "NoEcho")
                 <*> (x .@? "Description")
 
-instance Hashable TemplateParameter
+instance Hashable TemplateParameter where
 
-instance NFData TemplateParameter
+instance NFData TemplateParameter where

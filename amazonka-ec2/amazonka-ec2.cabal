@@ -1,13 +1,13 @@
 name:                  amazonka-ec2
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Elastic Compute Cloud SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-ec2
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.EC2
@@ -68,10 +73,12 @@ library
         , Network.AWS.EC2.CancelSpotFleetRequests
         , Network.AWS.EC2.CancelSpotInstanceRequests
         , Network.AWS.EC2.ConfirmProductInstance
+        , Network.AWS.EC2.CopyFpgaImage
         , Network.AWS.EC2.CopyImage
         , Network.AWS.EC2.CopySnapshot
         , Network.AWS.EC2.CreateCustomerGateway
         , Network.AWS.EC2.CreateDHCPOptions
+        , Network.AWS.EC2.CreateDefaultSubnet
         , Network.AWS.EC2.CreateDefaultVPC
         , Network.AWS.EC2.CreateEgressOnlyInternetGateway
         , Network.AWS.EC2.CreateFlowLogs
@@ -105,6 +112,7 @@ library
         , Network.AWS.EC2.DeleteDHCPOptions
         , Network.AWS.EC2.DeleteEgressOnlyInternetGateway
         , Network.AWS.EC2.DeleteFlowLogs
+        , Network.AWS.EC2.DeleteFpgaImage
         , Network.AWS.EC2.DeleteInternetGateway
         , Network.AWS.EC2.DeleteKeyPair
         , Network.AWS.EC2.DeleteNatGateway
@@ -140,6 +148,7 @@ library
         , Network.AWS.EC2.DescribeElasticGpus
         , Network.AWS.EC2.DescribeExportTasks
         , Network.AWS.EC2.DescribeFlowLogs
+        , Network.AWS.EC2.DescribeFpgaImageAttribute
         , Network.AWS.EC2.DescribeFpgaImages
         , Network.AWS.EC2.DescribeHostReservationOfferings
         , Network.AWS.EC2.DescribeHostReservations
@@ -225,6 +234,7 @@ library
         , Network.AWS.EC2.ImportKeyPair
         , Network.AWS.EC2.ImportSnapshot
         , Network.AWS.EC2.ImportVolume
+        , Network.AWS.EC2.ModifyFpgaImageAttribute
         , Network.AWS.EC2.ModifyHosts
         , Network.AWS.EC2.ModifyIdFormat
         , Network.AWS.EC2.ModifyIdentityIdFormat
@@ -239,6 +249,7 @@ library
         , Network.AWS.EC2.ModifyVPCAttribute
         , Network.AWS.EC2.ModifyVPCEndpoint
         , Network.AWS.EC2.ModifyVPCPeeringConnectionOptions
+        , Network.AWS.EC2.ModifyVPCTenancy
         , Network.AWS.EC2.ModifyVolume
         , Network.AWS.EC2.ModifyVolumeAttribute
         , Network.AWS.EC2.MonitorInstances
@@ -259,6 +270,7 @@ library
         , Network.AWS.EC2.ReportInstanceStatus
         , Network.AWS.EC2.RequestSpotFleet
         , Network.AWS.EC2.RequestSpotInstances
+        , Network.AWS.EC2.ResetFpgaImageAttribute
         , Network.AWS.EC2.ResetImageAttribute
         , Network.AWS.EC2.ResetInstanceAttribute
         , Network.AWS.EC2.ResetNetworkInterfaceAttribute
@@ -275,6 +287,8 @@ library
         , Network.AWS.EC2.UnassignIPv6Addresses
         , Network.AWS.EC2.UnassignPrivateIPAddresses
         , Network.AWS.EC2.UnmonitorInstances
+        , Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsEgress
+        , Network.AWS.EC2.UpdateSecurityGroupRuleDescriptionsIngress
         , Network.AWS.EC2.Waiters
 
     other-modules:
@@ -283,7 +297,7 @@ library
         , Network.AWS.EC2.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-ec2-test
@@ -303,9 +317,9 @@ test-suite amazonka-ec2-test
         , Test.AWS.EC2.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-ec2 == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-ec2
         , base
         , bytestring
         , tasty

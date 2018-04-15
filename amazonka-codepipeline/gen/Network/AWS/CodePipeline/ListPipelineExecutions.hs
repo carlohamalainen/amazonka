@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodePipeline.ListPipelineExecutions
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -40,29 +40,30 @@ module Network.AWS.CodePipeline.ListPipelineExecutions
     , lpersResponseStatus
     ) where
 
-import           Network.AWS.CodePipeline.Types
-import           Network.AWS.CodePipeline.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodePipeline.Types
+import Network.AWS.CodePipeline.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Represents the input of a list pipeline executions action.
+-- | Represents the input of a ListPipelineExecutions action.
 --
 --
 --
 -- /See:/ 'listPipelineExecutions' smart constructor.
 data ListPipelineExecutions = ListPipelineExecutions'
-    { _lpeNextToken    :: !(Maybe Text)
-    , _lpeMaxResults   :: !(Maybe Nat)
-    , _lpePipelineName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lpeNextToken    :: !(Maybe Text)
+  , _lpeMaxResults   :: !(Maybe Nat)
+  , _lpePipelineName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListPipelineExecutions' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lpeNextToken' - The token that was returned from the previous list pipeline executions call, which can be used to return the next set of pipeline executions in the list.
+-- * 'lpeNextToken' - The token that was returned from the previous ListPipelineExecutions call, which can be used to return the next set of pipeline executions in the list.
 --
 -- * 'lpeMaxResults' - The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned nextToken value. The available pipeline execution history is limited to the most recent 12 months, based on pipeline execution start times. Default value is 100.
 --
@@ -71,13 +72,14 @@ listPipelineExecutions
     :: Text -- ^ 'lpePipelineName'
     -> ListPipelineExecutions
 listPipelineExecutions pPipelineName_ =
-    ListPipelineExecutions'
-    { _lpeNextToken = Nothing
-    , _lpeMaxResults = Nothing
-    , _lpePipelineName = pPipelineName_
-    }
+  ListPipelineExecutions'
+  { _lpeNextToken = Nothing
+  , _lpeMaxResults = Nothing
+  , _lpePipelineName = pPipelineName_
+  }
 
--- | The token that was returned from the previous list pipeline executions call, which can be used to return the next set of pipeline executions in the list.
+
+-- | The token that was returned from the previous ListPipelineExecutions call, which can be used to return the next set of pipeline executions in the list.
 lpeNextToken :: Lens' ListPipelineExecutions (Maybe Text)
 lpeNextToken = lens _lpeNextToken (\ s a -> s{_lpeNextToken = a});
 
@@ -101,9 +103,9 @@ instance AWSRequest ListPipelineExecutions where
                      (x .?> "pipelineExecutionSummaries" .!@ mempty)
                      <*> (pure (fromEnum s)))
 
-instance Hashable ListPipelineExecutions
+instance Hashable ListPipelineExecutions where
 
-instance NFData ListPipelineExecutions
+instance NFData ListPipelineExecutions where
 
 instance ToHeaders ListPipelineExecutions where
         toHeaders
@@ -129,22 +131,23 @@ instance ToPath ListPipelineExecutions where
 instance ToQuery ListPipelineExecutions where
         toQuery = const mempty
 
--- | Represents the output of a list pipeline executions action.
+-- | Represents the output of a ListPipelineExecutions action.
 --
 --
 --
 -- /See:/ 'listPipelineExecutionsResponse' smart constructor.
 data ListPipelineExecutionsResponse = ListPipelineExecutionsResponse'
-    { _lpersNextToken                  :: !(Maybe Text)
-    , _lpersPipelineExecutionSummaries :: !(Maybe [PipelineExecutionSummary])
-    , _lpersResponseStatus             :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _lpersNextToken                  :: !(Maybe Text)
+  , _lpersPipelineExecutionSummaries :: !(Maybe [PipelineExecutionSummary])
+  , _lpersResponseStatus             :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListPipelineExecutionsResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lpersNextToken' - A token that can be used in the next list pipeline executions call to return the next set of pipeline executions. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
+-- * 'lpersNextToken' - A token that can be used in the next ListPipelineExecutions call. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
 --
 -- * 'lpersPipelineExecutionSummaries' - A list of executions in the history of a pipeline.
 --
@@ -153,13 +156,14 @@ listPipelineExecutionsResponse
     :: Int -- ^ 'lpersResponseStatus'
     -> ListPipelineExecutionsResponse
 listPipelineExecutionsResponse pResponseStatus_ =
-    ListPipelineExecutionsResponse'
-    { _lpersNextToken = Nothing
-    , _lpersPipelineExecutionSummaries = Nothing
-    , _lpersResponseStatus = pResponseStatus_
-    }
+  ListPipelineExecutionsResponse'
+  { _lpersNextToken = Nothing
+  , _lpersPipelineExecutionSummaries = Nothing
+  , _lpersResponseStatus = pResponseStatus_
+  }
 
--- | A token that can be used in the next list pipeline executions call to return the next set of pipeline executions. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
+
+-- | A token that can be used in the next ListPipelineExecutions call. To view all items in the list, continue to call this operation with each subsequent token until no more nextToken values are returned.
 lpersNextToken :: Lens' ListPipelineExecutionsResponse (Maybe Text)
 lpersNextToken = lens _lpersNextToken (\ s a -> s{_lpersNextToken = a});
 
@@ -171,4 +175,4 @@ lpersPipelineExecutionSummaries = lens _lpersPipelineExecutionSummaries (\ s a -
 lpersResponseStatus :: Lens' ListPipelineExecutionsResponse Int
 lpersResponseStatus = lens _lpersResponseStatus (\ s a -> s{_lpersResponseStatus = a});
 
-instance NFData ListPipelineExecutionsResponse
+instance NFData ListPipelineExecutionsResponse where

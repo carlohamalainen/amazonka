@@ -4,9 +4,9 @@
 
 -- |
 -- Module      : Network.AWS.Pinpoint.Types
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -62,12 +62,58 @@ module Network.AWS.Pinpoint.Types
     -- * SegmentType
     , SegmentType (..)
 
+    -- * ADMChannelRequest
+    , ADMChannelRequest
+    , aDMChannelRequest
+    , admcrClientId
+    , admcrClientSecret
+    , admcrEnabled
+
+    -- * ADMChannelResponse
+    , ADMChannelResponse
+    , aDMChannelResponse
+    , admcPlatform
+    , admcLastModifiedDate
+    , admcEnabled
+    , admcIsArchived
+    , admcApplicationId
+    , admcVersion
+    , admcId
+    , admcCreationDate
+    , admcLastModifiedBy
+    , admcHasCredential
+
+    -- * ADMMessage
+    , ADMMessage
+    , aDMMessage
+    , admmSubstitutions
+    , admmExpiresAfter
+    , admmMD5
+    , admmSilentPush
+    , admmImageIconURL
+    , admmRawContent
+    , admmData
+    , admmSmallImageIconURL
+    , admmBody
+    , admmURL
+    , admmSound
+    , admmAction
+    , admmImageURL
+    , admmConsolidationKey
+    , admmTitle
+    , admmIconReference
+
     -- * APNSChannelRequest
     , APNSChannelRequest
     , apnsChannelRequest
+    , acrTokenKey
     , acrPrivateKey
     , acrEnabled
+    , acrTeamId
+    , acrBundleId
+    , acrDefaultAuthenticationMethod
     , acrCertificate
+    , acrTokenKeyId
 
     -- * APNSChannelResponse
     , APNSChannelResponse
@@ -75,36 +121,48 @@ module Network.AWS.Pinpoint.Types
     , acPlatform
     , acLastModifiedDate
     , acEnabled
+    , acHasTokenKey
+    , acDefaultAuthenticationMethod
     , acIsArchived
     , acApplicationId
     , acVersion
     , acId
     , acCreationDate
     , acLastModifiedBy
+    , acHasCredential
 
     -- * APNSMessage
     , APNSMessage
     , apnsMessage
     , amSubstitutions
     , amSilentPush
+    , amPriority
     , amRawContent
     , amData
     , amBody
     , amCategory
+    , amTimeToLive
     , amURL
     , amSound
     , amAction
     , amMediaURL
+    , amPreferredAuthenticationMethod
     , amBadge
     , amTitle
     , amThreadId
+    , amCollapseId
 
     -- * APNSSandboxChannelRequest
     , APNSSandboxChannelRequest
     , apnsSandboxChannelRequest
+    , ascrTokenKey
     , ascrPrivateKey
     , ascrEnabled
+    , ascrTeamId
+    , ascrBundleId
+    , ascrDefaultAuthenticationMethod
     , ascrCertificate
+    , ascrTokenKeyId
 
     -- * APNSSandboxChannelResponse
     , APNSSandboxChannelResponse
@@ -112,12 +170,71 @@ module Network.AWS.Pinpoint.Types
     , ascPlatform
     , ascLastModifiedDate
     , ascEnabled
+    , ascHasTokenKey
+    , ascDefaultAuthenticationMethod
     , ascIsArchived
     , ascApplicationId
     , ascVersion
     , ascId
     , ascCreationDate
     , ascLastModifiedBy
+    , ascHasCredential
+
+    -- * APNSVoipChannelRequest
+    , APNSVoipChannelRequest
+    , apnsVoipChannelRequest
+    , avcrTokenKey
+    , avcrPrivateKey
+    , avcrEnabled
+    , avcrTeamId
+    , avcrBundleId
+    , avcrDefaultAuthenticationMethod
+    , avcrCertificate
+    , avcrTokenKeyId
+
+    -- * APNSVoipChannelResponse
+    , APNSVoipChannelResponse
+    , apnsVoipChannelResponse
+    , avcPlatform
+    , avcLastModifiedDate
+    , avcEnabled
+    , avcHasTokenKey
+    , avcDefaultAuthenticationMethod
+    , avcIsArchived
+    , avcApplicationId
+    , avcVersion
+    , avcId
+    , avcCreationDate
+    , avcLastModifiedBy
+    , avcHasCredential
+
+    -- * APNSVoipSandboxChannelRequest
+    , APNSVoipSandboxChannelRequest
+    , apnsVoipSandboxChannelRequest
+    , avscrTokenKey
+    , avscrPrivateKey
+    , avscrEnabled
+    , avscrTeamId
+    , avscrBundleId
+    , avscrDefaultAuthenticationMethod
+    , avscrCertificate
+    , avscrTokenKeyId
+
+    -- * APNSVoipSandboxChannelResponse
+    , APNSVoipSandboxChannelResponse
+    , apnsVoipSandboxChannelResponse
+    , avscPlatform
+    , avscLastModifiedDate
+    , avscEnabled
+    , avscHasTokenKey
+    , avscDefaultAuthenticationMethod
+    , avscIsArchived
+    , avscApplicationId
+    , avscVersion
+    , avscId
+    , avscCreationDate
+    , avscLastModifiedBy
+    , avscHasCredential
 
     -- * ActivitiesResponse
     , ActivitiesResponse
@@ -177,6 +294,45 @@ module Network.AWS.Pinpoint.Types
     , adValues
     , adAttributeType
 
+    -- * BaiduChannelRequest
+    , BaiduChannelRequest
+    , baiduChannelRequest
+    , bcrAPIKey
+    , bcrEnabled
+    , bcrSecretKey
+
+    -- * BaiduChannelResponse
+    , BaiduChannelResponse
+    , baiduChannelResponse
+    , bcPlatform
+    , bcLastModifiedDate
+    , bcEnabled
+    , bcCredential
+    , bcIsArchived
+    , bcApplicationId
+    , bcVersion
+    , bcId
+    , bcCreationDate
+    , bcLastModifiedBy
+    , bcHasCredential
+
+    -- * BaiduMessage
+    , BaiduMessage
+    , baiduMessage
+    , bmSubstitutions
+    , bmSilentPush
+    , bmImageIconURL
+    , bmRawContent
+    , bmData
+    , bmSmallImageIconURL
+    , bmBody
+    , bmURL
+    , bmSound
+    , bmAction
+    , bmImageURL
+    , bmTitle
+    , bmIconReference
+
     -- * CampaignEmailMessage
     , CampaignEmailMessage
     , campaignEmailMessage
@@ -188,8 +344,10 @@ module Network.AWS.Pinpoint.Types
     -- * CampaignLimits
     , CampaignLimits
     , campaignLimits
+    , clMessagesPerSecond
     , clDaily
     , clTotal
+    , clMaximumDuration
 
     -- * CampaignResponse
     , CampaignResponse
@@ -260,7 +418,9 @@ module Network.AWS.Pinpoint.Types
     , dmcAPNSMessage
     , dmcGCMMessage
     , dmcDefaultMessage
+    , dmcADMMessage
     , dmcSMSMessage
+    , dmcBaiduMessage
     , dmcDefaultPushNotificationMessage
 
     -- * EmailChannelRequest
@@ -285,6 +445,7 @@ module Network.AWS.Pinpoint.Types
     , ecCreationDate
     , ecLastModifiedBy
     , ecIdentity
+    , ecHasCredential
     , ecRoleARN
 
     -- * EndpointBatchItem
@@ -330,6 +491,15 @@ module Network.AWS.Pinpoint.Types
     , elRegion
     , elLongitude
 
+    -- * EndpointMessageResult
+    , EndpointMessageResult
+    , endpointMessageResult
+    , emrDeliveryStatus
+    , emrAddress
+    , emrStatusMessage
+    , emrUpdatedToken
+    , emrStatusCode
+
     -- * EndpointRequest
     , EndpointRequest
     , endpointRequest
@@ -363,7 +533,15 @@ module Network.AWS.Pinpoint.Types
     , eId
     , eCreationDate
     , eChannelType
-    , eShardId
+
+    -- * EndpointSendConfiguration
+    , EndpointSendConfiguration
+    , endpointSendConfiguration
+    , escSubstitutions
+    , escTitleOverride
+    , escContext
+    , escRawContent
+    , escBodyOverride
 
     -- * EndpointUser
     , EndpointUser
@@ -400,6 +578,7 @@ module Network.AWS.Pinpoint.Types
     , gcId
     , gcCreationDate
     , gcLastModifiedBy
+    , gcHasCredential
 
     -- * GCMMessage
     , GCMMessage
@@ -407,11 +586,13 @@ module Network.AWS.Pinpoint.Types
     , gmSubstitutions
     , gmSilentPush
     , gmImageIconURL
+    , gmPriority
     , gmRawContent
     , gmData
     , gmRestrictedPackageName
     , gmSmallImageIconURL
     , gmBody
+    , gmTimeToLive
     , gmURL
     , gmSound
     , gmAction
@@ -494,14 +675,17 @@ module Network.AWS.Pinpoint.Types
     , mcAPNSMessage
     , mcGCMMessage
     , mcDefaultMessage
+    , mcADMMessage
     , mcSMSMessage
     , mcEmailMessage
+    , mcBaiduMessage
 
     -- * MessageRequest
     , MessageRequest
     , messageRequest
     , mrContext
     , mrAddresses
+    , mrEndpoints
     , mrMessageConfiguration
 
     -- * MessageResponse
@@ -510,6 +694,7 @@ module Network.AWS.Pinpoint.Types
     , mRequestId
     , mResult
     , mApplicationId
+    , mEndpointResult
 
     -- * MessageResult
     , MessageResult
@@ -534,6 +719,7 @@ module Network.AWS.Pinpoint.Types
     -- * SMSChannelRequest
     , SMSChannelRequest
     , sMSChannelRequest
+    , smscrShortCode
     , smscrEnabled
     , smscrSenderId
 
@@ -551,6 +737,7 @@ module Network.AWS.Pinpoint.Types
     , smscId
     , smscCreationDate
     , smscLastModifiedBy
+    , smscHasCredential
 
     -- * SMSMessage
     , SMSMessage
@@ -628,6 +815,20 @@ module Network.AWS.Pinpoint.Types
     , sNextToken
     , sItem
 
+    -- * SendUsersMessageRequest
+    , SendUsersMessageRequest
+    , sendUsersMessageRequest
+    , sumrContext
+    , sumrUsers
+    , sumrMessageConfiguration
+
+    -- * SendUsersMessageResponse
+    , SendUsersMessageResponse
+    , sendUsersMessageResponse
+    , sumRequestId
+    , sumResult
+    , sumApplicationId
+
     -- * SetDimension
     , SetDimension
     , setDimension
@@ -671,7 +872,6 @@ module Network.AWS.Pinpoint.Types
     , WriteEventStream
     , writeEventStream
     , wesDestinationStreamARN
-    , wesExternalId
     , wesRoleARN
 
     -- * WriteSegmentRequest
@@ -690,40 +890,40 @@ module Network.AWS.Pinpoint.Types
     , wtrMessageConfiguration
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Pinpoint.Types.Product
-import           Network.AWS.Pinpoint.Types.Sum
-import           Network.AWS.Prelude
-import           Network.AWS.Sign.V4
+import Network.AWS.Lens
+import Network.AWS.Pinpoint.Types.Product
+import Network.AWS.Pinpoint.Types.Sum
+import Network.AWS.Prelude
+import Network.AWS.Sign.V4
 
 -- | API version @2016-12-01@ of the Amazon Pinpoint SDK configuration.
 pinpoint :: Service
 pinpoint =
-    Service
-    { _svcAbbrev = "Pinpoint"
-    , _svcSigner = v4
-    , _svcPrefix = "pinpoint"
-    , _svcVersion = "2016-12-01"
-    , _svcEndpoint = defaultEndpoint pinpoint
-    , _svcTimeout = Just 70
-    , _svcCheck = statusSuccess
-    , _svcError = parseJSONError "Pinpoint"
-    , _svcRetry = retry
-    }
+  Service
+  { _svcAbbrev = "Pinpoint"
+  , _svcSigner = v4
+  , _svcPrefix = "pinpoint"
+  , _svcVersion = "2016-12-01"
+  , _svcEndpoint = defaultEndpoint pinpoint
+  , _svcTimeout = Just 70
+  , _svcCheck = statusSuccess
+  , _svcError = parseJSONError "Pinpoint"
+  , _svcRetry = retry
+  }
   where
     retry =
-        Exponential
-        { _retryBase = 5.0e-2
-        , _retryGrowth = 2
-        , _retryAttempts = 5
-        , _retryCheck = check
-        }
+      Exponential
+      { _retryBase = 5.0e-2
+      , _retryGrowth = 2
+      , _retryAttempts = 5
+      , _retryCheck = check
+      }
     check e
       | has (hasCode "ThrottledException" . hasStatus 400) e =
-          Just "throttled_exception"
+        Just "throttled_exception"
       | has (hasStatus 429) e = Just "too_many_requests"
       | has (hasCode "ThrottlingException" . hasStatus 400) e =
-          Just "throttling_exception"
+        Just "throttling_exception"
       | has (hasCode "Throttling" . hasStatus 400) e = Just "throttling"
       | has (hasStatus 504) e = Just "gateway_timeout"
       | has (hasStatus 502) e = Just "bad_gateway"
@@ -732,32 +932,39 @@ pinpoint =
       | has (hasStatus 509) e = Just "limit_exceeded"
       | otherwise = Nothing
 
+
 -- | Simple message object.
 _ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
 _ForbiddenException =
-    _MatchServiceError pinpoint "ForbiddenException" . hasStatus 403
+  _MatchServiceError pinpoint "ForbiddenException" . hasStatus 403
+
 
 -- | Simple message object.
 _NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
 _NotFoundException =
-    _MatchServiceError pinpoint "NotFoundException" . hasStatus 404
+  _MatchServiceError pinpoint "NotFoundException" . hasStatus 404
+
 
 -- | Simple message object.
 _TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
 _TooManyRequestsException =
-    _MatchServiceError pinpoint "TooManyRequestsException" . hasStatus 429
+  _MatchServiceError pinpoint "TooManyRequestsException" . hasStatus 429
+
 
 -- | Simple message object.
 _InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
 _InternalServerErrorException =
-    _MatchServiceError pinpoint "InternalServerErrorException" . hasStatus 500
+  _MatchServiceError pinpoint "InternalServerErrorException" . hasStatus 500
+
 
 -- | Simple message object.
 _MethodNotAllowedException :: AsError a => Getting (First ServiceError) a ServiceError
 _MethodNotAllowedException =
-    _MatchServiceError pinpoint "MethodNotAllowedException" . hasStatus 405
+  _MatchServiceError pinpoint "MethodNotAllowedException" . hasStatus 405
+
 
 -- | Simple message object.
 _BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
 _BadRequestException =
-    _MatchServiceError pinpoint "BadRequestException" . hasStatus 400
+  _MatchServiceError pinpoint "BadRequestException" . hasStatus 400
+

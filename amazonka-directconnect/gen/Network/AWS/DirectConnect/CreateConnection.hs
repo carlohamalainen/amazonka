@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.DirectConnect.CreateConnection
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -22,6 +22,8 @@
 --
 --
 -- A connection links your internal network to an AWS Direct Connect location over a standard 1 gigabit or 10 gigabit Ethernet fiber-optic cable. One end of the cable is connected to your router, the other to an AWS Direct Connect router. An AWS Direct Connect location provides access to Amazon Web Services in the region it is associated with. You can establish connections with AWS Direct Connect locations in multiple regions, but a connection in one region does not provide connectivity to other regions.
+--
+-- To find the locations for your region, use 'DescribeLocations' .
 --
 -- You can automatically add the new connection to a link aggregation group (LAG) by specifying a LAG ID in the request. This ensures that the new connection is allocated on the same AWS Direct Connect endpoint that hosts the specified LAG. If there are no available ports on the endpoint, the request fails and no connection will be created.
 --
@@ -54,12 +56,12 @@ module Network.AWS.DirectConnect.CreateConnection
     , cConnectionState
     ) where
 
-import           Network.AWS.DirectConnect.Types
-import           Network.AWS.DirectConnect.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.DirectConnect.Types
+import Network.AWS.DirectConnect.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Container for the parameters to the CreateConnection operation.
 --
@@ -67,11 +69,12 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createConnection' smart constructor.
 data CreateConnection = CreateConnection'
-    { _ccLagId          :: !(Maybe Text)
-    , _ccLocation       :: !Text
-    , _ccBandwidth      :: !Text
-    , _ccConnectionName :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ccLagId          :: !(Maybe Text)
+  , _ccLocation       :: !Text
+  , _ccBandwidth      :: !Text
+  , _ccConnectionName :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateConnection' with the minimum fields required to make a request.
 --
@@ -90,12 +93,13 @@ createConnection
     -> Text -- ^ 'ccConnectionName'
     -> CreateConnection
 createConnection pLocation_ pBandwidth_ pConnectionName_ =
-    CreateConnection'
-    { _ccLagId = Nothing
-    , _ccLocation = pLocation_
-    , _ccBandwidth = pBandwidth_
-    , _ccConnectionName = pConnectionName_
-    }
+  CreateConnection'
+  { _ccLagId = Nothing
+  , _ccLocation = pLocation_
+  , _ccBandwidth = pBandwidth_
+  , _ccConnectionName = pConnectionName_
+  }
+
 
 -- | Undocumented member.
 ccLagId :: Lens' CreateConnection (Maybe Text)
@@ -118,9 +122,9 @@ instance AWSRequest CreateConnection where
         request = postJSON directConnect
         response = receiveJSON (\ s h x -> eitherParseJSON x)
 
-instance Hashable CreateConnection
+instance Hashable CreateConnection where
 
-instance NFData CreateConnection
+instance NFData CreateConnection where
 
 instance ToHeaders CreateConnection where
         toHeaders

@@ -5,9 +5,9 @@
 
 -- |
 -- Module      : Network.AWS.ElasticSearch
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -67,6 +67,9 @@ module Network.AWS.ElasticSearch
     -- ** ListElasticsearchInstanceTypes
     , module Network.AWS.ElasticSearch.ListElasticsearchInstanceTypes
 
+    -- ** DeleteElasticsearchServiceRole
+    , module Network.AWS.ElasticSearch.DeleteElasticsearchServiceRole
+
     -- ** DescribeElasticsearchDomain
     , module Network.AWS.ElasticSearch.DescribeElasticsearchDomain
 
@@ -98,6 +101,9 @@ module Network.AWS.ElasticSearch
 
     -- ** ESPartitionInstanceType
     , ESPartitionInstanceType (..)
+
+    -- ** LogType
+    , LogType (..)
 
     -- ** OptionState
     , OptionState (..)
@@ -163,8 +169,10 @@ module Network.AWS.ElasticSearch
     , elasticsearchDomainConfig
     , edcEBSOptions
     , edcAccessPolicies
+    , edcLogPublishingOptions
     , edcElasticsearchClusterConfig
     , edcSnapshotOptions
+    , edcVPCOptions
     , edcAdvancedOptions
     , edcElasticsearchVersion
 
@@ -173,9 +181,12 @@ module Network.AWS.ElasticSearch
     , elasticsearchDomainStatus
     , edsEBSOptions
     , edsAccessPolicies
+    , edsLogPublishingOptions
     , edsCreated
     , edsSnapshotOptions
     , edsDeleted
+    , edsVPCOptions
+    , edsEndpoints
     , edsProcessing
     , edsEndpoint
     , edsAdvancedOptions
@@ -208,6 +219,18 @@ module Network.AWS.ElasticSearch
     , lInstanceLimits
     , lAdditionalLimits
     , lStorageTypes
+
+    -- ** LogPublishingOption
+    , LogPublishingOption
+    , logPublishingOption
+    , lpoEnabled
+    , lpoCloudWatchLogsLogGroupARN
+
+    -- ** LogPublishingOptionsStatus
+    , LogPublishingOptionsStatus
+    , logPublishingOptionsStatus
+    , lposStatus
+    , lposOptions
 
     -- ** OptionStatus
     , OptionStatus
@@ -247,23 +270,44 @@ module Network.AWS.ElasticSearch
     , tag
     , tagKey
     , tagValue
+
+    -- ** VPCDerivedInfo
+    , VPCDerivedInfo
+    , vpcDerivedInfo
+    , vdiSecurityGroupIds
+    , vdiSubnetIds
+    , vdiVPCId
+    , vdiAvailabilityZones
+
+    -- ** VPCDerivedInfoStatus
+    , VPCDerivedInfoStatus
+    , vpcDerivedInfoStatus
+    , vdisOptions
+    , vdisStatus
+
+    -- ** VPCOptions
+    , VPCOptions
+    , vpcOptions
+    , voSecurityGroupIds
+    , voSubnetIds
     ) where
 
-import           Network.AWS.ElasticSearch.AddTags
-import           Network.AWS.ElasticSearch.CreateElasticsearchDomain
-import           Network.AWS.ElasticSearch.DeleteElasticsearchDomain
-import           Network.AWS.ElasticSearch.DescribeElasticsearchDomain
-import           Network.AWS.ElasticSearch.DescribeElasticsearchDomainConfig
-import           Network.AWS.ElasticSearch.DescribeElasticsearchDomains
-import           Network.AWS.ElasticSearch.DescribeElasticsearchInstanceTypeLimits
-import           Network.AWS.ElasticSearch.ListDomainNames
-import           Network.AWS.ElasticSearch.ListElasticsearchInstanceTypes
-import           Network.AWS.ElasticSearch.ListElasticsearchVersions
-import           Network.AWS.ElasticSearch.ListTags
-import           Network.AWS.ElasticSearch.RemoveTags
-import           Network.AWS.ElasticSearch.Types
-import           Network.AWS.ElasticSearch.UpdateElasticsearchDomainConfig
-import           Network.AWS.ElasticSearch.Waiters
+import Network.AWS.ElasticSearch.AddTags
+import Network.AWS.ElasticSearch.CreateElasticsearchDomain
+import Network.AWS.ElasticSearch.DeleteElasticsearchDomain
+import Network.AWS.ElasticSearch.DeleteElasticsearchServiceRole
+import Network.AWS.ElasticSearch.DescribeElasticsearchDomain
+import Network.AWS.ElasticSearch.DescribeElasticsearchDomainConfig
+import Network.AWS.ElasticSearch.DescribeElasticsearchDomains
+import Network.AWS.ElasticSearch.DescribeElasticsearchInstanceTypeLimits
+import Network.AWS.ElasticSearch.ListDomainNames
+import Network.AWS.ElasticSearch.ListElasticsearchInstanceTypes
+import Network.AWS.ElasticSearch.ListElasticsearchVersions
+import Network.AWS.ElasticSearch.ListTags
+import Network.AWS.ElasticSearch.RemoveTags
+import Network.AWS.ElasticSearch.Types
+import Network.AWS.ElasticSearch.UpdateElasticsearchDomainConfig
+import Network.AWS.ElasticSearch.Waiters
 
 {- $errors
 Error matchers are designed for use with the functions provided by

@@ -38,13 +38,13 @@ packages:
   - amazonka-config
   - amazonka-cur
   - amazonka-datapipeline
-  - amazonka-dax
   - amazonka-devicefarm
   - amazonka-directconnect
   - amazonka-discovery
   - amazonka-dms
   - amazonka-ds
   - amazonka-dynamodb
+  - amazonka-dynamodb-dax
   - amazonka-dynamodb-streams
   - amazonka-ec2
   - amazonka-ecr
@@ -81,11 +81,13 @@ packages:
   - amazonka-mechanicalturk
   - amazonka-migrationhub
   - amazonka-ml
+  - amazonka-mobile
   - amazonka-opsworks
   - amazonka-opsworks-cm
   - amazonka-organizations
   - amazonka-pinpoint
   - amazonka-polly
+  - amazonka-pricing
   - amazonka-rds
   - amazonka-redshift
   - amazonka-rekognition

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodeStar.UpdateUserProfile
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -45,20 +45,21 @@ module Network.AWS.CodeStar.UpdateUserProfile
     , uuprsUserARN
     ) where
 
-import           Network.AWS.CodeStar.Types
-import           Network.AWS.CodeStar.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodeStar.Types
+import Network.AWS.CodeStar.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'updateUserProfile' smart constructor.
 data UpdateUserProfile = UpdateUserProfile'
-    { _uupSshPublicKey :: !(Maybe Text)
-    , _uupEmailAddress :: !(Maybe Text)
-    , _uupDisplayName  :: !(Maybe Text)
-    , _uupUserARN      :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uupSshPublicKey :: !(Maybe Text)
+  , _uupEmailAddress :: !(Maybe (Sensitive Text))
+  , _uupDisplayName  :: !(Maybe Text)
+  , _uupUserARN      :: !Text
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateUserProfile' with the minimum fields required to make a request.
 --
@@ -75,12 +76,13 @@ updateUserProfile
     :: Text -- ^ 'uupUserARN'
     -> UpdateUserProfile
 updateUserProfile pUserARN_ =
-    UpdateUserProfile'
-    { _uupSshPublicKey = Nothing
-    , _uupEmailAddress = Nothing
-    , _uupDisplayName = Nothing
-    , _uupUserARN = pUserARN_
-    }
+  UpdateUserProfile'
+  { _uupSshPublicKey = Nothing
+  , _uupEmailAddress = Nothing
+  , _uupDisplayName = Nothing
+  , _uupUserARN = pUserARN_
+  }
+
 
 -- | The SSH public key associated with the user in AWS CodeStar. If a project owner allows the user remote access to project resources, this public key will be used along with the user's private key for SSH access.
 uupSshPublicKey :: Lens' UpdateUserProfile (Maybe Text)
@@ -88,7 +90,7 @@ uupSshPublicKey = lens _uupSshPublicKey (\ s a -> s{_uupSshPublicKey = a});
 
 -- | The email address that is displayed as part of the user's profile in AWS CodeStar.
 uupEmailAddress :: Lens' UpdateUserProfile (Maybe Text)
-uupEmailAddress = lens _uupEmailAddress (\ s a -> s{_uupEmailAddress = a});
+uupEmailAddress = lens _uupEmailAddress (\ s a -> s{_uupEmailAddress = a}) . mapping _Sensitive;
 
 -- | The name that is displayed as the friendly name for the user in AWS CodeStar.
 uupDisplayName :: Lens' UpdateUserProfile (Maybe Text)
@@ -113,9 +115,9 @@ instance AWSRequest UpdateUserProfile where
                      <*> (pure (fromEnum s))
                      <*> (x .:> "userArn"))
 
-instance Hashable UpdateUserProfile
+instance Hashable UpdateUserProfile where
 
-instance NFData UpdateUserProfile
+instance NFData UpdateUserProfile where
 
 instance ToHeaders UpdateUserProfile where
         toHeaders
@@ -144,14 +146,15 @@ instance ToQuery UpdateUserProfile where
 
 -- | /See:/ 'updateUserProfileResponse' smart constructor.
 data UpdateUserProfileResponse = UpdateUserProfileResponse'
-    { _uuprsLastModifiedTimestamp :: !(Maybe POSIX)
-    , _uuprsSshPublicKey          :: !(Maybe Text)
-    , _uuprsEmailAddress          :: !(Maybe Text)
-    , _uuprsDisplayName           :: !(Maybe Text)
-    , _uuprsCreatedTimestamp      :: !(Maybe POSIX)
-    , _uuprsResponseStatus        :: !Int
-    , _uuprsUserARN               :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _uuprsLastModifiedTimestamp :: !(Maybe POSIX)
+  , _uuprsSshPublicKey          :: !(Maybe Text)
+  , _uuprsEmailAddress          :: !(Maybe (Sensitive Text))
+  , _uuprsDisplayName           :: !(Maybe Text)
+  , _uuprsCreatedTimestamp      :: !(Maybe POSIX)
+  , _uuprsResponseStatus        :: !Int
+  , _uuprsUserARN               :: !Text
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateUserProfileResponse' with the minimum fields required to make a request.
 --
@@ -175,15 +178,16 @@ updateUserProfileResponse
     -> Text -- ^ 'uuprsUserARN'
     -> UpdateUserProfileResponse
 updateUserProfileResponse pResponseStatus_ pUserARN_ =
-    UpdateUserProfileResponse'
-    { _uuprsLastModifiedTimestamp = Nothing
-    , _uuprsSshPublicKey = Nothing
-    , _uuprsEmailAddress = Nothing
-    , _uuprsDisplayName = Nothing
-    , _uuprsCreatedTimestamp = Nothing
-    , _uuprsResponseStatus = pResponseStatus_
-    , _uuprsUserARN = pUserARN_
-    }
+  UpdateUserProfileResponse'
+  { _uuprsLastModifiedTimestamp = Nothing
+  , _uuprsSshPublicKey = Nothing
+  , _uuprsEmailAddress = Nothing
+  , _uuprsDisplayName = Nothing
+  , _uuprsCreatedTimestamp = Nothing
+  , _uuprsResponseStatus = pResponseStatus_
+  , _uuprsUserARN = pUserARN_
+  }
+
 
 -- | The date the user profile was last modified, in timestamp format.
 uuprsLastModifiedTimestamp :: Lens' UpdateUserProfileResponse (Maybe UTCTime)
@@ -195,7 +199,7 @@ uuprsSshPublicKey = lens _uuprsSshPublicKey (\ s a -> s{_uuprsSshPublicKey = a})
 
 -- | The email address that is displayed as part of the user's profile in AWS CodeStar.
 uuprsEmailAddress :: Lens' UpdateUserProfileResponse (Maybe Text)
-uuprsEmailAddress = lens _uuprsEmailAddress (\ s a -> s{_uuprsEmailAddress = a});
+uuprsEmailAddress = lens _uuprsEmailAddress (\ s a -> s{_uuprsEmailAddress = a}) . mapping _Sensitive;
 
 -- | The name that is displayed as the friendly name for the user in AWS CodeStar.
 uuprsDisplayName :: Lens' UpdateUserProfileResponse (Maybe Text)
@@ -213,4 +217,4 @@ uuprsResponseStatus = lens _uuprsResponseStatus (\ s a -> s{_uuprsResponseStatus
 uuprsUserARN :: Lens' UpdateUserProfileResponse Text
 uuprsUserARN = lens _uuprsUserARN (\ s a -> s{_uuprsUserARN = a});
 
-instance NFData UpdateUserProfileResponse
+instance NFData UpdateUserProfileResponse where

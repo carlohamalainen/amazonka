@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.IAM.PutRolePolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,19 +42,20 @@ module Network.AWS.IAM.PutRolePolicy
     , PutRolePolicyResponse
     ) where
 
-import           Network.AWS.IAM.Types
-import           Network.AWS.IAM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.IAM.Types
+import Network.AWS.IAM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putRolePolicy' smart constructor.
 data PutRolePolicy = PutRolePolicy'
-    { _prpRoleName       :: !Text
-    , _prpPolicyName     :: !Text
-    , _prpPolicyDocument :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _prpRoleName       :: !Text
+  , _prpPolicyName     :: !Text
+  , _prpPolicyDocument :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutRolePolicy' with the minimum fields required to make a request.
 --
@@ -62,7 +63,7 @@ data PutRolePolicy = PutRolePolicy'
 --
 -- * 'prpRoleName' - The name of the role to associate the policy with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
 --
--- * 'prpPolicyName' - The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- * 'prpPolicyName' - The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 --
 -- * 'prpPolicyDocument' - The policy document. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of any printable ASCII character ranging from the space character (\u0020) through end of the ASCII character range as well as the printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF). It also includes the special characters tab (\u0009), line feed (\u000A), and carriage return (\u000D).
 putRolePolicy
@@ -71,17 +72,18 @@ putRolePolicy
     -> Text -- ^ 'prpPolicyDocument'
     -> PutRolePolicy
 putRolePolicy pRoleName_ pPolicyName_ pPolicyDocument_ =
-    PutRolePolicy'
-    { _prpRoleName = pRoleName_
-    , _prpPolicyName = pPolicyName_
-    , _prpPolicyDocument = pPolicyDocument_
-    }
+  PutRolePolicy'
+  { _prpRoleName = pRoleName_
+  , _prpPolicyName = pPolicyName_
+  , _prpPolicyDocument = pPolicyDocument_
+  }
+
 
 -- | The name of the role to associate the policy with. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
 prpRoleName :: Lens' PutRolePolicy Text
 prpRoleName = lens _prpRoleName (\ s a -> s{_prpRoleName = a});
 
--- | The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- | The name of the policy document. This parameter allows (per its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-+
 prpPolicyName :: Lens' PutRolePolicy Text
 prpPolicyName = lens _prpPolicyName (\ s a -> s{_prpPolicyName = a});
 
@@ -94,9 +96,9 @@ instance AWSRequest PutRolePolicy where
         request = postQuery iam
         response = receiveNull PutRolePolicyResponse'
 
-instance Hashable PutRolePolicy
+instance Hashable PutRolePolicy where
 
-instance NFData PutRolePolicy
+instance NFData PutRolePolicy where
 
 instance ToHeaders PutRolePolicy where
         toHeaders = const mempty
@@ -115,8 +117,9 @@ instance ToQuery PutRolePolicy where
 
 -- | /See:/ 'putRolePolicyResponse' smart constructor.
 data PutRolePolicyResponse =
-    PutRolePolicyResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  PutRolePolicyResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutRolePolicyResponse' with the minimum fields required to make a request.
 --
@@ -124,4 +127,5 @@ putRolePolicyResponse
     :: PutRolePolicyResponse
 putRolePolicyResponse = PutRolePolicyResponse'
 
-instance NFData PutRolePolicyResponse
+
+instance NFData PutRolePolicyResponse where

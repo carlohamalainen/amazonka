@@ -12,14 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.CloudHSM.CreateHAPG
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a high-availability partition group. A high-availability partition group is a group of partitions that spans multiple physical HSMs.
+-- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
 --
+--
+-- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+--
+-- Creates a high-availability partition group. A high-availability partition group is a group of partitions that spans multiple physical HSMs.
 --
 module Network.AWS.CloudHSM.CreateHAPG
     (
@@ -37,12 +41,12 @@ module Network.AWS.CloudHSM.CreateHAPG
     , chapgrsResponseStatus
     ) where
 
-import           Network.AWS.CloudHSM.Types
-import           Network.AWS.CloudHSM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudHSM.Types
+import Network.AWS.CloudHSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the inputs for the 'CreateHapgRequest' action.
 --
@@ -50,8 +54,9 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createHAPG' smart constructor.
 newtype CreateHAPG = CreateHAPG'
-    { _chLabel :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _chLabel :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateHAPG' with the minimum fields required to make a request.
 --
@@ -61,10 +66,8 @@ newtype CreateHAPG = CreateHAPG'
 createHAPG
     :: Text -- ^ 'chLabel'
     -> CreateHAPG
-createHAPG pLabel_ =
-    CreateHAPG'
-    { _chLabel = pLabel_
-    }
+createHAPG pLabel_ = CreateHAPG' {_chLabel = pLabel_}
+
 
 -- | The label of the new high-availability partition group.
 chLabel :: Lens' CreateHAPG Text
@@ -79,9 +82,9 @@ instance AWSRequest CreateHAPG where
                  CreateHAPGResponse' <$>
                    (x .?> "HapgArn") <*> (pure (fromEnum s)))
 
-instance Hashable CreateHAPG
+instance Hashable CreateHAPG where
 
-instance NFData CreateHAPG
+instance NFData CreateHAPG where
 
 instance ToHeaders CreateHAPG where
         toHeaders
@@ -108,9 +111,10 @@ instance ToQuery CreateHAPG where
 --
 -- /See:/ 'createHAPGResponse' smart constructor.
 data CreateHAPGResponse = CreateHAPGResponse'
-    { _chapgrsHAPGARN        :: !(Maybe Text)
-    , _chapgrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _chapgrsHAPGARN        :: !(Maybe Text)
+  , _chapgrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateHAPGResponse' with the minimum fields required to make a request.
 --
@@ -123,10 +127,9 @@ createHAPGResponse
     :: Int -- ^ 'chapgrsResponseStatus'
     -> CreateHAPGResponse
 createHAPGResponse pResponseStatus_ =
-    CreateHAPGResponse'
-    { _chapgrsHAPGARN = Nothing
-    , _chapgrsResponseStatus = pResponseStatus_
-    }
+  CreateHAPGResponse'
+  {_chapgrsHAPGARN = Nothing, _chapgrsResponseStatus = pResponseStatus_}
+
 
 -- | The ARN of the high-availability partition group.
 chapgrsHAPGARN :: Lens' CreateHAPGResponse (Maybe Text)
@@ -136,4 +139,4 @@ chapgrsHAPGARN = lens _chapgrsHAPGARN (\ s a -> s{_chapgrsHAPGARN = a});
 chapgrsResponseStatus :: Lens' CreateHAPGResponse Int
 chapgrsResponseStatus = lens _chapgrsResponseStatus (\ s a -> s{_chapgrsResponseStatus = a});
 
-instance NFData CreateHAPGResponse
+instance NFData CreateHAPGResponse where

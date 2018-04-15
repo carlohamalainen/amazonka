@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.DescribeDBEngineVersions
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -48,26 +48,27 @@ module Network.AWS.RDS.DescribeDBEngineVersions
     , ddevrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Pager
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Pager
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'describeDBEngineVersions' smart constructor.
 data DescribeDBEngineVersions = DescribeDBEngineVersions'
-    { _ddevEngineVersion              :: !(Maybe Text)
-    , _ddevListSupportedTimezones     :: !(Maybe Bool)
-    , _ddevDefaultOnly                :: !(Maybe Bool)
-    , _ddevFilters                    :: !(Maybe [Filter])
-    , _ddevEngine                     :: !(Maybe Text)
-    , _ddevDBParameterGroupFamily     :: !(Maybe Text)
-    , _ddevListSupportedCharacterSets :: !(Maybe Bool)
-    , _ddevMarker                     :: !(Maybe Text)
-    , _ddevMaxRecords                 :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ddevEngineVersion              :: !(Maybe Text)
+  , _ddevListSupportedTimezones     :: !(Maybe Bool)
+  , _ddevDefaultOnly                :: !(Maybe Bool)
+  , _ddevFilters                    :: !(Maybe [Filter])
+  , _ddevEngine                     :: !(Maybe Text)
+  , _ddevDBParameterGroupFamily     :: !(Maybe Text)
+  , _ddevListSupportedCharacterSets :: !(Maybe Bool)
+  , _ddevMarker                     :: !(Maybe Text)
+  , _ddevMaxRecords                 :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeDBEngineVersions' with the minimum fields required to make a request.
 --
@@ -83,7 +84,7 @@ data DescribeDBEngineVersions = DescribeDBEngineVersions'
 --
 -- * 'ddevEngine' - The database engine to return.
 --
--- * 'ddevDBParameterGroupFamily' - The name of a specific DB parameter group family to return details for. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'ddevDBParameterGroupFamily' - The name of a specific DB parameter group family to return details for. Constraints:     * If supplied, must match an existing DBParameterGroupFamily.
 --
 -- * 'ddevListSupportedCharacterSets' - If this parameter is specified and the requested engine supports the @CharacterSetName@ parameter for @CreateDBInstance@ , the response includes a list of supported character sets for each engine version.
 --
@@ -93,17 +94,18 @@ data DescribeDBEngineVersions = DescribeDBEngineVersions'
 describeDBEngineVersions
     :: DescribeDBEngineVersions
 describeDBEngineVersions =
-    DescribeDBEngineVersions'
-    { _ddevEngineVersion = Nothing
-    , _ddevListSupportedTimezones = Nothing
-    , _ddevDefaultOnly = Nothing
-    , _ddevFilters = Nothing
-    , _ddevEngine = Nothing
-    , _ddevDBParameterGroupFamily = Nothing
-    , _ddevListSupportedCharacterSets = Nothing
-    , _ddevMarker = Nothing
-    , _ddevMaxRecords = Nothing
-    }
+  DescribeDBEngineVersions'
+  { _ddevEngineVersion = Nothing
+  , _ddevListSupportedTimezones = Nothing
+  , _ddevDefaultOnly = Nothing
+  , _ddevFilters = Nothing
+  , _ddevEngine = Nothing
+  , _ddevDBParameterGroupFamily = Nothing
+  , _ddevListSupportedCharacterSets = Nothing
+  , _ddevMarker = Nothing
+  , _ddevMaxRecords = Nothing
+  }
+
 
 -- | The database engine version to return. Example: @5.1.49@
 ddevEngineVersion :: Lens' DescribeDBEngineVersions (Maybe Text)
@@ -125,7 +127,7 @@ ddevFilters = lens _ddevFilters (\ s a -> s{_ddevFilters = a}) . _Default . _Coe
 ddevEngine :: Lens' DescribeDBEngineVersions (Maybe Text)
 ddevEngine = lens _ddevEngine (\ s a -> s{_ddevEngine = a});
 
--- | The name of a specific DB parameter group family to return details for. Constraints:     * Must be 1 to 255 alphanumeric characters     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The name of a specific DB parameter group family to return details for. Constraints:     * If supplied, must match an existing DBParameterGroupFamily.
 ddevDBParameterGroupFamily :: Lens' DescribeDBEngineVersions (Maybe Text)
 ddevDBParameterGroupFamily = lens _ddevDBParameterGroupFamily (\ s a -> s{_ddevDBParameterGroupFamily = a});
 
@@ -161,9 +163,9 @@ instance AWSRequest DescribeDBEngineVersions where
                         may (parseXMLList "DBEngineVersion"))
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeDBEngineVersions
+instance Hashable DescribeDBEngineVersions where
 
-instance NFData DescribeDBEngineVersions
+instance NFData DescribeDBEngineVersions where
 
 instance ToHeaders DescribeDBEngineVersions where
         toHeaders = const mempty
@@ -197,10 +199,11 @@ instance ToQuery DescribeDBEngineVersions where
 --
 -- /See:/ 'describeDBEngineVersionsResponse' smart constructor.
 data DescribeDBEngineVersionsResponse = DescribeDBEngineVersionsResponse'
-    { _ddevrsMarker           :: !(Maybe Text)
-    , _ddevrsDBEngineVersions :: !(Maybe [DBEngineVersion])
-    , _ddevrsResponseStatus   :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ddevrsMarker           :: !(Maybe Text)
+  , _ddevrsDBEngineVersions :: !(Maybe [DBEngineVersion])
+  , _ddevrsResponseStatus   :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeDBEngineVersionsResponse' with the minimum fields required to make a request.
 --
@@ -215,11 +218,12 @@ describeDBEngineVersionsResponse
     :: Int -- ^ 'ddevrsResponseStatus'
     -> DescribeDBEngineVersionsResponse
 describeDBEngineVersionsResponse pResponseStatus_ =
-    DescribeDBEngineVersionsResponse'
-    { _ddevrsMarker = Nothing
-    , _ddevrsDBEngineVersions = Nothing
-    , _ddevrsResponseStatus = pResponseStatus_
-    }
+  DescribeDBEngineVersionsResponse'
+  { _ddevrsMarker = Nothing
+  , _ddevrsDBEngineVersions = Nothing
+  , _ddevrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by @MaxRecords@ .
 ddevrsMarker :: Lens' DescribeDBEngineVersionsResponse (Maybe Text)
@@ -234,3 +238,4 @@ ddevrsResponseStatus :: Lens' DescribeDBEngineVersionsResponse Int
 ddevrsResponseStatus = lens _ddevrsResponseStatus (\ s a -> s{_ddevrsResponseStatus = a});
 
 instance NFData DescribeDBEngineVersionsResponse
+         where

@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.CreateStack
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a new stack.
+-- Creates a stack.
 --
 --
 module Network.AWS.AppStream.CreateStack
@@ -40,56 +40,58 @@ module Network.AWS.AppStream.CreateStack
     , csrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createStack' smart constructor.
 data CreateStack = CreateStack'
-    { _csStorageConnectors :: !(Maybe [StorageConnector])
-    , _csDisplayName       :: !(Maybe Text)
-    , _csDescription       :: !(Maybe Text)
-    , _csName              :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csStorageConnectors :: !(Maybe [StorageConnector])
+  , _csDisplayName       :: !(Maybe Text)
+  , _csDescription       :: !(Maybe Text)
+  , _csName              :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStack' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csStorageConnectors' - The storage connectors to be enabled for the stack.
+-- * 'csStorageConnectors' - The storage connectors to enable.
 --
--- * 'csDisplayName' - The name displayed to end users on the AppStream 2.0 portal.
+-- * 'csDisplayName' - The stack name displayed to end users.
 --
--- * 'csDescription' - The description displayed to end users on the AppStream 2.0 portal.
+-- * 'csDescription' - The description displayed to end users.
 --
--- * 'csName' - The unique identifier for this stack.
+-- * 'csName' - The name of the stack.
 createStack
     :: Text -- ^ 'csName'
     -> CreateStack
 createStack pName_ =
-    CreateStack'
-    { _csStorageConnectors = Nothing
-    , _csDisplayName = Nothing
-    , _csDescription = Nothing
-    , _csName = pName_
-    }
+  CreateStack'
+  { _csStorageConnectors = Nothing
+  , _csDisplayName = Nothing
+  , _csDescription = Nothing
+  , _csName = pName_
+  }
 
--- | The storage connectors to be enabled for the stack.
+
+-- | The storage connectors to enable.
 csStorageConnectors :: Lens' CreateStack [StorageConnector]
 csStorageConnectors = lens _csStorageConnectors (\ s a -> s{_csStorageConnectors = a}) . _Default . _Coerce;
 
--- | The name displayed to end users on the AppStream 2.0 portal.
+-- | The stack name displayed to end users.
 csDisplayName :: Lens' CreateStack (Maybe Text)
 csDisplayName = lens _csDisplayName (\ s a -> s{_csDisplayName = a});
 
--- | The description displayed to end users on the AppStream 2.0 portal.
+-- | The description displayed to end users.
 csDescription :: Lens' CreateStack (Maybe Text)
 csDescription = lens _csDescription (\ s a -> s{_csDescription = a});
 
--- | The unique identifier for this stack.
+-- | The name of the stack.
 csName :: Lens' CreateStack Text
 csName = lens _csName (\ s a -> s{_csName = a});
 
@@ -102,9 +104,9 @@ instance AWSRequest CreateStack where
                  CreateStackResponse' <$>
                    (x .?> "Stack") <*> (pure (fromEnum s)))
 
-instance Hashable CreateStack
+instance Hashable CreateStack where
 
-instance NFData CreateStack
+instance NFData CreateStack where
 
 instance ToHeaders CreateStack where
         toHeaders
@@ -133,27 +135,27 @@ instance ToQuery CreateStack where
 
 -- | /See:/ 'createStackResponse' smart constructor.
 data CreateStackResponse = CreateStackResponse'
-    { _csrsStack          :: !(Maybe Stack)
-    , _csrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csrsStack          :: !(Maybe Stack)
+  , _csrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateStackResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'csrsStack' - The details for the created stack.
+-- * 'csrsStack' - Information about the stack.
 --
 -- * 'csrsResponseStatus' - -- | The response status code.
 createStackResponse
     :: Int -- ^ 'csrsResponseStatus'
     -> CreateStackResponse
 createStackResponse pResponseStatus_ =
-    CreateStackResponse'
-    { _csrsStack = Nothing
-    , _csrsResponseStatus = pResponseStatus_
-    }
+  CreateStackResponse'
+  {_csrsStack = Nothing, _csrsResponseStatus = pResponseStatus_}
 
--- | The details for the created stack.
+
+-- | Information about the stack.
 csrsStack :: Lens' CreateStackResponse (Maybe Stack)
 csrsStack = lens _csrsStack (\ s a -> s{_csrsStack = a});
 
@@ -161,4 +163,4 @@ csrsStack = lens _csrsStack (\ s a -> s{_csrsStack = a});
 csrsResponseStatus :: Lens' CreateStackResponse Int
 csrsResponseStatus = lens _csrsResponseStatus (\ s a -> s{_csrsResponseStatus = a});
 
-instance NFData CreateStackResponse
+instance NFData CreateStackResponse where

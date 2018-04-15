@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.UpdateStack
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified fields in the stack with the specified name.
+-- Updates the specified stack.
 --
 --
 module Network.AWS.AppStream.UpdateStack
@@ -41,64 +41,66 @@ module Network.AWS.AppStream.UpdateStack
     , usrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'updateStack' smart constructor.
 data UpdateStack = UpdateStack'
-    { _usDeleteStorageConnectors :: !(Maybe Bool)
-    , _usStorageConnectors       :: !(Maybe [StorageConnector])
-    , _usDisplayName             :: !(Maybe Text)
-    , _usDescription             :: !(Maybe Text)
-    , _usName                    :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _usDeleteStorageConnectors :: !(Maybe Bool)
+  , _usStorageConnectors       :: !(Maybe [StorageConnector])
+  , _usDisplayName             :: !(Maybe Text)
+  , _usDescription             :: !(Maybe Text)
+  , _usName                    :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateStack' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'usDeleteStorageConnectors' - Remove all the storage connectors currently enabled for the stack.
+-- * 'usDeleteStorageConnectors' - Deletes the storage connectors currently enabled for the stack.
 --
--- * 'usStorageConnectors' - The storage connectors to be enabled for the stack.
+-- * 'usStorageConnectors' - The storage connectors to enable.
 --
--- * 'usDisplayName' - The name displayed to end users on the AppStream 2.0 portal.
+-- * 'usDisplayName' - The stack name displayed to end users.
 --
--- * 'usDescription' - The description displayed to end users on the AppStream 2.0 portal.
+-- * 'usDescription' - The description displayed to end users.
 --
--- * 'usName' - The name of the stack to update.
+-- * 'usName' - The name of the stack.
 updateStack
     :: Text -- ^ 'usName'
     -> UpdateStack
 updateStack pName_ =
-    UpdateStack'
-    { _usDeleteStorageConnectors = Nothing
-    , _usStorageConnectors = Nothing
-    , _usDisplayName = Nothing
-    , _usDescription = Nothing
-    , _usName = pName_
-    }
+  UpdateStack'
+  { _usDeleteStorageConnectors = Nothing
+  , _usStorageConnectors = Nothing
+  , _usDisplayName = Nothing
+  , _usDescription = Nothing
+  , _usName = pName_
+  }
 
--- | Remove all the storage connectors currently enabled for the stack.
+
+-- | Deletes the storage connectors currently enabled for the stack.
 usDeleteStorageConnectors :: Lens' UpdateStack (Maybe Bool)
 usDeleteStorageConnectors = lens _usDeleteStorageConnectors (\ s a -> s{_usDeleteStorageConnectors = a});
 
--- | The storage connectors to be enabled for the stack.
+-- | The storage connectors to enable.
 usStorageConnectors :: Lens' UpdateStack [StorageConnector]
 usStorageConnectors = lens _usStorageConnectors (\ s a -> s{_usStorageConnectors = a}) . _Default . _Coerce;
 
--- | The name displayed to end users on the AppStream 2.0 portal.
+-- | The stack name displayed to end users.
 usDisplayName :: Lens' UpdateStack (Maybe Text)
 usDisplayName = lens _usDisplayName (\ s a -> s{_usDisplayName = a});
 
--- | The description displayed to end users on the AppStream 2.0 portal.
+-- | The description displayed to end users.
 usDescription :: Lens' UpdateStack (Maybe Text)
 usDescription = lens _usDescription (\ s a -> s{_usDescription = a});
 
--- | The name of the stack to update.
+-- | The name of the stack.
 usName :: Lens' UpdateStack Text
 usName = lens _usName (\ s a -> s{_usName = a});
 
@@ -111,9 +113,9 @@ instance AWSRequest UpdateStack where
                  UpdateStackResponse' <$>
                    (x .?> "Stack") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateStack
+instance Hashable UpdateStack where
 
-instance NFData UpdateStack
+instance NFData UpdateStack where
 
 instance ToHeaders UpdateStack where
         toHeaders
@@ -144,27 +146,27 @@ instance ToQuery UpdateStack where
 
 -- | /See:/ 'updateStackResponse' smart constructor.
 data UpdateStackResponse = UpdateStackResponse'
-    { _usrsStack          :: !(Maybe Stack)
-    , _usrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _usrsStack          :: !(Maybe Stack)
+  , _usrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateStackResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'usrsStack' - A list of stack details.
+-- * 'usrsStack' - Information about the stack.
 --
 -- * 'usrsResponseStatus' - -- | The response status code.
 updateStackResponse
     :: Int -- ^ 'usrsResponseStatus'
     -> UpdateStackResponse
 updateStackResponse pResponseStatus_ =
-    UpdateStackResponse'
-    { _usrsStack = Nothing
-    , _usrsResponseStatus = pResponseStatus_
-    }
+  UpdateStackResponse'
+  {_usrsStack = Nothing, _usrsResponseStatus = pResponseStatus_}
 
--- | A list of stack details.
+
+-- | Information about the stack.
 usrsStack :: Lens' UpdateStackResponse (Maybe Stack)
 usrsStack = lens _usrsStack (\ s a -> s{_usrsStack = a});
 
@@ -172,4 +174,4 @@ usrsStack = lens _usrsStack (\ s a -> s{_usrsStack = a});
 usrsResponseStatus :: Lens' UpdateStackResponse Int
 usrsResponseStatus = lens _usrsResponseStatus (\ s a -> s{_usrsResponseStatus = a});
 
-instance NFData UpdateStackResponse
+instance NFData UpdateStackResponse where

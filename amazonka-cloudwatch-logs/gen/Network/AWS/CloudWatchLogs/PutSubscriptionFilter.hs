@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CloudWatchLogs.PutSubscriptionFilter
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -25,13 +25,13 @@
 --
 --     * A logical destination that belongs to a different account, for cross-account delivery.
 --
---     * An Amazon Kinesis Firehose stream that belongs to the same account as the subscription filter, for same-account delivery.
+--     * An Amazon Kinesis Firehose delivery stream that belongs to the same account as the subscription filter, for same-account delivery.
 --
 --     * An AWS Lambda function that belongs to the same account as the subscription filter, for same-account delivery.
 --
 --
 --
--- There can only be one subscription filter associated with a log group. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call will fail because you cannot associate a second filter with a log group.
+-- There can only be one subscription filter associated with a log group. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call fails because you cannot associate a second filter with a log group.
 --
 module Network.AWS.CloudWatchLogs.PutSubscriptionFilter
     (
@@ -51,38 +51,39 @@ module Network.AWS.CloudWatchLogs.PutSubscriptionFilter
     , PutSubscriptionFilterResponse
     ) where
 
-import           Network.AWS.CloudWatchLogs.Types
-import           Network.AWS.CloudWatchLogs.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudWatchLogs.Types
+import Network.AWS.CloudWatchLogs.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'putSubscriptionFilter' smart constructor.
 data PutSubscriptionFilter = PutSubscriptionFilter'
-    { _psfDistribution   :: !(Maybe Distribution)
-    , _psfRoleARN        :: !(Maybe Text)
-    , _psfLogGroupName   :: !Text
-    , _psfFilterName     :: !Text
-    , _psfFilterPattern  :: !Text
-    , _psfDestinationARN :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _psfDistribution   :: !(Maybe Distribution)
+  , _psfRoleARN        :: !(Maybe Text)
+  , _psfLogGroupName   :: !Text
+  , _psfFilterName     :: !Text
+  , _psfFilterPattern  :: !Text
+  , _psfDestinationARN :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutSubscriptionFilter' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'psfDistribution' - The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream. By default, log data is grouped by log stream. For a more even distribution, you can group log data randomly.
+-- * 'psfDistribution' - The method used to distribute log data to the destination. By default log data is grouped by log stream, but the grouping can be set to random for a more even distribution. This property is only applicable when the destination is an Amazon Kinesis stream.
 --
 -- * 'psfRoleARN' - The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination for cross-account delivery.
 --
 -- * 'psfLogGroupName' - The name of the log group.
 --
--- * 'psfFilterName' - A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call will fail because you cannot associate a second filter with a log group. To find the name of the filter currently associated with a log group, use 'DescribeSubscriptionFilters' .
+-- * 'psfFilterName' - A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call fails because you cannot associate a second filter with a log group. To find the name of the filter currently associated with a log group, use 'DescribeSubscriptionFilters' .
 --
 -- * 'psfFilterPattern' - A filter pattern for subscribing to a filtered stream of log events.
 --
--- * 'psfDestinationARN' - The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:     * An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.     * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.     * An Amazon Kinesis Firehose stream belonging to the same account as the subscription filter, for same-account delivery.     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+-- * 'psfDestinationARN' - The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:     * An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.     * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for same-account delivery.     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
 putSubscriptionFilter
     :: Text -- ^ 'psfLogGroupName'
     -> Text -- ^ 'psfFilterName'
@@ -90,16 +91,17 @@ putSubscriptionFilter
     -> Text -- ^ 'psfDestinationARN'
     -> PutSubscriptionFilter
 putSubscriptionFilter pLogGroupName_ pFilterName_ pFilterPattern_ pDestinationARN_ =
-    PutSubscriptionFilter'
-    { _psfDistribution = Nothing
-    , _psfRoleARN = Nothing
-    , _psfLogGroupName = pLogGroupName_
-    , _psfFilterName = pFilterName_
-    , _psfFilterPattern = pFilterPattern_
-    , _psfDestinationARN = pDestinationARN_
-    }
+  PutSubscriptionFilter'
+  { _psfDistribution = Nothing
+  , _psfRoleARN = Nothing
+  , _psfLogGroupName = pLogGroupName_
+  , _psfFilterName = pFilterName_
+  , _psfFilterPattern = pFilterPattern_
+  , _psfDestinationARN = pDestinationARN_
+  }
 
--- | The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream. By default, log data is grouped by log stream. For a more even distribution, you can group log data randomly.
+
+-- | The method used to distribute log data to the destination. By default log data is grouped by log stream, but the grouping can be set to random for a more even distribution. This property is only applicable when the destination is an Amazon Kinesis stream.
 psfDistribution :: Lens' PutSubscriptionFilter (Maybe Distribution)
 psfDistribution = lens _psfDistribution (\ s a -> s{_psfDistribution = a});
 
@@ -111,7 +113,7 @@ psfRoleARN = lens _psfRoleARN (\ s a -> s{_psfRoleARN = a});
 psfLogGroupName :: Lens' PutSubscriptionFilter Text
 psfLogGroupName = lens _psfLogGroupName (\ s a -> s{_psfLogGroupName = a});
 
--- | A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call will fail because you cannot associate a second filter with a log group. To find the name of the filter currently associated with a log group, use 'DescribeSubscriptionFilters' .
+-- | A name for the subscription filter. If you are updating an existing filter, you must specify the correct name in @filterName@ . Otherwise, the call fails because you cannot associate a second filter with a log group. To find the name of the filter currently associated with a log group, use 'DescribeSubscriptionFilters' .
 psfFilterName :: Lens' PutSubscriptionFilter Text
 psfFilterName = lens _psfFilterName (\ s a -> s{_psfFilterName = a});
 
@@ -119,7 +121,7 @@ psfFilterName = lens _psfFilterName (\ s a -> s{_psfFilterName = a});
 psfFilterPattern :: Lens' PutSubscriptionFilter Text
 psfFilterPattern = lens _psfFilterPattern (\ s a -> s{_psfFilterPattern = a});
 
--- | The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:     * An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.     * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.     * An Amazon Kinesis Firehose stream belonging to the same account as the subscription filter, for same-account delivery.     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
+-- | The ARN of the destination to deliver matching log events to. Currently, the supported destinations are:     * An Amazon Kinesis stream belonging to the same account as the subscription filter, for same-account delivery.     * A logical destination (specified using an ARN) belonging to a different account, for cross-account delivery.     * An Amazon Kinesis Firehose delivery stream belonging to the same account as the subscription filter, for same-account delivery.     * An AWS Lambda function belonging to the same account as the subscription filter, for same-account delivery.
 psfDestinationARN :: Lens' PutSubscriptionFilter Text
 psfDestinationARN = lens _psfDestinationARN (\ s a -> s{_psfDestinationARN = a});
 
@@ -129,9 +131,9 @@ instance AWSRequest PutSubscriptionFilter where
         request = postJSON cloudWatchLogs
         response = receiveNull PutSubscriptionFilterResponse'
 
-instance Hashable PutSubscriptionFilter
+instance Hashable PutSubscriptionFilter where
 
-instance NFData PutSubscriptionFilter
+instance NFData PutSubscriptionFilter where
 
 instance ToHeaders PutSubscriptionFilter where
         toHeaders
@@ -162,8 +164,9 @@ instance ToQuery PutSubscriptionFilter where
 
 -- | /See:/ 'putSubscriptionFilterResponse' smart constructor.
 data PutSubscriptionFilterResponse =
-    PutSubscriptionFilterResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  PutSubscriptionFilterResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutSubscriptionFilterResponse' with the minimum fields required to make a request.
 --
@@ -171,4 +174,5 @@ putSubscriptionFilterResponse
     :: PutSubscriptionFilterResponse
 putSubscriptionFilterResponse = PutSubscriptionFilterResponse'
 
-instance NFData PutSubscriptionFilterResponse
+
+instance NFData PutSubscriptionFilterResponse where

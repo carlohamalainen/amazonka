@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.AutoScaling.PutScalingPolicy
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -51,32 +51,29 @@ module Network.AWS.AutoScaling.PutScalingPolicy
     , psprsResponseStatus
     ) where
 
-import           Network.AWS.AutoScaling.Types
-import           Network.AWS.AutoScaling.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AutoScaling.Types
+import Network.AWS.AutoScaling.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Contains the parameters for PutScalingPolicy.
---
---
---
--- /See:/ 'putScalingPolicy' smart constructor.
+-- | /See:/ 'putScalingPolicy' smart constructor.
 data PutScalingPolicy = PutScalingPolicy'
-    { _pspMinAdjustmentStep           :: !(Maybe Int)
-    , _pspEstimatedInstanceWarmup     :: !(Maybe Int)
-    , _pspPolicyType                  :: !(Maybe Text)
-    , _pspStepAdjustments             :: !(Maybe [StepAdjustment])
-    , _pspTargetTrackingConfiguration :: !(Maybe TargetTrackingConfiguration)
-    , _pspAdjustmentType              :: !(Maybe Text)
-    , _pspScalingAdjustment           :: !(Maybe Int)
-    , _pspCooldown                    :: !(Maybe Int)
-    , _pspMetricAggregationType       :: !(Maybe Text)
-    , _pspMinAdjustmentMagnitude      :: !(Maybe Int)
-    , _pspAutoScalingGroupName        :: !Text
-    , _pspPolicyName                  :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pspMinAdjustmentStep           :: !(Maybe Int)
+  , _pspEstimatedInstanceWarmup     :: !(Maybe Int)
+  , _pspPolicyType                  :: !(Maybe Text)
+  , _pspStepAdjustments             :: !(Maybe [StepAdjustment])
+  , _pspTargetTrackingConfiguration :: !(Maybe TargetTrackingConfiguration)
+  , _pspAdjustmentType              :: !(Maybe Text)
+  , _pspScalingAdjustment           :: !(Maybe Int)
+  , _pspCooldown                    :: !(Maybe Int)
+  , _pspMetricAggregationType       :: !(Maybe Text)
+  , _pspMinAdjustmentMagnitude      :: !(Maybe Int)
+  , _pspAutoScalingGroupName        :: !Text
+  , _pspPolicyName                  :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutScalingPolicy' with the minimum fields required to make a request.
 --
@@ -90,7 +87,7 @@ data PutScalingPolicy = PutScalingPolicy'
 --
 -- * 'pspStepAdjustments' - A set of adjustments that enable you to scale based on the size of the alarm breach. This parameter is required if the policy type is @StepScaling@ and not supported otherwise.
 --
--- * 'pspTargetTrackingConfiguration' - The configuration of a target tracking policy. This parameter is required if the policy type is @TargetTrackingScaling@ and not supported otherwise.
+-- * 'pspTargetTrackingConfiguration' - A target tracking policy. This parameter is required if the policy type is @TargetTrackingScaling@ and not supported otherwise.
 --
 -- * 'pspAdjustmentType' - The adjustment type. The valid values are @ChangeInCapacity@ , @ExactCapacity@ , and @PercentChangeInCapacity@ . This parameter is supported if the policy type is @SimpleScaling@ or @StepScaling@ . For more information, see <http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html Dynamic Scaling> in the /Auto Scaling User Guide/ .
 --
@@ -110,20 +107,21 @@ putScalingPolicy
     -> Text -- ^ 'pspPolicyName'
     -> PutScalingPolicy
 putScalingPolicy pAutoScalingGroupName_ pPolicyName_ =
-    PutScalingPolicy'
-    { _pspMinAdjustmentStep = Nothing
-    , _pspEstimatedInstanceWarmup = Nothing
-    , _pspPolicyType = Nothing
-    , _pspStepAdjustments = Nothing
-    , _pspTargetTrackingConfiguration = Nothing
-    , _pspAdjustmentType = Nothing
-    , _pspScalingAdjustment = Nothing
-    , _pspCooldown = Nothing
-    , _pspMetricAggregationType = Nothing
-    , _pspMinAdjustmentMagnitude = Nothing
-    , _pspAutoScalingGroupName = pAutoScalingGroupName_
-    , _pspPolicyName = pPolicyName_
-    }
+  PutScalingPolicy'
+  { _pspMinAdjustmentStep = Nothing
+  , _pspEstimatedInstanceWarmup = Nothing
+  , _pspPolicyType = Nothing
+  , _pspStepAdjustments = Nothing
+  , _pspTargetTrackingConfiguration = Nothing
+  , _pspAdjustmentType = Nothing
+  , _pspScalingAdjustment = Nothing
+  , _pspCooldown = Nothing
+  , _pspMetricAggregationType = Nothing
+  , _pspMinAdjustmentMagnitude = Nothing
+  , _pspAutoScalingGroupName = pAutoScalingGroupName_
+  , _pspPolicyName = pPolicyName_
+  }
+
 
 -- | Available for backward compatibility. Use @MinAdjustmentMagnitude@ instead.
 pspMinAdjustmentStep :: Lens' PutScalingPolicy (Maybe Int)
@@ -141,7 +139,7 @@ pspPolicyType = lens _pspPolicyType (\ s a -> s{_pspPolicyType = a});
 pspStepAdjustments :: Lens' PutScalingPolicy [StepAdjustment]
 pspStepAdjustments = lens _pspStepAdjustments (\ s a -> s{_pspStepAdjustments = a}) . _Default . _Coerce;
 
--- | The configuration of a target tracking policy. This parameter is required if the policy type is @TargetTrackingScaling@ and not supported otherwise.
+-- | A target tracking policy. This parameter is required if the policy type is @TargetTrackingScaling@ and not supported otherwise.
 pspTargetTrackingConfiguration :: Lens' PutScalingPolicy (Maybe TargetTrackingConfiguration)
 pspTargetTrackingConfiguration = lens _pspTargetTrackingConfiguration (\ s a -> s{_pspTargetTrackingConfiguration = a});
 
@@ -185,9 +183,9 @@ instance AWSRequest PutScalingPolicy where
                         may (parseXMLList "member"))
                      <*> (pure (fromEnum s)))
 
-instance Hashable PutScalingPolicy
+instance Hashable PutScalingPolicy where
 
-instance NFData PutScalingPolicy
+instance NFData PutScalingPolicy where
 
 instance ToHeaders PutScalingPolicy where
         toHeaders = const mempty
@@ -224,10 +222,11 @@ instance ToQuery PutScalingPolicy where
 --
 -- /See:/ 'putScalingPolicyResponse' smart constructor.
 data PutScalingPolicyResponse = PutScalingPolicyResponse'
-    { _psprsPolicyARN      :: !(Maybe Text)
-    , _psprsAlarms         :: !(Maybe [Alarm])
-    , _psprsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _psprsPolicyARN      :: !(Maybe Text)
+  , _psprsAlarms         :: !(Maybe [Alarm])
+  , _psprsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutScalingPolicyResponse' with the minimum fields required to make a request.
 --
@@ -235,24 +234,25 @@ data PutScalingPolicyResponse = PutScalingPolicyResponse'
 --
 -- * 'psprsPolicyARN' - The Amazon Resource Name (ARN) of the policy.
 --
--- * 'psprsAlarms' - The CloudWatch alarms created for the target tracking policy. This parameter will be empty if the policy type is anything other than @TargetTrackingScaling@ .
+-- * 'psprsAlarms' - The CloudWatch alarms created for the target tracking policy.
 --
 -- * 'psprsResponseStatus' - -- | The response status code.
 putScalingPolicyResponse
     :: Int -- ^ 'psprsResponseStatus'
     -> PutScalingPolicyResponse
 putScalingPolicyResponse pResponseStatus_ =
-    PutScalingPolicyResponse'
-    { _psprsPolicyARN = Nothing
-    , _psprsAlarms = Nothing
-    , _psprsResponseStatus = pResponseStatus_
-    }
+  PutScalingPolicyResponse'
+  { _psprsPolicyARN = Nothing
+  , _psprsAlarms = Nothing
+  , _psprsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The Amazon Resource Name (ARN) of the policy.
 psprsPolicyARN :: Lens' PutScalingPolicyResponse (Maybe Text)
 psprsPolicyARN = lens _psprsPolicyARN (\ s a -> s{_psprsPolicyARN = a});
 
--- | The CloudWatch alarms created for the target tracking policy. This parameter will be empty if the policy type is anything other than @TargetTrackingScaling@ .
+-- | The CloudWatch alarms created for the target tracking policy.
 psprsAlarms :: Lens' PutScalingPolicyResponse [Alarm]
 psprsAlarms = lens _psprsAlarms (\ s a -> s{_psprsAlarms = a}) . _Default . _Coerce;
 
@@ -260,4 +260,4 @@ psprsAlarms = lens _psprsAlarms (\ s a -> s{_psprsAlarms = a}) . _Default . _Coe
 psprsResponseStatus :: Lens' PutScalingPolicyResponse Int
 psprsResponseStatus = lens _psprsResponseStatus (\ s a -> s{_psprsResponseStatus = a});
 
-instance NFData PutScalingPolicyResponse
+instance NFData PutScalingPolicyResponse where

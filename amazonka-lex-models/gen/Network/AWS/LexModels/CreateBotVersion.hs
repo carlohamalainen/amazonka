@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.LexModels.CreateBotVersion
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -56,18 +56,19 @@ module Network.AWS.LexModels.CreateBotVersion
     , cbvrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.LexModels.Types
-import           Network.AWS.LexModels.Types.Product
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.LexModels.Types
+import Network.AWS.LexModels.Types.Product
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createBotVersion' smart constructor.
 data CreateBotVersion = CreateBotVersion'
-    { _cbvChecksum :: !(Maybe Text)
-    , _cbvName     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cbvChecksum :: !(Maybe Text)
+  , _cbvName     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateBotVersion' with the minimum fields required to make a request.
 --
@@ -80,10 +81,8 @@ createBotVersion
     :: Text -- ^ 'cbvName'
     -> CreateBotVersion
 createBotVersion pName_ =
-    CreateBotVersion'
-    { _cbvChecksum = Nothing
-    , _cbvName = pName_
-    }
+  CreateBotVersion' {_cbvChecksum = Nothing, _cbvName = pName_}
+
 
 -- | Identifies a specific revision of the @> LATEST@ version of the bot. If you specify a checksum and the @> LATEST@ version of the bot has a different checksum, a @PreconditionFailedException@ exception is returned and Amazon Lex doesn't publish a new version. If you don't specify a checksum, Amazon Lex publishes the @> LATEST@ version.
 cbvChecksum :: Lens' CreateBotVersion (Maybe Text)
@@ -102,7 +101,7 @@ instance AWSRequest CreateBotVersion where
                  CreateBotVersionResponse' <$>
                    (x .?> "failureReason") <*> (x .?> "status") <*>
                      (x .?> "abortStatement")
-                     <*> (x .?> "intents")
+                     <*> (x .?> "intents" .!@ mempty)
                      <*> (x .?> "checksum")
                      <*> (x .?> "locale")
                      <*> (x .?> "createdDate")
@@ -116,9 +115,9 @@ instance AWSRequest CreateBotVersion where
                      <*> (x .?> "description")
                      <*> (pure (fromEnum s)))
 
-instance Hashable CreateBotVersion
+instance Hashable CreateBotVersion where
 
-instance NFData CreateBotVersion
+instance NFData CreateBotVersion where
 
 instance ToHeaders CreateBotVersion where
         toHeaders
@@ -141,23 +140,24 @@ instance ToQuery CreateBotVersion where
 
 -- | /See:/ 'createBotVersionResponse' smart constructor.
 data CreateBotVersionResponse = CreateBotVersionResponse'
-    { _cbvrsFailureReason           :: !(Maybe Text)
-    , _cbvrsStatus                  :: !(Maybe LexStatus)
-    , _cbvrsAbortStatement          :: !(Maybe Statement)
-    , _cbvrsIntents                 :: !(Maybe (List1 Intent))
-    , _cbvrsChecksum                :: !(Maybe Text)
-    , _cbvrsLocale                  :: !(Maybe Locale)
-    , _cbvrsCreatedDate             :: !(Maybe POSIX)
-    , _cbvrsName                    :: !(Maybe Text)
-    , _cbvrsVersion                 :: !(Maybe Text)
-    , _cbvrsIdleSessionTTLInSeconds :: !(Maybe Nat)
-    , _cbvrsClarificationPrompt     :: !(Maybe Prompt)
-    , _cbvrsVoiceId                 :: !(Maybe Text)
-    , _cbvrsLastUpdatedDate         :: !(Maybe POSIX)
-    , _cbvrsChildDirected           :: !(Maybe Bool)
-    , _cbvrsDescription             :: !(Maybe Text)
-    , _cbvrsResponseStatus          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cbvrsFailureReason           :: !(Maybe Text)
+  , _cbvrsStatus                  :: !(Maybe LexStatus)
+  , _cbvrsAbortStatement          :: !(Maybe Statement)
+  , _cbvrsIntents                 :: !(Maybe [Intent])
+  , _cbvrsChecksum                :: !(Maybe Text)
+  , _cbvrsLocale                  :: !(Maybe Locale)
+  , _cbvrsCreatedDate             :: !(Maybe POSIX)
+  , _cbvrsName                    :: !(Maybe Text)
+  , _cbvrsVersion                 :: !(Maybe Text)
+  , _cbvrsIdleSessionTTLInSeconds :: !(Maybe Nat)
+  , _cbvrsClarificationPrompt     :: !(Maybe Prompt)
+  , _cbvrsVoiceId                 :: !(Maybe Text)
+  , _cbvrsLastUpdatedDate         :: !(Maybe POSIX)
+  , _cbvrsChildDirected           :: !(Maybe Bool)
+  , _cbvrsDescription             :: !(Maybe Text)
+  , _cbvrsResponseStatus          :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateBotVersionResponse' with the minimum fields required to make a request.
 --
@@ -198,24 +198,25 @@ createBotVersionResponse
     :: Int -- ^ 'cbvrsResponseStatus'
     -> CreateBotVersionResponse
 createBotVersionResponse pResponseStatus_ =
-    CreateBotVersionResponse'
-    { _cbvrsFailureReason = Nothing
-    , _cbvrsStatus = Nothing
-    , _cbvrsAbortStatement = Nothing
-    , _cbvrsIntents = Nothing
-    , _cbvrsChecksum = Nothing
-    , _cbvrsLocale = Nothing
-    , _cbvrsCreatedDate = Nothing
-    , _cbvrsName = Nothing
-    , _cbvrsVersion = Nothing
-    , _cbvrsIdleSessionTTLInSeconds = Nothing
-    , _cbvrsClarificationPrompt = Nothing
-    , _cbvrsVoiceId = Nothing
-    , _cbvrsLastUpdatedDate = Nothing
-    , _cbvrsChildDirected = Nothing
-    , _cbvrsDescription = Nothing
-    , _cbvrsResponseStatus = pResponseStatus_
-    }
+  CreateBotVersionResponse'
+  { _cbvrsFailureReason = Nothing
+  , _cbvrsStatus = Nothing
+  , _cbvrsAbortStatement = Nothing
+  , _cbvrsIntents = Nothing
+  , _cbvrsChecksum = Nothing
+  , _cbvrsLocale = Nothing
+  , _cbvrsCreatedDate = Nothing
+  , _cbvrsName = Nothing
+  , _cbvrsVersion = Nothing
+  , _cbvrsIdleSessionTTLInSeconds = Nothing
+  , _cbvrsClarificationPrompt = Nothing
+  , _cbvrsVoiceId = Nothing
+  , _cbvrsLastUpdatedDate = Nothing
+  , _cbvrsChildDirected = Nothing
+  , _cbvrsDescription = Nothing
+  , _cbvrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | If @status@ is @FAILED@ , Amazon Lex provides the reason that it failed to build the bot.
 cbvrsFailureReason :: Lens' CreateBotVersionResponse (Maybe Text)
@@ -230,8 +231,8 @@ cbvrsAbortStatement :: Lens' CreateBotVersionResponse (Maybe Statement)
 cbvrsAbortStatement = lens _cbvrsAbortStatement (\ s a -> s{_cbvrsAbortStatement = a});
 
 -- | An array of @Intent@ objects. For more information, see 'PutBot' .
-cbvrsIntents :: Lens' CreateBotVersionResponse (Maybe (NonEmpty Intent))
-cbvrsIntents = lens _cbvrsIntents (\ s a -> s{_cbvrsIntents = a}) . mapping _List1;
+cbvrsIntents :: Lens' CreateBotVersionResponse [Intent]
+cbvrsIntents = lens _cbvrsIntents (\ s a -> s{_cbvrsIntents = a}) . _Default . _Coerce;
 
 -- | Checksum identifying the version of the bot that was created.
 cbvrsChecksum :: Lens' CreateBotVersionResponse (Maybe Text)
@@ -281,4 +282,4 @@ cbvrsDescription = lens _cbvrsDescription (\ s a -> s{_cbvrsDescription = a});
 cbvrsResponseStatus :: Lens' CreateBotVersionResponse Int
 cbvrsResponseStatus = lens _cbvrsResponseStatus (\ s a -> s{_cbvrsResponseStatus = a});
 
-instance NFData CreateBotVersionResponse
+instance NFData CreateBotVersionResponse where

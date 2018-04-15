@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.KMS.Decrypt
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Decrypts ciphertext. Ciphertext is plaintext that has been previously encrypted by using any of the following functions:
+-- Decrypts ciphertext. Ciphertext is plaintext that has been previously encrypted by using any of the following operations:
 --
 --
 --     * 'GenerateDataKey'
@@ -50,19 +50,20 @@ module Network.AWS.KMS.Decrypt
     , drsResponseStatus
     ) where
 
-import           Network.AWS.KMS.Types
-import           Network.AWS.KMS.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.KMS.Types
+import Network.AWS.KMS.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'decrypt' smart constructor.
 data Decrypt = Decrypt'
-    { _decEncryptionContext :: !(Maybe (Map Text Text))
-    , _decGrantTokens       :: !(Maybe [Text])
-    , _decCiphertextBlob    :: !Base64
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _decEncryptionContext :: !(Maybe (Map Text Text))
+  , _decGrantTokens       :: !(Maybe [Text])
+  , _decCiphertextBlob    :: !Base64
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'Decrypt' with the minimum fields required to make a request.
 --
@@ -77,11 +78,12 @@ decrypt
     :: ByteString -- ^ 'decCiphertextBlob'
     -> Decrypt
 decrypt pCiphertextBlob_ =
-    Decrypt'
-    { _decEncryptionContext = Nothing
-    , _decGrantTokens = Nothing
-    , _decCiphertextBlob = _Base64 # pCiphertextBlob_
-    }
+  Decrypt'
+  { _decEncryptionContext = Nothing
+  , _decGrantTokens = Nothing
+  , _decCiphertextBlob = _Base64 # pCiphertextBlob_
+  }
+
 
 -- | The encryption context. If this was specified in the 'Encrypt' function, it must be specified here or the decryption operation will fail. For more information, see <http://docs.aws.amazon.com/kms/latest/developerguide/encryption-context.html Encryption Context> .
 decEncryptionContext :: Lens' Decrypt (HashMap Text Text)
@@ -105,9 +107,9 @@ instance AWSRequest Decrypt where
                    (x .?> "KeyId") <*> (x .?> "Plaintext") <*>
                      (pure (fromEnum s)))
 
-instance Hashable Decrypt
+instance Hashable Decrypt where
 
-instance NFData Decrypt
+instance NFData Decrypt where
 
 instance ToHeaders Decrypt where
         toHeaders
@@ -134,10 +136,11 @@ instance ToQuery Decrypt where
 
 -- | /See:/ 'decryptResponse' smart constructor.
 data DecryptResponse = DecryptResponse'
-    { _drsKeyId          :: !(Maybe Text)
-    , _drsPlaintext      :: !(Maybe (Sensitive Base64))
-    , _drsResponseStatus :: !Int
-    } deriving (Eq,Show,Data,Typeable,Generic)
+  { _drsKeyId          :: !(Maybe Text)
+  , _drsPlaintext      :: !(Maybe (Sensitive Base64))
+  , _drsResponseStatus :: !Int
+  } deriving (Eq, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DecryptResponse' with the minimum fields required to make a request.
 --
@@ -145,24 +148,25 @@ data DecryptResponse = DecryptResponse'
 --
 -- * 'drsKeyId' - ARN of the key used to perform the decryption. This value is returned if no errors are encountered during the operation.
 --
--- * 'drsPlaintext' - Decrypted plaintext data. This value may not be returned if the customer master key is not available or if you didn't have permission to use it.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- * 'drsPlaintext' - Decrypted plaintext data. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
 --
 -- * 'drsResponseStatus' - -- | The response status code.
 decryptResponse
     :: Int -- ^ 'drsResponseStatus'
     -> DecryptResponse
 decryptResponse pResponseStatus_ =
-    DecryptResponse'
-    { _drsKeyId = Nothing
-    , _drsPlaintext = Nothing
-    , _drsResponseStatus = pResponseStatus_
-    }
+  DecryptResponse'
+  { _drsKeyId = Nothing
+  , _drsPlaintext = Nothing
+  , _drsResponseStatus = pResponseStatus_
+  }
+
 
 -- | ARN of the key used to perform the decryption. This value is returned if no errors are encountered during the operation.
 drsKeyId :: Lens' DecryptResponse (Maybe Text)
 drsKeyId = lens _drsKeyId (\ s a -> s{_drsKeyId = a});
 
--- | Decrypted plaintext data. This value may not be returned if the customer master key is not available or if you didn't have permission to use it.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
+-- | Decrypted plaintext data. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
 drsPlaintext :: Lens' DecryptResponse (Maybe ByteString)
 drsPlaintext = lens _drsPlaintext (\ s a -> s{_drsPlaintext = a}) . mapping (_Sensitive . _Base64);
 
@@ -170,4 +174,4 @@ drsPlaintext = lens _drsPlaintext (\ s a -> s{_drsPlaintext = a}) . mapping (_Se
 drsResponseStatus :: Lens' DecryptResponse Int
 drsResponseStatus = lens _drsResponseStatus (\ s a -> s{_drsResponseStatus = a});
 
-instance NFData DecryptResponse
+instance NFData DecryptResponse where

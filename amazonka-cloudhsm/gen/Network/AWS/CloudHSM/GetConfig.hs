@@ -12,14 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.CloudHSM.GetConfig
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the configuration files necessary to connect to all high availability partition groups the client is associated with.
+-- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
 --
+--
+-- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+--
+-- Gets the configuration files necessary to connect to all high availability partition groups the client is associated with.
 --
 module Network.AWS.CloudHSM.GetConfig
     (
@@ -41,19 +45,20 @@ module Network.AWS.CloudHSM.GetConfig
     , gcrsResponseStatus
     ) where
 
-import           Network.AWS.CloudHSM.Types
-import           Network.AWS.CloudHSM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudHSM.Types
+import Network.AWS.CloudHSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'getConfig' smart constructor.
 data GetConfig = GetConfig'
-    { _gcClientARN     :: !Text
-    , _gcClientVersion :: !ClientVersion
-    , _gcHAPGList      :: ![Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcClientARN     :: !Text
+  , _gcClientVersion :: !ClientVersion
+  , _gcHAPGList      :: ![Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetConfig' with the minimum fields required to make a request.
 --
@@ -69,11 +74,12 @@ getConfig
     -> ClientVersion -- ^ 'gcClientVersion'
     -> GetConfig
 getConfig pClientARN_ pClientVersion_ =
-    GetConfig'
-    { _gcClientARN = pClientARN_
-    , _gcClientVersion = pClientVersion_
-    , _gcHAPGList = mempty
-    }
+  GetConfig'
+  { _gcClientARN = pClientARN_
+  , _gcClientVersion = pClientVersion_
+  , _gcHAPGList = mempty
+  }
+
 
 -- | The ARN of the client.
 gcClientARN :: Lens' GetConfig Text
@@ -98,9 +104,9 @@ instance AWSRequest GetConfig where
                      (x .?> "ConfigType")
                      <*> (pure (fromEnum s)))
 
-instance Hashable GetConfig
+instance Hashable GetConfig where
 
-instance NFData GetConfig
+instance NFData GetConfig where
 
 instance ToHeaders GetConfig where
         toHeaders
@@ -127,11 +133,12 @@ instance ToQuery GetConfig where
 
 -- | /See:/ 'getConfigResponse' smart constructor.
 data GetConfigResponse = GetConfigResponse'
-    { _gcrsConfigFile     :: !(Maybe Text)
-    , _gcrsConfigCred     :: !(Maybe Text)
-    , _gcrsConfigType     :: !(Maybe Text)
-    , _gcrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcrsConfigFile     :: !(Maybe Text)
+  , _gcrsConfigCred     :: !(Maybe Text)
+  , _gcrsConfigType     :: !(Maybe Text)
+  , _gcrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetConfigResponse' with the minimum fields required to make a request.
 --
@@ -148,12 +155,13 @@ getConfigResponse
     :: Int -- ^ 'gcrsResponseStatus'
     -> GetConfigResponse
 getConfigResponse pResponseStatus_ =
-    GetConfigResponse'
-    { _gcrsConfigFile = Nothing
-    , _gcrsConfigCred = Nothing
-    , _gcrsConfigType = Nothing
-    , _gcrsResponseStatus = pResponseStatus_
-    }
+  GetConfigResponse'
+  { _gcrsConfigFile = Nothing
+  , _gcrsConfigCred = Nothing
+  , _gcrsConfigType = Nothing
+  , _gcrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The chrystoki.conf configuration file.
 gcrsConfigFile :: Lens' GetConfigResponse (Maybe Text)
@@ -171,4 +179,4 @@ gcrsConfigType = lens _gcrsConfigType (\ s a -> s{_gcrsConfigType = a});
 gcrsResponseStatus :: Lens' GetConfigResponse Int
 gcrsResponseStatus = lens _gcrsResponseStatus (\ s a -> s{_gcrsResponseStatus = a});
 
-instance NFData GetConfigResponse
+instance NFData GetConfigResponse where

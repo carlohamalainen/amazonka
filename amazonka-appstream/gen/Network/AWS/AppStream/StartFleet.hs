@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.StartFleet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts a fleet.
+-- Starts the specified fleet.
 --
 --
 module Network.AWS.AppStream.StartFleet
@@ -36,32 +36,31 @@ module Network.AWS.AppStream.StartFleet
     , sfrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'startFleet' smart constructor.
 newtype StartFleet = StartFleet'
-    { _staName :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _staName :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StartFleet' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'staName' - The name of the fleet to start.
+-- * 'staName' - The name of the fleet.
 startFleet
     :: Text -- ^ 'staName'
     -> StartFleet
-startFleet pName_ =
-    StartFleet'
-    { _staName = pName_
-    }
+startFleet pName_ = StartFleet' {_staName = pName_}
 
--- | The name of the fleet to start.
+
+-- | The name of the fleet.
 staName :: Lens' StartFleet Text
 staName = lens _staName (\ s a -> s{_staName = a});
 
@@ -73,9 +72,9 @@ instance AWSRequest StartFleet where
               (\ s h x ->
                  StartFleetResponse' <$> (pure (fromEnum s)))
 
-instance Hashable StartFleet
+instance Hashable StartFleet where
 
-instance NFData StartFleet
+instance NFData StartFleet where
 
 instance ToHeaders StartFleet where
         toHeaders
@@ -98,8 +97,9 @@ instance ToQuery StartFleet where
 
 -- | /See:/ 'startFleetResponse' smart constructor.
 newtype StartFleetResponse = StartFleetResponse'
-    { _sfrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _sfrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'StartFleetResponse' with the minimum fields required to make a request.
 --
@@ -110,12 +110,11 @@ startFleetResponse
     :: Int -- ^ 'sfrsResponseStatus'
     -> StartFleetResponse
 startFleetResponse pResponseStatus_ =
-    StartFleetResponse'
-    { _sfrsResponseStatus = pResponseStatus_
-    }
+  StartFleetResponse' {_sfrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 sfrsResponseStatus :: Lens' StartFleetResponse Int
 sfrsResponseStatus = lens _sfrsResponseStatus (\ s a -> s{_sfrsResponseStatus = a});
 
-instance NFData StartFleetResponse
+instance NFData StartFleetResponse where

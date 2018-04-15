@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.ModifyInstanceAttribute
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -51,12 +51,12 @@ module Network.AWS.EC2.ModifyInstanceAttribute
     , ModifyInstanceAttributeResponse
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for ModifyInstanceAttribute.
 --
@@ -64,23 +64,24 @@ import           Network.AWS.Response
 --
 -- /See:/ 'modifyInstanceAttribute' smart constructor.
 data ModifyInstanceAttribute = ModifyInstanceAttribute'
-    { _mGroups                            :: !(Maybe [Text])
-    , _mAttribute                         :: !(Maybe InstanceAttributeName)
-    , _mEnaSupport                        :: !(Maybe AttributeBooleanValue)
-    , _mSourceDestCheck                   :: !(Maybe AttributeBooleanValue)
-    , _mDisableAPITermination             :: !(Maybe AttributeBooleanValue)
-    , _mKernel                            :: !(Maybe AttributeValue)
-    , _mRAMDisk                           :: !(Maybe AttributeValue)
-    , _mValue                             :: !(Maybe Text)
-    , _mInstanceType                      :: !(Maybe AttributeValue)
-    , _mSRIOVNetSupport                   :: !(Maybe AttributeValue)
-    , _mEBSOptimized                      :: !(Maybe AttributeBooleanValue)
-    , _mUserData                          :: !(Maybe BlobAttributeValue)
-    , _mInstanceInitiatedShutdownBehavior :: !(Maybe AttributeValue)
-    , _mBlockDeviceMappings               :: !(Maybe [InstanceBlockDeviceMappingSpecification])
-    , _mDryRun                            :: !(Maybe Bool)
-    , _mInstanceId                        :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mGroups :: !(Maybe [Text])
+  , _mAttribute :: !(Maybe InstanceAttributeName)
+  , _mEnaSupport :: !(Maybe AttributeBooleanValue)
+  , _mSourceDestCheck :: !(Maybe AttributeBooleanValue)
+  , _mDisableAPITermination :: !(Maybe AttributeBooleanValue)
+  , _mKernel :: !(Maybe AttributeValue)
+  , _mRAMDisk :: !(Maybe AttributeValue)
+  , _mValue :: !(Maybe Text)
+  , _mInstanceType :: !(Maybe AttributeValue)
+  , _mSRIOVNetSupport :: !(Maybe AttributeValue)
+  , _mEBSOptimized :: !(Maybe AttributeBooleanValue)
+  , _mUserData :: !(Maybe BlobAttributeValue)
+  , _mInstanceInitiatedShutdownBehavior :: !(Maybe AttributeValue)
+  , _mBlockDeviceMappings :: !(Maybe [InstanceBlockDeviceMappingSpecification])
+  , _mDryRun :: !(Maybe Bool)
+  , _mInstanceId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyInstanceAttribute' with the minimum fields required to make a request.
 --
@@ -92,7 +93,7 @@ data ModifyInstanceAttribute = ModifyInstanceAttribute'
 --
 -- * 'mEnaSupport' - Set to @true@ to enable enhanced networking with ENA for the instance. This option is supported only for HVM instances. Specifying this option with a PV instance can make it unreachable.
 --
--- * 'mSourceDestCheck' - Specifies whether source/destination checking is enabled. A value of @true@ means that checking is enabled, and @false@ means checking is disabled. This value must be @false@ for a NAT instance to perform NAT.
+-- * 'mSourceDestCheck' - Specifies whether source/destination checking is enabled. A value of @true@ means that checking is enabled, and @false@ means that checking is disabled. This value must be @false@ for a NAT instance to perform NAT.
 --
 -- * 'mDisableAPITermination' - If the value is @true@ , you can't terminate the instance using the Amazon EC2 console, CLI, or API; otherwise, you can. You cannot use this parameter for Spot Instances.
 --
@@ -106,9 +107,9 @@ data ModifyInstanceAttribute = ModifyInstanceAttribute'
 --
 -- * 'mSRIOVNetSupport' - Set to @simple@ to enable enhanced networking with the Intel 82599 Virtual Function interface for the instance. There is no way to disable enhanced networking with the Intel 82599 Virtual Function interface at this time. This option is supported only for HVM instances. Specifying this option with a PV instance can make it unreachable.
 --
--- * 'mEBSOptimized' - Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+-- * 'mEBSOptimized' - Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
 --
--- * 'mUserData' - Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
+-- * 'mUserData' - Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text.
 --
 -- * 'mInstanceInitiatedShutdownBehavior' - Specifies whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).
 --
@@ -121,24 +122,25 @@ modifyInstanceAttribute
     :: Text -- ^ 'mInstanceId'
     -> ModifyInstanceAttribute
 modifyInstanceAttribute pInstanceId_ =
-    ModifyInstanceAttribute'
-    { _mGroups = Nothing
-    , _mAttribute = Nothing
-    , _mEnaSupport = Nothing
-    , _mSourceDestCheck = Nothing
-    , _mDisableAPITermination = Nothing
-    , _mKernel = Nothing
-    , _mRAMDisk = Nothing
-    , _mValue = Nothing
-    , _mInstanceType = Nothing
-    , _mSRIOVNetSupport = Nothing
-    , _mEBSOptimized = Nothing
-    , _mUserData = Nothing
-    , _mInstanceInitiatedShutdownBehavior = Nothing
-    , _mBlockDeviceMappings = Nothing
-    , _mDryRun = Nothing
-    , _mInstanceId = pInstanceId_
-    }
+  ModifyInstanceAttribute'
+  { _mGroups = Nothing
+  , _mAttribute = Nothing
+  , _mEnaSupport = Nothing
+  , _mSourceDestCheck = Nothing
+  , _mDisableAPITermination = Nothing
+  , _mKernel = Nothing
+  , _mRAMDisk = Nothing
+  , _mValue = Nothing
+  , _mInstanceType = Nothing
+  , _mSRIOVNetSupport = Nothing
+  , _mEBSOptimized = Nothing
+  , _mUserData = Nothing
+  , _mInstanceInitiatedShutdownBehavior = Nothing
+  , _mBlockDeviceMappings = Nothing
+  , _mDryRun = Nothing
+  , _mInstanceId = pInstanceId_
+  }
+
 
 -- | [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's just the default security group for the VPC. You must specify the security group ID, not the security group name.
 mGroups :: Lens' ModifyInstanceAttribute [Text]
@@ -152,7 +154,7 @@ mAttribute = lens _mAttribute (\ s a -> s{_mAttribute = a});
 mEnaSupport :: Lens' ModifyInstanceAttribute (Maybe AttributeBooleanValue)
 mEnaSupport = lens _mEnaSupport (\ s a -> s{_mEnaSupport = a});
 
--- | Specifies whether source/destination checking is enabled. A value of @true@ means that checking is enabled, and @false@ means checking is disabled. This value must be @false@ for a NAT instance to perform NAT.
+-- | Specifies whether source/destination checking is enabled. A value of @true@ means that checking is enabled, and @false@ means that checking is disabled. This value must be @false@ for a NAT instance to perform NAT.
 mSourceDestCheck :: Lens' ModifyInstanceAttribute (Maybe AttributeBooleanValue)
 mSourceDestCheck = lens _mSourceDestCheck (\ s a -> s{_mSourceDestCheck = a});
 
@@ -180,11 +182,11 @@ mInstanceType = lens _mInstanceType (\ s a -> s{_mInstanceType = a});
 mSRIOVNetSupport :: Lens' ModifyInstanceAttribute (Maybe AttributeValue)
 mSRIOVNetSupport = lens _mSRIOVNetSupport (\ s a -> s{_mSRIOVNetSupport = a});
 
--- | Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+-- | Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
 mEBSOptimized :: Lens' ModifyInstanceAttribute (Maybe AttributeBooleanValue)
 mEBSOptimized = lens _mEBSOptimized (\ s a -> s{_mEBSOptimized = a});
 
--- | Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
+-- | Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text.
 mUserData :: Lens' ModifyInstanceAttribute (Maybe BlobAttributeValue)
 mUserData = lens _mUserData (\ s a -> s{_mUserData = a});
 
@@ -211,9 +213,9 @@ instance AWSRequest ModifyInstanceAttribute where
         response
           = receiveNull ModifyInstanceAttributeResponse'
 
-instance Hashable ModifyInstanceAttribute
+instance Hashable ModifyInstanceAttribute where
 
-instance NFData ModifyInstanceAttribute
+instance NFData ModifyInstanceAttribute where
 
 instance ToHeaders ModifyInstanceAttribute where
         toHeaders = const mempty
@@ -246,8 +248,9 @@ instance ToQuery ModifyInstanceAttribute where
 
 -- | /See:/ 'modifyInstanceAttributeResponse' smart constructor.
 data ModifyInstanceAttributeResponse =
-    ModifyInstanceAttributeResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  ModifyInstanceAttributeResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyInstanceAttributeResponse' with the minimum fields required to make a request.
 --
@@ -255,4 +258,5 @@ modifyInstanceAttributeResponse
     :: ModifyInstanceAttributeResponse
 modifyInstanceAttributeResponse = ModifyInstanceAttributeResponse'
 
-instance NFData ModifyInstanceAttributeResponse
+
+instance NFData ModifyInstanceAttributeResponse where

@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.SSM.PutComplianceItems
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a compliance type and other compliance details on a designated resource. This API lets you register custom compliance details with a resource. This call overwrites existing compliance information on the resource, so you must provide a full list of compliance items each time you send the request.
+-- Registers a compliance type and other compliance details on a designated resource. This action lets you register custom compliance details with a resource. This call overwrites existing compliance information on the resource, so you must provide a full list of compliance items each time that you send the request.
 --
 --
 module Network.AWS.SSM.PutComplianceItems
@@ -41,28 +41,29 @@ module Network.AWS.SSM.PutComplianceItems
     , pcirsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
-import           Network.AWS.SSM.Types
-import           Network.AWS.SSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
+import Network.AWS.SSM.Types
+import Network.AWS.SSM.Types.Product
 
 -- | /See:/ 'putComplianceItems' smart constructor.
 data PutComplianceItems = PutComplianceItems'
-    { _pciItemContentHash  :: !(Maybe Text)
-    , _pciResourceId       :: !Text
-    , _pciResourceType     :: !Text
-    , _pciComplianceType   :: !Text
-    , _pciExecutionSummary :: !ComplianceExecutionSummary
-    , _pciItems            :: ![ComplianceItemEntry]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pciItemContentHash  :: !(Maybe Text)
+  , _pciResourceId       :: !Text
+  , _pciResourceType     :: !Text
+  , _pciComplianceType   :: !Text
+  , _pciExecutionSummary :: !ComplianceExecutionSummary
+  , _pciItems            :: ![ComplianceItemEntry]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutComplianceItems' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'pciItemContentHash' - MD5 or Sha256 content hash. The content hash is used to determine if existing information should be overwritten or ignored. If the content hashes match, ,the request to put compliance information is ignored.
+-- * 'pciItemContentHash' - MD5 or SHA-256 content hash. The content hash is used to determine if existing information should be overwritten or ignored. If the content hashes match, the request to put compliance information is ignored.
 --
 -- * 'pciResourceId' - Specify an ID for this resource. For a managed instance, this is the instance ID.
 --
@@ -80,16 +81,17 @@ putComplianceItems
     -> ComplianceExecutionSummary -- ^ 'pciExecutionSummary'
     -> PutComplianceItems
 putComplianceItems pResourceId_ pResourceType_ pComplianceType_ pExecutionSummary_ =
-    PutComplianceItems'
-    { _pciItemContentHash = Nothing
-    , _pciResourceId = pResourceId_
-    , _pciResourceType = pResourceType_
-    , _pciComplianceType = pComplianceType_
-    , _pciExecutionSummary = pExecutionSummary_
-    , _pciItems = mempty
-    }
+  PutComplianceItems'
+  { _pciItemContentHash = Nothing
+  , _pciResourceId = pResourceId_
+  , _pciResourceType = pResourceType_
+  , _pciComplianceType = pComplianceType_
+  , _pciExecutionSummary = pExecutionSummary_
+  , _pciItems = mempty
+  }
 
--- | MD5 or Sha256 content hash. The content hash is used to determine if existing information should be overwritten or ignored. If the content hashes match, ,the request to put compliance information is ignored.
+
+-- | MD5 or SHA-256 content hash. The content hash is used to determine if existing information should be overwritten or ignored. If the content hashes match, the request to put compliance information is ignored.
 pciItemContentHash :: Lens' PutComplianceItems (Maybe Text)
 pciItemContentHash = lens _pciItemContentHash (\ s a -> s{_pciItemContentHash = a});
 
@@ -122,9 +124,9 @@ instance AWSRequest PutComplianceItems where
               (\ s h x ->
                  PutComplianceItemsResponse' <$> (pure (fromEnum s)))
 
-instance Hashable PutComplianceItems
+instance Hashable PutComplianceItems where
 
-instance NFData PutComplianceItems
+instance NFData PutComplianceItems where
 
 instance ToHeaders PutComplianceItems where
         toHeaders
@@ -154,8 +156,9 @@ instance ToQuery PutComplianceItems where
 
 -- | /See:/ 'putComplianceItemsResponse' smart constructor.
 newtype PutComplianceItemsResponse = PutComplianceItemsResponse'
-    { _pcirsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _pcirsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'PutComplianceItemsResponse' with the minimum fields required to make a request.
 --
@@ -166,12 +169,11 @@ putComplianceItemsResponse
     :: Int -- ^ 'pcirsResponseStatus'
     -> PutComplianceItemsResponse
 putComplianceItemsResponse pResponseStatus_ =
-    PutComplianceItemsResponse'
-    { _pcirsResponseStatus = pResponseStatus_
-    }
+  PutComplianceItemsResponse' {_pcirsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 pcirsResponseStatus :: Lens' PutComplianceItemsResponse Int
 pcirsResponseStatus = lens _pcirsResponseStatus (\ s a -> s{_pcirsResponseStatus = a});
 
-instance NFData PutComplianceItemsResponse
+instance NFData PutComplianceItemsResponse where

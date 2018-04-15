@@ -12,14 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.CloudHSM.ModifyHSM
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies an HSM.
+-- This is documentation for __AWS CloudHSM Classic__ . For more information, see <http://aws.amazon.com/cloudhsm/faqs-classic/ AWS CloudHSM Classic FAQs> , the <http://docs.aws.amazon.com/cloudhsm/classic/userguide/ AWS CloudHSM Classic User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/classic/APIReference/ AWS CloudHSM Classic API Reference> .
 --
+--
+-- __For information about the current version of AWS CloudHSM__ , see <http://aws.amazon.com/cloudhsm/ AWS CloudHSM> , the <http://docs.aws.amazon.com/cloudhsm/latest/userguide/ AWS CloudHSM User Guide> , and the <http://docs.aws.amazon.com/cloudhsm/latest/APIReference/ AWS CloudHSM API Reference> .
+--
+-- Modifies an HSM.
 --
 -- /Important:/ This operation can result in the HSM being offline for up to 15 minutes while the AWS CloudHSM service is reconfigured. If you are modifying a production HSM, you should ensure that your AWS CloudHSM service is configured for high availability, and consider executing this operation during a maintenance window.
 --
@@ -44,12 +48,12 @@ module Network.AWS.CloudHSM.ModifyHSM
     , mhsmrsResponseStatus
     ) where
 
-import           Network.AWS.CloudHSM.Types
-import           Network.AWS.CloudHSM.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CloudHSM.Types
+import Network.AWS.CloudHSM.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the inputs for the 'ModifyHsm' operation.
 --
@@ -57,13 +61,14 @@ import           Network.AWS.Response
 --
 -- /See:/ 'modifyHSM' smart constructor.
 data ModifyHSM = ModifyHSM'
-    { _mhIAMRoleARN :: !(Maybe Text)
-    , _mhSubnetId   :: !(Maybe Text)
-    , _mhSyslogIP   :: !(Maybe Text)
-    , _mhExternalId :: !(Maybe Text)
-    , _mhEniIP      :: !(Maybe Text)
-    , _mhHSMARN     :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mhIAMRoleARN :: !(Maybe Text)
+  , _mhSubnetId   :: !(Maybe Text)
+  , _mhSyslogIP   :: !(Maybe Text)
+  , _mhExternalId :: !(Maybe Text)
+  , _mhEniIP      :: !(Maybe Text)
+  , _mhHSMARN     :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyHSM' with the minimum fields required to make a request.
 --
@@ -84,14 +89,15 @@ modifyHSM
     :: Text -- ^ 'mhHSMARN'
     -> ModifyHSM
 modifyHSM pHSMARN_ =
-    ModifyHSM'
-    { _mhIAMRoleARN = Nothing
-    , _mhSubnetId = Nothing
-    , _mhSyslogIP = Nothing
-    , _mhExternalId = Nothing
-    , _mhEniIP = Nothing
-    , _mhHSMARN = pHSMARN_
-    }
+  ModifyHSM'
+  { _mhIAMRoleARN = Nothing
+  , _mhSubnetId = Nothing
+  , _mhSyslogIP = Nothing
+  , _mhExternalId = Nothing
+  , _mhEniIP = Nothing
+  , _mhHSMARN = pHSMARN_
+  }
+
 
 -- | The new IAM role ARN.
 mhIAMRoleARN :: Lens' ModifyHSM (Maybe Text)
@@ -126,9 +132,9 @@ instance AWSRequest ModifyHSM where
                  ModifyHSMResponse' <$>
                    (x .?> "HsmArn") <*> (pure (fromEnum s)))
 
-instance Hashable ModifyHSM
+instance Hashable ModifyHSM where
 
-instance NFData ModifyHSM
+instance NFData ModifyHSM where
 
 instance ToHeaders ModifyHSM where
         toHeaders
@@ -162,9 +168,10 @@ instance ToQuery ModifyHSM where
 --
 -- /See:/ 'modifyHSMResponse' smart constructor.
 data ModifyHSMResponse = ModifyHSMResponse'
-    { _mhsmrsHSMARN         :: !(Maybe Text)
-    , _mhsmrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _mhsmrsHSMARN         :: !(Maybe Text)
+  , _mhsmrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ModifyHSMResponse' with the minimum fields required to make a request.
 --
@@ -177,10 +184,9 @@ modifyHSMResponse
     :: Int -- ^ 'mhsmrsResponseStatus'
     -> ModifyHSMResponse
 modifyHSMResponse pResponseStatus_ =
-    ModifyHSMResponse'
-    { _mhsmrsHSMARN = Nothing
-    , _mhsmrsResponseStatus = pResponseStatus_
-    }
+  ModifyHSMResponse'
+  {_mhsmrsHSMARN = Nothing, _mhsmrsResponseStatus = pResponseStatus_}
+
 
 -- | The ARN of the HSM.
 mhsmrsHSMARN :: Lens' ModifyHSMResponse (Maybe Text)
@@ -190,4 +196,4 @@ mhsmrsHSMARN = lens _mhsmrsHSMARN (\ s a -> s{_mhsmrsHSMARN = a});
 mhsmrsResponseStatus :: Lens' ModifyHSMResponse Int
 mhsmrsResponseStatus = lens _mhsmrsResponseStatus (\ s a -> s{_mhsmrsResponseStatus = a});
 
-instance NFData ModifyHSMResponse
+instance NFData ModifyHSMResponse where

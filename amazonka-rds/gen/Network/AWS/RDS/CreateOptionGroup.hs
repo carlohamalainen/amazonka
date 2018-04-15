@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.CreateOptionGroup
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -41,12 +41,12 @@ module Network.AWS.RDS.CreateOptionGroup
     , crsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -54,12 +54,13 @@ import           Network.AWS.Response
 --
 -- /See:/ 'createOptionGroup' smart constructor.
 data CreateOptionGroup = CreateOptionGroup'
-    { _cogTags                   :: !(Maybe [Tag])
-    , _cogOptionGroupName        :: !Text
-    , _cogEngineName             :: !Text
-    , _cogMajorEngineVersion     :: !Text
-    , _cogOptionGroupDescription :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cogTags                   :: !(Maybe [Tag])
+  , _cogOptionGroupName        :: !Text
+  , _cogEngineName             :: !Text
+  , _cogMajorEngineVersion     :: !Text
+  , _cogOptionGroupDescription :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateOptionGroup' with the minimum fields required to make a request.
 --
@@ -67,7 +68,7 @@ data CreateOptionGroup = CreateOptionGroup'
 --
 -- * 'cogTags' - Undocumented member.
 --
--- * 'cogOptionGroupName' - Specifies the name of the option group to be created. Constraints:     * Must be 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @myoptiongroup@
+-- * 'cogOptionGroupName' - Specifies the name of the option group to be created. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @myoptiongroup@
 --
 -- * 'cogEngineName' - Specifies the name of the engine that this option group should be associated with.
 --
@@ -81,19 +82,20 @@ createOptionGroup
     -> Text -- ^ 'cogOptionGroupDescription'
     -> CreateOptionGroup
 createOptionGroup pOptionGroupName_ pEngineName_ pMajorEngineVersion_ pOptionGroupDescription_ =
-    CreateOptionGroup'
-    { _cogTags = Nothing
-    , _cogOptionGroupName = pOptionGroupName_
-    , _cogEngineName = pEngineName_
-    , _cogMajorEngineVersion = pMajorEngineVersion_
-    , _cogOptionGroupDescription = pOptionGroupDescription_
-    }
+  CreateOptionGroup'
+  { _cogTags = Nothing
+  , _cogOptionGroupName = pOptionGroupName_
+  , _cogEngineName = pEngineName_
+  , _cogMajorEngineVersion = pMajorEngineVersion_
+  , _cogOptionGroupDescription = pOptionGroupDescription_
+  }
+
 
 -- | Undocumented member.
 cogTags :: Lens' CreateOptionGroup [Tag]
 cogTags = lens _cogTags (\ s a -> s{_cogTags = a}) . _Default . _Coerce;
 
--- | Specifies the name of the option group to be created. Constraints:     * Must be 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @myoptiongroup@
+-- | Specifies the name of the option group to be created. Constraints:     * Must be 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @myoptiongroup@
 cogOptionGroupName :: Lens' CreateOptionGroup Text
 cogOptionGroupName = lens _cogOptionGroupName (\ s a -> s{_cogOptionGroupName = a});
 
@@ -118,9 +120,9 @@ instance AWSRequest CreateOptionGroup where
                  CreateOptionGroupResponse' <$>
                    (x .@? "OptionGroup") <*> (pure (fromEnum s)))
 
-instance Hashable CreateOptionGroup
+instance Hashable CreateOptionGroup where
 
-instance NFData CreateOptionGroup
+instance NFData CreateOptionGroup where
 
 instance ToHeaders CreateOptionGroup where
         toHeaders = const mempty
@@ -142,9 +144,10 @@ instance ToQuery CreateOptionGroup where
 
 -- | /See:/ 'createOptionGroupResponse' smart constructor.
 data CreateOptionGroupResponse = CreateOptionGroupResponse'
-    { _crsOptionGroup    :: !(Maybe OptionGroup)
-    , _crsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _crsOptionGroup    :: !(Maybe OptionGroup)
+  , _crsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateOptionGroupResponse' with the minimum fields required to make a request.
 --
@@ -157,10 +160,9 @@ createOptionGroupResponse
     :: Int -- ^ 'crsResponseStatus'
     -> CreateOptionGroupResponse
 createOptionGroupResponse pResponseStatus_ =
-    CreateOptionGroupResponse'
-    { _crsOptionGroup = Nothing
-    , _crsResponseStatus = pResponseStatus_
-    }
+  CreateOptionGroupResponse'
+  {_crsOptionGroup = Nothing, _crsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 crsOptionGroup :: Lens' CreateOptionGroupResponse (Maybe OptionGroup)
@@ -170,4 +172,4 @@ crsOptionGroup = lens _crsOptionGroup (\ s a -> s{_crsOptionGroup = a});
 crsResponseStatus :: Lens' CreateOptionGroupResponse Int
 crsResponseStatus = lens _crsResponseStatus (\ s a -> s{_crsResponseStatus = a});
 
-instance NFData CreateOptionGroupResponse
+instance NFData CreateOptionGroupResponse where

@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.RunInstances
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,7 +39,7 @@
 --
 --
 --
--- To ensure faster instance launches, break up large requests into smaller batches. For example, create 5 separate launch requests for 100 instances each instead of 1 launch request for 500 instances.
+-- To ensure faster instance launches, break up large requests into smaller batches. For example, create five separate launch requests for 100 instances each instead of one launch request for 500 instances.
 --
 -- An instance is ready for you to use when it's in the @running@ state. You can check the state of your instance using 'DescribeInstances' . You can tag instances and EBS volumes during launch, after launch, or both. For more information, see 'CreateTags' and <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Amazon EC2 Resources> .
 --
@@ -92,12 +92,12 @@ module Network.AWS.EC2.RunInstances
     , rOwnerId
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for RunInstances.
 --
@@ -105,34 +105,35 @@ import           Network.AWS.Response
 --
 -- /See:/ 'runInstances' smart constructor.
 data RunInstances = RunInstances'
-    { _rAdditionalInfo                    :: !(Maybe Text)
-    , _rSecurityGroupIds                  :: !(Maybe [Text])
-    , _rSecurityGroups                    :: !(Maybe [Text])
-    , _rClientToken                       :: !(Maybe Text)
-    , _rDisableAPITermination             :: !(Maybe Bool)
-    , _rKeyName                           :: !(Maybe Text)
-    , _rNetworkInterfaces                 :: !(Maybe [InstanceNetworkInterfaceSpecification])
-    , _rRAMDiskId                         :: !(Maybe Text)
-    , _rSubnetId                          :: !(Maybe Text)
-    , _rKernelId                          :: !(Maybe Text)
-    , _rInstanceType                      :: !(Maybe InstanceType)
-    , _rEBSOptimized                      :: !(Maybe Bool)
-    , _rUserData                          :: !(Maybe Text)
-    , _rMonitoring                        :: !(Maybe RunInstancesMonitoringEnabled)
-    , _rTagSpecifications                 :: !(Maybe [TagSpecification])
-    , _rIPv6AddressCount                  :: !(Maybe Int)
-    , _rIAMInstanceProfile                :: !(Maybe IAMInstanceProfileSpecification)
-    , _rElasticGpuSpecification           :: !(Maybe [ElasticGpuSpecification])
-    , _rPrivateIPAddress                  :: !(Maybe Text)
-    , _rInstanceInitiatedShutdownBehavior :: !(Maybe ShutdownBehavior)
-    , _rBlockDeviceMappings               :: !(Maybe [BlockDeviceMapping])
-    , _rDryRun                            :: !(Maybe Bool)
-    , _rPlacement                         :: !(Maybe Placement)
-    , _rIPv6Addresses                     :: !(Maybe [InstanceIPv6Address])
-    , _rImageId                           :: !Text
-    , _rMaxCount                          :: !Int
-    , _rMinCount                          :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rAdditionalInfo :: !(Maybe Text)
+  , _rSecurityGroupIds :: !(Maybe [Text])
+  , _rSecurityGroups :: !(Maybe [Text])
+  , _rClientToken :: !(Maybe Text)
+  , _rDisableAPITermination :: !(Maybe Bool)
+  , _rKeyName :: !(Maybe Text)
+  , _rNetworkInterfaces :: !(Maybe [InstanceNetworkInterfaceSpecification])
+  , _rRAMDiskId :: !(Maybe Text)
+  , _rSubnetId :: !(Maybe Text)
+  , _rKernelId :: !(Maybe Text)
+  , _rInstanceType :: !(Maybe InstanceType)
+  , _rEBSOptimized :: !(Maybe Bool)
+  , _rUserData :: !(Maybe Text)
+  , _rMonitoring :: !(Maybe RunInstancesMonitoringEnabled)
+  , _rTagSpecifications :: !(Maybe [TagSpecification])
+  , _rIPv6AddressCount :: !(Maybe Int)
+  , _rIAMInstanceProfile :: !(Maybe IAMInstanceProfileSpecification)
+  , _rElasticGpuSpecification :: !(Maybe [ElasticGpuSpecification])
+  , _rPrivateIPAddress :: !(Maybe Text)
+  , _rInstanceInitiatedShutdownBehavior :: !(Maybe ShutdownBehavior)
+  , _rBlockDeviceMappings :: !(Maybe [BlockDeviceMapping])
+  , _rDryRun :: !(Maybe Bool)
+  , _rPlacement :: !(Maybe Placement)
+  , _rIPv6Addresses :: !(Maybe [InstanceIPv6Address])
+  , _rImageId :: !Text
+  , _rMaxCount :: !Int
+  , _rMinCount :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RunInstances' with the minimum fields required to make a request.
 --
@@ -160,9 +161,9 @@ data RunInstances = RunInstances'
 --
 -- * 'rInstanceType' - The instance type. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance Types> in the /Amazon Elastic Compute Cloud User Guide/ . Default: @m1.small@
 --
--- * 'rEBSOptimized' - Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
+-- * 'rEBSOptimized' - Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
 --
--- * 'rUserData' - The user data to make available to the instance. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html Running Commands on Your Linux Instance at Launch> (Linux) and <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data Adding User Data> (Windows). If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
+-- * 'rUserData' - The user data to make available to the instance. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html Running Commands on Your Linux Instance at Launch> (Linux) and <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data Adding User Data> (Windows). If you are using a command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text.
 --
 -- * 'rMonitoring' - The monitoring for the instance.
 --
@@ -178,7 +179,7 @@ data RunInstances = RunInstances'
 --
 -- * 'rInstanceInitiatedShutdownBehavior' - Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown). Default: @stop@
 --
--- * 'rBlockDeviceMappings' - The block device mapping. /Important:/ Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error. This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed using this action.
+-- * 'rBlockDeviceMappings' - One or more block device mapping entries. You can't specify both a snapshot ID and an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for a volume, it is not blank and its encryption status is used for the volume encryption status.
 --
 -- * 'rDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
@@ -197,35 +198,36 @@ runInstances
     -> Int -- ^ 'rMinCount'
     -> RunInstances
 runInstances pImageId_ pMaxCount_ pMinCount_ =
-    RunInstances'
-    { _rAdditionalInfo = Nothing
-    , _rSecurityGroupIds = Nothing
-    , _rSecurityGroups = Nothing
-    , _rClientToken = Nothing
-    , _rDisableAPITermination = Nothing
-    , _rKeyName = Nothing
-    , _rNetworkInterfaces = Nothing
-    , _rRAMDiskId = Nothing
-    , _rSubnetId = Nothing
-    , _rKernelId = Nothing
-    , _rInstanceType = Nothing
-    , _rEBSOptimized = Nothing
-    , _rUserData = Nothing
-    , _rMonitoring = Nothing
-    , _rTagSpecifications = Nothing
-    , _rIPv6AddressCount = Nothing
-    , _rIAMInstanceProfile = Nothing
-    , _rElasticGpuSpecification = Nothing
-    , _rPrivateIPAddress = Nothing
-    , _rInstanceInitiatedShutdownBehavior = Nothing
-    , _rBlockDeviceMappings = Nothing
-    , _rDryRun = Nothing
-    , _rPlacement = Nothing
-    , _rIPv6Addresses = Nothing
-    , _rImageId = pImageId_
-    , _rMaxCount = pMaxCount_
-    , _rMinCount = pMinCount_
-    }
+  RunInstances'
+  { _rAdditionalInfo = Nothing
+  , _rSecurityGroupIds = Nothing
+  , _rSecurityGroups = Nothing
+  , _rClientToken = Nothing
+  , _rDisableAPITermination = Nothing
+  , _rKeyName = Nothing
+  , _rNetworkInterfaces = Nothing
+  , _rRAMDiskId = Nothing
+  , _rSubnetId = Nothing
+  , _rKernelId = Nothing
+  , _rInstanceType = Nothing
+  , _rEBSOptimized = Nothing
+  , _rUserData = Nothing
+  , _rMonitoring = Nothing
+  , _rTagSpecifications = Nothing
+  , _rIPv6AddressCount = Nothing
+  , _rIAMInstanceProfile = Nothing
+  , _rElasticGpuSpecification = Nothing
+  , _rPrivateIPAddress = Nothing
+  , _rInstanceInitiatedShutdownBehavior = Nothing
+  , _rBlockDeviceMappings = Nothing
+  , _rDryRun = Nothing
+  , _rPlacement = Nothing
+  , _rIPv6Addresses = Nothing
+  , _rImageId = pImageId_
+  , _rMaxCount = pMaxCount_
+  , _rMinCount = pMinCount_
+  }
+
 
 -- | Reserved.
 rAdditionalInfo :: Lens' RunInstances (Maybe Text)
@@ -271,11 +273,11 @@ rKernelId = lens _rKernelId (\ s a -> s{_rKernelId = a});
 rInstanceType :: Lens' RunInstances (Maybe InstanceType)
 rInstanceType = lens _rInstanceType (\ s a -> s{_rInstanceType = a});
 
--- | Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
+-- | Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance. Default: @false@
 rEBSOptimized :: Lens' RunInstances (Maybe Bool)
 rEBSOptimized = lens _rEBSOptimized (\ s a -> s{_rEBSOptimized = a});
 
--- | The user data to make available to the instance. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html Running Commands on Your Linux Instance at Launch> (Linux) and <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data Adding User Data> (Windows). If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
+-- | The user data to make available to the instance. For more information, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html Running Commands on Your Linux Instance at Launch> (Linux) and <http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data Adding User Data> (Windows). If you are using a command line tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide base64-encoded text.
 rUserData :: Lens' RunInstances (Maybe Text)
 rUserData = lens _rUserData (\ s a -> s{_rUserData = a});
 
@@ -307,7 +309,7 @@ rPrivateIPAddress = lens _rPrivateIPAddress (\ s a -> s{_rPrivateIPAddress = a})
 rInstanceInitiatedShutdownBehavior :: Lens' RunInstances (Maybe ShutdownBehavior)
 rInstanceInitiatedShutdownBehavior = lens _rInstanceInitiatedShutdownBehavior (\ s a -> s{_rInstanceInitiatedShutdownBehavior = a});
 
--- | The block device mapping. /Important:/ Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error. This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed using this action.
+-- | One or more block device mapping entries. You can't specify both a snapshot ID and an encryption value. This is because only blank volumes can be encrypted on creation. If a snapshot is the basis for a volume, it is not blank and its encryption status is used for the volume encryption status.
 rBlockDeviceMappings :: Lens' RunInstances [BlockDeviceMapping]
 rBlockDeviceMappings = lens _rBlockDeviceMappings (\ s a -> s{_rBlockDeviceMappings = a}) . _Default . _Coerce;
 
@@ -340,9 +342,9 @@ instance AWSRequest RunInstances where
         request = postQuery ec2
         response = receiveXML (\ s h x -> parseXML x)
 
-instance Hashable RunInstances
+instance Hashable RunInstances where
 
-instance NFData RunInstances
+instance NFData RunInstances where
 
 instance ToHeaders RunInstances where
         toHeaders = const mempty

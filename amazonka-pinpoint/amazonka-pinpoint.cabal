@@ -1,13 +1,13 @@
 name:                  amazonka-pinpoint
-version:               1.4.5
+version:               1.5.0
 synopsis:              Amazon Pinpoint SDK.
 homepage:              https://github.com/brendanhay/amazonka
 bug-reports:           https://github.com/brendanhay/amazonka/issues
-license:               OtherLicense
+license:               MPL-2.0
 license-file:          LICENSE
 author:                Brendan Hay
-maintainer:            Brendan Hay <brendan.g.hay@gmail.com>
-copyright:             Copyright (c) 2013-2016 Brendan Hay
+maintainer:            Brendan Hay <brendan.g.hay+amazonka@gmail.com>
+copyright:             Copyright (c) 2013-2017 Brendan Hay
 category:              Network, AWS, Cloud, Distributed Computing
 build-type:            Simple
 cabal-version:         >= 1.10
@@ -29,14 +29,19 @@ description:
     to get started.
 
 source-repository head
-    type:     git
-    location: git://github.com/brendanhay/amazonka.git
+    type:              git
+    location:          git://github.com/brendanhay/amazonka.git
+    subdir:            amazonka-pinpoint
 
 library
     default-language:  Haskell2010
     hs-source-dirs:    src gen
 
-    ghc-options:       -Wall
+    ghc-options:
+        -Wall
+        -fwarn-incomplete-uni-patterns
+        -fwarn-incomplete-record-updates
+        -funbox-strict-fields
 
     exposed-modules:
           Network.AWS.Pinpoint
@@ -44,20 +49,28 @@ library
         , Network.AWS.Pinpoint.CreateCampaign
         , Network.AWS.Pinpoint.CreateImportJob
         , Network.AWS.Pinpoint.CreateSegment
+        , Network.AWS.Pinpoint.DeleteADMChannel
         , Network.AWS.Pinpoint.DeleteAPNSChannel
         , Network.AWS.Pinpoint.DeleteAPNSSandboxChannel
+        , Network.AWS.Pinpoint.DeleteAPNSVoipChannel
+        , Network.AWS.Pinpoint.DeleteAPNSVoipSandboxChannel
         , Network.AWS.Pinpoint.DeleteApp
+        , Network.AWS.Pinpoint.DeleteBaiduChannel
         , Network.AWS.Pinpoint.DeleteCampaign
         , Network.AWS.Pinpoint.DeleteEmailChannel
         , Network.AWS.Pinpoint.DeleteEventStream
         , Network.AWS.Pinpoint.DeleteGCMChannel
         , Network.AWS.Pinpoint.DeleteSegment
         , Network.AWS.Pinpoint.DeleteSmsChannel
+        , Network.AWS.Pinpoint.GetADMChannel
         , Network.AWS.Pinpoint.GetAPNSChannel
         , Network.AWS.Pinpoint.GetAPNSSandboxChannel
+        , Network.AWS.Pinpoint.GetAPNSVoipChannel
+        , Network.AWS.Pinpoint.GetAPNSVoipSandboxChannel
         , Network.AWS.Pinpoint.GetApp
         , Network.AWS.Pinpoint.GetApplicationSettings
         , Network.AWS.Pinpoint.GetApps
+        , Network.AWS.Pinpoint.GetBaiduChannel
         , Network.AWS.Pinpoint.GetCampaign
         , Network.AWS.Pinpoint.GetCampaignActivities
         , Network.AWS.Pinpoint.GetCampaignVersion
@@ -77,10 +90,15 @@ library
         , Network.AWS.Pinpoint.GetSmsChannel
         , Network.AWS.Pinpoint.PutEventStream
         , Network.AWS.Pinpoint.SendMessages
+        , Network.AWS.Pinpoint.SendUsersMessages
         , Network.AWS.Pinpoint.Types
+        , Network.AWS.Pinpoint.UpdateADMChannel
         , Network.AWS.Pinpoint.UpdateAPNSChannel
         , Network.AWS.Pinpoint.UpdateAPNSSandboxChannel
+        , Network.AWS.Pinpoint.UpdateAPNSVoipChannel
+        , Network.AWS.Pinpoint.UpdateAPNSVoipSandboxChannel
         , Network.AWS.Pinpoint.UpdateApplicationSettings
+        , Network.AWS.Pinpoint.UpdateBaiduChannel
         , Network.AWS.Pinpoint.UpdateCampaign
         , Network.AWS.Pinpoint.UpdateEmailChannel
         , Network.AWS.Pinpoint.UpdateEndpoint
@@ -95,7 +113,7 @@ library
         , Network.AWS.Pinpoint.Types.Sum
 
     build-depends:
-          amazonka-core == 1.4.5.*
+          amazonka-core == 1.5.0.*
         , base          >= 4.7     && < 5
 
 test-suite amazonka-pinpoint-test
@@ -115,9 +133,9 @@ test-suite amazonka-pinpoint-test
         , Test.AWS.Pinpoint.Internal
 
     build-depends:
-          amazonka-core == 1.4.5.*
-        , amazonka-test == 1.4.5.*
-        , amazonka-pinpoint == 1.4.5.*
+          amazonka-core == 1.5.0.*
+        , amazonka-test == 1.5.0.*
+        , amazonka-pinpoint
         , base
         , bytestring
         , tasty

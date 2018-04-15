@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodePipeline.ListActionTypes
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -39,22 +39,23 @@ module Network.AWS.CodePipeline.ListActionTypes
     , latrsActionTypes
     ) where
 
-import           Network.AWS.CodePipeline.Types
-import           Network.AWS.CodePipeline.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodePipeline.Types
+import Network.AWS.CodePipeline.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
--- | Represents the input of a list action types action.
+-- | Represents the input of a ListActionTypes action.
 --
 --
 --
 -- /See:/ 'listActionTypes' smart constructor.
 data ListActionTypes = ListActionTypes'
-    { _latActionOwnerFilter :: !(Maybe ActionOwner)
-    , _latNextToken         :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _latActionOwnerFilter :: !(Maybe ActionOwner)
+  , _latNextToken         :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListActionTypes' with the minimum fields required to make a request.
 --
@@ -66,10 +67,8 @@ data ListActionTypes = ListActionTypes'
 listActionTypes
     :: ListActionTypes
 listActionTypes =
-    ListActionTypes'
-    { _latActionOwnerFilter = Nothing
-    , _latNextToken = Nothing
-    }
+  ListActionTypes' {_latActionOwnerFilter = Nothing, _latNextToken = Nothing}
+
 
 -- | Filters the list of action types to those created by a specified entity.
 latActionOwnerFilter :: Lens' ListActionTypes (Maybe ActionOwner)
@@ -89,9 +88,9 @@ instance AWSRequest ListActionTypes where
                    (x .?> "nextToken") <*> (pure (fromEnum s)) <*>
                      (x .?> "actionTypes" .!@ mempty))
 
-instance Hashable ListActionTypes
+instance Hashable ListActionTypes where
 
-instance NFData ListActionTypes
+instance NFData ListActionTypes where
 
 instance ToHeaders ListActionTypes where
         toHeaders
@@ -116,16 +115,17 @@ instance ToPath ListActionTypes where
 instance ToQuery ListActionTypes where
         toQuery = const mempty
 
--- | Represents the output of a list action types action.
+-- | Represents the output of a ListActionTypes action.
 --
 --
 --
 -- /See:/ 'listActionTypesResponse' smart constructor.
 data ListActionTypesResponse = ListActionTypesResponse'
-    { _latrsNextToken      :: !(Maybe Text)
-    , _latrsResponseStatus :: !Int
-    , _latrsActionTypes    :: ![ActionType]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _latrsNextToken      :: !(Maybe Text)
+  , _latrsResponseStatus :: !Int
+  , _latrsActionTypes    :: ![ActionType]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'ListActionTypesResponse' with the minimum fields required to make a request.
 --
@@ -140,11 +140,12 @@ listActionTypesResponse
     :: Int -- ^ 'latrsResponseStatus'
     -> ListActionTypesResponse
 listActionTypesResponse pResponseStatus_ =
-    ListActionTypesResponse'
-    { _latrsNextToken = Nothing
-    , _latrsResponseStatus = pResponseStatus_
-    , _latrsActionTypes = mempty
-    }
+  ListActionTypesResponse'
+  { _latrsNextToken = Nothing
+  , _latrsResponseStatus = pResponseStatus_
+  , _latrsActionTypes = mempty
+  }
+
 
 -- | If the amount of returned information is significantly large, an identifier is also returned which can be used in a subsequent list action types call to return the next set of action types in the list.
 latrsNextToken :: Lens' ListActionTypesResponse (Maybe Text)
@@ -158,4 +159,4 @@ latrsResponseStatus = lens _latrsResponseStatus (\ s a -> s{_latrsResponseStatus
 latrsActionTypes :: Lens' ListActionTypesResponse [ActionType]
 latrsActionTypes = lens _latrsActionTypes (\ s a -> s{_latrsActionTypes = a}) . _Coerce;
 
-instance NFData ListActionTypesResponse
+instance NFData ListActionTypesResponse where

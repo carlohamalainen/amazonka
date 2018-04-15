@@ -12,13 +12,13 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.DeleteFleet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a fleet.
+-- Deletes the specified fleet.
 --
 --
 module Network.AWS.AppStream.DeleteFleet
@@ -36,32 +36,31 @@ module Network.AWS.AppStream.DeleteFleet
     , dfrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'deleteFleet' smart constructor.
 newtype DeleteFleet = DeleteFleet'
-    { _dfName :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dfName :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteFleet' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dfName' - The name of the fleet to be deleted.
+-- * 'dfName' - The name of the fleet.
 deleteFleet
     :: Text -- ^ 'dfName'
     -> DeleteFleet
-deleteFleet pName_ =
-    DeleteFleet'
-    { _dfName = pName_
-    }
+deleteFleet pName_ = DeleteFleet' {_dfName = pName_}
 
--- | The name of the fleet to be deleted.
+
+-- | The name of the fleet.
 dfName :: Lens' DeleteFleet Text
 dfName = lens _dfName (\ s a -> s{_dfName = a});
 
@@ -73,9 +72,9 @@ instance AWSRequest DeleteFleet where
               (\ s h x ->
                  DeleteFleetResponse' <$> (pure (fromEnum s)))
 
-instance Hashable DeleteFleet
+instance Hashable DeleteFleet where
 
-instance NFData DeleteFleet
+instance NFData DeleteFleet where
 
 instance ToHeaders DeleteFleet where
         toHeaders
@@ -99,8 +98,9 @@ instance ToQuery DeleteFleet where
 
 -- | /See:/ 'deleteFleetResponse' smart constructor.
 newtype DeleteFleetResponse = DeleteFleetResponse'
-    { _dfrsResponseStatus :: Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dfrsResponseStatus :: Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteFleetResponse' with the minimum fields required to make a request.
 --
@@ -111,12 +111,11 @@ deleteFleetResponse
     :: Int -- ^ 'dfrsResponseStatus'
     -> DeleteFleetResponse
 deleteFleetResponse pResponseStatus_ =
-    DeleteFleetResponse'
-    { _dfrsResponseStatus = pResponseStatus_
-    }
+  DeleteFleetResponse' {_dfrsResponseStatus = pResponseStatus_}
+
 
 -- | -- | The response status code.
 dfrsResponseStatus :: Lens' DeleteFleetResponse Int
 dfrsResponseStatus = lens _dfrsResponseStatus (\ s a -> s{_dfrsResponseStatus = a});
 
-instance NFData DeleteFleetResponse
+instance NFData DeleteFleetResponse where

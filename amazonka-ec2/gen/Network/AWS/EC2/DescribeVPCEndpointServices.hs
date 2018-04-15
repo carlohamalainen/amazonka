@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.DescribeVPCEndpointServices
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -27,6 +27,8 @@ module Network.AWS.EC2.DescribeVPCEndpointServices
       describeVPCEndpointServices
     , DescribeVPCEndpointServices
     -- * Request Lenses
+    , dvesFilters
+    , dvesServiceNames
     , dvesNextToken
     , dvesDryRun
     , dvesMaxResults
@@ -35,17 +37,18 @@ module Network.AWS.EC2.DescribeVPCEndpointServices
     , describeVPCEndpointServicesResponse
     , DescribeVPCEndpointServicesResponse
     -- * Response Lenses
+    , dvesrsServiceDetails
     , dvesrsServiceNames
     , dvesrsNextToken
     , dvesrsResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for DescribeVpcEndpointServices.
 --
@@ -53,14 +56,21 @@ import           Network.AWS.Response
 --
 -- /See:/ 'describeVPCEndpointServices' smart constructor.
 data DescribeVPCEndpointServices = DescribeVPCEndpointServices'
-    { _dvesNextToken  :: !(Maybe Text)
-    , _dvesDryRun     :: !(Maybe Bool)
-    , _dvesMaxResults :: !(Maybe Int)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dvesFilters      :: !(Maybe [Filter])
+  , _dvesServiceNames :: !(Maybe [Text])
+  , _dvesNextToken    :: !(Maybe Text)
+  , _dvesDryRun       :: !(Maybe Bool)
+  , _dvesMaxResults   :: !(Maybe Int)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeVPCEndpointServices' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'dvesFilters' - One or more filters.     * @service-name@ : The name of the service.
+--
+-- * 'dvesServiceNames' - One or more service names.
 --
 -- * 'dvesNextToken' - The token for the next set of items to return. (You received this token from a prior call.)
 --
@@ -70,11 +80,22 @@ data DescribeVPCEndpointServices = DescribeVPCEndpointServices'
 describeVPCEndpointServices
     :: DescribeVPCEndpointServices
 describeVPCEndpointServices =
-    DescribeVPCEndpointServices'
-    { _dvesNextToken = Nothing
-    , _dvesDryRun = Nothing
-    , _dvesMaxResults = Nothing
-    }
+  DescribeVPCEndpointServices'
+  { _dvesFilters = Nothing
+  , _dvesServiceNames = Nothing
+  , _dvesNextToken = Nothing
+  , _dvesDryRun = Nothing
+  , _dvesMaxResults = Nothing
+  }
+
+
+-- | One or more filters.     * @service-name@ : The name of the service.
+dvesFilters :: Lens' DescribeVPCEndpointServices [Filter]
+dvesFilters = lens _dvesFilters (\ s a -> s{_dvesFilters = a}) . _Default . _Coerce;
+
+-- | One or more service names.
+dvesServiceNames :: Lens' DescribeVPCEndpointServices [Text]
+dvesServiceNames = lens _dvesServiceNames (\ s a -> s{_dvesServiceNames = a}) . _Default . _Coerce;
 
 -- | The token for the next set of items to return. (You received this token from a prior call.)
 dvesNextToken :: Lens' DescribeVPCEndpointServices (Maybe Text)
@@ -96,14 +117,17 @@ instance AWSRequest DescribeVPCEndpointServices where
           = receiveXML
               (\ s h x ->
                  DescribeVPCEndpointServicesResponse' <$>
-                   (x .@? "serviceNameSet" .!@ mempty >>=
+                   (x .@? "serviceDetailSet" .!@ mempty >>=
                       may (parseXMLList "item"))
+                     <*>
+                     (x .@? "serviceNameSet" .!@ mempty >>=
+                        may (parseXMLList "item"))
                      <*> (x .@? "nextToken")
                      <*> (pure (fromEnum s)))
 
-instance Hashable DescribeVPCEndpointServices
+instance Hashable DescribeVPCEndpointServices where
 
-instance NFData DescribeVPCEndpointServices
+instance NFData DescribeVPCEndpointServices where
 
 instance ToHeaders DescribeVPCEndpointServices where
         toHeaders = const mempty
@@ -117,6 +141,9 @@ instance ToQuery DescribeVPCEndpointServices where
               ["Action" =:
                  ("DescribeVpcEndpointServices" :: ByteString),
                "Version" =: ("2016-11-15" :: ByteString),
+               toQuery (toQueryList "Filter" <$> _dvesFilters),
+               toQuery
+                 (toQueryList "ServiceName" <$> _dvesServiceNames),
                "NextToken" =: _dvesNextToken,
                "DryRun" =: _dvesDryRun,
                "MaxResults" =: _dvesMaxResults]
@@ -127,14 +154,18 @@ instance ToQuery DescribeVPCEndpointServices where
 --
 -- /See:/ 'describeVPCEndpointServicesResponse' smart constructor.
 data DescribeVPCEndpointServicesResponse = DescribeVPCEndpointServicesResponse'
-    { _dvesrsServiceNames   :: !(Maybe [Text])
-    , _dvesrsNextToken      :: !(Maybe Text)
-    , _dvesrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dvesrsServiceDetails :: !(Maybe [ServiceDetail])
+  , _dvesrsServiceNames   :: !(Maybe [Text])
+  , _dvesrsNextToken      :: !(Maybe Text)
+  , _dvesrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DescribeVPCEndpointServicesResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
+--
+-- * 'dvesrsServiceDetails' - Information about the service.
 --
 -- * 'dvesrsServiceNames' - A list of supported AWS services.
 --
@@ -145,11 +176,17 @@ describeVPCEndpointServicesResponse
     :: Int -- ^ 'dvesrsResponseStatus'
     -> DescribeVPCEndpointServicesResponse
 describeVPCEndpointServicesResponse pResponseStatus_ =
-    DescribeVPCEndpointServicesResponse'
-    { _dvesrsServiceNames = Nothing
-    , _dvesrsNextToken = Nothing
-    , _dvesrsResponseStatus = pResponseStatus_
-    }
+  DescribeVPCEndpointServicesResponse'
+  { _dvesrsServiceDetails = Nothing
+  , _dvesrsServiceNames = Nothing
+  , _dvesrsNextToken = Nothing
+  , _dvesrsResponseStatus = pResponseStatus_
+  }
+
+
+-- | Information about the service.
+dvesrsServiceDetails :: Lens' DescribeVPCEndpointServicesResponse [ServiceDetail]
+dvesrsServiceDetails = lens _dvesrsServiceDetails (\ s a -> s{_dvesrsServiceDetails = a}) . _Default . _Coerce;
 
 -- | A list of supported AWS services.
 dvesrsServiceNames :: Lens' DescribeVPCEndpointServicesResponse [Text]
@@ -164,3 +201,4 @@ dvesrsResponseStatus :: Lens' DescribeVPCEndpointServicesResponse Int
 dvesrsResponseStatus = lens _dvesrsResponseStatus (\ s a -> s{_dvesrsResponseStatus = a});
 
 instance NFData DescribeVPCEndpointServicesResponse
+         where

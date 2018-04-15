@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.EC2.GetConsoleOutput
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -23,7 +23,7 @@
 --
 -- Instances do not have a physical monitor through which you can view their console output. They also lack physical controls that allow you to power up, reboot, or shut them down. To allow these actions, we provide them through the Amazon EC2 API and command line interface.
 --
--- Instance console output is buffered and posted shortly after instance boot, reboot, and termination. Amazon EC2 preserves the most recent 64 KB output which is available for at least one hour after the most recent post.
+-- Instance console output is buffered and posted shortly after instance boot, reboot, and termination. Amazon EC2 preserves the most recent 64 KB output, which is available for at least one hour after the most recent post.
 --
 -- For Linux instances, the instance console output displays the exact console output that would normally be displayed on a physical monitor attached to a computer. This output is buffered because the instance produces it and then posts it to a store where the instance's owner can retrieve it.
 --
@@ -48,12 +48,12 @@ module Network.AWS.EC2.GetConsoleOutput
     , gcorsResponseStatus
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for GetConsoleOutput.
 --
@@ -61,9 +61,10 @@ import           Network.AWS.Response
 --
 -- /See:/ 'getConsoleOutput' smart constructor.
 data GetConsoleOutput = GetConsoleOutput'
-    { _gcoDryRun     :: !(Maybe Bool)
-    , _gcoInstanceId :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcoDryRun     :: !(Maybe Bool)
+  , _gcoInstanceId :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetConsoleOutput' with the minimum fields required to make a request.
 --
@@ -76,10 +77,8 @@ getConsoleOutput
     :: Text -- ^ 'gcoInstanceId'
     -> GetConsoleOutput
 getConsoleOutput pInstanceId_ =
-    GetConsoleOutput'
-    { _gcoDryRun = Nothing
-    , _gcoInstanceId = pInstanceId_
-    }
+  GetConsoleOutput' {_gcoDryRun = Nothing, _gcoInstanceId = pInstanceId_}
+
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 gcoDryRun :: Lens' GetConsoleOutput (Maybe Bool)
@@ -100,9 +99,9 @@ instance AWSRequest GetConsoleOutput where
                      (x .@? "timestamp")
                      <*> (pure (fromEnum s)))
 
-instance Hashable GetConsoleOutput
+instance Hashable GetConsoleOutput where
 
-instance NFData GetConsoleOutput
+instance NFData GetConsoleOutput where
 
 instance ToHeaders GetConsoleOutput where
         toHeaders = const mempty
@@ -124,11 +123,12 @@ instance ToQuery GetConsoleOutput where
 --
 -- /See:/ 'getConsoleOutputResponse' smart constructor.
 data GetConsoleOutputResponse = GetConsoleOutputResponse'
-    { _gcorsInstanceId     :: !(Maybe Text)
-    , _gcorsOutput         :: !(Maybe Text)
-    , _gcorsTimestamp      :: !(Maybe ISO8601)
-    , _gcorsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _gcorsInstanceId     :: !(Maybe Text)
+  , _gcorsOutput         :: !(Maybe Text)
+  , _gcorsTimestamp      :: !(Maybe ISO8601)
+  , _gcorsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'GetConsoleOutputResponse' with the minimum fields required to make a request.
 --
@@ -145,12 +145,13 @@ getConsoleOutputResponse
     :: Int -- ^ 'gcorsResponseStatus'
     -> GetConsoleOutputResponse
 getConsoleOutputResponse pResponseStatus_ =
-    GetConsoleOutputResponse'
-    { _gcorsInstanceId = Nothing
-    , _gcorsOutput = Nothing
-    , _gcorsTimestamp = Nothing
-    , _gcorsResponseStatus = pResponseStatus_
-    }
+  GetConsoleOutputResponse'
+  { _gcorsInstanceId = Nothing
+  , _gcorsOutput = Nothing
+  , _gcorsTimestamp = Nothing
+  , _gcorsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The ID of the instance.
 gcorsInstanceId :: Lens' GetConsoleOutputResponse (Maybe Text)
@@ -168,4 +169,4 @@ gcorsTimestamp = lens _gcorsTimestamp (\ s a -> s{_gcorsTimestamp = a}) . mappin
 gcorsResponseStatus :: Lens' GetConsoleOutputResponse Int
 gcorsResponseStatus = lens _gcorsResponseStatus (\ s a -> s{_gcorsResponseStatus = a});
 
-instance NFData GetConsoleOutputResponse
+instance NFData GetConsoleOutputResponse where

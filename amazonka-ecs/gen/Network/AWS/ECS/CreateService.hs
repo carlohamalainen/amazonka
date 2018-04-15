@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.ECS.CreateService
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -68,26 +68,27 @@ module Network.AWS.ECS.CreateService
     , csrsResponseStatus
     ) where
 
-import           Network.AWS.ECS.Types
-import           Network.AWS.ECS.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.ECS.Types
+import Network.AWS.ECS.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'createService' smart constructor.
 data CreateService = CreateService'
-    { _cCluster                 :: !(Maybe Text)
-    , _cClientToken             :: !(Maybe Text)
-    , _cLoadBalancers           :: !(Maybe [LoadBalancer])
-    , _cRole                    :: !(Maybe Text)
-    , _cPlacementConstraints    :: !(Maybe [PlacementConstraint])
-    , _cPlacementStrategy       :: !(Maybe [PlacementStrategy])
-    , _cDeploymentConfiguration :: !(Maybe DeploymentConfiguration)
-    , _cServiceName             :: !Text
-    , _cTaskDefinition          :: !Text
-    , _cDesiredCount            :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _cCluster                 :: !(Maybe Text)
+  , _cClientToken             :: !(Maybe Text)
+  , _cLoadBalancers           :: !(Maybe [LoadBalancer])
+  , _cRole                    :: !(Maybe Text)
+  , _cPlacementConstraints    :: !(Maybe [PlacementConstraint])
+  , _cPlacementStrategy       :: !(Maybe [PlacementStrategy])
+  , _cDeploymentConfiguration :: !(Maybe DeploymentConfiguration)
+  , _cServiceName             :: !Text
+  , _cTaskDefinition          :: !Text
+  , _cDesiredCount            :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateService' with the minimum fields required to make a request.
 --
@@ -97,7 +98,7 @@ data CreateService = CreateService'
 --
 -- * 'cClientToken' - Unique, case-sensitive identifier you provide to ensure the idempotency of the request. Up to 32 ASCII characters are allowed.
 --
--- * 'cLoadBalancers' - A load balancer object representing the load balancer to use with your service. Currently, you are limited to one load balancer or target group per service. After you create a service, the load balancer name or target group ARN, container name, and container port specified in the service definition are immutable. For Elastic Load Balancing Classic load balancers, this object must contain the load balancer name, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance is registered with the load balancer specified here. For Elastic Load Balancing Application load balancers, this object must contain the load balancer target group ARN, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance and port combination is registered as a target in the target group specified here.
+-- * 'cLoadBalancers' - A load balancer object representing the load balancer to use with your service. Currently, you are limited to one load balancer or target group per service. After you create a service, the load balancer name or target group ARN, container name, and container port specified in the service definition are immutable. For Classic Load Balancers, this object must contain the load balancer name, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance is registered with the load balancer specified here. For Application Load Balancers and Network Load Balancers, this object must contain the load balancer target group ARN, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance and port combination is registered as a target in the target group specified here.
 --
 -- * 'cRole' - The name or full Amazon Resource Name (ARN) of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. This parameter is required if you are using a load balancer with your service. If you specify the @role@ parameter, you must also specify a load balancer object with the @loadBalancers@ parameter. If your specified role has a path other than @/@ , then you must either specify the full role ARN (this is recommended) or prefix the role name with the path. For example, if a role with the name @bar@ has a path of @/foo/@ then you would specify @/foo/bar@ as the role name. For more information, see <http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names Friendly Names and Paths> in the /IAM User Guide/ .
 --
@@ -118,18 +119,19 @@ createService
     -> Int -- ^ 'cDesiredCount'
     -> CreateService
 createService pServiceName_ pTaskDefinition_ pDesiredCount_ =
-    CreateService'
-    { _cCluster = Nothing
-    , _cClientToken = Nothing
-    , _cLoadBalancers = Nothing
-    , _cRole = Nothing
-    , _cPlacementConstraints = Nothing
-    , _cPlacementStrategy = Nothing
-    , _cDeploymentConfiguration = Nothing
-    , _cServiceName = pServiceName_
-    , _cTaskDefinition = pTaskDefinition_
-    , _cDesiredCount = pDesiredCount_
-    }
+  CreateService'
+  { _cCluster = Nothing
+  , _cClientToken = Nothing
+  , _cLoadBalancers = Nothing
+  , _cRole = Nothing
+  , _cPlacementConstraints = Nothing
+  , _cPlacementStrategy = Nothing
+  , _cDeploymentConfiguration = Nothing
+  , _cServiceName = pServiceName_
+  , _cTaskDefinition = pTaskDefinition_
+  , _cDesiredCount = pDesiredCount_
+  }
+
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster on which to run your service. If you do not specify a cluster, the default cluster is assumed.
 cCluster :: Lens' CreateService (Maybe Text)
@@ -139,7 +141,7 @@ cCluster = lens _cCluster (\ s a -> s{_cCluster = a});
 cClientToken :: Lens' CreateService (Maybe Text)
 cClientToken = lens _cClientToken (\ s a -> s{_cClientToken = a});
 
--- | A load balancer object representing the load balancer to use with your service. Currently, you are limited to one load balancer or target group per service. After you create a service, the load balancer name or target group ARN, container name, and container port specified in the service definition are immutable. For Elastic Load Balancing Classic load balancers, this object must contain the load balancer name, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance is registered with the load balancer specified here. For Elastic Load Balancing Application load balancers, this object must contain the load balancer target group ARN, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance and port combination is registered as a target in the target group specified here.
+-- | A load balancer object representing the load balancer to use with your service. Currently, you are limited to one load balancer or target group per service. After you create a service, the load balancer name or target group ARN, container name, and container port specified in the service definition are immutable. For Classic Load Balancers, this object must contain the load balancer name, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance is registered with the load balancer specified here. For Application Load Balancers and Network Load Balancers, this object must contain the load balancer target group ARN, the container name (as it appears in a container definition), and the container port to access from the load balancer. When a task from this service is placed on a container instance, the container instance and port combination is registered as a target in the target group specified here.
 cLoadBalancers :: Lens' CreateService [LoadBalancer]
 cLoadBalancers = lens _cLoadBalancers (\ s a -> s{_cLoadBalancers = a}) . _Default . _Coerce;
 
@@ -180,9 +182,9 @@ instance AWSRequest CreateService where
                  CreateServiceResponse' <$>
                    (x .?> "service") <*> (pure (fromEnum s)))
 
-instance Hashable CreateService
+instance Hashable CreateService where
 
-instance NFData CreateService
+instance NFData CreateService where
 
 instance ToHeaders CreateService where
         toHeaders
@@ -219,9 +221,10 @@ instance ToQuery CreateService where
 
 -- | /See:/ 'createServiceResponse' smart constructor.
 data CreateServiceResponse = CreateServiceResponse'
-    { _csrsService        :: !(Maybe ContainerService)
-    , _csrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _csrsService        :: !(Maybe ContainerService)
+  , _csrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'CreateServiceResponse' with the minimum fields required to make a request.
 --
@@ -234,10 +237,9 @@ createServiceResponse
     :: Int -- ^ 'csrsResponseStatus'
     -> CreateServiceResponse
 createServiceResponse pResponseStatus_ =
-    CreateServiceResponse'
-    { _csrsService = Nothing
-    , _csrsResponseStatus = pResponseStatus_
-    }
+  CreateServiceResponse'
+  {_csrsService = Nothing, _csrsResponseStatus = pResponseStatus_}
+
 
 -- | The full description of your service following the create call.
 csrsService :: Lens' CreateServiceResponse (Maybe ContainerService)
@@ -247,4 +249,4 @@ csrsService = lens _csrsService (\ s a -> s{_csrsService = a});
 csrsResponseStatus :: Lens' CreateServiceResponse Int
 csrsResponseStatus = lens _csrsResponseStatus (\ s a -> s{_csrsResponseStatus = a});
 
-instance NFData CreateServiceResponse
+instance NFData CreateServiceResponse where

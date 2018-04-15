@@ -12,14 +12,18 @@
 
 -- |
 -- Module      : Network.AWS.RDS.RestoreDBClusterFromSnapshot
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new DB cluster from a DB cluster snapshot. The target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.
+-- Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
 --
+--
+-- If a DB snapshot is specified, the target DB cluster is created from the source DB snapshot with a default configuration and default security group.
+--
+-- If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.
 --
 -- For more information on Amazon Aurora, see <http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Aurora.html Aurora on Amazon RDS> in the /Amazon RDS User Guide./
 --
@@ -51,12 +55,12 @@ module Network.AWS.RDS.RestoreDBClusterFromSnapshot
     , rdbcfsrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -64,20 +68,21 @@ import           Network.AWS.Response
 --
 -- /See:/ 'restoreDBClusterFromSnapshot' smart constructor.
 data RestoreDBClusterFromSnapshot = RestoreDBClusterFromSnapshot'
-    { _rdbcfsEngineVersion                   :: !(Maybe Text)
-    , _rdbcfsDBSubnetGroupName               :: !(Maybe Text)
-    , _rdbcfsAvailabilityZones               :: !(Maybe [Text])
-    , _rdbcfsKMSKeyId                        :: !(Maybe Text)
-    , _rdbcfsVPCSecurityGroupIds             :: !(Maybe [Text])
-    , _rdbcfsDatabaseName                    :: !(Maybe Text)
-    , _rdbcfsOptionGroupName                 :: !(Maybe Text)
-    , _rdbcfsTags                            :: !(Maybe [Tag])
-    , _rdbcfsPort                            :: !(Maybe Int)
-    , _rdbcfsEnableIAMDatabaseAuthentication :: !(Maybe Bool)
-    , _rdbcfsDBClusterIdentifier             :: !Text
-    , _rdbcfsSnapshotIdentifier              :: !Text
-    , _rdbcfsEngine                          :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdbcfsEngineVersion                   :: !(Maybe Text)
+  , _rdbcfsDBSubnetGroupName               :: !(Maybe Text)
+  , _rdbcfsAvailabilityZones               :: !(Maybe [Text])
+  , _rdbcfsKMSKeyId                        :: !(Maybe Text)
+  , _rdbcfsVPCSecurityGroupIds             :: !(Maybe [Text])
+  , _rdbcfsDatabaseName                    :: !(Maybe Text)
+  , _rdbcfsOptionGroupName                 :: !(Maybe Text)
+  , _rdbcfsTags                            :: !(Maybe [Tag])
+  , _rdbcfsPort                            :: !(Maybe Int)
+  , _rdbcfsEnableIAMDatabaseAuthentication :: !(Maybe Bool)
+  , _rdbcfsDBClusterIdentifier             :: !Text
+  , _rdbcfsSnapshotIdentifier              :: !Text
+  , _rdbcfsEngine                          :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterFromSnapshot' with the minimum fields required to make a request.
 --
@@ -85,11 +90,11 @@ data RestoreDBClusterFromSnapshot = RestoreDBClusterFromSnapshot'
 --
 -- * 'rdbcfsEngineVersion' - The version of the database engine to use for the new DB cluster.
 --
--- * 'rdbcfsDBSubnetGroupName' - The name of the DB subnet group to use for the new DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- * 'rdbcfsDBSubnetGroupName' - The name of the DB subnet group to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup. Example: @mySubnetgroup@
 --
 -- * 'rdbcfsAvailabilityZones' - Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
 --
--- * 'rdbcfsKMSKeyId' - The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the DB cluster snapshot.     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified encryption key.
+-- * 'rdbcfsKMSKeyId' - The KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster snapshot. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is not encrypted, then the restored DB cluster is not encrypted.
 --
 -- * 'rdbcfsVPCSecurityGroupIds' - A list of VPC security groups that the new DB cluster will belong to.
 --
@@ -103,9 +108,9 @@ data RestoreDBClusterFromSnapshot = RestoreDBClusterFromSnapshot'
 --
 -- * 'rdbcfsEnableIAMDatabaseAuthentication' - A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise false. Default: @false@
 --
--- * 'rdbcfsDBClusterIdentifier' - The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
+-- * 'rdbcfsDBClusterIdentifier' - The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
 --
--- * 'rdbcfsSnapshotIdentifier' - The identifier for the DB cluster snapshot to restore from. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'rdbcfsSnapshotIdentifier' - The identifier for the DB snapshot or DB cluster snapshot to restore from. You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can use only the ARN to specify a DB snapshot. Constraints:     * Must match the identifier of an existing Snapshot.
 --
 -- * 'rdbcfsEngine' - The database engine to use for the new DB cluster. Default: The same as source Constraint: Must be compatible with the engine of the source
 restoreDBClusterFromSnapshot
@@ -114,27 +119,28 @@ restoreDBClusterFromSnapshot
     -> Text -- ^ 'rdbcfsEngine'
     -> RestoreDBClusterFromSnapshot
 restoreDBClusterFromSnapshot pDBClusterIdentifier_ pSnapshotIdentifier_ pEngine_ =
-    RestoreDBClusterFromSnapshot'
-    { _rdbcfsEngineVersion = Nothing
-    , _rdbcfsDBSubnetGroupName = Nothing
-    , _rdbcfsAvailabilityZones = Nothing
-    , _rdbcfsKMSKeyId = Nothing
-    , _rdbcfsVPCSecurityGroupIds = Nothing
-    , _rdbcfsDatabaseName = Nothing
-    , _rdbcfsOptionGroupName = Nothing
-    , _rdbcfsTags = Nothing
-    , _rdbcfsPort = Nothing
-    , _rdbcfsEnableIAMDatabaseAuthentication = Nothing
-    , _rdbcfsDBClusterIdentifier = pDBClusterIdentifier_
-    , _rdbcfsSnapshotIdentifier = pSnapshotIdentifier_
-    , _rdbcfsEngine = pEngine_
-    }
+  RestoreDBClusterFromSnapshot'
+  { _rdbcfsEngineVersion = Nothing
+  , _rdbcfsDBSubnetGroupName = Nothing
+  , _rdbcfsAvailabilityZones = Nothing
+  , _rdbcfsKMSKeyId = Nothing
+  , _rdbcfsVPCSecurityGroupIds = Nothing
+  , _rdbcfsDatabaseName = Nothing
+  , _rdbcfsOptionGroupName = Nothing
+  , _rdbcfsTags = Nothing
+  , _rdbcfsPort = Nothing
+  , _rdbcfsEnableIAMDatabaseAuthentication = Nothing
+  , _rdbcfsDBClusterIdentifier = pDBClusterIdentifier_
+  , _rdbcfsSnapshotIdentifier = pSnapshotIdentifier_
+  , _rdbcfsEngine = pEngine_
+  }
+
 
 -- | The version of the database engine to use for the new DB cluster.
 rdbcfsEngineVersion :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
 rdbcfsEngineVersion = lens _rdbcfsEngineVersion (\ s a -> s{_rdbcfsEngineVersion = a});
 
--- | The name of the DB subnet group to use for the new DB cluster. Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens. Must not be default. Example: @mySubnetgroup@
+-- | The name of the DB subnet group to use for the new DB cluster. Constraints: If supplied, must match the name of an existing DBSubnetGroup. Example: @mySubnetgroup@
 rdbcfsDBSubnetGroupName :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
 rdbcfsDBSubnetGroupName = lens _rdbcfsDBSubnetGroupName (\ s a -> s{_rdbcfsDBSubnetGroupName = a});
 
@@ -142,7 +148,7 @@ rdbcfsDBSubnetGroupName = lens _rdbcfsDBSubnetGroupName (\ s a -> s{_rdbcfsDBSub
 rdbcfsAvailabilityZones :: Lens' RestoreDBClusterFromSnapshot [Text]
 rdbcfsAvailabilityZones = lens _rdbcfsAvailabilityZones (\ s a -> s{_rdbcfsAvailabilityZones = a}) . _Default . _Coerce;
 
--- | The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the DB cluster snapshot.     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified encryption key.
+-- | The KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster snapshot. The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key. If you do not specify a value for the @KmsKeyId@ parameter, then the following will occur:     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is encrypted, then the restored DB cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.     * If the DB snapshot or DB cluster snapshot in @SnapshotIdentifier@ is not encrypted, then the restored DB cluster is not encrypted.
 rdbcfsKMSKeyId :: Lens' RestoreDBClusterFromSnapshot (Maybe Text)
 rdbcfsKMSKeyId = lens _rdbcfsKMSKeyId (\ s a -> s{_rdbcfsKMSKeyId = a});
 
@@ -170,11 +176,11 @@ rdbcfsPort = lens _rdbcfsPort (\ s a -> s{_rdbcfsPort = a});
 rdbcfsEnableIAMDatabaseAuthentication :: Lens' RestoreDBClusterFromSnapshot (Maybe Bool)
 rdbcfsEnableIAMDatabaseAuthentication = lens _rdbcfsEnableIAMDatabaseAuthentication (\ s a -> s{_rdbcfsEnableIAMDatabaseAuthentication = a});
 
--- | The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 255 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
+-- | The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't case-sensitive. Constraints:     * Must contain from 1 to 255 letters, numbers, or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens Example: @my-snapshot-id@
 rdbcfsDBClusterIdentifier :: Lens' RestoreDBClusterFromSnapshot Text
 rdbcfsDBClusterIdentifier = lens _rdbcfsDBClusterIdentifier (\ s a -> s{_rdbcfsDBClusterIdentifier = a});
 
--- | The identifier for the DB cluster snapshot to restore from. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- | The identifier for the DB snapshot or DB cluster snapshot to restore from. You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can use only the ARN to specify a DB snapshot. Constraints:     * Must match the identifier of an existing Snapshot.
 rdbcfsSnapshotIdentifier :: Lens' RestoreDBClusterFromSnapshot Text
 rdbcfsSnapshotIdentifier = lens _rdbcfsSnapshotIdentifier (\ s a -> s{_rdbcfsSnapshotIdentifier = a});
 
@@ -194,9 +200,9 @@ instance AWSRequest RestoreDBClusterFromSnapshot
                  RestoreDBClusterFromSnapshotResponse' <$>
                    (x .@? "DBCluster") <*> (pure (fromEnum s)))
 
-instance Hashable RestoreDBClusterFromSnapshot
+instance Hashable RestoreDBClusterFromSnapshot where
 
-instance NFData RestoreDBClusterFromSnapshot
+instance NFData RestoreDBClusterFromSnapshot where
 
 instance ToHeaders RestoreDBClusterFromSnapshot where
         toHeaders = const mempty
@@ -234,9 +240,10 @@ instance ToQuery RestoreDBClusterFromSnapshot where
 
 -- | /See:/ 'restoreDBClusterFromSnapshotResponse' smart constructor.
 data RestoreDBClusterFromSnapshotResponse = RestoreDBClusterFromSnapshotResponse'
-    { _rdbcfsrsDBCluster      :: !(Maybe DBCluster)
-    , _rdbcfsrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _rdbcfsrsDBCluster      :: !(Maybe DBCluster)
+  , _rdbcfsrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'RestoreDBClusterFromSnapshotResponse' with the minimum fields required to make a request.
 --
@@ -249,10 +256,9 @@ restoreDBClusterFromSnapshotResponse
     :: Int -- ^ 'rdbcfsrsResponseStatus'
     -> RestoreDBClusterFromSnapshotResponse
 restoreDBClusterFromSnapshotResponse pResponseStatus_ =
-    RestoreDBClusterFromSnapshotResponse'
-    { _rdbcfsrsDBCluster = Nothing
-    , _rdbcfsrsResponseStatus = pResponseStatus_
-    }
+  RestoreDBClusterFromSnapshotResponse'
+  {_rdbcfsrsDBCluster = Nothing, _rdbcfsrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 rdbcfsrsDBCluster :: Lens' RestoreDBClusterFromSnapshotResponse (Maybe DBCluster)
@@ -263,3 +269,4 @@ rdbcfsrsResponseStatus :: Lens' RestoreDBClusterFromSnapshotResponse Int
 rdbcfsrsResponseStatus = lens _rdbcfsrsResponseStatus (\ s a -> s{_rdbcfsrsResponseStatus = a});
 
 instance NFData RestoreDBClusterFromSnapshotResponse
+         where

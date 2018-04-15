@@ -6,12 +6,12 @@
 {-# LANGUAGE TupleSections       #-}
 
 -- Module      : Gen.AST.Data
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : This Source Code Form is subject to the terms of
 --               the Mozilla Public License, v. 2.0.
 --               A copy of the MPL can be found in the LICENSE file or
 --               you can obtain it at http://mozilla.org/MPL/2.0/.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 
@@ -22,31 +22,39 @@ module Gen.AST.Data
     , waiterData
     ) where
 
-import           Control.Comonad.Cofree
-import           Control.Error
-import           Control.Lens                 hiding ((:<), List, enum, mapping,
-                                               (??))
-import           Control.Monad
-import           Control.Monad.Except
-import           Control.Monad.Trans.State
-import           Data.Bifunctor
-import           Data.Char                    (isSpace)
+import Control.Comonad.Cofree
+import Control.Error
+import Control.Lens              hiding ((:<), List, enum, mapping, (??))
+import Control.Monad
+import Control.Monad.Except
+import Control.Monad.Trans.State
+
+import Data.Bifunctor
+import Data.Char      (isSpace)
+import Data.List      (find, sort)
+import Data.Monoid    ((<>))
+import Data.String
+import Data.Text      (Text)
+
+import Gen.AST.Data.Field
+import Gen.AST.Data.Instance
+import Gen.AST.Data.Syntax
+import Gen.Formatting
+import Gen.Types
+
+import Language.Haskell.Exts.Pretty (Pretty)
+
+import qualified Data.ByteString.Builder      as Build
+import qualified Data.ByteString.Char8        as BS8
 import qualified Data.HashMap.Strict          as Map
-import           Data.List                    (find, sort)
-import           Data.Monoid                  ((<>))
-import           Data.String
-import           Data.Text                    (Text)
 import qualified Data.Text                    as Text
+import qualified Data.Text.Encoding           as Text
 import qualified Data.Text.Lazy               as LText
-import qualified Data.Text.Lazy.Builder       as Build
-import           Gen.AST.Data.Field
-import           Gen.AST.Data.Instance
-import           Gen.AST.Data.Syntax
-import           Gen.Formatting
-import           Gen.Types
-import           HIndent
-import           Language.Haskell.Exts.Pretty
-import           Language.Haskell.Exts.Syntax hiding (Int, List, Lit, Var)
+import qualified Data.Text.Lazy.Encoding      as LText
+import qualified HIndent
+import qualified HIndent.Types                as HIndent
+import qualified Language.Haskell.Exts.Pretty as Exts
+import qualified Language.Haskell.Exts.Syntax as Exts
 
 operationData :: HasMetadata a Identity
               => Config
@@ -147,7 +155,7 @@ sumData p s i vs = Sum s <$> mk <*> (Map.keys <$> insts)
 
     decl = dataD n (map f . sort $ Map.keys bs) (derivingOf s)
       where
-        f x = conD (ConDecl (ident x) [])
+        f x = conD (Exts.ConDecl () (ident x) [])
 
     insts = renderInsts p n $ shapeInsts p (s ^. relMode) []
 
@@ -302,12 +310,12 @@ notation m = go
 
     key :: Shape Solved -> Key Id -> Either Error (Key Field)
     key s = \case
-        Key  n -> Key  <$> field n s
-        Each n -> Each <$> field n s
-        Last n -> Last <$> field n s
+        Key  n -> Key  <$> field' n s
+        Each n -> Each <$> field' n s
+        Last n -> Last <$> field' n s
 
-    field :: Id -> Shape Solved -> Either Error Field
-    field n = \case
+    field' :: Id -> Shape Solved -> Either Error Field
+    field' n = \case
         a :< Struct st ->
             note (missingErr n (identifier a) (Map.keys (st ^. members)))
                 . find ((n ==) . _fieldId)
@@ -340,25 +348,35 @@ data PP
 
 pp :: Pretty a => PP -> a -> Either Error Rendered
 pp i d
-    | i == Indent = bimap e Build.toLazyText (reformat johanTibell Nothing p)
-    | otherwise   = pure p
+    | i == Indent = bimap errorMessage render (reformat printed)
+    | otherwise   = pure (LText.fromStrict (Text.decodeUtf8 printed))
   where
-    e = flip mappend (", when formatting datatype:\n\n" <> p <> "\n") . LText.pack
+    render =
+        LText.decodeUtf8 . Build.toLazyByteString
 
-    p = LText.dropWhile isSpace
-      . LText.pack
-      $ prettyPrintStyleMode s m d
+    reformat =
+        HIndent.reformat HIndent.defaultConfig Nothing Nothing
 
+    errorMessage =
+        LText.fromStrict
+            . Text.decodeUtf8
+            . flip mappend (", when formatting datatype:\n\n" <> printed <> "\n")
+            . BS8.pack
 
-    s = style
-        { mode           = PageMode
-        , lineLength     = 80
-        , ribbonsPerLine = 1.5
+    printed =
+        BS8.dropWhile isSpace . BS8.pack $
+            Exts.prettyPrintStyleMode style mode d
+
+    style = Exts.style
+        { Exts.mode           = Exts.PageMode
+        , Exts.lineLength     = 80
+        , Exts.ribbonsPerLine = 1.5
         }
 
-    m | i == Print  = defaultMode
-      | i == Indent = defaultMode -- Temporary, while hindent speed issues are considered.
-      | otherwise   = defaultMode
-          { layout  = PPNoLayout
-          , spacing = False
-          }
+    mode | i == Print  = Exts.defaultMode
+         | i == Indent = Exts.defaultMode
+         | otherwise   =
+             Exts.defaultMode
+                 { Exts.layout  = Exts.PPNoLayout
+                 , Exts.spacing = False
+                 }

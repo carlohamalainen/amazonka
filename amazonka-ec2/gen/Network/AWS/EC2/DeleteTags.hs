@@ -12,16 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.EC2.DeleteTags
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified set of tags from the specified set of resources. This call is designed to follow a @DescribeTags@ request.
+-- Deletes the specified set of tags from the specified set of resources.
 --
 --
--- For more information about tags, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Resources> in the /Amazon Elastic Compute Cloud User Guide/ .
+-- To list the current tags, use 'DescribeTags' . For more information about tags, see <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Resources> in the /Amazon Elastic Compute Cloud User Guide/ .
 --
 module Network.AWS.EC2.DeleteTags
     (
@@ -38,12 +38,12 @@ module Network.AWS.EC2.DeleteTags
     , DeleteTagsResponse
     ) where
 
-import           Network.AWS.EC2.Types
-import           Network.AWS.EC2.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.EC2.Types
+import Network.AWS.EC2.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Contains the parameters for DeleteTags.
 --
@@ -51,10 +51,11 @@ import           Network.AWS.Response
 --
 -- /See:/ 'deleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-    { _dtsDryRun    :: !(Maybe Bool)
-    , _dtsTags      :: !(Maybe [Tag])
-    , _dtsResources :: ![Text]
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dtsDryRun    :: !(Maybe Bool)
+  , _dtsTags      :: !(Maybe [Tag])
+  , _dtsResources :: ![Text]
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
 --
@@ -62,27 +63,24 @@ data DeleteTags = DeleteTags'
 --
 -- * 'dtsDryRun' - Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 --
--- * 'dtsTags' - One or more tags to delete. If you omit the @value@ parameter, we delete the tag regardless of its value. If you specify this parameter with an empty string as the value, we delete the key only if its value is an empty string.
+-- * 'dtsTags' - One or more tags to delete. If you omit this parameter, we delete all tags for the specified resources. Specify a tag key and an optional tag value to delete specific tags. If you specify a tag key without a tag value, we delete any tag with this key regardless of its value. If you specify a tag key with an empty string as the tag value, we delete the tag only if its value is an empty string.
 --
--- * 'dtsResources' - The ID of the resource. For example, ami-1a2b3c4d. You can specify more than one resource ID.
+-- * 'dtsResources' - The IDs of one or more resources.
 deleteTags
     :: DeleteTags
 deleteTags =
-    DeleteTags'
-    { _dtsDryRun = Nothing
-    , _dtsTags = Nothing
-    , _dtsResources = mempty
-    }
+  DeleteTags' {_dtsDryRun = Nothing, _dtsTags = Nothing, _dtsResources = mempty}
+
 
 -- | Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is @DryRunOperation@ . Otherwise, it is @UnauthorizedOperation@ .
 dtsDryRun :: Lens' DeleteTags (Maybe Bool)
 dtsDryRun = lens _dtsDryRun (\ s a -> s{_dtsDryRun = a});
 
--- | One or more tags to delete. If you omit the @value@ parameter, we delete the tag regardless of its value. If you specify this parameter with an empty string as the value, we delete the key only if its value is an empty string.
+-- | One or more tags to delete. If you omit this parameter, we delete all tags for the specified resources. Specify a tag key and an optional tag value to delete specific tags. If you specify a tag key without a tag value, we delete any tag with this key regardless of its value. If you specify a tag key with an empty string as the tag value, we delete the tag only if its value is an empty string.
 dtsTags :: Lens' DeleteTags [Tag]
 dtsTags = lens _dtsTags (\ s a -> s{_dtsTags = a}) . _Default . _Coerce;
 
--- | The ID of the resource. For example, ami-1a2b3c4d. You can specify more than one resource ID.
+-- | The IDs of one or more resources.
 dtsResources :: Lens' DeleteTags [Text]
 dtsResources = lens _dtsResources (\ s a -> s{_dtsResources = a}) . _Coerce;
 
@@ -91,9 +89,9 @@ instance AWSRequest DeleteTags where
         request = postQuery ec2
         response = receiveNull DeleteTagsResponse'
 
-instance Hashable DeleteTags
+instance Hashable DeleteTags where
 
-instance NFData DeleteTags
+instance NFData DeleteTags where
 
 instance ToHeaders DeleteTags where
         toHeaders = const mempty
@@ -112,8 +110,9 @@ instance ToQuery DeleteTags where
 
 -- | /See:/ 'deleteTagsResponse' smart constructor.
 data DeleteTagsResponse =
-    DeleteTagsResponse'
-    deriving (Eq,Read,Show,Data,Typeable,Generic)
+  DeleteTagsResponse'
+  deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
 --
@@ -121,4 +120,5 @@ deleteTagsResponse
     :: DeleteTagsResponse
 deleteTagsResponse = DeleteTagsResponse'
 
-instance NFData DeleteTagsResponse
+
+instance NFData DeleteTagsResponse where

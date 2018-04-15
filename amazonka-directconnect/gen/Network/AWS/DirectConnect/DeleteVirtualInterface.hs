@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.DirectConnect.DeleteVirtualInterface
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -27,7 +27,7 @@ module Network.AWS.DirectConnect.DeleteVirtualInterface
       deleteVirtualInterface
     , DeleteVirtualInterface
     -- * Request Lenses
-    , dVirtualInterfaceId
+    , delVirtualInterfaceId
 
     -- * Destructuring the Response
     , deleteVirtualInterfaceResponse
@@ -37,12 +37,12 @@ module Network.AWS.DirectConnect.DeleteVirtualInterface
     , dvirsResponseStatus
     ) where
 
-import           Network.AWS.DirectConnect.Types
-import           Network.AWS.DirectConnect.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.DirectConnect.Types
+import Network.AWS.DirectConnect.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | Container for the parameters to the DeleteVirtualInterface operation.
 --
@@ -50,25 +50,25 @@ import           Network.AWS.Response
 --
 -- /See:/ 'deleteVirtualInterface' smart constructor.
 newtype DeleteVirtualInterface = DeleteVirtualInterface'
-    { _dVirtualInterfaceId :: Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _delVirtualInterfaceId :: Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteVirtualInterface' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'dVirtualInterfaceId' - Undocumented member.
+-- * 'delVirtualInterfaceId' - Undocumented member.
 deleteVirtualInterface
-    :: Text -- ^ 'dVirtualInterfaceId'
+    :: Text -- ^ 'delVirtualInterfaceId'
     -> DeleteVirtualInterface
 deleteVirtualInterface pVirtualInterfaceId_ =
-    DeleteVirtualInterface'
-    { _dVirtualInterfaceId = pVirtualInterfaceId_
-    }
+  DeleteVirtualInterface' {_delVirtualInterfaceId = pVirtualInterfaceId_}
+
 
 -- | Undocumented member.
-dVirtualInterfaceId :: Lens' DeleteVirtualInterface Text
-dVirtualInterfaceId = lens _dVirtualInterfaceId (\ s a -> s{_dVirtualInterfaceId = a});
+delVirtualInterfaceId :: Lens' DeleteVirtualInterface Text
+delVirtualInterfaceId = lens _delVirtualInterfaceId (\ s a -> s{_delVirtualInterfaceId = a});
 
 instance AWSRequest DeleteVirtualInterface where
         type Rs DeleteVirtualInterface =
@@ -81,9 +81,9 @@ instance AWSRequest DeleteVirtualInterface where
                    (x .?> "virtualInterfaceState") <*>
                      (pure (fromEnum s)))
 
-instance Hashable DeleteVirtualInterface
+instance Hashable DeleteVirtualInterface where
 
-instance NFData DeleteVirtualInterface
+instance NFData DeleteVirtualInterface where
 
 instance ToHeaders DeleteVirtualInterface where
         toHeaders
@@ -100,7 +100,7 @@ instance ToJSON DeleteVirtualInterface where
           = object
               (catMaybes
                  [Just
-                    ("virtualInterfaceId" .= _dVirtualInterfaceId)])
+                    ("virtualInterfaceId" .= _delVirtualInterfaceId)])
 
 instance ToPath DeleteVirtualInterface where
         toPath = const "/"
@@ -114,9 +114,10 @@ instance ToQuery DeleteVirtualInterface where
 --
 -- /See:/ 'deleteVirtualInterfaceResponse' smart constructor.
 data DeleteVirtualInterfaceResponse = DeleteVirtualInterfaceResponse'
-    { _dvirsVirtualInterfaceState :: !(Maybe VirtualInterfaceState)
-    , _dvirsResponseStatus        :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _dvirsVirtualInterfaceState :: !(Maybe VirtualInterfaceState)
+  , _dvirsResponseStatus        :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'DeleteVirtualInterfaceResponse' with the minimum fields required to make a request.
 --
@@ -129,10 +130,11 @@ deleteVirtualInterfaceResponse
     :: Int -- ^ 'dvirsResponseStatus'
     -> DeleteVirtualInterfaceResponse
 deleteVirtualInterfaceResponse pResponseStatus_ =
-    DeleteVirtualInterfaceResponse'
-    { _dvirsVirtualInterfaceState = Nothing
-    , _dvirsResponseStatus = pResponseStatus_
-    }
+  DeleteVirtualInterfaceResponse'
+  { _dvirsVirtualInterfaceState = Nothing
+  , _dvirsResponseStatus = pResponseStatus_
+  }
+
 
 -- | Undocumented member.
 dvirsVirtualInterfaceState :: Lens' DeleteVirtualInterfaceResponse (Maybe VirtualInterfaceState)
@@ -142,4 +144,4 @@ dvirsVirtualInterfaceState = lens _dvirsVirtualInterfaceState (\ s a -> s{_dvirs
 dvirsResponseStatus :: Lens' DeleteVirtualInterfaceResponse Int
 dvirsResponseStatus = lens _dvirsResponseStatus (\ s a -> s{_dvirsResponseStatus = a});
 
-instance NFData DeleteVirtualInterfaceResponse
+instance NFData DeleteVirtualInterfaceResponse where

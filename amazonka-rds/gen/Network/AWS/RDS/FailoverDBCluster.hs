@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.RDS.FailoverDBCluster
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -44,12 +44,12 @@ module Network.AWS.RDS.FailoverDBCluster
     , fdcrsResponseStatus
     ) where
 
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.RDS.Types
-import           Network.AWS.RDS.Types.Product
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.RDS.Types
+import Network.AWS.RDS.Types.Product
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- |
 --
@@ -57,26 +57,26 @@ import           Network.AWS.Response
 --
 -- /See:/ 'failoverDBCluster' smart constructor.
 data FailoverDBCluster = FailoverDBCluster'
-    { _fdcDBClusterIdentifier        :: !(Maybe Text)
-    , _fdcTargetDBInstanceIdentifier :: !(Maybe Text)
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _fdcDBClusterIdentifier        :: !(Maybe Text)
+  , _fdcTargetDBInstanceIdentifier :: !(Maybe Text)
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'FailoverDBCluster' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'fdcDBClusterIdentifier' - A DB cluster identifier to force a failover for. This parameter is not case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+-- * 'fdcDBClusterIdentifier' - A DB cluster identifier to force a failover for. This parameter is not case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster.
 --
 -- * 'fdcTargetDBInstanceIdentifier' - The name of the instance to promote to the primary instance. You must specify the instance identifier for an Aurora Replica in the DB cluster. For example, @mydbcluster-replica1@ .
 failoverDBCluster
     :: FailoverDBCluster
 failoverDBCluster =
-    FailoverDBCluster'
-    { _fdcDBClusterIdentifier = Nothing
-    , _fdcTargetDBInstanceIdentifier = Nothing
-    }
+  FailoverDBCluster'
+  {_fdcDBClusterIdentifier = Nothing, _fdcTargetDBInstanceIdentifier = Nothing}
 
--- | A DB cluster identifier to force a failover for. This parameter is not case-sensitive. Constraints:     * Must contain from 1 to 63 alphanumeric characters or hyphens     * First character must be a letter     * Cannot end with a hyphen or contain two consecutive hyphens
+
+-- | A DB cluster identifier to force a failover for. This parameter is not case-sensitive. Constraints:     * Must match the identifier of an existing DBCluster.
 fdcDBClusterIdentifier :: Lens' FailoverDBCluster (Maybe Text)
 fdcDBClusterIdentifier = lens _fdcDBClusterIdentifier (\ s a -> s{_fdcDBClusterIdentifier = a});
 
@@ -93,9 +93,9 @@ instance AWSRequest FailoverDBCluster where
                  FailoverDBClusterResponse' <$>
                    (x .@? "DBCluster") <*> (pure (fromEnum s)))
 
-instance Hashable FailoverDBCluster
+instance Hashable FailoverDBCluster where
 
-instance NFData FailoverDBCluster
+instance NFData FailoverDBCluster where
 
 instance ToHeaders FailoverDBCluster where
         toHeaders = const mempty
@@ -114,9 +114,10 @@ instance ToQuery FailoverDBCluster where
 
 -- | /See:/ 'failoverDBClusterResponse' smart constructor.
 data FailoverDBClusterResponse = FailoverDBClusterResponse'
-    { _fdcrsDBCluster      :: !(Maybe DBCluster)
-    , _fdcrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _fdcrsDBCluster      :: !(Maybe DBCluster)
+  , _fdcrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'FailoverDBClusterResponse' with the minimum fields required to make a request.
 --
@@ -129,10 +130,9 @@ failoverDBClusterResponse
     :: Int -- ^ 'fdcrsResponseStatus'
     -> FailoverDBClusterResponse
 failoverDBClusterResponse pResponseStatus_ =
-    FailoverDBClusterResponse'
-    { _fdcrsDBCluster = Nothing
-    , _fdcrsResponseStatus = pResponseStatus_
-    }
+  FailoverDBClusterResponse'
+  {_fdcrsDBCluster = Nothing, _fdcrsResponseStatus = pResponseStatus_}
+
 
 -- | Undocumented member.
 fdcrsDBCluster :: Lens' FailoverDBClusterResponse (Maybe DBCluster)
@@ -142,4 +142,4 @@ fdcrsDBCluster = lens _fdcrsDBCluster (\ s a -> s{_fdcrsDBCluster = a});
 fdcrsResponseStatus :: Lens' FailoverDBClusterResponse Int
 fdcrsResponseStatus = lens _fdcrsResponseStatus (\ s a -> s{_fdcrsResponseStatus = a});
 
-instance NFData FailoverDBClusterResponse
+instance NFData FailoverDBClusterResponse where

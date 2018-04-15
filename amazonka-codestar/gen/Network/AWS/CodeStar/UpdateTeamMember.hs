@@ -12,9 +12,9 @@
 
 -- |
 -- Module      : Network.AWS.CodeStar.UpdateTeamMember
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
@@ -42,20 +42,21 @@ module Network.AWS.CodeStar.UpdateTeamMember
     , utmrsResponseStatus
     ) where
 
-import           Network.AWS.CodeStar.Types
-import           Network.AWS.CodeStar.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.CodeStar.Types
+import Network.AWS.CodeStar.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'updateTeamMember' smart constructor.
 data UpdateTeamMember = UpdateTeamMember'
-    { _utmRemoteAccessAllowed :: !(Maybe Bool)
-    , _utmProjectRole         :: !(Maybe Text)
-    , _utmProjectId           :: !Text
-    , _utmUserARN             :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _utmRemoteAccessAllowed :: !(Maybe Bool)
+  , _utmProjectRole         :: !(Maybe Text)
+  , _utmProjectId           :: !Text
+  , _utmUserARN             :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateTeamMember' with the minimum fields required to make a request.
 --
@@ -63,7 +64,7 @@ data UpdateTeamMember = UpdateTeamMember'
 --
 -- * 'utmRemoteAccessAllowed' - Whether a team member is allowed to remotely access project resources using the SSH public key associated with the user's profile. Even if this is set to True, the user must associate a public key with their profile before the user can access resources.
 --
--- * 'utmProjectRole' - The role assigned to the user in the project. Project roles have different levels of access. For more information, see <http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html Working with Teams> in the AWS CodeStar User Guide.
+-- * 'utmProjectRole' - The role assigned to the user in the project. Project roles have different levels of access. For more information, see <http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html Working with Teams> in the /AWS CodeStar User Guide/ .
 --
 -- * 'utmProjectId' - The ID of the project.
 --
@@ -73,18 +74,19 @@ updateTeamMember
     -> Text -- ^ 'utmUserARN'
     -> UpdateTeamMember
 updateTeamMember pProjectId_ pUserARN_ =
-    UpdateTeamMember'
-    { _utmRemoteAccessAllowed = Nothing
-    , _utmProjectRole = Nothing
-    , _utmProjectId = pProjectId_
-    , _utmUserARN = pUserARN_
-    }
+  UpdateTeamMember'
+  { _utmRemoteAccessAllowed = Nothing
+  , _utmProjectRole = Nothing
+  , _utmProjectId = pProjectId_
+  , _utmUserARN = pUserARN_
+  }
+
 
 -- | Whether a team member is allowed to remotely access project resources using the SSH public key associated with the user's profile. Even if this is set to True, the user must associate a public key with their profile before the user can access resources.
 utmRemoteAccessAllowed :: Lens' UpdateTeamMember (Maybe Bool)
 utmRemoteAccessAllowed = lens _utmRemoteAccessAllowed (\ s a -> s{_utmRemoteAccessAllowed = a});
 
--- | The role assigned to the user in the project. Project roles have different levels of access. For more information, see <http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html Working with Teams> in the AWS CodeStar User Guide.
+-- | The role assigned to the user in the project. Project roles have different levels of access. For more information, see <http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html Working with Teams> in the /AWS CodeStar User Guide/ .
 utmProjectRole :: Lens' UpdateTeamMember (Maybe Text)
 utmProjectRole = lens _utmProjectRole (\ s a -> s{_utmProjectRole = a});
 
@@ -107,9 +109,9 @@ instance AWSRequest UpdateTeamMember where
                      <*> (x .?> "projectRole")
                      <*> (pure (fromEnum s)))
 
-instance Hashable UpdateTeamMember
+instance Hashable UpdateTeamMember where
 
-instance NFData UpdateTeamMember
+instance NFData UpdateTeamMember where
 
 instance ToHeaders UpdateTeamMember where
         toHeaders
@@ -138,11 +140,12 @@ instance ToQuery UpdateTeamMember where
 
 -- | /See:/ 'updateTeamMemberResponse' smart constructor.
 data UpdateTeamMemberResponse = UpdateTeamMemberResponse'
-    { _utmrsUserARN             :: !(Maybe Text)
-    , _utmrsRemoteAccessAllowed :: !(Maybe Bool)
-    , _utmrsProjectRole         :: !(Maybe Text)
-    , _utmrsResponseStatus      :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _utmrsUserARN             :: !(Maybe Text)
+  , _utmrsRemoteAccessAllowed :: !(Maybe Bool)
+  , _utmrsProjectRole         :: !(Maybe Text)
+  , _utmrsResponseStatus      :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateTeamMemberResponse' with the minimum fields required to make a request.
 --
@@ -159,12 +162,13 @@ updateTeamMemberResponse
     :: Int -- ^ 'utmrsResponseStatus'
     -> UpdateTeamMemberResponse
 updateTeamMemberResponse pResponseStatus_ =
-    UpdateTeamMemberResponse'
-    { _utmrsUserARN = Nothing
-    , _utmrsRemoteAccessAllowed = Nothing
-    , _utmrsProjectRole = Nothing
-    , _utmrsResponseStatus = pResponseStatus_
-    }
+  UpdateTeamMemberResponse'
+  { _utmrsUserARN = Nothing
+  , _utmrsRemoteAccessAllowed = Nothing
+  , _utmrsProjectRole = Nothing
+  , _utmrsResponseStatus = pResponseStatus_
+  }
+
 
 -- | The Amazon Resource Name (ARN) of the user whose team membership attributes were updated.
 utmrsUserARN :: Lens' UpdateTeamMemberResponse (Maybe Text)
@@ -182,4 +186,4 @@ utmrsProjectRole = lens _utmrsProjectRole (\ s a -> s{_utmrsProjectRole = a});
 utmrsResponseStatus :: Lens' UpdateTeamMemberResponse Int
 utmrsResponseStatus = lens _utmrsResponseStatus (\ s a -> s{_utmrsResponseStatus = a});
 
-instance NFData UpdateTeamMemberResponse
+instance NFData UpdateTeamMemberResponse where

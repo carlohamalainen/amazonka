@@ -12,14 +12,16 @@
 
 -- |
 -- Module      : Network.AWS.AppStream.UpdateFleet
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing fleet. All the attributes except the fleet name can be updated in the __STOPPED__ state. When a fleet is in the __RUNNING__ state, only @DisplayName@ and @ComputeCapacity@ can be updated. A fleet cannot be updated in a status of __STARTING__ or __STOPPING__ .
+-- Updates the specified fleet.
 --
+--
+-- If the fleet is in the @STOPPED@ state, you can update any attribute except the fleet name. If the fleet is in the @RUNNING@ state, you can update the @DisplayName@ and @ComputeCapacity@ attributes. If the fleet is in the @STARTING@ or @STOPPING@ state, you can't update it.
 --
 module Network.AWS.AppStream.UpdateFleet
     (
@@ -49,100 +51,102 @@ module Network.AWS.AppStream.UpdateFleet
     , ufrsResponseStatus
     ) where
 
-import           Network.AWS.AppStream.Types
-import           Network.AWS.AppStream.Types.Product
-import           Network.AWS.Lens
-import           Network.AWS.Prelude
-import           Network.AWS.Request
-import           Network.AWS.Response
+import Network.AWS.AppStream.Types
+import Network.AWS.AppStream.Types.Product
+import Network.AWS.Lens
+import Network.AWS.Prelude
+import Network.AWS.Request
+import Network.AWS.Response
 
 -- | /See:/ 'updateFleet' smart constructor.
 data UpdateFleet = UpdateFleet'
-    { _ufDomainJoinInfo              :: !(Maybe DomainJoinInfo)
-    , _ufDisconnectTimeoutInSeconds  :: !(Maybe Int)
-    , _ufMaxUserDurationInSeconds    :: !(Maybe Int)
-    , _ufAttributesToDelete          :: !(Maybe [FleetAttribute])
-    , _ufDeleteVPCConfig             :: !(Maybe Bool)
-    , _ufInstanceType                :: !(Maybe Text)
-    , _ufVPCConfig                   :: !(Maybe VPCConfig)
-    , _ufDisplayName                 :: !(Maybe Text)
-    , _ufEnableDefaultInternetAccess :: !(Maybe Bool)
-    , _ufImageName                   :: !(Maybe Text)
-    , _ufDescription                 :: !(Maybe Text)
-    , _ufComputeCapacity             :: !(Maybe ComputeCapacity)
-    , _ufName                        :: !Text
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ufDomainJoinInfo              :: !(Maybe DomainJoinInfo)
+  , _ufDisconnectTimeoutInSeconds  :: !(Maybe Int)
+  , _ufMaxUserDurationInSeconds    :: !(Maybe Int)
+  , _ufAttributesToDelete          :: !(Maybe [FleetAttribute])
+  , _ufDeleteVPCConfig             :: !(Maybe Bool)
+  , _ufInstanceType                :: !(Maybe Text)
+  , _ufVPCConfig                   :: !(Maybe VPCConfig)
+  , _ufDisplayName                 :: !(Maybe Text)
+  , _ufEnableDefaultInternetAccess :: !(Maybe Bool)
+  , _ufImageName                   :: !(Maybe Text)
+  , _ufDescription                 :: !(Maybe Text)
+  , _ufComputeCapacity             :: !(Maybe ComputeCapacity)
+  , _ufName                        :: !Text
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateFleet' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ufDomainJoinInfo' - The /DirectoryName/ and /OrganizationalUnitDistinguishedName/ values, which are used to join domains for the AppStream 2.0 streaming instances.
+-- * 'ufDomainJoinInfo' - The information needed for streaming instances to join a domain.
 --
--- * 'ufDisconnectTimeoutInSeconds' - The time after disconnection when a session is considered to have ended. If a user who got disconnected reconnects within this timeout interval, the user is connected back to their previous session. The input can be any numeric value in seconds between 60 and 57600.
+-- * 'ufDisconnectTimeoutInSeconds' - The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.
 --
--- * 'ufMaxUserDurationInSeconds' - The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600 and 57600.
+-- * 'ufMaxUserDurationInSeconds' - The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.
 --
--- * 'ufAttributesToDelete' - Fleet attributes to be deleted.
+-- * 'ufAttributesToDelete' - The fleet attributes to delete.
 --
--- * 'ufDeleteVPCConfig' - Delete the VPC association for the specified fleet.
+-- * 'ufDeleteVPCConfig' - Deletes the VPC association for the specified fleet.
 --
--- * 'ufInstanceType' - The instance type of compute resources for the fleet. Fleet instances are launched from this instance type. Available instance types are:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge
+-- * 'ufInstanceType' - The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
 --
 -- * 'ufVPCConfig' - The VPC configuration for the fleet.
 --
--- * 'ufDisplayName' - The name displayed to end users on the AppStream 2.0 portal.
+-- * 'ufDisplayName' - The fleet name displayed to end users.
 --
 -- * 'ufEnableDefaultInternetAccess' - Enables or disables default internet access for the fleet.
 --
--- * 'ufImageName' - The image name from which a fleet is created.
+-- * 'ufImageName' - The name of the image used by the fleet.
 --
--- * 'ufDescription' - The description displayed to end users on the AppStream 2.0 portal.
+-- * 'ufDescription' - The description displayed to end users.
 --
--- * 'ufComputeCapacity' - The parameters for the capacity allocated to the fleet.
+-- * 'ufComputeCapacity' - The desired capacity for the fleet.
 --
--- * 'ufName' - The name of the fleet.
+-- * 'ufName' - A unique name for the fleet.
 updateFleet
     :: Text -- ^ 'ufName'
     -> UpdateFleet
 updateFleet pName_ =
-    UpdateFleet'
-    { _ufDomainJoinInfo = Nothing
-    , _ufDisconnectTimeoutInSeconds = Nothing
-    , _ufMaxUserDurationInSeconds = Nothing
-    , _ufAttributesToDelete = Nothing
-    , _ufDeleteVPCConfig = Nothing
-    , _ufInstanceType = Nothing
-    , _ufVPCConfig = Nothing
-    , _ufDisplayName = Nothing
-    , _ufEnableDefaultInternetAccess = Nothing
-    , _ufImageName = Nothing
-    , _ufDescription = Nothing
-    , _ufComputeCapacity = Nothing
-    , _ufName = pName_
-    }
+  UpdateFleet'
+  { _ufDomainJoinInfo = Nothing
+  , _ufDisconnectTimeoutInSeconds = Nothing
+  , _ufMaxUserDurationInSeconds = Nothing
+  , _ufAttributesToDelete = Nothing
+  , _ufDeleteVPCConfig = Nothing
+  , _ufInstanceType = Nothing
+  , _ufVPCConfig = Nothing
+  , _ufDisplayName = Nothing
+  , _ufEnableDefaultInternetAccess = Nothing
+  , _ufImageName = Nothing
+  , _ufDescription = Nothing
+  , _ufComputeCapacity = Nothing
+  , _ufName = pName_
+  }
 
--- | The /DirectoryName/ and /OrganizationalUnitDistinguishedName/ values, which are used to join domains for the AppStream 2.0 streaming instances.
+
+-- | The information needed for streaming instances to join a domain.
 ufDomainJoinInfo :: Lens' UpdateFleet (Maybe DomainJoinInfo)
 ufDomainJoinInfo = lens _ufDomainJoinInfo (\ s a -> s{_ufDomainJoinInfo = a});
 
--- | The time after disconnection when a session is considered to have ended. If a user who got disconnected reconnects within this timeout interval, the user is connected back to their previous session. The input can be any numeric value in seconds between 60 and 57600.
+-- | The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.
 ufDisconnectTimeoutInSeconds :: Lens' UpdateFleet (Maybe Int)
 ufDisconnectTimeoutInSeconds = lens _ufDisconnectTimeoutInSeconds (\ s a -> s{_ufDisconnectTimeoutInSeconds = a});
 
--- | The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600 and 57600.
+-- | The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.
 ufMaxUserDurationInSeconds :: Lens' UpdateFleet (Maybe Int)
 ufMaxUserDurationInSeconds = lens _ufMaxUserDurationInSeconds (\ s a -> s{_ufMaxUserDurationInSeconds = a});
 
--- | Fleet attributes to be deleted.
+-- | The fleet attributes to delete.
 ufAttributesToDelete :: Lens' UpdateFleet [FleetAttribute]
 ufAttributesToDelete = lens _ufAttributesToDelete (\ s a -> s{_ufAttributesToDelete = a}) . _Default . _Coerce;
 
--- | Delete the VPC association for the specified fleet.
+-- | Deletes the VPC association for the specified fleet.
 ufDeleteVPCConfig :: Lens' UpdateFleet (Maybe Bool)
 ufDeleteVPCConfig = lens _ufDeleteVPCConfig (\ s a -> s{_ufDeleteVPCConfig = a});
 
--- | The instance type of compute resources for the fleet. Fleet instances are launched from this instance type. Available instance types are:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge
+-- | The instance type to use when launching fleet instances. The following instance types are available:     * stream.standard.medium     * stream.standard.large     * stream.compute.large     * stream.compute.xlarge     * stream.compute.2xlarge     * stream.compute.4xlarge     * stream.compute.8xlarge     * stream.memory.large     * stream.memory.xlarge     * stream.memory.2xlarge     * stream.memory.4xlarge     * stream.memory.8xlarge     * stream.graphics-design.large     * stream.graphics-design.xlarge     * stream.graphics-design.2xlarge     * stream.graphics-design.4xlarge     * stream.graphics-desktop.2xlarge     * stream.graphics-pro.4xlarge     * stream.graphics-pro.8xlarge     * stream.graphics-pro.16xlarge
 ufInstanceType :: Lens' UpdateFleet (Maybe Text)
 ufInstanceType = lens _ufInstanceType (\ s a -> s{_ufInstanceType = a});
 
@@ -150,7 +154,7 @@ ufInstanceType = lens _ufInstanceType (\ s a -> s{_ufInstanceType = a});
 ufVPCConfig :: Lens' UpdateFleet (Maybe VPCConfig)
 ufVPCConfig = lens _ufVPCConfig (\ s a -> s{_ufVPCConfig = a});
 
--- | The name displayed to end users on the AppStream 2.0 portal.
+-- | The fleet name displayed to end users.
 ufDisplayName :: Lens' UpdateFleet (Maybe Text)
 ufDisplayName = lens _ufDisplayName (\ s a -> s{_ufDisplayName = a});
 
@@ -158,19 +162,19 @@ ufDisplayName = lens _ufDisplayName (\ s a -> s{_ufDisplayName = a});
 ufEnableDefaultInternetAccess :: Lens' UpdateFleet (Maybe Bool)
 ufEnableDefaultInternetAccess = lens _ufEnableDefaultInternetAccess (\ s a -> s{_ufEnableDefaultInternetAccess = a});
 
--- | The image name from which a fleet is created.
+-- | The name of the image used by the fleet.
 ufImageName :: Lens' UpdateFleet (Maybe Text)
 ufImageName = lens _ufImageName (\ s a -> s{_ufImageName = a});
 
--- | The description displayed to end users on the AppStream 2.0 portal.
+-- | The description displayed to end users.
 ufDescription :: Lens' UpdateFleet (Maybe Text)
 ufDescription = lens _ufDescription (\ s a -> s{_ufDescription = a});
 
--- | The parameters for the capacity allocated to the fleet.
+-- | The desired capacity for the fleet.
 ufComputeCapacity :: Lens' UpdateFleet (Maybe ComputeCapacity)
 ufComputeCapacity = lens _ufComputeCapacity (\ s a -> s{_ufComputeCapacity = a});
 
--- | The name of the fleet.
+-- | A unique name for the fleet.
 ufName :: Lens' UpdateFleet Text
 ufName = lens _ufName (\ s a -> s{_ufName = a});
 
@@ -183,9 +187,9 @@ instance AWSRequest UpdateFleet where
                  UpdateFleetResponse' <$>
                    (x .?> "Fleet") <*> (pure (fromEnum s)))
 
-instance Hashable UpdateFleet
+instance Hashable UpdateFleet where
 
-instance NFData UpdateFleet
+instance NFData UpdateFleet where
 
 instance ToHeaders UpdateFleet where
         toHeaders
@@ -226,27 +230,27 @@ instance ToQuery UpdateFleet where
 
 -- | /See:/ 'updateFleetResponse' smart constructor.
 data UpdateFleetResponse = UpdateFleetResponse'
-    { _ufrsFleet          :: !(Maybe Fleet)
-    , _ufrsResponseStatus :: !Int
-    } deriving (Eq,Read,Show,Data,Typeable,Generic)
+  { _ufrsFleet          :: !(Maybe Fleet)
+  , _ufrsResponseStatus :: !Int
+  } deriving (Eq, Read, Show, Data, Typeable, Generic)
+
 
 -- | Creates a value of 'UpdateFleetResponse' with the minimum fields required to make a request.
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ufrsFleet' - A list of fleet details.
+-- * 'ufrsFleet' - Information about the fleet.
 --
 -- * 'ufrsResponseStatus' - -- | The response status code.
 updateFleetResponse
     :: Int -- ^ 'ufrsResponseStatus'
     -> UpdateFleetResponse
 updateFleetResponse pResponseStatus_ =
-    UpdateFleetResponse'
-    { _ufrsFleet = Nothing
-    , _ufrsResponseStatus = pResponseStatus_
-    }
+  UpdateFleetResponse'
+  {_ufrsFleet = Nothing, _ufrsResponseStatus = pResponseStatus_}
 
--- | A list of fleet details.
+
+-- | Information about the fleet.
 ufrsFleet :: Lens' UpdateFleetResponse (Maybe Fleet)
 ufrsFleet = lens _ufrsFleet (\ s a -> s{_ufrsFleet = a});
 
@@ -254,4 +258,4 @@ ufrsFleet = lens _ufrsFleet (\ s a -> s{_ufrsFleet = a});
 ufrsResponseStatus :: Lens' UpdateFleetResponse Int
 ufrsResponseStatus = lens _ufrsResponseStatus (\ s a -> s{_ufrsResponseStatus = a});
 
-instance NFData UpdateFleetResponse
+instance NFData UpdateFleetResponse where

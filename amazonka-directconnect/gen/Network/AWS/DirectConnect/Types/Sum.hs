@@ -9,15 +9,15 @@
 
 -- |
 -- Module      : Network.AWS.DirectConnect.Types.Sum
--- Copyright   : (c) 2013-2016 Brendan Hay
+-- Copyright   : (c) 2013-2017 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
--- Maintainer  : Brendan Hay <brendan.g.hay@gmail.com>
+-- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 module Network.AWS.DirectConnect.Types.Sum where
 
-import           Network.AWS.Prelude
+import Network.AWS.Prelude
 
 -- | Indicates the address family for the BGP peer.
 --
@@ -29,9 +29,10 @@ import           Network.AWS.Prelude
 --
 --
 data AddressFamily
-    = IPV4
-    | IPV6
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = IPV4
+  | IPV6
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText AddressFamily where
     parser = takeLowerText >>= \case
@@ -73,12 +74,13 @@ instance FromJSON AddressFamily where
 --
 --
 data BGPPeerState
-    = Available
-    | Deleted
-    | Deleting
-    | Pending
-    | Verifying
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Available
+  | Deleted
+  | Deleting
+  | Pending
+  | Verifying
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText BGPPeerState where
     parser = takeLowerText >>= \case
@@ -117,9 +119,10 @@ instance FromJSON BGPPeerState where
 --
 --
 data BGPStatus
-    = Down
-    | UP
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = Down
+  | UP
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText BGPStatus where
     parser = takeLowerText >>= \case
@@ -164,15 +167,16 @@ instance FromJSON BGPStatus where
 --
 --
 data ConnectionState
-    = CSAvailable
-    | CSDeleted
-    | CSDeleting
-    | CSDown
-    | CSOrdering
-    | CSPending
-    | CSRejected
-    | CSRequested
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = CSAvailable
+  | CSDeleted
+  | CSDeleting
+  | CSDown
+  | CSOrdering
+  | CSPending
+  | CSRejected
+  | CSRequested
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText ConnectionState where
     parser = takeLowerText >>= \case
@@ -207,6 +211,144 @@ instance ToHeader     ConnectionState
 instance FromJSON ConnectionState where
     parseJSON = parseJSONText "ConnectionState"
 
+-- | State of the direct connect gateway association.
+--
+--
+--     * __Associating__ : The initial state after calling 'CreateDirectConnectGatewayAssociation' .
+--
+--     * __Associated__ : The direct connect gateway and virtual private gateway are successfully associated and ready to pass traffic.
+--
+--     * __Disassociating__ : The initial state after calling 'DeleteDirectConnectGatewayAssociation' .
+--
+--     * __Disassociated__ : The virtual private gateway is successfully disassociated from the direct connect gateway. Traffic flow between the direct connect gateway and virtual private gateway stops.
+--
+--
+--
+data DirectConnectGatewayAssociationState
+  = Associated
+  | Associating
+  | Disassociated
+  | Disassociating
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText DirectConnectGatewayAssociationState where
+    parser = takeLowerText >>= \case
+        "associated" -> pure Associated
+        "associating" -> pure Associating
+        "disassociated" -> pure Disassociated
+        "disassociating" -> pure Disassociating
+        e -> fromTextError $ "Failure parsing DirectConnectGatewayAssociationState from value: '" <> e
+           <> "'. Accepted values: associated, associating, disassociated, disassociating"
+
+instance ToText DirectConnectGatewayAssociationState where
+    toText = \case
+        Associated -> "associated"
+        Associating -> "associating"
+        Disassociated -> "disassociated"
+        Disassociating -> "disassociating"
+
+instance Hashable     DirectConnectGatewayAssociationState
+instance NFData       DirectConnectGatewayAssociationState
+instance ToByteString DirectConnectGatewayAssociationState
+instance ToQuery      DirectConnectGatewayAssociationState
+instance ToHeader     DirectConnectGatewayAssociationState
+
+instance FromJSON DirectConnectGatewayAssociationState where
+    parseJSON = parseJSONText "DirectConnectGatewayAssociationState"
+
+-- | State of the direct connect gateway attachment.
+--
+--
+--     * __Attaching__ : The initial state after a virtual interface is created using the direct connect gateway.
+--
+--     * __Attached__ : The direct connect gateway and virtual interface are successfully attached and ready to pass traffic.
+--
+--     * __Detaching__ : The initial state after calling 'DeleteVirtualInterface' on a virtual interface that is attached to a direct connect gateway.
+--
+--     * __Detached__ : The virtual interface is successfully detached from the direct connect gateway. Traffic flow between the direct connect gateway and virtual interface stops.
+--
+--
+--
+data DirectConnectGatewayAttachmentState
+  = Attached
+  | Attaching
+  | Detached
+  | Detaching
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText DirectConnectGatewayAttachmentState where
+    parser = takeLowerText >>= \case
+        "attached" -> pure Attached
+        "attaching" -> pure Attaching
+        "detached" -> pure Detached
+        "detaching" -> pure Detaching
+        e -> fromTextError $ "Failure parsing DirectConnectGatewayAttachmentState from value: '" <> e
+           <> "'. Accepted values: attached, attaching, detached, detaching"
+
+instance ToText DirectConnectGatewayAttachmentState where
+    toText = \case
+        Attached -> "attached"
+        Attaching -> "attaching"
+        Detached -> "detached"
+        Detaching -> "detaching"
+
+instance Hashable     DirectConnectGatewayAttachmentState
+instance NFData       DirectConnectGatewayAttachmentState
+instance ToByteString DirectConnectGatewayAttachmentState
+instance ToQuery      DirectConnectGatewayAttachmentState
+instance ToHeader     DirectConnectGatewayAttachmentState
+
+instance FromJSON DirectConnectGatewayAttachmentState where
+    parseJSON = parseJSONText "DirectConnectGatewayAttachmentState"
+
+-- | State of the direct connect gateway.
+--
+--
+--     * __Pending__ : The initial state after calling 'CreateDirectConnectGateway' .
+--
+--     * __Available__ : The direct connect gateway is ready for use.
+--
+--     * __Deleting__ : The initial state after calling 'DeleteDirectConnectGateway' .
+--
+--     * __Deleted__ : The direct connect gateway is deleted and cannot pass traffic.
+--
+--
+--
+data DirectConnectGatewayState
+  = DCGSAvailable
+  | DCGSDeleted
+  | DCGSDeleting
+  | DCGSPending
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
+
+instance FromText DirectConnectGatewayState where
+    parser = takeLowerText >>= \case
+        "available" -> pure DCGSAvailable
+        "deleted" -> pure DCGSDeleted
+        "deleting" -> pure DCGSDeleting
+        "pending" -> pure DCGSPending
+        e -> fromTextError $ "Failure parsing DirectConnectGatewayState from value: '" <> e
+           <> "'. Accepted values: available, deleted, deleting, pending"
+
+instance ToText DirectConnectGatewayState where
+    toText = \case
+        DCGSAvailable -> "available"
+        DCGSDeleted -> "deleted"
+        DCGSDeleting -> "deleting"
+        DCGSPending -> "pending"
+
+instance Hashable     DirectConnectGatewayState
+instance NFData       DirectConnectGatewayState
+instance ToByteString DirectConnectGatewayState
+instance ToQuery      DirectConnectGatewayState
+instance ToHeader     DirectConnectGatewayState
+
+instance FromJSON DirectConnectGatewayState where
+    parseJSON = parseJSONText "DirectConnectGatewayState"
+
 -- | State of the interconnect.
 --
 --
@@ -225,13 +367,14 @@ instance FromJSON ConnectionState where
 --
 --
 data InterconnectState
-    = ISAvailable
-    | ISDeleted
-    | ISDeleting
-    | ISDown
-    | ISPending
-    | ISRequested
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = ISAvailable
+  | ISDeleted
+  | ISDeleting
+  | ISDown
+  | ISPending
+  | ISRequested
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText InterconnectState where
     parser = takeLowerText >>= \case
@@ -280,13 +423,14 @@ instance FromJSON InterconnectState where
 --
 --
 data LagState
-    = LSAvailable
-    | LSDeleted
-    | LSDeleting
-    | LSDown
-    | LSPending
-    | LSRequested
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = LSAvailable
+  | LSDeleted
+  | LSDeleting
+  | LSDown
+  | LSPending
+  | LSRequested
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText LagState where
     parser = takeLowerText >>= \case
@@ -323,8 +467,9 @@ instance FromJSON LagState where
 -- Default: application/pdf
 --
 data LoaContentType =
-    ApplicationPdf
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  ApplicationPdf
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText LoaContentType where
     parser = takeLowerText >>= \case
@@ -370,15 +515,16 @@ instance FromJSON LoaContentType where
 --
 --
 data VirtualInterfaceState
-    = VISAvailable
-    | VISConfirming
-    | VISDeleted
-    | VISDeleting
-    | VISDown
-    | VISPending
-    | VISRejected
-    | VISVerifying
-    deriving (Eq,Ord,Read,Show,Enum,Bounded,Data,Typeable,Generic)
+  = VISAvailable
+  | VISConfirming
+  | VISDeleted
+  | VISDeleting
+  | VISDown
+  | VISPending
+  | VISRejected
+  | VISVerifying
+  deriving (Eq, Ord, Read, Show, Enum, Bounded, Data, Typeable, Generic)
+
 
 instance FromText VirtualInterfaceState where
     parser = takeLowerText >>= \case
