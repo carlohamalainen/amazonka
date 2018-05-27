@@ -8,7 +8,7 @@
 
 -- |
 -- Module      : Network.AWS.Env
--- Copyright   : (c) 2013-2017 Brendan Hay
+-- Copyright   : (c) 2013-2018 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
@@ -39,7 +39,6 @@ module Network.AWS.Env
     , retryConnectionFailure
     ) where
 
-import Control.Applicative
 import Control.Monad.Catch
 import Control.Monad.IO.Class
 import Control.Monad.Reader
@@ -193,7 +192,7 @@ newEnv :: (Applicative m, MonadIO m, MonadCatch m)
        => Credentials -- ^ Credential discovery mechanism.
        -> m Env
 newEnv c =
-    liftIO (newManager conduitManagerSettings)
+    liftIO (newManager tlsManagerSettings)
         >>= newEnvWith c Nothing
 
 -- | /See:/ 'newEnv'

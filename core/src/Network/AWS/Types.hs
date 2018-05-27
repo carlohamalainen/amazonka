@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Network.AWS.Types
--- Copyright   : (c) 2013-2017 Brendan Hay
+-- Copyright   : (c) 2013-2018 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
@@ -180,7 +180,7 @@ type ClientRequest = Client.Request
 type ClientResponse = Client.Response ResponseBody
 
 -- | A convenience alias encapsulating the common 'Response' body.
-type ResponseBody = ResumableSource (ResourceT IO) ByteString
+type ResponseBody = ConduitM () ByteString (ResourceT IO) ()
 
 -- | Abbreviated service name.
 newtype Abbrev = Abbrev Text
@@ -518,7 +518,7 @@ class AWSRequest a where
     type Rs a :: *
 
     request  :: a -> Request a
-    response :: MonadResource m
+    response :: (MonadResource m, MonadThrow m)
              => Logger
              -> Service
              -> Proxy a -- For injectivity reasons.

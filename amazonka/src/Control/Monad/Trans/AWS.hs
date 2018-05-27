@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Control.Monad.Trans.AWS
--- Copyright   : (c) 2013-2017 Brendan Hay
+-- Copyright   : (c) 2013-2018 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : provisional
@@ -160,6 +160,7 @@ import Control.Applicative
 import Control.Monad.Base
 import Control.Monad.Catch
 import Control.Monad.Error.Class    (MonadError (..))
+import Control.Monad.IO.Unlift
 import Control.Monad.Morph
 import Control.Monad.Reader
 import Control.Monad.State.Class
@@ -230,6 +231,10 @@ instance MonadBaseControl b m => MonadBaseControl b (AWST' r m) where
     liftBaseWith = defaultLiftBaseWith
     restoreM     = defaultRestoreM
 
+instance MonadUnliftIO m => MonadUnliftIO (AWST' r m) where
+    askUnliftIO = AWST' $ (\(UnliftIO f) -> UnliftIO $ f . unAWST)
+        <$> askUnliftIO
+
 instance MonadResource m => MonadResource (AWST' r m) where
     liftResourceT = lift . liftResourceT
 
@@ -262,7 +267,8 @@ runAWST r (AWST' m) = runReaderT m r
 -- | An alias for the constraints required to send requests,
 -- which 'AWST' implicitly fulfils.
 type AWSConstraint r m =
-    ( MonadCatch     m
+    ( MonadThrow     m
+    , MonadCatch     m
     , MonadResource  m
     , MonadReader  r m
     , HasEnv       r
@@ -282,11 +288,11 @@ send = retrier >=> fmap snd . hoistError
 -- Throws 'Error'.
 paginate :: (AWSConstraint r m, AWSPager a)
          => a
-         -> Source m (Rs a)
+         -> ConduitM () (Rs a) m ()
 paginate = go
   where
     go !x = do
-        !y <- send x
+        !y <- lift $ send x
         yield y
         maybe (pure ()) go (page x y)
 
