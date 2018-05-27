@@ -18,7 +18,7 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation removes one or more tags from the set of tags attached to a vault. For more information about tags, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html Tagging Amazon Glacier Resources> . This operation is idempotent. The operation will be successful, even if there are no tags attached to the vault.
+-- This operation removes one or more tags from the set of tags attached to a vault. For more information about tags, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html Tagging Amazon Glacier Resources> . This operation is idempotent. The operation will be successful, even if there are no tags attached to the vault. 
 --
 --
 module Network.AWS.Glacier.RemoveTagsFromVault
@@ -49,7 +49,7 @@ import Network.AWS.Response
 --
 -- /See:/ 'removeTagsFromVault' smart constructor.
 data RemoveTagsFromVault = RemoveTagsFromVault'
-  { _rtfvTagKeys   :: !(Maybe [Text])
+  { _rtfvTagKeys :: !(Maybe [Text])
   , _rtfvAccountId :: !Text
   , _rtfvVaultName :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
@@ -99,7 +99,11 @@ instance Hashable RemoveTagsFromVault where
 instance NFData RemoveTagsFromVault where
 
 instance ToHeaders RemoveTagsFromVault where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON RemoveTagsFromVault where
         toJSON RemoveTagsFromVault'{..}

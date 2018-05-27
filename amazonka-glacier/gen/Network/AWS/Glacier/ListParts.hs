@@ -18,10 +18,10 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation lists the parts of an archive that have been uploaded in a specific multipart upload. You can make this request at any time during an in-progress multipart upload before you complete the upload (see 'CompleteMultipartUpload' . List Parts returns an error for completed uploads. The list returned in the List Parts response is sorted by part range.
+-- This operation lists the parts of an archive that have been uploaded in a specific multipart upload. You can make this request at any time during an in-progress multipart upload before you complete the upload (see 'CompleteMultipartUpload' . List Parts returns an error for completed uploads. The list returned in the List Parts response is sorted by part range. 
 --
 --
--- The List Parts operation supports pagination. By default, this operation returns up to 1,000 uploaded parts in the response. You should always check the response for a @marker@ at which to continue the list; if there are no more items the @marker@ is @null@ . To return a list of parts that begins at a specific part, set the @marker@ request parameter to the value you obtained from a previous List Parts request. You can also limit the number of parts returned in the response by specifying the @limit@ parameter in the request.
+-- The List Parts operation supports pagination. By default, this operation returns up to 1,000 uploaded parts in the response. You should always check the response for a @marker@ at which to continue the list; if there are no more items the @marker@ is @null@ . To return a list of parts that begins at a specific part, set the @marker@ request parameter to the value you obtained from a previous List Parts request. You can also limit the number of parts returned in the response by specifying the @limit@ parameter in the request. 
 --
 -- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
 --
@@ -69,11 +69,11 @@ import Network.AWS.Response
 --
 -- /See:/ 'listParts' smart constructor.
 data ListParts = ListParts'
-  { _lpMarker    :: !(Maybe Text)
-  , _lpLimit     :: !(Maybe Text)
+  { _lpMarker :: !(Maybe Text)
+  , _lpLimit :: !(Maybe Text)
   , _lpAccountId :: !Text
   , _lpVaultName :: !Text
-  , _lpUploadId  :: !Text
+  , _lpUploadId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -85,7 +85,7 @@ data ListParts = ListParts'
 --
 -- * 'lpLimit' - The maximum number of parts to be returned. The default limit is 1000. The number of parts returned might be fewer than the specified limit, but the number of returned parts never exceeds the limit.
 --
--- * 'lpAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- * 'lpAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 --
 -- * 'lpVaultName' - The name of the vault.
 --
@@ -113,7 +113,7 @@ lpMarker = lens _lpMarker (\ s a -> s{_lpMarker = a})
 lpLimit :: Lens' ListParts (Maybe Text)
 lpLimit = lens _lpLimit (\ s a -> s{_lpLimit = a})
 
--- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 lpAccountId :: Lens' ListParts Text
 lpAccountId = lens _lpAccountId (\ s a -> s{_lpAccountId = a})
 
@@ -153,7 +153,11 @@ instance Hashable ListParts where
 instance NFData ListParts where
 
 instance ToHeaders ListParts where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath ListParts where
         toPath ListParts'{..}
@@ -173,14 +177,14 @@ instance ToQuery ListParts where
 --
 -- /See:/ 'listPartsResponse' smart constructor.
 data ListPartsResponse = ListPartsResponse'
-  { _lprsParts              :: !(Maybe [PartListElement])
-  , _lprsMultipartUploadId  :: !(Maybe Text)
-  , _lprsPartSizeInBytes    :: !(Maybe Integer)
+  { _lprsParts :: !(Maybe [PartListElement])
+  , _lprsMultipartUploadId :: !(Maybe Text)
+  , _lprsPartSizeInBytes :: !(Maybe Integer)
   , _lprsArchiveDescription :: !(Maybe Text)
-  , _lprsVaultARN           :: !(Maybe Text)
-  , _lprsMarker             :: !(Maybe Text)
-  , _lprsCreationDate       :: !(Maybe Text)
-  , _lprsResponseStatus     :: !Int
+  , _lprsVaultARN :: !(Maybe Text)
+  , _lprsMarker :: !(Maybe Text)
+  , _lprsCreationDate :: !(Maybe Text)
+  , _lprsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 

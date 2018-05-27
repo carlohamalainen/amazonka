@@ -27,7 +27,7 @@
 --
 -- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
 --
--- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html Working with Archives in Amazon Glacier> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html Abort Multipart Upload> in the /Amazon Glacier Developer Guide/ .
+-- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html Working with Archives in Amazon Glacier> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html Abort Multipart Upload> in the /Amazon Glacier Developer Guide/ . 
 --
 module Network.AWS.Glacier.AbortMultipartUpload
     (
@@ -61,7 +61,7 @@ import Network.AWS.Response
 data AbortMultipartUpload = AbortMultipartUpload'
   { _amuAccountId :: !Text
   , _amuVaultName :: !Text
-  , _amuUploadId  :: !Text
+  , _amuUploadId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -110,7 +110,11 @@ instance Hashable AbortMultipartUpload where
 instance NFData AbortMultipartUpload where
 
 instance ToHeaders AbortMultipartUpload where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath AbortMultipartUpload where
         toPath AbortMultipartUpload'{..}

@@ -18,7 +18,7 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation adds the specified tags to a vault. Each tag is composed of a key and a value. Each vault can have up to 10 tags. If your request would cause the tag limit for the vault to be exceeded, the operation throws the @LimitExceededException@ error. If a tag already exists on the vault under a specified key, the existing key value will be overwritten. For more information about tags, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html Tagging Amazon Glacier Resources> .
+-- This operation adds the specified tags to a vault. Each tag is composed of a key and a value. Each vault can have up to 10 tags. If your request would cause the tag limit for the vault to be exceeded, the operation throws the @LimitExceededException@ error. If a tag already exists on the vault under a specified key, the existing key value will be overwritten. For more information about tags, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html Tagging Amazon Glacier Resources> . 
 --
 --
 module Network.AWS.Glacier.AddTagsToVault
@@ -49,7 +49,7 @@ import Network.AWS.Response
 --
 -- /See:/ 'addTagsToVault' smart constructor.
 data AddTagsToVault = AddTagsToVault'
-  { _attvTags      :: !(Maybe (Map Text Text))
+  { _attvTags :: !(Maybe (Map Text Text))
   , _attvAccountId :: !Text
   , _attvVaultName :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
@@ -98,7 +98,11 @@ instance Hashable AddTagsToVault where
 instance NFData AddTagsToVault where
 
 instance ToHeaders AddTagsToVault where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON AddTagsToVault where
         toJSON AddTagsToVault'{..}

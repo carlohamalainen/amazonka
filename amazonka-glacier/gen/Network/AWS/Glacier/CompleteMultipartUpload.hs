@@ -29,7 +29,7 @@
 --
 -- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
 --
--- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html Uploading Large Archives in Parts (Multipart Upload)> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html Complete Multipart Upload> in the /Amazon Glacier Developer Guide/ .
+-- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html Uploading Large Archives in Parts (Multipart Upload)> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html Complete Multipart Upload> in the /Amazon Glacier Developer Guide/ . 
 --
 module Network.AWS.Glacier.CompleteMultipartUpload
     (
@@ -65,11 +65,11 @@ import Network.AWS.Response
 --
 -- /See:/ 'completeMultipartUpload' smart constructor.
 data CompleteMultipartUpload = CompleteMultipartUpload'
-  { _cmuChecksum    :: !(Maybe Text)
+  { _cmuChecksum :: !(Maybe Text)
   , _cmuArchiveSize :: !(Maybe Text)
-  , _cmuAccountId   :: !Text
-  , _cmuVaultName   :: !Text
-  , _cmuUploadId    :: !Text
+  , _cmuAccountId :: !Text
+  , _cmuVaultName :: !Text
+  , _cmuUploadId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -141,7 +141,9 @@ instance ToHeaders CompleteMultipartUpload where
         toHeaders CompleteMultipartUpload'{..}
           = mconcat
               ["x-amz-sha256-tree-hash" =# _cmuChecksum,
-               "x-amz-archive-size" =# _cmuArchiveSize]
+               "x-amz-archive-size" =# _cmuArchiveSize,
+               "x-amz-glacier-version" =#
+                 ("2012-06-01" :: ByteString)]
 
 instance ToJSON CompleteMultipartUpload where
         toJSON = const (Object mempty)

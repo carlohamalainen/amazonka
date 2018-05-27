@@ -58,7 +58,7 @@ newtype GetDataRetrievalPolicy = GetDataRetrievalPolicy'
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gdrpAccountId' - The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
+-- * 'gdrpAccountId' - The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID. 
 getDataRetrievalPolicy
     :: Text -- ^ 'gdrpAccountId'
     -> GetDataRetrievalPolicy
@@ -66,7 +66,7 @@ getDataRetrievalPolicy pAccountId_ =
   GetDataRetrievalPolicy' {_gdrpAccountId = pAccountId_}
 
 
--- | The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID.
+-- | The @AccountId@ value is the AWS account ID. This value must match the AWS account ID associated with the credentials used to sign the request. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you specify your account ID, do not include any hyphens ('-') in the ID. 
 gdrpAccountId :: Lens' GetDataRetrievalPolicy Text
 gdrpAccountId = lens _gdrpAccountId (\ s a -> s{_gdrpAccountId = a})
 
@@ -85,7 +85,11 @@ instance Hashable GetDataRetrievalPolicy where
 instance NFData GetDataRetrievalPolicy where
 
 instance ToHeaders GetDataRetrievalPolicy where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath GetDataRetrievalPolicy where
         toPath GetDataRetrievalPolicy'{..}
@@ -102,7 +106,7 @@ instance ToQuery GetDataRetrievalPolicy where
 --
 -- /See:/ 'getDataRetrievalPolicyResponse' smart constructor.
 data GetDataRetrievalPolicyResponse = GetDataRetrievalPolicyResponse'
-  { _gdrprsPolicy         :: !(Maybe DataRetrievalPolicy)
+  { _gdrprsPolicy :: !(Maybe DataRetrievalPolicy)
   , _gdrprsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

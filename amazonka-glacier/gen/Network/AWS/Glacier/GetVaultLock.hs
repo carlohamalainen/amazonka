@@ -18,7 +18,7 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation retrieves the following attributes from the @lock-policy@ subresource set on the specified vault:
+-- This operation retrieves the following attributes from the @lock-policy@ subresource set on the specified vault: 
 --
 --
 --     * The vault lock policy set on the vault.
@@ -31,9 +31,9 @@
 --
 --
 --
--- A vault lock is put into the @InProgress@ state by calling 'InitiateVaultLock' . A vault lock is put into the @Locked@ state by calling 'CompleteVaultLock' . You can abort the vault locking process by calling 'AbortVaultLock' . For more information about the vault locking process, <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html Amazon Glacier Vault Lock> .
+-- A vault lock is put into the @InProgress@ state by calling 'InitiateVaultLock' . A vault lock is put into the @Locked@ state by calling 'CompleteVaultLock' . You can abort the vault locking process by calling 'AbortVaultLock' . For more information about the vault locking process, <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html Amazon Glacier Vault Lock> . 
 --
--- If there is no vault lock policy set on the vault, the operation returns a @404 Not found@ error. For more information about vault lock policies, <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies> .
+-- If there is no vault lock policy set on the vault, the operation returns a @404 Not found@ error. For more information about vault lock policies, <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies> . 
 --
 module Network.AWS.Glacier.GetVaultLock
     (
@@ -113,7 +113,11 @@ instance Hashable GetVaultLock where
 instance NFData GetVaultLock where
 
 instance ToHeaders GetVaultLock where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath GetVaultLock where
         toPath GetVaultLock'{..}
@@ -130,10 +134,10 @@ instance ToQuery GetVaultLock where
 --
 -- /See:/ 'getVaultLockResponse' smart constructor.
 data GetVaultLockResponse = GetVaultLockResponse'
-  { _gvlrsState          :: !(Maybe Text)
+  { _gvlrsState :: !(Maybe Text)
   , _gvlrsExpirationDate :: !(Maybe Text)
-  , _gvlrsCreationDate   :: !(Maybe Text)
-  , _gvlrsPolicy         :: !(Maybe Text)
+  , _gvlrsCreationDate :: !(Maybe Text)
+  , _gvlrsPolicy :: !(Maybe Text)
   , _gvlrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

@@ -33,7 +33,7 @@
 --
 -- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
 --
--- For conceptual information and the underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html Downloading a Vault Inventory> , <http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html Downloading an Archive> , and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html Get Job Output >
+-- For conceptual information and the underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html Downloading a Vault Inventory> , <http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html Downloading an Archive> , and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html Get Job Output > 
 --
 module Network.AWS.Glacier.GetJobOutput
     (
@@ -72,10 +72,10 @@ import Network.AWS.Response
 --
 -- /See:/ 'getJobOutput' smart constructor.
 data GetJobOutput = GetJobOutput'
-  { _gjoRange     :: !(Maybe Text)
+  { _gjoRange :: !(Maybe Text)
   , _gjoAccountId :: !Text
   , _gjoVaultName :: !Text
-  , _gjoJobId     :: !Text
+  , _gjoJobId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -141,7 +141,10 @@ instance NFData GetJobOutput where
 
 instance ToHeaders GetJobOutput where
         toHeaders GetJobOutput'{..}
-          = mconcat ["Range" =# _gjoRange]
+          = mconcat
+              ["Range" =# _gjoRange,
+               "x-amz-glacier-version" =#
+                 ("2012-06-01" :: ByteString)]
 
 instance ToPath GetJobOutput where
         toPath GetJobOutput'{..}
@@ -159,13 +162,13 @@ instance ToQuery GetJobOutput where
 --
 -- /See:/ 'getJobOutputResponse' smart constructor.
 data GetJobOutputResponse = GetJobOutputResponse'
-  { _gjorsChecksum           :: !(Maybe Text)
-  , _gjorsAcceptRanges       :: !(Maybe Text)
+  { _gjorsChecksum :: !(Maybe Text)
+  , _gjorsAcceptRanges :: !(Maybe Text)
   , _gjorsArchiveDescription :: !(Maybe Text)
-  , _gjorsContentRange       :: !(Maybe Text)
-  , _gjorsContentType        :: !(Maybe Text)
-  , _gjorsStatus             :: !Int
-  , _gjorsBody               :: !RsBody
+  , _gjorsContentRange :: !(Maybe Text)
+  , _gjorsContentType :: !(Maybe Text)
+  , _gjorsStatus :: !Int
+  , _gjorsBody :: !RsBody
   } deriving (Show, Generic)
 
 
@@ -175,7 +178,7 @@ data GetJobOutputResponse = GetJobOutputResponse'
 --
 -- * 'gjorsChecksum' - The checksum of the data in the response. This header is returned only when retrieving the output for an archive retrieval job. Furthermore, this header appears only under the following conditions:     * You get the entire range of the archive.     * You request a range to return of the archive that starts and ends on a multiple of 1 MB. For example, if you have an 3.1 MB archive and you specify a range to return that starts at 1 MB and ends at 2 MB, then the x-amz-sha256-tree-hash is returned as a response header.     * You request a range of the archive to return that starts on a multiple of 1 MB and goes to the end of the archive. For example, if you have a 3.1 MB archive and you specify a range that starts at 2 MB and ends at 3.1 MB (the end of the archive), then the x-amz-sha256-tree-hash is returned as a response header.
 --
--- * 'gjorsAcceptRanges' - Indicates the range units accepted. For more information, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html RFC2616> .
+-- * 'gjorsAcceptRanges' - Indicates the range units accepted. For more information, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html RFC2616> . 
 --
 -- * 'gjorsArchiveDescription' - The description of an archive.
 --
@@ -206,7 +209,7 @@ getJobOutputResponse pStatus_ pBody_ =
 gjorsChecksum :: Lens' GetJobOutputResponse (Maybe Text)
 gjorsChecksum = lens _gjorsChecksum (\ s a -> s{_gjorsChecksum = a})
 
--- | Indicates the range units accepted. For more information, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html RFC2616> .
+-- | Indicates the range units accepted. For more information, see <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html RFC2616> . 
 gjorsAcceptRanges :: Lens' GetJobOutputResponse (Maybe Text)
 gjorsAcceptRanges = lens _gjorsAcceptRanges (\ s a -> s{_gjorsAcceptRanges = a})
 

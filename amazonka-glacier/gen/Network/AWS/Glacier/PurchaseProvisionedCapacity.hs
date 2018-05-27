@@ -18,7 +18,7 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation purchases a provisioned capacity unit for an AWS account.
+-- This operation purchases a provisioned capacity unit for an AWS account. 
 --
 --
 module Network.AWS.Glacier.PurchaseProvisionedCapacity
@@ -54,7 +54,7 @@ newtype PurchaseProvisionedCapacity = PurchaseProvisionedCapacity'
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'ppcAccountId' - The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID.
+-- * 'ppcAccountId' - The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID. 
 purchaseProvisionedCapacity
     :: Text -- ^ 'ppcAccountId'
     -> PurchaseProvisionedCapacity
@@ -62,7 +62,7 @@ purchaseProvisionedCapacity pAccountId_ =
   PurchaseProvisionedCapacity' {_ppcAccountId = pAccountId_}
 
 
--- | The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID.
+-- | The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID. 
 ppcAccountId :: Lens' PurchaseProvisionedCapacity Text
 ppcAccountId = lens _ppcAccountId (\ s a -> s{_ppcAccountId = a})
 
@@ -81,7 +81,11 @@ instance Hashable PurchaseProvisionedCapacity where
 instance NFData PurchaseProvisionedCapacity where
 
 instance ToHeaders PurchaseProvisionedCapacity where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON PurchaseProvisionedCapacity where
         toJSON = const (Object mempty)
@@ -96,7 +100,7 @@ instance ToQuery PurchaseProvisionedCapacity where
 
 -- | /See:/ 'purchaseProvisionedCapacityResponse' smart constructor.
 data PurchaseProvisionedCapacityResponse = PurchaseProvisionedCapacityResponse'
-  { _ppcrsCapacityId     :: !(Maybe Text)
+  { _ppcrsCapacityId :: !(Maybe Text)
   , _ppcrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

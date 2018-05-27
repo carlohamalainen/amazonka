@@ -21,11 +21,11 @@
 -- This operation lists all vaults owned by the calling user's account. The list returned in the response is ASCII-sorted by vault name.
 --
 --
--- By default, this operation returns up to 1,000 items. If there are more vaults to list, the response @marker@ field contains the vault Amazon Resource Name (ARN) at which to continue the list with a new List Vaults request; otherwise, the @marker@ field is @null@ . To return a list of vaults that begins at a specific vault, set the @marker@ request parameter to the vault ARN you obtained from a previous List Vaults request. You can also limit the number of vaults returned in the response by specifying the @limit@ parameter in the request.
+-- By default, this operation returns up to 1,000 items. If there are more vaults to list, the response @marker@ field contains the vault Amazon Resource Name (ARN) at which to continue the list with a new List Vaults request; otherwise, the @marker@ field is @null@ . To return a list of vaults that begins at a specific vault, set the @marker@ request parameter to the vault ARN you obtained from a previous List Vaults request. You can also limit the number of vaults returned in the response by specifying the @limit@ parameter in the request. 
 --
 -- An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform specific actions. For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html Access Control Using AWS Identity and Access Management (IAM)> .
 --
--- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html Retrieving Vault Metadata in Amazon Glacier> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html List Vaults > in the /Amazon Glacier Developer Guide/ .
+-- For conceptual information and underlying REST API, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html Retrieving Vault Metadata in Amazon Glacier> and <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html List Vaults > in the /Amazon Glacier Developer Guide/ . 
 --
 --
 -- This operation returns paginated results.
@@ -62,8 +62,8 @@ import Network.AWS.Response
 --
 -- /See:/ 'listVaults' smart constructor.
 data ListVaults = ListVaults'
-  { _lvMarker    :: !(Maybe Text)
-  , _lvLimit     :: !(Maybe Text)
+  { _lvMarker :: !(Maybe Text)
+  , _lvLimit :: !(Maybe Text)
   , _lvAccountId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
@@ -119,7 +119,11 @@ instance Hashable ListVaults where
 instance NFData ListVaults where
 
 instance ToHeaders ListVaults where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath ListVaults where
         toPath ListVaults'{..}
@@ -136,8 +140,8 @@ instance ToQuery ListVaults where
 --
 -- /See:/ 'listVaultsResponse' smart constructor.
 data ListVaultsResponse = ListVaultsResponse'
-  { _lvrsMarker         :: !(Maybe Text)
-  , _lvrsVaultList      :: !(Maybe [DescribeVaultOutput])
+  { _lvrsMarker :: !(Maybe Text)
+  , _lvrsVaultList :: !(Maybe [DescribeVaultOutput])
   , _lvrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

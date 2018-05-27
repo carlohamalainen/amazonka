@@ -29,15 +29,15 @@
 --
 --
 --
--- You can set one vault lock policy for each vault and this policy can be up to 20 KB in size. For more information about vault lock policies, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies> .
+-- You can set one vault lock policy for each vault and this policy can be up to 20 KB in size. For more information about vault lock policies, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html Amazon Glacier Access Control with Vault Lock Policies> . 
 --
--- You must complete the vault locking process within 24 hours after the vault lock enters the @InProgress@ state. After the 24 hour window ends, the lock ID expires, the vault automatically exits the @InProgress@ state, and the vault lock policy is removed from the vault. You call 'CompleteVaultLock' to complete the vault locking process by setting the state of the vault lock to @Locked@ .
+-- You must complete the vault locking process within 24 hours after the vault lock enters the @InProgress@ state. After the 24 hour window ends, the lock ID expires, the vault automatically exits the @InProgress@ state, and the vault lock policy is removed from the vault. You call 'CompleteVaultLock' to complete the vault locking process by setting the state of the vault lock to @Locked@ . 
 --
 -- After a vault lock is in the @Locked@ state, you cannot initiate a new vault lock for the vault.
 --
 -- You can abort the vault locking process by calling 'AbortVaultLock' . You can get the state of the vault lock by calling 'GetVaultLock' . For more information about the vault locking process, <http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html Amazon Glacier Vault Lock> .
 --
--- If this operation is called when the vault lock is in the @InProgress@ state, the operation returns an @AccessDeniedException@ error. When the vault lock is in the @InProgress@ state you must call 'AbortVaultLock' before you can initiate a new vault lock policy.
+-- If this operation is called when the vault lock is in the @InProgress@ state, the operation returns an @AccessDeniedException@ error. When the vault lock is in the @InProgress@ state you must call 'AbortVaultLock' before you can initiate a new vault lock policy. 
 --
 module Network.AWS.Glacier.InitiateVaultLock
     (
@@ -70,7 +70,7 @@ import Network.AWS.Response
 --
 -- /See:/ 'initiateVaultLock' smart constructor.
 data InitiateVaultLock = InitiateVaultLock'
-  { _ivlPolicy    :: !(Maybe VaultLockPolicy)
+  { _ivlPolicy :: !(Maybe VaultLockPolicy)
   , _ivlAccountId :: !Text
   , _ivlVaultName :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
@@ -123,7 +123,11 @@ instance Hashable InitiateVaultLock where
 instance NFData InitiateVaultLock where
 
 instance ToHeaders InitiateVaultLock where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON InitiateVaultLock where
         toJSON InitiateVaultLock'{..}
@@ -144,7 +148,7 @@ instance ToQuery InitiateVaultLock where
 --
 -- /See:/ 'initiateVaultLockResponse' smart constructor.
 data InitiateVaultLockResponse = InitiateVaultLockResponse'
-  { _ivlrsLockId         :: !(Maybe Text)
+  { _ivlrsLockId :: !(Maybe Text)
   , _ivlrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
