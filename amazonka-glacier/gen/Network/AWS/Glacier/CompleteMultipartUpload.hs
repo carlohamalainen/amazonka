@@ -141,8 +141,7 @@ instance ToHeaders CompleteMultipartUpload where
         toHeaders CompleteMultipartUpload'{..}
           = mconcat
               ["x-amz-sha256-tree-hash" =# _cmuChecksum,
-               "x-amz-archive-size" =# _cmuArchiveSize,
-               "x-amz-glacier-version" =# ("2012-06-01"::Text)]
+               "x-amz-archive-size" =# _cmuArchiveSize]
 
 instance ToJSON CompleteMultipartUpload where
         toJSON = const (Object mempty)

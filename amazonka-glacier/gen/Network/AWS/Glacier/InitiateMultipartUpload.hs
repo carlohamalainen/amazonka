@@ -131,8 +131,7 @@ instance ToHeaders InitiateMultipartUpload where
         toHeaders InitiateMultipartUpload'{..}
           = mconcat
               ["x-amz-part-size" =# _imuPartSize,
-               "x-amz-archive-description" =# _imuArchiveDescription,
-               "x-amz-glacier-version" =# ("2012-06-01"::Text)]
+               "x-amz-archive-description" =# _imuArchiveDescription]
 
 instance ToJSON InitiateMultipartUpload where
         toJSON = const (Object mempty)

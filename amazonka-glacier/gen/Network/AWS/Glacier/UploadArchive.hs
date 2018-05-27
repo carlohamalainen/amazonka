@@ -141,8 +141,7 @@ instance ToHeaders UploadArchive where
         toHeaders UploadArchive'{..}
           = mconcat
               ["x-amz-sha256-tree-hash" =# _uaChecksum,
-               "x-amz-archive-description" =# _uaArchiveDescription,
-               "x-amz-glacier-version" =# ("2012-06-01"::Text)]
+               "x-amz-archive-description" =# _uaArchiveDescription]
 
 instance ToPath UploadArchive where
         toPath UploadArchive'{..}
