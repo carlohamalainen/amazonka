@@ -18,7 +18,7 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation initiates a job of the specified type, which can be a select, an archival retrieval, or a vault retrieval. For more information about using this operation, see the documentation for the underlying REST API <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html Initiate a Job> .
+-- This operation initiates a job of the specified type, which can be a select, an archival retrieval, or a vault retrieval. For more information about using this operation, see the documentation for the underlying REST API <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html Initiate a Job> . 
 --
 --
 module Network.AWS.Glacier.InitiateJob
@@ -55,8 +55,8 @@ import Network.AWS.Response
 -- /See:/ 'initiateJob' smart constructor.
 data InitiateJob = InitiateJob'
   { _ijJobParameters :: !(Maybe JobParameters)
-  , _ijAccountId     :: !Text
-  , _ijVaultName     :: !Text
+  , _ijAccountId :: !Text
+  , _ijVaultName :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -110,7 +110,11 @@ instance Hashable InitiateJob where
 instance NFData InitiateJob where
 
 instance ToHeaders InitiateJob where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON InitiateJob where
         toJSON InitiateJob'{..}
@@ -133,9 +137,9 @@ instance ToQuery InitiateJob where
 --
 -- /See:/ 'initiateJobResponse' smart constructor.
 data InitiateJobResponse = InitiateJobResponse'
-  { _ijrsJobId          :: !(Maybe Text)
-  , _ijrsJobOutputPath  :: !(Maybe Text)
-  , _ijrsLocation       :: !(Maybe Text)
+  { _ijrsJobId :: !(Maybe Text)
+  , _ijrsJobOutputPath :: !(Maybe Text)
+  , _ijrsLocation :: !(Maybe Text)
   , _ijrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

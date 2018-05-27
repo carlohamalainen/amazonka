@@ -54,7 +54,7 @@ newtype ListProvisionedCapacity = ListProvisionedCapacity'
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'lpcAccountId' - The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID.
+-- * 'lpcAccountId' - The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID. 
 listProvisionedCapacity
     :: Text -- ^ 'lpcAccountId'
     -> ListProvisionedCapacity
@@ -62,7 +62,7 @@ listProvisionedCapacity pAccountId_ =
   ListProvisionedCapacity' {_lpcAccountId = pAccountId_}
 
 
--- | The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID.
+-- | The AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '-' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, don't include any hyphens ('-') in the ID. 
 lpcAccountId :: Lens' ListProvisionedCapacity Text
 lpcAccountId = lens _lpcAccountId (\ s a -> s{_lpcAccountId = a})
 
@@ -82,7 +82,11 @@ instance Hashable ListProvisionedCapacity where
 instance NFData ListProvisionedCapacity where
 
 instance ToHeaders ListProvisionedCapacity where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath ListProvisionedCapacity where
         toPath ListProvisionedCapacity'{..}
@@ -95,7 +99,7 @@ instance ToQuery ListProvisionedCapacity where
 -- | /See:/ 'listProvisionedCapacityResponse' smart constructor.
 data ListProvisionedCapacityResponse = ListProvisionedCapacityResponse'
   { _lpcrsProvisionedCapacityList :: !(Maybe [ProvisionedCapacityDescription])
-  , _lpcrsResponseStatus          :: !Int
+  , _lpcrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 

@@ -21,7 +21,7 @@
 -- This operation sets and then enacts a data retrieval policy in the region specified in the PUT request. You can set one policy per region for an AWS account. The policy is enacted within a few minutes of a successful PUT operation.
 --
 --
--- The set policy operation does not affect retrieval jobs that were in progress before the policy was enacted. For more information about data retrieval policies, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html Amazon Glacier Data Retrieval Policies> .
+-- The set policy operation does not affect retrieval jobs that were in progress before the policy was enacted. For more information about data retrieval policies, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html Amazon Glacier Data Retrieval Policies> . 
 --
 module Network.AWS.Glacier.SetDataRetrievalPolicy
     (
@@ -50,7 +50,7 @@ import Network.AWS.Response
 --
 -- /See:/ 'setDataRetrievalPolicy' smart constructor.
 data SetDataRetrievalPolicy = SetDataRetrievalPolicy'
-  { _sdrpPolicy    :: !(Maybe DataRetrievalPolicy)
+  { _sdrpPolicy :: !(Maybe DataRetrievalPolicy)
   , _sdrpAccountId :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
@@ -89,7 +89,11 @@ instance Hashable SetDataRetrievalPolicy where
 instance NFData SetDataRetrievalPolicy where
 
 instance ToHeaders SetDataRetrievalPolicy where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToJSON SetDataRetrievalPolicy where
         toJSON SetDataRetrievalPolicy'{..}

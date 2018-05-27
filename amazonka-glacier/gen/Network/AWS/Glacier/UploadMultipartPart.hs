@@ -27,7 +27,7 @@
 --
 --     * __Part size does not match__ The size of each part except the last must match the size specified in the corresponding 'InitiateMultipartUpload' request. The size of the last part must be the same size as, or smaller than, the specified size.
 --
---     * __Range does not align__ The byte range value in the request does not align with the part size specified in the corresponding initiate request. For example, if you specify a part size of 4194304 bytes (4 MB), then 0 to 4194303 bytes (4 MB - 1) and 4194304 (4 MB) to 8388607 (8 MB - 1) are valid part ranges. However, if you set a range value of 2 MB to 6 MB, the range does not align with the part size and the upload will fail.
+--     * __Range does not align__ The byte range value in the request does not align with the part size specified in the corresponding initiate request. For example, if you specify a part size of 4194304 bytes (4 MB), then 0 to 4194303 bytes (4 MB - 1) and 4194304 (4 MB) to 8388607 (8 MB - 1) are valid part ranges. However, if you set a range value of 2 MB to 6 MB, the range does not align with the part size and the upload will fail. 
 --
 --
 --
@@ -71,12 +71,12 @@ import Network.AWS.Response
 --
 -- /See:/ 'uploadMultipartPart' smart constructor.
 data UploadMultipartPart = UploadMultipartPart'
-  { _umpChecksum  :: !(Maybe Text)
-  , _umpRange     :: !(Maybe Text)
+  { _umpChecksum :: !(Maybe Text)
+  , _umpRange :: !(Maybe Text)
   , _umpAccountId :: !Text
   , _umpVaultName :: !Text
-  , _umpUploadId  :: !Text
-  , _umpBody      :: !HashedBody
+  , _umpUploadId :: !Text
+  , _umpBody :: !HashedBody
   } deriving (Show, Generic)
 
 
@@ -88,7 +88,7 @@ data UploadMultipartPart = UploadMultipartPart'
 --
 -- * 'umpRange' - Identifies the range of bytes in the assembled archive that will be uploaded in this part. Amazon Glacier uses this information to assemble the archive in the proper sequence. The format of this header follows RFC 2616. An example header is Content-Range:bytes 0-4194303/*.
 --
--- * 'umpAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- * 'umpAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 --
 -- * 'umpVaultName' - The name of the vault.
 --
@@ -120,7 +120,7 @@ umpChecksum = lens _umpChecksum (\ s a -> s{_umpChecksum = a})
 umpRange :: Lens' UploadMultipartPart (Maybe Text)
 umpRange = lens _umpRange (\ s a -> s{_umpRange = a})
 
--- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 umpAccountId :: Lens' UploadMultipartPart Text
 umpAccountId = lens _umpAccountId (\ s a -> s{_umpAccountId = a})
 
@@ -154,7 +154,9 @@ instance ToHeaders UploadMultipartPart where
         toHeaders UploadMultipartPart'{..}
           = mconcat
               ["x-amz-sha256-tree-hash" =# _umpChecksum,
-               "Content-Range" =# _umpRange]
+               "Content-Range" =# _umpRange,
+               "x-amz-glacier-version" =#
+                 ("2012-06-01" :: ByteString)]
 
 instance ToPath UploadMultipartPart where
         toPath UploadMultipartPart'{..}
@@ -172,7 +174,7 @@ instance ToQuery UploadMultipartPart where
 --
 -- /See:/ 'uploadMultipartPartResponse' smart constructor.
 data UploadMultipartPartResponse = UploadMultipartPartResponse'
-  { _umprsChecksum       :: !(Maybe Text)
+  { _umprsChecksum :: !(Maybe Text)
   , _umprsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

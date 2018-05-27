@@ -95,7 +95,11 @@ instance Hashable GetVaultAccessPolicy where
 instance NFData GetVaultAccessPolicy where
 
 instance ToHeaders GetVaultAccessPolicy where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath GetVaultAccessPolicy where
         toPath GetVaultAccessPolicy'{..}
@@ -112,7 +116,7 @@ instance ToQuery GetVaultAccessPolicy where
 --
 -- /See:/ 'getVaultAccessPolicyResponse' smart constructor.
 data GetVaultAccessPolicyResponse = GetVaultAccessPolicyResponse'
-  { _gvaprsPolicy         :: !(Maybe VaultAccessPolicy)
+  { _gvaprsPolicy :: !(Maybe VaultAccessPolicy)
   , _gvaprsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

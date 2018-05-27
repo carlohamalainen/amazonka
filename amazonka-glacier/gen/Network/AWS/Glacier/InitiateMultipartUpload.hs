@@ -23,7 +23,7 @@
 --
 -- When you initiate a multipart upload, you specify the part size in number of bytes. The part size must be a megabyte (1024 KB) multiplied by a power of 2-for example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8 MB), and so on. The minimum allowable part size is 1 MB, and the maximum is 4 GB.
 --
--- Every part you upload to this resource (see 'UploadMultipartPart' ), except the last one, must have the same size. The last one can be the same size or smaller. For example, suppose you want to upload a 16.2 MB file. If you initiate the multipart upload with a part size of 4 MB, you will upload four parts of 4 MB each and one part of 0.2 MB.
+-- Every part you upload to this resource (see 'UploadMultipartPart' ), except the last one, must have the same size. The last one can be the same size or smaller. For example, suppose you want to upload a 16.2 MB file. If you initiate the multipart upload with a part size of 4 MB, you will upload four parts of 4 MB each and one part of 0.2 MB. 
 --
 -- After you complete the multipart upload, Amazon Glacier removes the multipart upload resource referenced by the ID. Amazon Glacier also removes the multipart upload resource if you cancel the multipart upload or it may be removed if there is no activity for a period of 24 hours.
 --
@@ -64,10 +64,10 @@ import Network.AWS.Response
 --
 -- /See:/ 'initiateMultipartUpload' smart constructor.
 data InitiateMultipartUpload = InitiateMultipartUpload'
-  { _imuPartSize           :: !(Maybe Text)
+  { _imuPartSize :: !(Maybe Text)
   , _imuArchiveDescription :: !(Maybe Text)
-  , _imuAccountId          :: !Text
-  , _imuVaultName          :: !Text
+  , _imuAccountId :: !Text
+  , _imuVaultName :: !Text
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -79,7 +79,7 @@ data InitiateMultipartUpload = InitiateMultipartUpload'
 --
 -- * 'imuArchiveDescription' - The archive description that you are uploading in parts. The part size must be a megabyte (1024 KB) multiplied by a power of 2, for example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8 MB), and so on. The minimum allowable part size is 1 MB, and the maximum is 4 GB (4096 MB).
 --
--- * 'imuAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- * 'imuAccountId' - The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 --
 -- * 'imuVaultName' - The name of the vault.
 initiateMultipartUpload
@@ -103,7 +103,7 @@ imuPartSize = lens _imuPartSize (\ s a -> s{_imuPartSize = a})
 imuArchiveDescription :: Lens' InitiateMultipartUpload (Maybe Text)
 imuArchiveDescription = lens _imuArchiveDescription (\ s a -> s{_imuArchiveDescription = a})
 
--- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.
+-- | The @AccountId@ value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '@-@ ' (hyphen), in which case Amazon Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID. 
 imuAccountId :: Lens' InitiateMultipartUpload Text
 imuAccountId = lens _imuAccountId (\ s a -> s{_imuAccountId = a})
 
@@ -131,7 +131,10 @@ instance ToHeaders InitiateMultipartUpload where
         toHeaders InitiateMultipartUpload'{..}
           = mconcat
               ["x-amz-part-size" =# _imuPartSize,
-               "x-amz-archive-description" =# _imuArchiveDescription]
+               "x-amz-archive-description" =#
+                 _imuArchiveDescription,
+               "x-amz-glacier-version" =#
+                 ("2012-06-01" :: ByteString)]
 
 instance ToJSON InitiateMultipartUpload where
         toJSON = const (Object mempty)
@@ -151,8 +154,8 @@ instance ToQuery InitiateMultipartUpload where
 --
 -- /See:/ 'initiateMultipartUploadResponse' smart constructor.
 data InitiateMultipartUploadResponse = InitiateMultipartUploadResponse'
-  { _imursLocation       :: !(Maybe Text)
-  , _imursUploadId       :: !(Maybe Text)
+  { _imursLocation :: !(Maybe Text)
+  , _imursUploadId :: !(Maybe Text)
   , _imursResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 

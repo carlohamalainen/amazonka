@@ -30,8 +30,8 @@ import Network.AWS.Prelude
 -- /See:/ 'archiveCreationOutput' smart constructor.
 data ArchiveCreationOutput = ArchiveCreationOutput'
   { _acoArchiveId :: !(Maybe Text)
-  , _acoChecksum  :: !(Maybe Text)
-  , _acoLocation  :: !(Maybe Text)
+  , _acoChecksum :: !(Maybe Text)
+  , _acoLocation :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -82,12 +82,12 @@ instance NFData ArchiveCreationOutput where
 --
 -- /See:/ 'csvInput' smart constructor.
 data CSVInput = CSVInput'
-  { _ciQuoteCharacter       :: !(Maybe Text)
-  , _ciRecordDelimiter      :: !(Maybe Text)
-  , _ciFileHeaderInfo       :: !(Maybe FileHeaderInfo)
+  { _ciQuoteCharacter :: !(Maybe Text)
+  , _ciRecordDelimiter :: !(Maybe Text)
+  , _ciFileHeaderInfo :: !(Maybe FileHeaderInfo)
   , _ciQuoteEscapeCharacter :: !(Maybe Text)
-  , _ciComments             :: !(Maybe Text)
-  , _ciFieldDelimiter       :: !(Maybe Text)
+  , _ciComments :: !(Maybe Text)
+  , _ciFieldDelimiter :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -177,11 +177,11 @@ instance ToJSON CSVInput where
 --
 -- /See:/ 'csvOutput' smart constructor.
 data CSVOutput = CSVOutput'
-  { _coQuoteCharacter       :: !(Maybe Text)
-  , _coQuoteFields          :: !(Maybe QuoteFields)
-  , _coRecordDelimiter      :: !(Maybe Text)
+  { _coQuoteCharacter :: !(Maybe Text)
+  , _coQuoteFields :: !(Maybe QuoteFields)
+  , _coRecordDelimiter :: !(Maybe Text)
   , _coQuoteEscapeCharacter :: !(Maybe Text)
-  , _coFieldDelimiter       :: !(Maybe Text)
+  , _coFieldDelimiter :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -299,7 +299,7 @@ instance ToJSON DataRetrievalPolicy where
 --
 -- /See:/ 'dataRetrievalRule' smart constructor.
 data DataRetrievalRule = DataRetrievalRule'
-  { _drrStrategy     :: !(Maybe Text)
+  { _drrStrategy :: !(Maybe Text)
   , _drrBytesPerHour :: !(Maybe Integer)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
@@ -349,12 +349,12 @@ instance ToJSON DataRetrievalRule where
 --
 -- /See:/ 'describeVaultOutput' smart constructor.
 data DescribeVaultOutput = DescribeVaultOutput'
-  { _dvoVaultName         :: !(Maybe Text)
-  , _dvoSizeInBytes       :: !(Maybe Integer)
+  { _dvoVaultName :: !(Maybe Text)
+  , _dvoSizeInBytes :: !(Maybe Integer)
   , _dvoLastInventoryDate :: !(Maybe Text)
-  , _dvoVaultARN          :: !(Maybe Text)
-  , _dvoCreationDate      :: !(Maybe Text)
-  , _dvoNumberOfArchives  :: !(Maybe Integer)
+  , _dvoVaultARN :: !(Maybe Text)
+  , _dvoCreationDate :: !(Maybe Text)
+  , _dvoNumberOfArchives :: !(Maybe Integer)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -425,15 +425,15 @@ instance Hashable DescribeVaultOutput where
 
 instance NFData DescribeVaultOutput where
 
--- | Contains information about the encryption used to store the job results in Amazon S3.
+-- | Contains information about the encryption used to store the job results in Amazon S3. 
 --
 --
 --
 -- /See:/ 'encryption' smart constructor.
 data Encryption = Encryption'
   { _eEncryptionType :: !(Maybe EncryptionType)
-  , _eKMSKeyId       :: !(Maybe Text)
-  , _eKMSContext     :: !(Maybe Text)
+  , _eKMSKeyId :: !(Maybe Text)
+  , _eKMSContext :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -443,7 +443,7 @@ data Encryption = Encryption'
 --
 -- * 'eEncryptionType' - The server-side encryption algorithm used when storing job results in Amazon S3, for example @AES256@ or @aws:kms@ .
 --
--- * 'eKMSKeyId' - The AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS fail if not made by using Secure Sockets Layer (SSL) or Signature Version 4.
+-- * 'eKMSKeyId' - The AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS fail if not made by using Secure Sockets Layer (SSL) or Signature Version 4. 
 --
 -- * 'eKMSContext' - Optional. If the encryption type is @aws:kms@ , you can use this value to specify the encryption context for the job results.
 encryption
@@ -457,7 +457,7 @@ encryption =
 eEncryptionType :: Lens' Encryption (Maybe EncryptionType)
 eEncryptionType = lens _eEncryptionType (\ s a -> s{_eEncryptionType = a})
 
--- | The AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS fail if not made by using Secure Sockets Layer (SSL) or Signature Version 4.
+-- | The AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS fail if not made by using Secure Sockets Layer (SSL) or Signature Version 4. 
 eKMSKeyId :: Lens' Encryption (Maybe Text)
 eKMSKeyId = lens _eKMSKeyId (\ s a -> s{_eKMSKeyId = a})
 
@@ -529,11 +529,11 @@ data GlacierJobDescription = GlacierJobDescription'
 --
 -- * 'gjdJobOutputPath' - Contains the job output location.
 --
--- * 'gjdRetrievalByteRange' - The retrieved byte range for archive retrieval jobs in the form /StartByteValue/ -/EndByteValue/ . If no range was specified in the archive retrieval, then the whole archive is retrieved. In this case, /StartByteValue/ equals 0 and /EndByteValue/ equals the size of the archive minus 1. For inventory retrieval or select jobs, this field is null.
+-- * 'gjdRetrievalByteRange' - The retrieved byte range for archive retrieval jobs in the form /StartByteValue/ -/EndByteValue/ . If no range was specified in the archive retrieval, then the whole archive is retrieved. In this case, /StartByteValue/ equals 0 and /EndByteValue/ equals the size of the archive minus 1. For inventory retrieval or select jobs, this field is null. 
 --
 -- * 'gjdInventoryRetrievalParameters' - Parameters used for range inventory retrieval.
 --
--- * 'gjdAction' - The job type. This value is either @ArchiveRetrieval@ , @InventoryRetrieval@ , or @Select@ .
+-- * 'gjdAction' - The job type. This value is either @ArchiveRetrieval@ , @InventoryRetrieval@ , or @Select@ . 
 --
 -- * 'gjdJobDescription' - The job description provided when initiating the job.
 --
@@ -608,7 +608,7 @@ gjdJobId = lens _gjdJobId (\ s a -> s{_gjdJobId = a})
 gjdJobOutputPath :: Lens' GlacierJobDescription (Maybe Text)
 gjdJobOutputPath = lens _gjdJobOutputPath (\ s a -> s{_gjdJobOutputPath = a})
 
--- | The retrieved byte range for archive retrieval jobs in the form /StartByteValue/ -/EndByteValue/ . If no range was specified in the archive retrieval, then the whole archive is retrieved. In this case, /StartByteValue/ equals 0 and /EndByteValue/ equals the size of the archive minus 1. For inventory retrieval or select jobs, this field is null.
+-- | The retrieved byte range for archive retrieval jobs in the form /StartByteValue/ -/EndByteValue/ . If no range was specified in the archive retrieval, then the whole archive is retrieved. In this case, /StartByteValue/ equals 0 and /EndByteValue/ equals the size of the archive minus 1. For inventory retrieval or select jobs, this field is null. 
 gjdRetrievalByteRange :: Lens' GlacierJobDescription (Maybe Text)
 gjdRetrievalByteRange = lens _gjdRetrievalByteRange (\ s a -> s{_gjdRetrievalByteRange = a})
 
@@ -616,7 +616,7 @@ gjdRetrievalByteRange = lens _gjdRetrievalByteRange (\ s a -> s{_gjdRetrievalByt
 gjdInventoryRetrievalParameters :: Lens' GlacierJobDescription (Maybe InventoryRetrievalJobDescription)
 gjdInventoryRetrievalParameters = lens _gjdInventoryRetrievalParameters (\ s a -> s{_gjdInventoryRetrievalParameters = a})
 
--- | The job type. This value is either @ArchiveRetrieval@ , @InventoryRetrieval@ , or @Select@ .
+-- | The job type. This value is either @ArchiveRetrieval@ , @InventoryRetrieval@ , or @Select@ . 
 gjdAction :: Lens' GlacierJobDescription (Maybe ActionCode)
 gjdAction = lens _gjdAction (\ s a -> s{_gjdAction = a})
 
@@ -709,7 +709,7 @@ instance NFData GlacierJobDescription where
 -- /See:/ 'grant' smart constructor.
 data Grant = Grant'
   { _gPermission :: !(Maybe Permission)
-  , _gGrantee    :: !(Maybe Grantee)
+  , _gGrantee :: !(Maybe Grantee)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -717,7 +717,7 @@ data Grant = Grant'
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'gPermission' - Specifies the permission given to the grantee.
+-- * 'gPermission' - Specifies the permission given to the grantee. 
 --
 -- * 'gGrantee' - The grantee.
 grant
@@ -725,7 +725,7 @@ grant
 grant = Grant' {_gPermission = Nothing, _gGrantee = Nothing}
 
 
--- | Specifies the permission given to the grantee.
+-- | Specifies the permission given to the grantee. 
 gPermission :: Lens' Grant (Maybe Permission)
 gPermission = lens _gPermission (\ s a -> s{_gPermission = a})
 
@@ -757,11 +757,11 @@ instance ToJSON Grant where
 --
 -- /See:/ 'grantee' smart constructor.
 data Grantee = Grantee'
-  { _gURI          :: !(Maybe Text)
+  { _gURI :: !(Maybe Text)
   , _gEmailAddress :: !(Maybe Text)
-  , _gDisplayName  :: !(Maybe Text)
-  , _gId           :: !(Maybe Text)
-  , _gType         :: !Type
+  , _gDisplayName :: !(Maybe Text)
+  , _gId :: !(Maybe Text)
+  , _gType :: !Type
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -877,11 +877,11 @@ instance ToJSON InputSerialization where
 --
 -- /See:/ 'inventoryRetrievalJobDescription' smart constructor.
 data InventoryRetrievalJobDescription = InventoryRetrievalJobDescription'
-  { _irjdFormat    :: !(Maybe Text)
-  , _irjdEndDate   :: !(Maybe Text)
+  { _irjdFormat :: !(Maybe Text)
+  , _irjdEndDate :: !(Maybe Text)
   , _irjdStartDate :: !(Maybe Text)
-  , _irjdMarker    :: !(Maybe Text)
-  , _irjdLimit     :: !(Maybe Text)
+  , _irjdMarker :: !(Maybe Text)
+  , _irjdLimit :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -897,7 +897,7 @@ data InventoryRetrievalJobDescription = InventoryRetrievalJobDescription'
 --
 -- * 'irjdMarker' - An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new __InitiateJob__ request to obtain additional inventory items. If there are no more inventory items, this value is @null@ . For more information, see <http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering Range Inventory Retrieval> .
 --
--- * 'irjdLimit' - The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request.
+-- * 'irjdLimit' - The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request. 
 inventoryRetrievalJobDescription
     :: InventoryRetrievalJobDescription
 inventoryRetrievalJobDescription =
@@ -926,7 +926,7 @@ irjdStartDate = lens _irjdStartDate (\ s a -> s{_irjdStartDate = a})
 irjdMarker :: Lens' InventoryRetrievalJobDescription (Maybe Text)
 irjdMarker = lens _irjdMarker (\ s a -> s{_irjdMarker = a})
 
--- | The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request.
+-- | The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a __InitiateJob__ request. 
 irjdLimit :: Lens' InventoryRetrievalJobDescription (Maybe Text)
 irjdLimit = lens _irjdLimit (\ s a -> s{_irjdLimit = a})
 
@@ -953,10 +953,10 @@ instance NFData InventoryRetrievalJobDescription
 --
 -- /See:/ 'inventoryRetrievalJobInput' smart constructor.
 data InventoryRetrievalJobInput = InventoryRetrievalJobInput'
-  { _irjiEndDate   :: !(Maybe Text)
+  { _irjiEndDate :: !(Maybe Text)
   , _irjiStartDate :: !(Maybe Text)
-  , _irjiMarker    :: !(Maybe Text)
-  , _irjiLimit     :: !(Maybe Text)
+  , _irjiMarker :: !(Maybe Text)
+  , _irjiLimit :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1017,16 +1017,16 @@ instance ToJSON InventoryRetrievalJobInput where
 --
 -- /See:/ 'jobParameters' smart constructor.
 data JobParameters = JobParameters'
-  { _jpArchiveId                    :: !(Maybe Text)
-  , _jpSelectParameters             :: !(Maybe SelectParameters)
-  , _jpFormat                       :: !(Maybe Text)
-  , _jpRetrievalByteRange           :: !(Maybe Text)
+  { _jpArchiveId :: !(Maybe Text)
+  , _jpSelectParameters :: !(Maybe SelectParameters)
+  , _jpFormat :: !(Maybe Text)
+  , _jpRetrievalByteRange :: !(Maybe Text)
   , _jpInventoryRetrievalParameters :: !(Maybe InventoryRetrievalJobInput)
-  , _jpSNSTopic                     :: !(Maybe Text)
-  , _jpOutputLocation               :: !(Maybe OutputLocation)
-  , _jpTier                         :: !(Maybe Text)
-  , _jpType                         :: !(Maybe Text)
-  , _jpDescription                  :: !(Maybe Text)
+  , _jpSNSTopic :: !(Maybe Text)
+  , _jpOutputLocation :: !(Maybe OutputLocation)
+  , _jpTier :: !(Maybe Text)
+  , _jpType :: !(Maybe Text)
+  , _jpDescription :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1034,7 +1034,7 @@ data JobParameters = JobParameters'
 --
 -- Use one of the following lenses to modify other fields as desired:
 --
--- * 'jpArchiveId' - The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request.
+-- * 'jpArchiveId' - The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request. 
 --
 -- * 'jpSelectParameters' - Contains the parameters that define a job.
 --
@@ -1070,7 +1070,7 @@ jobParameters =
     }
 
 
--- | The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request.
+-- | The ID of the archive that you want to retrieve. This field is required only if @Type@ is set to @select@ or @archive-retrieval@ code>. An error occurs if you specify this request parameter for an inventory retrieval job request. 
 jpArchiveId :: Lens' JobParameters (Maybe Text)
 jpArchiveId = lens _jpArchiveId (\ s a -> s{_jpArchiveId = a})
 
@@ -1210,7 +1210,7 @@ instance ToJSON OutputSerialization where
 -- /See:/ 'partListElement' smart constructor.
 data PartListElement = PartListElement'
   { _pleSHA256TreeHash :: !(Maybe Text)
-  , _pleRangeInBytes   :: !(Maybe Text)
+  , _pleRangeInBytes :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1252,8 +1252,8 @@ instance NFData PartListElement where
 --
 -- /See:/ 'provisionedCapacityDescription' smart constructor.
 data ProvisionedCapacityDescription = ProvisionedCapacityDescription'
-  { _pcdCapacityId     :: !(Maybe Text)
-  , _pcdStartDate      :: !(Maybe Text)
+  { _pcdCapacityId :: !(Maybe Text)
+  , _pcdStartDate :: !(Maybe Text)
   , _pcdExpirationDate :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
@@ -1309,14 +1309,14 @@ instance NFData ProvisionedCapacityDescription where
 --
 -- /See:/ 's3Location' smart constructor.
 data S3Location = S3Location'
-  { _slCannedACL         :: !(Maybe CannedACL)
-  , _slPrefix            :: !(Maybe Text)
-  , _slBucketName        :: !(Maybe Text)
+  { _slCannedACL :: !(Maybe CannedACL)
+  , _slPrefix :: !(Maybe Text)
+  , _slBucketName :: !(Maybe Text)
   , _slAccessControlList :: !(Maybe [Grant])
-  , _slUserMetadata      :: !(Maybe (Map Text Text))
-  , _slEncryption        :: !(Maybe Encryption)
-  , _slStorageClass      :: !(Maybe StorageClass)
-  , _slTagging           :: !(Maybe (Map Text Text))
+  , _slUserMetadata :: !(Maybe (Map Text Text))
+  , _slEncryption :: !(Maybe Encryption)
+  , _slStorageClass :: !(Maybe StorageClass)
+  , _slTagging :: !(Maybe (Map Text Text))
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1422,10 +1422,10 @@ instance ToJSON S3Location where
 --
 -- /See:/ 'selectParameters' smart constructor.
 data SelectParameters = SelectParameters'
-  { _spExpressionType      :: !(Maybe ExpressionType)
+  { _spExpressionType :: !(Maybe ExpressionType)
   , _spOutputSerialization :: !(Maybe OutputSerialization)
-  , _spExpression          :: !(Maybe Text)
-  , _spInputSerialization  :: !(Maybe InputSerialization)
+  , _spExpression :: !(Maybe Text)
+  , _spInputSerialization :: !(Maybe InputSerialization)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1497,11 +1497,11 @@ instance ToJSON SelectParameters where
 --
 -- /See:/ 'uploadListElement' smart constructor.
 data UploadListElement = UploadListElement'
-  { _uleMultipartUploadId  :: !(Maybe Text)
-  , _ulePartSizeInBytes    :: !(Maybe Integer)
+  { _uleMultipartUploadId :: !(Maybe Text)
+  , _ulePartSizeInBytes :: !(Maybe Integer)
   , _uleArchiveDescription :: !(Maybe Text)
-  , _uleVaultARN           :: !(Maybe Text)
-  , _uleCreationDate       :: !(Maybe Text)
+  , _uleVaultARN :: !(Maybe Text)
+  , _uleCreationDate :: !(Maybe Text)
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 
@@ -1641,7 +1641,7 @@ instance ToJSON VaultLockPolicy where
 -- /See:/ 'vaultNotificationConfig' smart constructor.
 data VaultNotificationConfig = VaultNotificationConfig'
   { _vncSNSTopic :: !(Maybe Text)
-  , _vncEvents   :: !(Maybe [Text])
+  , _vncEvents :: !(Maybe [Text])
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
 

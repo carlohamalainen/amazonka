@@ -93,7 +93,11 @@ instance Hashable ListTagsForVault where
 instance NFData ListTagsForVault where
 
 instance ToHeaders ListTagsForVault where
-        toHeaders = const mempty
+        toHeaders
+          = const
+              (mconcat
+                 ["x-amz-glacier-version" =#
+                    ("2012-06-01" :: ByteString)])
 
 instance ToPath ListTagsForVault where
         toPath ListTagsForVault'{..}
@@ -110,7 +114,7 @@ instance ToQuery ListTagsForVault where
 --
 -- /See:/ 'listTagsForVaultResponse' smart constructor.
 data ListTagsForVaultResponse = ListTagsForVaultResponse'
-  { _ltfvrsTags           :: !(Maybe (Map Text Text))
+  { _ltfvrsTags :: !(Maybe (Map Text Text))
   , _ltfvrsResponseStatus :: !Int
   } deriving (Eq, Read, Show, Data, Typeable, Generic)
 
